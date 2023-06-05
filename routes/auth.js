@@ -2,7 +2,6 @@
 const express = require("express");
 // Importing Middleware
 const authorizeJWT = require("../middleware/jwt");
-const upload = require("../middleware/upload");
 // Importing controllers and utilities
 const {
   signup,

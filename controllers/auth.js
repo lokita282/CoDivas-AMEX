@@ -1,29 +1,27 @@
 //  OLD PROJECTS SE LIYA HAIN! NOT UPDATED
 const User = require("../models/user");
 const bcryptjs = require("bcryptjs");
-const {removeSensitiveData} = require("../utils/functions");
+const { removeSensitiveData } = require("../utils/functions");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv").config();
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
-const client = require('twilio')(accountSid, authToken);
-const { sendEmail, generateotp } = require("../utils/email");
+const client = require("twilio")(accountSid, authToken);
 const axios = require("axios");
 
 const testTwilio = (req, res) => {
   try {
     client.messages
-      .create({body: 'Hi there', from: '+15134576207', to: '+919920325295'})
-      .then(message => console.log(message.sid));
+      .create({ body: "Hi there", from: "+15134576207", to: "+919920325295" })
+      .then((message) => console.log(message.sid));
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 // Signup
 const signup = async (req, res) => {
   try {
-
     let user = await User.findOne({ email: req.body.email });
     if (user) {
       res.status(400).json({
@@ -38,10 +36,10 @@ const signup = async (req, res) => {
     let newUser = new User({
       ...req.body,
     });
-    
+
     await newUser.save();
     const token = await User.generatejwt(newUser._id);
- 
+
     newUser = removeSensitiveData(newUser);
     // Sending a response back
     res.status(201).json({
@@ -91,14 +89,13 @@ const forgotPassword = async (req, res) => {
 
 const resetPassword = async (req, res) => {
   try {
-    const {token} = req.params;
+    const { token } = req.params;
     // console.log(token);
     const { password } = req.body;
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user
-      = await User.findOne({
-        _id: decoded._id,
-      });
+    const user = await User.findOne({
+      _id: decoded._id,
+    });
     if (!user) {
       res.status(400).json({
         message: "User does not exist",
@@ -117,12 +114,11 @@ const resetPassword = async (req, res) => {
   }
 };
 
-
 // Login
 const login = async (req, res) => {
   try {
     let user = await User.findOne({ email: req.body.email });
-   
+
     if (!user) {
       res.status(404).json({
         message: "User not found!",
@@ -131,11 +127,10 @@ const login = async (req, res) => {
     }
 
     const isMatch = await bcryptjs.compare(req.body.password, user.password);
-    
+
     if (!isMatch) {
       res.status(401).json({
         message: "Invalid credentials!",
-        
       });
       return;
     }
@@ -147,12 +142,11 @@ const login = async (req, res) => {
     res.status(200).json({
       message: "User Verified!",
       token,
-      user
+      user,
     });
   } catch (error) {
     res.status(400).json({
       message: error.message,
-      
     });
   }
 };
@@ -223,7 +217,7 @@ const changePassword = async (req, res) => {
     await user.save();
 
     res.status(200).json({
-      message: "Password changed!"
+      message: "Password changed!",
     });
   } catch (error) {
     res.status(400).json({
@@ -232,110 +226,6 @@ const changePassword = async (req, res) => {
   }
 };
 
-const verifyTenant = async (req, res) => {
-  try {
-      const user = req.user;
-      if (req.body.pan) {
-        const data = {"task_id":"74f4c926-250c-43ca-9c53-453e87ceacd1","group_id":"8e16424a-58fc-4ba4-ab20-5bc8e7c3c41e","data":{"id_number":req.body.pan}}
-        const options = {
-            method: 'POST',
-            url: 'https://pan-card-verification1.p.rapidapi.com/v3/tasks/sync/verify_with_source/ind_pan',
-            headers: {
-              'content-type': 'application/json',
-              'X-RapidAPI-Key': '7f564e746fmsh559e1d6f6962809p12b551jsnf7d052c3addb',
-              'X-RapidAPI-Host': 'pan-card-verification1.p.rapidapi.com'
-            },
-            data: JSON.stringify(data)
-          };
-          
-          const response = await axios.request(options)
-          
-          const result = response.data.result.source_output
-          console.log(result);
-         
-          if(result.status === "id_found") {
-            const fullName = result.first_name + " "  + result.last_name
-            if (fullName.toLowerCase().replace(/ /g,'') === user.name.toLowerCase().replace(/ /g,'')) {
-              console.log(fullName.toLowerCase().replace(/ /g,''), user.name.toLowerCase().replace(/ /g,''))
-              user.verified = {
-                pan: true,
-                ...user.verified
-              }
-            } else {
-              return res.status(400).json({
-                message: "Name on PAN card does not match with the name on your account",
-              });
-            }
-          } else {
-            return res.status(400).json({
-              message: "PAN card not found",
-            });
-          }
-    }
-      const emailotp = generateotp(6);
-    
-      const emailRes = await sendEmail({
-          subject: `Verify your email on Roomble`,
-          emailId: user.email,
-          filename: "otpemail",
-          fileOptions: {
-              name: user.name,
-              otp: emailotp,
-          },
-      });
-      const phoneotp = generateotp(6);
-      user.otp = {
-          email: emailotp,
-          phone: phoneotp,
-      }
-      client.messages
-      .create({body: `Hi ${user.name}, verify your Roomble account by using ${phoneotp} as your passcode`, from: '+15134576207', to: '+919920325295'})
-      .then(message => console.log(message.sid));
-      await user.save();
-      
-
-      res.status(200).json({
-          message: "OTP sent to your email and phone number, PAN verified",
-          
-      });
-      
-
-
-  }
-  catch(err) {
-    res.status(400).json({
-      message: err.message,
-    });
-  }
-}
-
-const verifyOtp = async (req, res) => {
-  try {
-      const user = req.user;
-      if (user.otp.email === req.body.emailotp && user.otp.phone === req.body.phoneotp) {
-          user.verified.email = true;
-          user.verified.phone = true;
-          user.verified.pan = true;
-          await user.save();
-          res.status(200).json({
-              message: "User verified",
-              user: removeSensitiveData(user),
-          });
-      } else {
-          res.status(400).json({
-              message: "Invalid OTP",
-          }); 
-      }
-  }
-  catch(err) {
-    res.status(400).json({
-      message: err.message,
-    });
-  }
-}
-
-
-
 // Exporting modules
 module.exports = {
   signup,
@@ -343,10 +233,7 @@ module.exports = {
   logout,
   logoutAll,
   changePassword,
-  signupAdmin,
   forgotPassword,
   resetPassword,
   testTwilio,
-  verifyTenant,
-  verifyOtp,
 };
