@@ -31,9 +31,15 @@ const userSchema = new mongoose.Schema(
     },
     type: {
       type: String,
-      enum: ["MERCHANT", "BANK", "BENEFICIARY"],
+      enum: ["merchant", "bank", "beneficiary", "organisation"],
       required: true,
     },
+    vouchers: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Voucher",
+      },
+    ],
     merchant: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Merchant",
