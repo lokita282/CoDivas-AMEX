@@ -1,1 +1,1 @@
-# CoDivas-AMEX - frontend
+# CoDivas-frontend
