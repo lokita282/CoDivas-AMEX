@@ -13,23 +13,40 @@ const merchantSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    companyBankAccDetails: {
+    bankAccountDetails: {
+      type: Object,
+      required: true,
+    },
+    phone: {
       type: String,
+      required: true,
       trim: true,
     },
-    companyPhoneNo: {
+    password: {
       type: String,
+      required: true,
       trim: true,
     },
     category: {
       type: String,
+      enum: [
+        "health",
+        "agriculture",
+        "education",
+        "food",
+        "housing",
+        "transportation",
+        "utility",
+        "telecommunication",
+        "other",
+      ],
+      required: true,
       trim: true,
     },
     uid: {
       type: String,
       required: true,
       trim: true,
-      unique: true,
     },
   },
   { timestamps: true }
