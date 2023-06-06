@@ -1,21 +1,33 @@
-// Importing the modules
-const mongoose = require("mongoose");
-const dotenv = require("dotenv").config({ path: __dirname+'/.env'});
+const mongoose = require('mongoose');
+const dotenv = require('dotenv').config();
 
+// Setting parameters
 const connectionParameters = {
-  useUnifiedTopology: true,
-  useNewUrlParser: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 };
+mongoose.set('strictQuery', true);
 
 // Connecting to the database
-const connection = mongoose
-  .connect(process.env.URI, connectionParameters)
-  .then(() => {
-    console.log("Connected to database");
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+let connection;
+if (process.env.ENVIRONMENT == 'dev') {
+    connection = mongoose
+        .connect(process.env.MONGODB_URI_DEV, connectionParameters)
+        .then(() => {
+            console.log(`Connected to database`);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+} else if (process.env.ENVIRONMENT == 'prod') {
+    connection = mongoose
+        .connect(process.env.MONGODB_URI_PROD, connectionParameters)
+        .then(() => {
+            console.log(`Connected to database`);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
 
-// exporting the module
 module.exports = connection;
