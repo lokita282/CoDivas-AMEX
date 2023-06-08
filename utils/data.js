@@ -48,3 +48,8 @@ const organisationDetails = [
             'https://res.cloudinary.com/dlwpoojua/image/upload/v1686227613/amex-hackathon/goonj_tu8yre.png'
     }
 ];
+
+module.exports = {
+    shortCodes,
+    organisationDetails
+};
