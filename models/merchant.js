@@ -12,6 +12,14 @@ const merchantSchema = new mongoose.Schema(
             required: true,
             trim: true
         },
+        gstDetails: {
+            type: Object
+        },
+        businessName: {
+            type: String,
+            required: true,
+            trim: true
+        },
         ownerName: {
             type: String,
             required: true,

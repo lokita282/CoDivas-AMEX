@@ -100,13 +100,34 @@ const signupMerchant = async (req, res) => {
         await newUser.save();
         const token = await User.generatejwt(newUser._id);
 
+        let businessName = `${req.body.name}'s Business`;
+        let gstDetails = null;
+        if (req.body.gstNo) {
+            let gstDetailsRes = await axios.get(
+                `https://gst-return-status.p.rapidapi.com/free/gstin/${req.body.gstNo}`,
+                {
+                    headers: {
+                        'x-rapidapi-key': process.env.RAPID_API_KEY,
+                        'x-rapidapi-host': 'gst-return-status.p.rapidapi.com'
+                    }
+                }
+            );
+            if (gstDetailsRes.data && gstDetailsRes.data.data) {
+                if (gstDetailsRes.data.data.tradeName) {
+                    businessName = gstDetailsRes.data.data.tradeName;
+                    gstDetails = gstDetailsRes.data.data;
+                }
+            }
+        }
+
         let newMerchant = new Merchant({
             user: newUser._id,
             uid:
                 shortCodes[req.body.category] +
                 '-' +
                 fourDigitNumber(newUser._id.toString()),
-            ...req.body
+            ...req.body,
+            businessName
         });
         await newMerchant.save();
         newUser.merchant = newMerchant._id;
