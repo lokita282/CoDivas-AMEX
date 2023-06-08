@@ -22,4 +22,6 @@ const bankSchema = new mongoose.Schema(
 
 const Bank = mongoose.model('Bank', bankSchema);
 
+module.exports = Bank;
+
 // const banks = ['icici-bank', 'hdfc-bank', 'axis-bank', 'bank-of-india'];
