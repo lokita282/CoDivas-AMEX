@@ -1,6 +1,7 @@
 //  OLD PROJECTS SE LIYA HAIN! NOT UPDATED
 const User = require('../models/user');
 const Merchant = require('../models/merchant');
+const Bank = require('./../models/bank');
 const bcryptjs = require('bcryptjs');
 const { removeSensitiveData } = require('../utils/functions');
 const jwt = require('jsonwebtoken');
@@ -93,9 +94,20 @@ const signupBeneficiary = async (req, res) => {
             ...req.body,
             type: req.body.type ? req.body.type : 'beneficiary'
         });
-
         await newUser.save();
+
         const token = await User.generatejwt(newUser._id);
+
+        // FOR SIGNING UP OF BANK (BACKEND USE ONLY)
+        // let newBank = new Bank({
+        //     user: newUser._id,
+        //     bankLogo: req.body.bankLogo,
+        //     vouchersIssued: new Array()
+        // });
+        // await newBank.save();
+
+        // newUser.bank = newBank._id;
+        // await newUser.save();
 
         newUser = removeSensitiveData(newUser);
         // Sending a response back
