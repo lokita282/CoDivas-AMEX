@@ -1,4 +1,3 @@
-//  OLD PROJECTS SE LIYA HAIN! NOT UPDATED
 const User = require('../models/user');
 const Merchant = require('../models/merchant');
 const bcryptjs = require('bcryptjs');
@@ -41,7 +40,7 @@ const shortCodes = {
     telecommunication: 'TEL',
     other: 'OTH'
 };
-// Signup
+
 const signupBeneficiary = async (req, res) => {
     try {
         let user = await User.findOne({ phone: req.body.phone });
@@ -55,39 +54,41 @@ const signupBeneficiary = async (req, res) => {
             return;
         }
 
-        // if (req.body.pan) {
-        //     const options = {
-        //         method: 'POST',
-        //         url: 'https://pan-card-verification1.p.rapidapi.com/v3/tasks/sync/verify_with_source/ind_pan',
-        //         headers: {
-        //             'content-type': 'application/json',
-        //             'X-RapidAPI-Key': process.env.RAPID_API_KEY,
-        //             'X-RapidAPI-Host': 'pan-card-verification1.p.rapidapi.com'
-        //         },
-        //         data: {
-        //             task_id: '74f4c926-250c-43ca-9c53-453e87ceacd1',
-        //             group_id: '8e16424a-58fc-4ba4-ab20-5bc8e7c3c41e',
-        //             data: {
-        //                 id_number: req.body.pan
-        //             }
-        //         }
-        //     };
+        // Commenting it because API requests are limited (35 per month)
 
-        //     try {
-        //         const response = await axios.request(options);
-        //         console.log(response.data);
-        //         if (
-        //             response.data.result.source_output.status === 'id_not_found'
-        //         ) {
-        //             res.status(400).json({
-        //                 message: 'Invalid PAN Number'
-        //             });
-        //             return;
-        //         }
-        //     } catch (error) {
-        //         console.error(error);
-        //     }
-        // }
+        if (req.body.pan) {
+            const options = {
+                method: 'POST',
+                url: 'https://pan-card-verification1.p.rapidapi.com/v3/tasks/sync/verify_with_source/ind_pan',
+                headers: {
+                    'content-type': 'application/json',
+                    'X-RapidAPI-Key': process.env.RAPID_API_KEY,
+                    'X-RapidAPI-Host': 'pan-card-verification1.p.rapidapi.com'
+                },
+                data: {
+                    task_id: '74f4c926-250c-43ca-9c53-453e87ceacd1',
+                    group_id: '8e16424a-58fc-4ba4-ab20-5bc8e7c3c41e',
+                    data: {
+                        id_number: req.body.pan
+                    }
+                }
+            };
+
+            try {
+                const response = await axios.request(options);
+                console.log(response.data);
+                if (
+                    response.data.result.source_output.status === 'id_not_found'
+                ) {
+                    res.status(400).json({
+                        message: 'Invalid PAN Number'
+                    });
+                    return;
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
 
         let newUser = new User({
             ...req.body,
@@ -98,7 +99,7 @@ const signupBeneficiary = async (req, res) => {
         const token = await User.generatejwt(newUser._id);
 
         newUser = removeSensitiveData(newUser);
-        // Sending a response back
+
         res.status(201).json({
             message: 'User Signed Up',
             data: {
@@ -155,7 +156,7 @@ const signupMerchant = async (req, res) => {
         }
 
         let newMerchant = new Merchant({
-            user: newUser._id,
+            ownerName: newUser._id,
             uid:
                 shortCodes[req.body.category] +
                 '-' +
