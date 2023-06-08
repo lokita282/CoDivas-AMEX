@@ -86,6 +86,57 @@ const createERupiVoucher = async (req, res) => {
     }
 };
 
+const viewVouchers = async (req, res) => {
+    try {
+        currentBank = User.findById(req.user._id);
+
+        let vouchers = [];
+        for await (const item of currentBank.vouchers) {
+            const voucher = await Voucher.findById(item);
+            vouchers.push(voucher);
+        }
+
+        res.status(200).json({
+            message: 'Vouchers list',
+            data: {
+                vouchers
+            }
+        });
+    } catch (error) {
+        res.status(400).json({
+            message: error.message
+        });
+    }
+};
+
+const revokeVoucher = async (req, res) => {
+    try {
+        const voucher = await Voucher.findById(req.params.id);
+
+        if (!voucher) {
+            res.status(404).json({
+                message: 'Voucher not found'
+            });
+        } else {
+            voucher.status = 'revoked';
+            await voucher.save();
+
+            res.status(200).json({
+                message: 'Voucher revoked',
+                data: {
+                    voucher
+                }
+            });
+        }
+    } catch (error) {
+        res.status(400).json({
+            message: error.message
+        });
+    }
+};
+
 module.exports = {
-    createERupiVoucher
+    createERupiVoucher,
+    viewVouchers,
+    revokeVoucher
 };
