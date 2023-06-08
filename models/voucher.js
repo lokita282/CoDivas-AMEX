@@ -70,10 +70,10 @@ const voucherSchema = new mongoose.Schema(
                 'other'
             ]
         },
-        categoryLogo: {
-            type: String,
-            trim: true
-        },
+        // categoryLogo: {
+        //     type: String,
+        //     trim: true
+        // },
         state: {
             type: String,
             trim: true
