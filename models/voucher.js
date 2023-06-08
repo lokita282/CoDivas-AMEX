@@ -15,6 +15,9 @@ const voucherSchema = new mongoose.Schema(
             type: Date,
             required: true
         },
+        orgId: {
+            type: String
+        },
         issuedBy: {
             type: String,
             required: true,
