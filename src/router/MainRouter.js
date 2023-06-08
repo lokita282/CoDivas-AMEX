@@ -28,7 +28,7 @@ export default function MainRouter() {
             <Routes>
                 <Route exact path='/signup/beneficiary' element={<SignupPage />} />
                 <Route exact path='/login' element={<LoginPage />} />
-                <Route exact path='/dashboard' element={<DashboardPage />} />
+                <Route exact path='/' element={<DashboardPage />} />
 
                 {/* not needed for now */}
                 <Route exact path='/signup/merchant' element={<SignupPage />} />
