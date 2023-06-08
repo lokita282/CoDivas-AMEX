@@ -15,6 +15,12 @@ const voucherSchema = new mongoose.Schema(
             type: Date,
             required: true
         },
+        orgId: {
+            type: String
+        },
+        orgLogo: {
+            type: String
+        },
         issuedBy: {
             type: String,
             required: true,
@@ -42,7 +48,7 @@ const voucherSchema = new mongoose.Schema(
         govtIdType: {
             type: String,
             required: true,
-            enum: ['aadhar', 'pan']
+            enum: ['aadhaar', 'pan']
         },
         govtIdNumber: {
             type: String,
@@ -64,10 +70,10 @@ const voucherSchema = new mongoose.Schema(
                 'other'
             ]
         },
-        categoryLogo: {
-            type: String,
-            trim: true
-        },
+        // categoryLogo: {
+        //     type: String,
+        //     trim: true
+        // },
         state: {
             type: String,
             trim: true

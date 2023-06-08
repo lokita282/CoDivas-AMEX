@@ -1,23 +1,24 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
-const bankSchema = new mongoose.Schema(
+const beneficiarySchema = new mongoose.Schema(
     {
         user: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
         },
-        vouchersIssued: {
+        phone: {
+            type: String,
+            trim: true
+        },
+        vouchersReceived: {
             type: [mongoose.Schema.Types.ObjectId],
             ref: 'Voucher'
-        },
-        bankLogo: {
-            type: String
         }
     },
     { timestamps: true }
 );
 
-const Bank = mongoose.model('Bank', bankSchema);
+const Beneficiary = mongoose.model('Beneficiary', beneficiarySchema);
 
-module.exports = Bank;
+module.exports = Beneficiary;

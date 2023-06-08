@@ -1,36 +1,32 @@
 const User = require('./../models/user');
 const Voucher = require('./../models/voucher');
+const Bank = require('./../models/bank');
+const Beneficiary = require('./../models/beneficiary');
 const { generateRandomNumber } = require('./../utils/functions');
-
-const shortCodes = {
-    health: 'HEA',
-    agriculture: 'AGR',
-    education: 'EDU',
-    food: 'FOD',
-    housing: 'HOU',
-    transportation: 'TRA',
-    utility: 'UTI',
-    telecommunication: 'TEL',
-    other: 'OTH'
-};
+const { shortCodes, organisationDetails } = require('./../utils/data');
 
 const createERupiVoucher = async (req, res) => {
     try {
-        const bankLogos = {};
-        const categoryLogos = {};
+        const currentBank = await Bank.find({ user: req.user._id }).populate();
+
+        const org = organisationDetails.find(
+            ({ orgId }) => orgId == req.body.orgId
+        );
 
         const voucher = new Voucher({
             title: req.body.title,
             startsAt: req.body.startsAt,
             endsAt: req.body.endsAt,
-            issuedBy: req.body.issuedBy,
-            issuedByLogo: req.body.issuedByLogo, // index from object
+            orgId: req.body.orgId,
+            orgLogo: org.orgLogo,
+            issuedBy: req.user.name, // bank name
+            issuedByLogo: currentBank[0].bankLogo, // bank schema se lo
+            issuedById: req.user._id,
             beneficiaryName: req.body.beneficiaryName,
             beneficiaryPhone: req.body.beneficiaryPhone,
             govtIdType: req.body.govtIdType,
             govtIdNumber: req.body.govtIdNumber,
             category: req.body.category,
-            categoryLogo: req.body.categoryLogo, // index from object
             state: req.body.state,
             description: req.body.description,
             amount: req.body.amount,
@@ -42,33 +38,25 @@ const createERupiVoucher = async (req, res) => {
         await voucher.save();
 
         // Voucher created by bank
-        User.findOneAndUpdate(
-            { _id: req.user._id },
-            { $push: { vouchers: voucher._id } },
-            function (error, success) {
-                if (error) {
-                    console.log(error);
-                } else {
-                    console.log(success);
-                }
-            }
-        );
+        currentBank[0].vouchersIssued.push(voucher._id);
+        await currentBank[0].save();
 
         // Voucher created for user
-        User.findOneAndUpdate(
-            {
-                name: req.body.beneficiaryName,
-                phone: req.body.beneficiaryPhone
-            },
-            { $push: { vouchers: voucher._id } },
-            function (error, success) {
-                if (error) {
-                    console.log(error);
-                } else {
-                    console.log(success);
-                }
-            }
-        );
+        const beneficiary = await Beneficiary.findOne({
+            phone: req.body.beneficiaryPhone
+        });
+
+        if (!beneficiary) {
+            const newBeneficiary = new Beneficiary({
+                phone: req.body.beneficiaryPhone,
+                vouchersReceived: []
+            });
+            newBeneficiary.vouchersReceived.push(voucher._id);
+            await newBeneficiary.save();
+        } else {
+            beneficiary.vouchersReceived.push(voucher._id);
+            await beneficiary.save();
+        }
 
         // SEND SMS TO USER W STRING AND QR CODE (TBD)
 
@@ -78,7 +66,7 @@ const createERupiVoucher = async (req, res) => {
                 voucher
             }
         });
-    } catch {
+    } catch (error) {
         console.error(error.message);
         res.status(500).json({
             message: error.message
@@ -88,20 +76,22 @@ const createERupiVoucher = async (req, res) => {
 
 const viewVouchers = async (req, res) => {
     try {
-        currentBank = User.findById(req.user._id);
+        // currentBank = User.findById(req.user._id);
 
-        let vouchers = [];
-        for await (const item of currentBank.vouchers) {
-            const voucher = await Voucher.findById(item);
-            vouchers.push(voucher);
+        const vouchers = await Voucher.find({ issuedById: req.user._id });
+
+        if (vouchers.length == 0) {
+            res.status(404).json({
+                message: 'Vouchers not found'
+            });
+        } else {
+            res.status(200).json({
+                message: 'Vouchers list',
+                data: {
+                    vouchers
+                }
+            });
         }
-
-        res.status(200).json({
-            message: 'Vouchers list',
-            data: {
-                vouchers
-            }
-        });
     } catch (error) {
         res.status(400).json({
             message: error.message
@@ -111,7 +101,7 @@ const viewVouchers = async (req, res) => {
 
 const revokeVoucher = async (req, res) => {
     try {
-        const voucher = await Voucher.findById(req.params.id);
+        var voucher = await Voucher.findById(req.params.id);
 
         if (!voucher) {
             res.status(404).json({
