@@ -20,11 +20,6 @@ const merchantSchema = new mongoose.Schema(
             required: true,
             trim: true
         },
-        ownerName: {
-            type: String,
-            required: true,
-            trim: true
-        },
         bankAccountDetails: {
             type: Object,
             required: true
