@@ -4,6 +4,7 @@ import { codivascontext } from '../context/MainContext';
 import LoginPage from '../pages/LoginPage';
 import SignupPage from '../pages/SignupPages';
 import DashboardPage from '../pages/DashboardPage';
+import BankDashboardPage from '../pages/BankDashboardPage';
 
 
 export default function MainRouter() {
@@ -29,13 +30,14 @@ export default function MainRouter() {
                 <Route exact path='/signup/beneficiary' element={<SignupPage />} />
                 <Route exact path='/login' element={<LoginPage />} />
                 <Route exact path='/dashboard' element={<DashboardPage />} />
+                <Route exact path='/bank/dashboard' element={<BankDashboardPage />} />
+
 
                 {/* not needed for now */}
                 <Route exact path='/signup/merchant' element={<SignupPage />} />
                 <Route exact path='/signup/bank' element={<SignupPage />} />
                 <Route exact path='/signup/organisation' element={<SignupPage />} />
                 {/* not needed for now */}
-
 
                 {/* for open routes */}
                 {/* <Route exact path='/' element={<HomePage />} /> */}
