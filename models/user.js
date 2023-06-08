@@ -42,6 +42,10 @@ const userSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Bank'
         },
+        beneficiary: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Beneficiary'
+        },
         tokens: [
             {
                 token: {

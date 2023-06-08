@@ -11,12 +11,10 @@ const beneficiarySchema = new mongoose.Schema(
             type: String,
             trim: true
         },
-        vouchersReceived: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'Voucher'
-            }
-        ]
+        vouchersReceived: {
+            type: [mongoose.Schema.Types.ObjectId],
+            ref: 'Voucher'
+        }
     },
     { timestamps: true }
 );

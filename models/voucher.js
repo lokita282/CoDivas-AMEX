@@ -48,7 +48,7 @@ const voucherSchema = new mongoose.Schema(
         govtIdType: {
             type: String,
             required: true,
-            enum: ['aadhar', 'pan']
+            enum: ['aadhaar', 'pan']
         },
         govtIdNumber: {
             type: String,
