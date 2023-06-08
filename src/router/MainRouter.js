@@ -32,6 +32,7 @@ export default function MainRouter() {
                 <Route exact path='/dashboard' element={<DashboardPage />} />
                 <Route exact path='/bank/dashboard' element={<BankDashboardPage />} />
 
+                <Route exact path='/' element={<DashboardPage />} />
 
                 {/* not needed for now */}
                 <Route exact path='/signup/merchant' element={<SignupPage />} />
