@@ -7,34 +7,55 @@ const {
     viewAllVouchers,
     viewAllVouchersByCategory,
     viewCategoryVouchers,
-    viewCategoryVouchersByStatus
+    viewCategoryVouchersByStatus,
+    viewOneVoucher,
+    getRedemptionStatus,
+    getVerificationCode
 } = require('../controllers/user');
 
 // Initializing router
 const router = new express.Router();
 
 router.get(
-    '/all',
+    '/multiple/all',
     [authorizeJWT.verifyJWT, authorizeJWT.roleBeneficiary],
     viewAllVouchers
 );
 
 router.get(
-    '/all-grouped',
+    '/multiple/all-grouped',
     [authorizeJWT.verifyJWT, authorizeJWT.roleBeneficiary],
     viewAllVouchersByCategory
 );
 
 router.get(
-    '/:category',
+    '/multiple/:category',
     [authorizeJWT.verifyJWT, authorizeJWT.roleBeneficiary],
     viewCategoryVouchers
 );
 
 router.get(
-    '/:category/:status',
+    '/multiple/:category/:status',
     [authorizeJWT.verifyJWT, authorizeJWT.roleBeneficiary],
     viewCategoryVouchersByStatus
+);
+
+router.get(
+    '/single/:id',
+    [authorizeJWT.verifyJWT, authorizeJWT.roleBeneficiary],
+    viewOneVoucher
+);
+
+router.get(
+    '/redeemed/:id',
+    [authorizeJWT.verifyJWT, authorizeJWT.roleBeneficiary],
+    getRedemptionStatus
+);
+
+router.get(
+    '/verification-code/:id',
+    [authorizeJWT.verifyJWT, authorizeJWT.roleBeneficiary],
+    getVerificationCode
 );
 
 module.exports = router;

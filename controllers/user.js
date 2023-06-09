@@ -1,7 +1,9 @@
 const User = require('../models/user');
 const Voucher = require('../models/voucher');
 
-const { removeSensitiveData } = require('../utils/functions');
+const { generateHash, generateRandomNumber } = require('../utils/functions');
+
+
 
 const viewAllVouchers = async (req, res) => {
     try {
@@ -74,10 +76,96 @@ const viewCategoryVouchers = async (req, res) => {
     }
 };
 
+const viewOneVoucher = async (req, res) => {
+    try {
+        let user = req.user;
+        let voucherId = req.params.id;
+        let voucher = await Voucher.findOne({ _id: voucherId });
 
+        if(!voucher) {
+            return res.status(404).json({
+                message: 'Voucher not found'
+            });
+        }
+        if(voucher.beneficiaryPhone !== user.phone) {
+            return res.status(403).json({
+                message: 'You are not authorized to view this voucher'
+            });
+        }
+        
+        res.status(200).json({
+            data: {
+                ...voucher._doc,
+                hash: generateHash(voucher._id.toString() + user.phone)
+            }
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
+    }
+}
+
+const getRedemptionStatus = async (req, res) => {
+    try {
+        let user = req.user;
+        let voucherId = req.params.id;
+        let voucher = await Voucher.findOne({ _id: voucherId });
+
+        if(!voucher) {
+            return res.status(404).json({
+                message: 'Voucher not found'
+            });
+        }
+
+        res.status(200).json({
+            redeemed: voucher.status === 'redeemed'
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
+    }
+}
+
+const getVerificationCode = async (req, res) => {
+    try {
+        let user = req.user;
+        let voucherId = req.params.id;
+        let voucher = await Voucher.findOne({ _id: voucherId });
+
+        if(!voucher) {
+            return res.status(404).json({
+                message: 'Voucher not found'
+            });
+        }
+
+        // if scanned
+        if (voucher.status !== 'scanned') {
+            res.status(200).json({
+            scanned: false
+            });
+        } else {
+            // get verification code from db
+            res.status(200).json({
+                scanned: true,
+                verificationCode: generateRandomNumber(4)
+            });
+
+        }
+        
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
+    }
+}
 module.exports = {
     viewAllVouchers,
     viewAllVouchersByCategory,
     viewCategoryVouchersByStatus,
-    viewCategoryVouchers
+    viewCategoryVouchers,
+    viewOneVoucher,
+    getRedemptionStatus,
+    getVerificationCode
 };
