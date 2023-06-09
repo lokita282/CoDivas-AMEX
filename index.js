@@ -17,10 +17,11 @@ app.use(express.urlencoded({ extended: true }));
 // Importing Routes
 const authRoute = require('./routes/auth');
 const bankRoute = require('./routes/bank');
-
+const beneficiaryRoute = require('./routes/beneficiary');
 // Routes
 app.use('/api/auth', authRoute);
 app.use('/api/bank', bankRoute);
+app.use('/api/beneficiary', beneficiaryRoute);
 
 app.get('/api', (req, res) => {
     res.json({ message: 'Hello from server!' });
