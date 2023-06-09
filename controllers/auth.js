@@ -1,6 +1,8 @@
 const User = require('../models/user');
 const Merchant = require('../models/merchant');
 const Bank = require('./../models/bank');
+const Beneficiary = require('./../models/beneficiary');
+const Voucher = require('./../models/voucher');
 const bcryptjs = require('bcryptjs');
 const { removeSensitiveData } = require('../utils/functions');
 const jwt = require('jsonwebtoken');
@@ -57,46 +59,63 @@ const signupBeneficiary = async (req, res) => {
 
         // Commenting it because API requests are limited (35 per month)
 
-        if (req.body.pan) {
-            const options = {
-                method: 'POST',
-                url: 'https://pan-card-verification1.p.rapidapi.com/v3/tasks/sync/verify_with_source/ind_pan',
-                headers: {
-                    'content-type': 'application/json',
-                    'X-RapidAPI-Key': process.env.RAPID_API_KEY,
-                    'X-RapidAPI-Host': 'pan-card-verification1.p.rapidapi.com'
-                },
-                data: {
-                    task_id: '74f4c926-250c-43ca-9c53-453e87ceacd1',
-                    group_id: '8e16424a-58fc-4ba4-ab20-5bc8e7c3c41e',
-                    data: {
-                        id_number: req.body.pan
-                    }
-                }
-            };
+        // if (req.body.pan) {
+        //     const options = {
+        //         method: 'POST',
+        //         url: 'https://pan-card-verification1.p.rapidapi.com/v3/tasks/sync/verify_with_source/ind_pan',
+        //         headers: {
+        //             'content-type': 'application/json',
+        //             'X-RapidAPI-Key': process.env.RAPID_API_KEY,
+        //             'X-RapidAPI-Host': 'pan-card-verification1.p.rapidapi.com'
+        //         },
+        //         data: {
+        //             task_id: '74f4c926-250c-43ca-9c53-453e87ceacd1',
+        //             group_id: '8e16424a-58fc-4ba4-ab20-5bc8e7c3c41e',
+        //             data: {
+        //                 id_number: req.body.pan
+        //             }
+        //         }
+        //     };
 
-            try {
-                const response = await axios.request(options);
-                console.log(response.data);
-                if (
-                    response.data.result.source_output.status === 'id_not_found'
-                ) {
-                    res.status(400).json({
-                        message: 'Invalid PAN Number'
-                    });
-                    return;
-                }
-            } catch (error) {
-                console.error(error);
-            }
-        }
+        //     try {
+        //         const response = await axios.request(options);
+        //         console.log(response.data);
+        //         if (
+        //             response.data.result.source_output.status === 'id_not_found'
+        //         ) {
+        //             res.status(400).json({
+        //                 message: 'Invalid PAN Number'
+        //             });
+        //             return;
+        //         }
+        //     } catch (error) {
+        //         console.error(error);
+        //     }
+        // }
 
+        
         let newUser = new User({
             ...req.body,
             type: req.body.type ? req.body.type : 'beneficiary'
         });
         await newUser.save();
-
+        let beneficiary = await Beneficiary.findOne({ phone: newUser.phone });
+        console.log(beneficiary);
+        if (beneficiary) {
+            beneficiary.user = newUser._id;
+            await beneficiary.save();
+            newUser.beneficiary = beneficiary._id;
+            await newUser.save();
+        } else {
+            beneficiary = new Beneficiary({
+                user: newUser._id,
+                phone: newUser.phone,
+                vouchersReceived: []
+            });
+            await beneficiary.save();
+            newUser.beneficiary = beneficiary._id;
+            await newUser.save();
+        }
         const token = await User.generatejwt(newUser._id);
 
         // FOR SIGNING UP OF BANK (BACKEND USE ONLY)
@@ -259,7 +278,7 @@ const resetPassword = async (req, res) => {
 // Login
 const login = async (req, res) => {
     try {
-        let user = await User.findOne({ email: req.body.email });
+        let user = await User.findOne({ phone: req.body.phone });
 
         if (!user) {
             res.status(404).json({
