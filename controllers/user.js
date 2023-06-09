@@ -101,7 +101,7 @@ const viewOneVoucher = async (req, res) => {
         res.status(200).json({
             data: {
                 ...voucher._doc,
-                hash: generateHash(voucher.uid.toString() + user.phone)
+                hash: generateHash(voucher.uid + user.phone)
             }
         });
     } catch (error) {
