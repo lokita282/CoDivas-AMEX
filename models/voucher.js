@@ -98,7 +98,17 @@ const voucherSchema = new mongoose.Schema(
         status: {
             type: String,
             required: true,
-            enum: ['upcoming', 'valid', 'expired', 'redeemed', 'revoked']
+            enum: [
+                'upcoming',
+                'valid',
+                'expired',
+                'redeemed',
+                'revoked',
+                'scanned'
+            ]
+        },
+        verificationCode: {
+            type: Number
         },
         user: {
             type: mongoose.Schema.Types.ObjectId,
