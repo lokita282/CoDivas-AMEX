@@ -1,5 +1,7 @@
 const User = require('../models/user');
 const Voucher = require('../models/voucher');
+const Bank = require('../models/bank');
+const Beneficiary = require('../models/beneficiary');
 
 const { generateHash, generateRandomNumber } = require('../utils/functions');
 
@@ -82,6 +84,8 @@ const viewOneVoucher = async (req, res) => {
         let voucherId = req.params.id;
         let voucher = await Voucher.findOne({ _id: voucherId });
 
+        // const banks = await Bank.updateMany({}, { $set: { vouchersIssued: [] } });
+        // const beneficiaries = await Beneficiary.updateMany({}, { $set: { vouchersReceived: [] } });
         if(!voucher) {
             return res.status(404).json({
                 message: 'Voucher not found'
@@ -93,10 +97,11 @@ const viewOneVoucher = async (req, res) => {
             });
         }
         
+        
         res.status(200).json({
             data: {
                 ...voucher._doc,
-                hash: generateHash(voucher._id.toString() + user.phone)
+                hash: generateHash(voucher.uid.toString() + user.phone)
             }
         });
     } catch (error) {
