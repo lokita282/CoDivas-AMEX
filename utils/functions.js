@@ -1,4 +1,5 @@
-var SHA256 = require("crypto-js/sha256");
+var SHA256 = require('crypto-js/sha256');
+const dotenv = require('dotenv').config();
 
 const removeSensitiveData = (data) => {
     data.password = undefined;
@@ -10,7 +11,6 @@ const removeSensitiveData = (data) => {
 
     return data;
 };
-
 
 const generateRandomNumber = (numLength) => {
     let digits = '0123456789';
@@ -26,9 +26,27 @@ const generateHash = (data) => {
     return hashedString.slice(0, 24);
 };
 
+const sendSms = (message, mobile) => {
+    const accountSid = process.env.TWILIO_ACCOUNT_SID;
+    const authToken = process.env.TWILIO_AUTH_TOKEN;
+
+    const client = require('twilio')(accountSid, authToken, {
+        lazyLoading: true
+    });
+
+    client.messages
+        .create({
+            from: process.env.TWILIO_MOBILE_NUMBER,
+            to: '+91' + mobile,
+            body: message
+        })
+        .then((message) => console.log(`Message SID ${message.sid}`))
+        .catch((error) => console.error(error));
+};
 
 module.exports = {
     removeSensitiveData,
     generateRandomNumber,
-    generateHash
+    generateHash,
+    sendSms
 };
