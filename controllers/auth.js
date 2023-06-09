@@ -1,6 +1,8 @@
 const User = require('../models/user');
 const Merchant = require('../models/merchant');
 const Bank = require('./../models/bank');
+const Beneficiary = require('./../models/beneficiary');
+const Voucher = require('./../models/voucher');
 const bcryptjs = require('bcryptjs');
 const { removeSensitiveData } = require('../utils/functions');
 const jwt = require('jsonwebtoken');
@@ -91,12 +93,29 @@ const signupBeneficiary = async (req, res) => {
         //     }
         // }
 
+        
         let newUser = new User({
             ...req.body,
             type: req.body.type ? req.body.type : 'beneficiary'
         });
         await newUser.save();
-
+        let beneficiary = await Beneficiary.findOne({ phone: newUser.phone });
+        console.log(beneficiary);
+        if (beneficiary) {
+            beneficiary.user = newUser._id;
+            await beneficiary.save();
+            newUser.beneficiary = beneficiary._id;
+            await newUser.save();
+        } else {
+            beneficiary = new Beneficiary({
+                user: newUser._id,
+                phone: newUser.phone,
+                vouchersReceived: []
+            });
+            await beneficiary.save();
+            newUser.beneficiary = beneficiary._id;
+            await newUser.save();
+        }
         const token = await User.generatejwt(newUser._id);
 
         // FOR SIGNING UP OF BANK (BACKEND USE ONLY)
@@ -259,7 +278,7 @@ const resetPassword = async (req, res) => {
 // Login
 const login = async (req, res) => {
     try {
-        let user = await User.findOne({ email: req.body.email });
+        let user = await User.findOne({ phone: req.body.phone });
 
         if (!user) {
             res.status(404).json({
