@@ -22,7 +22,7 @@ const generateRandomNumber = (numLength) => {
 };
 
 const generateHash = (data) => {
-    const hashedString = SHA256(data)
+    const hashedString = SHA256(data).toString();
     return hashedString.slice(0, 24);
 };
 

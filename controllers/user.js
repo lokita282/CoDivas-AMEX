@@ -1,7 +1,7 @@
 const User = require('../models/user');
 const Voucher = require('../models/voucher');
 
-const { generateHash } = require('../utils/functions');
+const { generateHash, generateRandomNumber } = require('../utils/functions');
 
 
 
@@ -106,10 +106,66 @@ const viewOneVoucher = async (req, res) => {
     }
 }
 
+const getRedemptionStatus = async (req, res) => {
+    try {
+        let user = req.user;
+        let voucherId = req.params.id;
+        let voucher = await Voucher.findOne({ _id: voucherId });
+
+        if(!voucher) {
+            return res.status(404).json({
+                message: 'Voucher not found'
+            });
+        }
+
+        res.status(200).json({
+            redeemed: voucher.status === 'redeemed'
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
+    }
+}
+
+const getVerificationCode = async (req, res) => {
+    try {
+        let user = req.user;
+        let voucherId = req.params.id;
+        let voucher = await Voucher.findOne({ _id: voucherId });
+
+        if(!voucher) {
+            return res.status(404).json({
+                message: 'Voucher not found'
+            });
+        }
+
+        // if scanned
+        if (voucher.status !== 'scanned') {
+            res.status(200).json({
+            scanned: false
+            });
+        } else {
+            // get verification code from db
+            res.status(200).json({
+                scanned: true,
+                verificationCode: generateRandomNumber(4)
+            });
+
+        }
+        
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
+    }
+}
 module.exports = {
     viewAllVouchers,
     viewAllVouchersByCategory,
     viewCategoryVouchersByStatus,
     viewCategoryVouchers,
-    viewOneVoucher
+    viewOneVoucher,
+    getRedemptionStatus,
+    getVerificationCode
 };

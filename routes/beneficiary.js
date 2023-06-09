@@ -8,7 +8,9 @@ const {
     viewAllVouchersByCategory,
     viewCategoryVouchers,
     viewCategoryVouchersByStatus,
-    viewOneVoucher
+    viewOneVoucher,
+    getRedemptionStatus,
+    getVerificationCode
 } = require('../controllers/user');
 
 // Initializing router
@@ -42,6 +44,18 @@ router.get(
     '/single/:id',
     [authorizeJWT.verifyJWT, authorizeJWT.roleBeneficiary],
     viewOneVoucher
+);
+
+router.get(
+    '/redeemed/:id',
+    [authorizeJWT.verifyJWT, authorizeJWT.roleBeneficiary],
+    getRedemptionStatus
+);
+
+router.get(
+    '/verification-code/:id',
+    [authorizeJWT.verifyJWT, authorizeJWT.roleBeneficiary],
+    getVerificationCode
 );
 
 module.exports = router;
