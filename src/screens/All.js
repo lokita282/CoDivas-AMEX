@@ -73,10 +73,11 @@
 
 // export default All;
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
-const Card = ({ image, title, receivedDate, expiringDate }) => {
+const Card = ({ image, title, receivedDate, expiringDate}) => {
   return (
+
     <View style={styles.cardContainer}>
       <Image source={image} style={styles.image} />
       <View style={styles.cardText}>
@@ -88,7 +89,7 @@ const Card = ({ image, title, receivedDate, expiringDate }) => {
   );
 };
 
-const All = () => {
+const All = ({navigation}) => {
   const data = [
     {
       id: 1,
@@ -124,13 +125,15 @@ const All = () => {
   return (
     <View style={styles.container}>
       {data.map((item) => (
+      <TouchableOpacity onPress={() =>
+              navigation.navigate('Redeem')}style={styles.card}>
         <Card
           key={item.id}
           image={item.image}
           title={item.title}
           receivedDate={item.receivedDate}
           expiringDate={item.expiringDate}
-        />
+        /></TouchableOpacity>
       ))}
     </View>
   );

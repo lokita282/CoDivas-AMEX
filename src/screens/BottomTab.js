@@ -1,65 +1,18 @@
 import React from 'react';
 import {
     View,
-    TouchableOpacity,
     StyleSheet,
     Image,
-    StatusBar,
-    Text,
   } from 'react-native';
-import {
-     createBottomTabNavigator
-     } from '@react-navigation/bottom-tabs';
-import Upcoming from '../screens/Upcoming';
-import Search from '../screens/Search';
-import Favourite from '../screens/Favourite';
-import Profile from '../screens/Profile';
-import Splash from '../screens/Splash';
-import Login from '../screens/Splash';
-import Signup from '../screens/Signup';
-import UploadImage from '../screens/UploadImage';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import MainStackNavigator from './StackNavigator';
-import Top from './TopNavigator';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Category from './Category';
+import GovernmentScheme from './GovernementScheme';
+import TransactionHistory from './TransactionHistory';
+
 const Tab=createBottomTabNavigator();
-const Stack = createStackNavigator();
-// function UpcomingStack(){
-//     return(
-//         <NavigationContainer>
-//         <Stack.Navigator initialRouteName="Splash">
-//           <Stack.Screen
-//             name="Splash"
-//             component={Splash}
-//             options={{headerShown: false}}
-//           />
-//           <Stack.Screen
-//             name="Login"
-//             component={Login}
-//             options={{headerShown: false}}
-//           />
-//           <Stack.Screen
-//             name="Signup"
-//             component={Signup}
-//             options={{headerShown: false}}
-//           />
-//           <Stack.Screen
-//             name="Profile"
-//             component={Profile}
-//             options={{headerShown: false}}
-//           />
-          
-//           <Stack.Screen
-//             name="UploadImage"
-//             component={UploadImage}
-//             options={{headerShown: false}}
-//           />
-         
-//         </Stack.Navigator>
-//       </NavigationContainer>
-//     )
-// }
-const Tabs=()=>{
+const Stack = createNativeStackNavigator();
+const BottomTab=()=>{
     return(
         <Tab.Navigator  screenOptions={{
                 tabBarShowLabel:false,
@@ -78,13 +31,13 @@ const Tabs=()=>{
             }
         }}>
              
-            <Tab.Screen  name="Upcoming" component={Top} 
+            <Tab.Screen  name="Category" component={Category} 
                 options={{
                     headerShown: false,
                     tabBarIcon:({focused})=>(
                         <View>
                             <Image
-                            source={require('../assets/up.png')}
+                            source={require('../assets/bank.png')}
                             resizeMode='contain'
                             style={{
                                 width:25,
@@ -95,13 +48,13 @@ const Tabs=()=>{
                         </View>
                     )
                  }}/>
-            <Tab.Screen  name="Search" component={Search} 
+            <Tab.Screen  name="Government Schemes" component={GovernmentScheme} 
             options={{
                 headerShown: false,
                 tabBarIcon:({focused})=>(
                     <View>
                         <Image
-                        source={require('../assets/search.png')}
+                        source={require('../assets/bank.png')}
                         resizeMode='contain'
                         style={{
                             width:25,
@@ -112,30 +65,13 @@ const Tabs=()=>{
                     </View>
                 )
              }}/>
-            <Tab.Screen  name="Favourite" component={Favourite}
+            <Tab.Screen  name="Transaction History" component={TransactionHistory}
             options={{
                 headerShown: false,
                 tabBarIcon:({focused})=>(
                     <View>
                         <Image
-                        source={require('../assets/fav.png')}
-                        resizeMode='contain'
-                        style={{
-                            width:25,
-                            height:25,
-                            //tintColor:focused?'#e32f45':'#748c94'
-
-                        }}/>
-                    </View>
-                )
-             }}/>
-            <Tab.Screen  name="Profile" component={Profile}
-            options={{
-                headerShown: false,
-                tabBarIcon:({focused})=>(
-                    <View>
-                        <Image
-                        source={require('../assets/prof.png')}
+                        source={require('../assets/bank.png')}
                         resizeMode='contain'
                         style={{
                             width:25,
@@ -149,7 +85,7 @@ const Tabs=()=>{
         </Tab.Navigator>
     );
 }
-export default Tabs;
+export default BottomTab;
 const styles=StyleSheet.create({
     shadow:{
         shadowColor:'#7F5DF0',

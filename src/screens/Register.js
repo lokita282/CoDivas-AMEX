@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, StyleSheet, Text, TextInput, View, SafeAreaView, KeyboardAvoidingView, ScrollView } from 'react-native';
 
-export default function Register({navigation}) {
+export default function Register({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
@@ -14,76 +14,82 @@ export default function Register({navigation}) {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Register</Text>
-      <View style={styles.inputTextWrapper}>
-        <TextInput
-          placeholder="Email"
-          style={styles.textInput}
-          value={email}
-          keyboardType="email-address"
-          onChangeText={(text) => setEmail(text)}
-        />
-      </View>
-      <View style={styles.inputTextWrapper}>
-        <TextInput
-          placeholder="Password"
-          style={styles.textInput}
-          value={password}
-          secureTextEntry={true}
-          onChangeText={(text) => setPassword(text)}
-        />
-      </View>
-      <View style={styles.inputTextWrapper}>
-        <TextInput
-          placeholder="Name"
-          style={styles.textInput}
-          value={name}
-          onChangeText={(text) => setName(text)}
-        />
-      </View>
-      <View style={styles.inputTextWrapper}>
-        <TextInput
-          placeholder="Mobile Number"
-          style={styles.textInput}
-          value={number}
-          keyboardType="numeric"
-          onChangeText={(text) => setNumber(text)}
-        />
-      </View>
-      <View style={styles.inputTextWrapper}>
-        <TextInput
-          placeholder="Aadhar number"
-          style={styles.textInput}
-          value={aadhar}
-          keyboardType="numeric"
-          onChangeText={(text) => setAadhar(text)}
-        />
-      </View>
-      <View style={styles.btnContainer}>
-        <Button
-          title="Register"
-          onPress={() =>
-            navigation.navigate('Category')}
-          color="#0E1D61"
-        />
-      </View>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+        <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+          <Text style={styles.header}>Register</Text>
+          <View style={styles.inputTextWrapper}>
+            <TextInput
+              placeholder="Email"
+              style={styles.textInput}
+              value={email}
+              keyboardType="email-address"
+              onChangeText={(text) => setEmail(text)}
+            />
+          </View>
+          <View style={styles.inputTextWrapper}>
+            <TextInput
+              placeholder="Password"
+              style={styles.textInput}
+              value={password}
+              secureTextEntry={true}
+              onChangeText={(text) => setPassword(text)}
+            />
+          </View>
+          <View style={styles.inputTextWrapper}>
+            <TextInput
+              placeholder="Name"
+              style={styles.textInput}
+              value={name}
+              onChangeText={(text) => setName(text)}
+            />
+          </View>
+          <View style={styles.inputTextWrapper}>
+            <TextInput
+              placeholder="Mobile Number"
+              style={styles.textInput}
+              value={number}
+              keyboardType="numeric"
+              onChangeText={(text) => setNumber(text)}
+            />
+          </View>
+          <View style={styles.inputTextWrapper}>
+            <TextInput
+              placeholder="Aadhar number"
+              style={styles.textInput}
+              value={aadhar}
+              keyboardType="numeric"
+              onChangeText={(text) => setAadhar(text)}
+            />
+          </View>
+          <View style={styles.btnContainer}>
+            <Button
+              title="Register"
+              onPress={() => navigation.navigate('BottomTab')}
+              color="#0E1D61"
+            />
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  scrollViewContainer: {
+    flexGrow: 1,
+    justifyContent: 'center',
     padding: 16,
     paddingBottom: 100,
   },
   header: {
     fontSize: 36,
-    padding: 24,
-    margin: 15,
+    paddingVertical: 24,
     textAlign: 'center',
-    color:'black'
+    color: 'black',
   },
   inputTextWrapper: {
     marginBottom: 24,

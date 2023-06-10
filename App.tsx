@@ -129,6 +129,10 @@ import NotRedeemed from './src/screens/NotRedeemed';
 import Redeem from './src/screens/Redeem';
 import Redeemed from './src/screens/Redeemed';
 import TopTab from './src/screens/TopTab';
+import TransactionHistory from './src/screens/TransactionHistory';
+import GovernmentScheme from './src/screens/GovernementScheme';
+import Otp from './src/screens/Otp';
+import Verified from './src/screens/Verified';
 
 
 const Stack = createNativeStackNavigator();
@@ -173,6 +177,26 @@ const App = () => {
         <Stack.Screen 
           name="Redeem"
           component={Redeem}
+          options={{headerShown:false}}/>
+        <Stack.Screen 
+          name="TransactionHistory"
+          component={TransactionHistory}
+          options={{headerShown:false}}/>
+        <Stack.Screen 
+          name="GovernmentScheme"
+          component={GovernmentScheme}
+          options={{headerShown:false}}/>
+        <Stack.Screen 
+          name="BottomTab"
+          component={BottomTab}
+          options={{headerShown:false}}/>
+        <Stack.Screen 
+          name="Otp"
+          component={Otp}
+          options={{headerShown:false}}/>
+         <Stack.Screen 
+          name="Verified"
+          component={Verified}
           options={{headerShown:false}}/>
       </Stack.Navigator>
     </NavigationContainer>

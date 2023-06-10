@@ -58,7 +58,7 @@
 
 // export default App;
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 
@@ -66,7 +66,7 @@ const ProfileIcon = () => {
   return <Image source={require('../assets/profile.png')} style={styles.profileIcon} />;
 };
 
-const Redeem = () => {
+const Redeem = ({navigation}) => {
   const governmentLogo = require('../assets/govt.png');
   const bankLogo = require('../assets/bank.png');
   const eRupi=require('../assets/erupi.png')
@@ -75,6 +75,14 @@ const Redeem = () => {
   const amount = 'INR 5000';
   const qrCodeData = 'Your QR Code String';
   const validityDate = 'Validity till - 31/12/2023';
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigation.navigate('Otp');
+    }, 30000);
+
+    return () => clearTimeout(timer);
+  }, [navigation]);
 
   return (
     <View style={styles.container}>
