@@ -4,7 +4,7 @@ const Bank = require('./../models/bank');
 const Beneficiary = require('./../models/beneficiary');
 const {
     generateRandomNumber,
-    generateHash,
+    generateQrString,
     sendSms
 } = require('./../utils/functions');
 const { shortCodes, organisationDetails } = require('./../utils/data');
@@ -64,11 +64,11 @@ const createERupiVoucher = async (req, res) => {
             await beneficiary.save();
         }
 
-        let qrString = generateHash(voucher.uid + req.body.beneficiaryPhone);
+        let qrString = generateQrString(voucher.uid);
 
         // SEND SMS TO USER W STRING
         await sendSms(
-            `Dear Beneficiary, you have received you're ₹UPI from ${org.orgName}. It can be accessed the eZ-RUPI app. Incase the link does not work, the e₹UPI can be accessed through the string ${qrString}. Do not share this with anyone other than the concerned authorities. For queries reach out to us at https://american-express-ez-rupi.com/help.`,
+            `Dear Beneficiary, you have received your ₹UPI from ${org.orgName}. It can be accessed via the eZ-RUPI app. Incase the link does not work, the e₹UPI can be accessed through the string ${qrString}. Do not share this with anyone other than the concerned authorities. For queries reach out to us at https://american-express-ez-rupi.com/help.`,
             req.body.beneficiaryPhone
         );
 
@@ -164,13 +164,13 @@ const createBulkERupiVouchers = async (req, res) => {
                     const org = organisationDetails.find(
                         ({ orgId }) => orgId == currentVoucher.orgId
                     );
-                    let qrString = generateHash(
-                        currentVoucher.uid + currentVoucher.beneficiaryPhone
+                    let qrString = generateQrString(
+                        currentVoucher.uid
                     );
 
                     // SEND SMS TO USER W STRING
                     await sendSms(
-                        `Dear Beneficiary, you have received you're e-₹UPI from ${org.orgName}. It can be accessed via the eZ-RUPI app. Incase the link does not work, the e-₹UPI can be accessed through the string "${qrString}". Do not share this with anyone other than the concerned authorities. For queries reach out to us at https://american-express-ez-rupi.com/help.`,
+                        `Dear Beneficiary, you have received your e-₹UPI from ${org.orgName}. It can be accessed via the eZ-RUPI app. Incase the link does not work, the e-₹UPI can be accessed through the string "${qrString}". Do not share this with anyone other than the concerned authorities. For queries reach out to us at https://american-express-ez-rupi.com/help.`,
                         currentVoucher.beneficiaryPhone
                     );
                 }

@@ -1,6 +1,6 @@
-var SHA256 = require('crypto-js/sha256');
 const dotenv = require('dotenv').config();
-
+var AES = require("crypto-js/aes");
+const CryptoJS = require("crypto-js");
 const removeSensitiveData = (data) => {
     data.password = undefined;
     data.tokens = undefined;
@@ -21,9 +21,14 @@ const generateRandomNumber = (numLength) => {
     return num;
 };
 
-const generateHash = (data) => {
-    const hashedString = SHA256(data).toString();
-    return hashedString.slice(0, 24);
+const generateQrString =  (data) => {
+    const encryptedString = AES.encrypt(data, process.env.QR_SECRET_KEY).toString();
+    return encryptedString;
+};
+
+const decryptQrString = (data) => {
+    const decryptedString = AES.decrypt(data, process.env.QR_SECRET_KEY).toString(CryptoJS.enc.Utf8);
+    return decryptedString;
 };
 
 const sendSms = (message, mobile) => {
@@ -47,6 +52,7 @@ const sendSms = (message, mobile) => {
 module.exports = {
     removeSensitiveData,
     generateRandomNumber,
-    generateHash,
+    generateQrString,
+    decryptQrString,
     sendSms
 };

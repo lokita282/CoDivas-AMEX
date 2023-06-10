@@ -1,7 +1,8 @@
+const { decrypt } = require('crypto-js/aes');
 const User = require('../models/user');
 const Voucher = require('../models/voucher');
 
-const { generateHash, generateRandomNumber } = require('../utils/functions');
+const { generateQrString, generateRandomNumber, decryptQrString} = require('../utils/functions');
 
 
 
@@ -96,7 +97,7 @@ const viewOneVoucher = async (req, res) => {
         res.status(200).json({
             data: {
                 ...voucher._doc,
-                hash: generateHash(voucher._id.toString() + user.phone)
+                qrString: generateQrString(voucher.uid),
             }
         });
     } catch (error) {
