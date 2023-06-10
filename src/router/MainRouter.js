@@ -5,6 +5,10 @@ import LoginPage from '../pages/LoginPage';
 import SignupPage from '../pages/SignupPages';
 import DashboardPage from '../pages/DashboardPage';
 import BankDashboardPage from '../pages/BankDashboardPage';
+import UserDashboardPage from '../pages/UserDashboardPage';
+import UserGetStartedPage from '../pages/UserGetStartedPage'
+import HealthcarePage from '../pages/HealthcarePage'
+import ElectricityBillPage from '../pages/ElectricityBillPage'
 
 
 export default function MainRouter() {
@@ -31,6 +35,11 @@ export default function MainRouter() {
                 <Route exact path='/login' element={<LoginPage />} />
                 <Route exact path='/dashboard' element={<DashboardPage />} />
                 <Route exact path='/bank/dashboard' element={<BankDashboardPage />} />
+                <Route exact path='/user/dashboard' element={<UserDashboardPage />} />
+                <Route exact path='/user/getstarted' element={<UserGetStartedPage />} />
+                <Route exact path='/user/getstarted/Healthcare' element={<HealthcarePage />} />
+                <Route exact path='/user/getstarted/electricity' element={<ElectricityBillPage />} />
+
 
                 <Route exact path='/' element={<DashboardPage />} />
 

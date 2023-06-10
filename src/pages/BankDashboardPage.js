@@ -33,12 +33,13 @@ const styles = {
     alignItems: 'center',
     textAlign: 'center',
     verticalAlign: 'middle',
-    backgroundColor: '#f5f5f5'
+    backgroundColor: '#f5f5f5',
   },
   gradientText: {
     background: 'radial-gradient( #272a71, #18152c)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
+    fontFamily: 'Poppins',
   },
   proceedBtn: {
     background: 'radial-gradient(#272a71, #18152c)',
@@ -50,6 +51,7 @@ const styles = {
     borderRadius: '20px',
     width: '30%',
     height: '10%',
+    fontFamily: 'Poppins',
   },
 }
 
