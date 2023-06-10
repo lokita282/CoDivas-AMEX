@@ -1,0 +1,24 @@
+.scroll-container {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  .scroll-container::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .scroll-content {
+    display: inline-block;
+    width: 200%;
+  }
+  
+  .scroll-content-inner {
+    display: flex;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
