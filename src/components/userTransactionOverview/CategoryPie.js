@@ -2,8 +2,6 @@ import React from 'react'
 import { ResponsivePie } from '@nivo/pie'
 import Box from '@mui/material/Box'
 import CssBaseline from '@mui/material/CssBaseline'
-import Typography from '@mui/material/Typography'
-import Paper from '@mui/material/Paper'
 
 const NivoPie = () => {
   const pieData = [
@@ -11,31 +9,26 @@ const NivoPie = () => {
       id: 'Health',
       label: 'Health',
       value: 120,
-      color: 'hsl(153, 70%, 50%)',
     },
     {
       id: 'Other',
       label: 'Other',
       value: 512,
-      color: 'hsl(291, 70%, 50%)',
     },
     {
       id: 'Utility',
       label: 'Utility',
       value: 242,
-      color: 'hsl(302, 70%, 50%)',
     },
     {
       id: 'Education',
       label: 'Education',
       value: 366,
-      color: 'hsl(31, 70%, 50%)',
     },
     {
       id: 'Transport',
       label: 'Transport',
       value: 597,
-      color: 'hsl(187, 70%, 50%)',
     },
   ]
 

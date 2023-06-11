@@ -7,7 +7,6 @@ const NivoLine = () => {
   const lineData = [
     {
       id: 'Health',
-      color: 'hsl(286, 70%, 50%)',
       data: [
         {
           x: 'Jul',
@@ -61,7 +60,6 @@ const NivoLine = () => {
     },
     {
       id: 'Education',
-      color: 'hsl(208, 70%, 50%)',
       data: [
         {
           x: 'Jul',
@@ -115,7 +113,6 @@ const NivoLine = () => {
     },
     {
       id: 'Transportation',
-      color: 'hsl(339, 70%, 50%)',
       data: [
         {
           x: 'Jul',
@@ -169,7 +166,6 @@ const NivoLine = () => {
     },
     {
       id: 'Utility',
-      color: 'hsl(60, 70%, 50%)',
       data: [
         {
           x: 'Jul',
@@ -223,7 +219,6 @@ const NivoLine = () => {
     },
     {
       id: 'Other',
-      color: 'hsl(314, 70%, 50%)',
       data: [
         {
           x: 'Jul',
