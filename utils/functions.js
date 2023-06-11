@@ -23,7 +23,8 @@ const generateRandomNumber = (numLength) => {
 
 const generateQrString =  (data) => {
     const encryptedString = AES.encrypt(data, process.env.QR_SECRET_KEY).toString();
-    return encryptedString;
+    const qrString = `xxx-${encryptedString}-xxx`
+    return qrString;
 };
 
 const decryptQrString = (data) => {
