@@ -2,8 +2,7 @@ import axios from "axios";
 
 
 export default axios.create({
-    baseURL: `hosted be url`,
-
+    baseURL: `https://ez-rupi.onrender.com/api`,
 
     headers: {
         "Content-type": "application/json",

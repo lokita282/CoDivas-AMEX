@@ -9,6 +9,8 @@ import UserDashboardPage from '../pages/UserDashboardPage';
 import UserGetStartedPage from '../pages/UserGetStartedPage'
 import HealthcarePage from '../pages/HealthcarePage'
 import ElectricityBillPage from '../pages/ElectricityBillPage'
+import Coupons from '../components/coupons/Coupons';
+import CategoryCoupons from '../pages/CategoryCoupons';
 
 
 export default function MainRouter() {
@@ -18,9 +20,8 @@ export default function MainRouter() {
             <Outlet />
         </> : <>
             {
-                JSON.parse(localStorage.getItem("codivasUser")) === null && setOpen(true)
+                JSON.parse(localStorage.getItem("codivasUser")) === null && <Navigate to="/login" />
             }
-            <Navigate to="/usermerch/login" />
         </>
     }
 
@@ -33,28 +34,33 @@ export default function MainRouter() {
             <Routes>
                 <Route exact path='/signup/beneficiary' element={<SignupPage />} />
                 <Route exact path='/login' element={<LoginPage />} />
-                <Route exact path='/dashboard' element={<DashboardPage />} />
-                <Route exact path='/bank/dashboard' element={<BankDashboardPage />} />
-                <Route exact path='/user/dashboard' element={<UserDashboardPage />} />
-                <Route exact path='/user/getstarted' element={<UserGetStartedPage />} />
-                <Route exact path='/user/getstarted/Healthcare' element={<HealthcarePage />} />
-                <Route exact path='/user/getstarted/electricity' element={<ElectricityBillPage />} />
+                <Route path='/dashboard' element={<PrivateRouter />} >
+                    <Route exact path='/dashboard' element={<DashboardPage />} />
+                </Route>
+                <Route path='/bank/dashboard' element={<PrivateRouter />} >
+                    <Route exact path='/bank/dashboard' element={<BankDashboardPage />} />
+                </Route>
+                <Route path='/user/dashboard' element={<PrivateRouter />} >
+                    <Route exact path='/user/dashboard' element={<UserDashboardPage />} />
+                </Route>
+                <Route path='/user/getstarted' element={<PrivateRouter />} >
+                    <Route exact path='/user/getstarted' element={<UserGetStartedPage />} />
+                </Route>
+                <Route path='/user/getstarted/Healthcare' element={<PrivateRouter />} >
+                    <Route exact path='/user/getstarted/Healthcare' element={<HealthcarePage />} />
+                </Route>
+                <Route path='/user/getstarted/electricity' element={<PrivateRouter />} >
+                    <Route exact path='/user/getstarted/electricity' element={<ElectricityBillPage />} />
+                </Route>
 
-
-                <Route exact path='/' element={<DashboardPage />} />
-
+                <Route path='/user/getstarted/:category' element={<PrivateRouter />} >
+                    <Route exact path='/user/getstarted/:category' element={<CategoryCoupons />} />
+                </Route>
                 {/* not needed for now */}
                 <Route exact path='/signup/merchant' element={<SignupPage />} />
                 <Route exact path='/signup/bank' element={<SignupPage />} />
                 <Route exact path='/signup/organisation' element={<SignupPage />} />
                 {/* not needed for now */}
-
-                {/* for open routes */}
-                {/* <Route exact path='/' element={<HomePage />} /> */}
-                {/* for protected routes */}
-                {/* <Route path='/myorganization' element={<PrivateRouter />} >
-                    <Route exact path='/myorganization' element={<MyOrg />} />
-                </Route> */}
             </Routes>
         </>
     )
