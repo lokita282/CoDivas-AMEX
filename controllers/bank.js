@@ -10,6 +10,7 @@ const {
 const { shortCodes, organisationDetails } = require('./../utils/data');
 const csvtoJSON = require('csvtojson');
 const fs = require('fs');
+const axios = require('axios');
 
 const createERupiVoucher = async (req, res) => {
     try {
@@ -44,7 +45,6 @@ const createERupiVoucher = async (req, res) => {
         });
 
         await voucher.save();
-
         // Voucher created by bank
         currentBank[0].vouchersIssued.push(voucher._id);
         await currentBank[0].save();
@@ -69,9 +69,22 @@ const createERupiVoucher = async (req, res) => {
         let qrString = generateQrString(voucher.uid);
 
         // SEND SMS TO USER W STRING
-        await sendSms(
-            `Dear Beneficiary, you have received your ₹UPI from ${org.orgName}. It can be accessed via the eZ-RUPI app. Incase the link does not work, the e₹UPI can be accessed through the string ${qrString}. Do not share this with anyone other than the concerned authorities. For queries reach out to us at https://american-express-ez-rupi.com/help.`,
-            req.body.beneficiaryPhone
+        // await sendSms(
+        //     `Dear Beneficiary, you have received your ₹UPI from ${org.orgName}. It can be accessed via the eZ-RUPI app. Incase the link does not work, the e₹UPI can be accessed through the string ${qrString}. Do not share this with anyone other than the concerned authorities. For queries reach out to us at https://american-express-ez-rupi.com/help.`,
+        //     req.body.beneficiaryPhone
+        // );
+
+        await axios.post(
+            `https://ntfy.sh/${voucher.beneficiaryPhone}`,
+
+            `Received Rs. ${voucher.amount} e-RUPI voucher for ${voucher.category}`,
+            {
+                headers: {
+                    Icon: org.orgLogo,
+                    Title: 'New voucher received!',
+                    Tags: 'money_with_wings'
+                }
+            }
         );
 
         res.status(201).json({
@@ -173,9 +186,21 @@ const createBulkERupiVouchers = async (req, res) => {
                     let qrString = generateQrString(currentVoucher.uid);
 
                     // SEND SMS TO USER W STRING
-                    await sendSms(
-                        `Dear Beneficiary, you have received your e-₹UPI from ${org.orgName}. It can be accessed via the eZ-RUPI app. Incase the link does not work, the e-₹UPI can be accessed through the string "${qrString}". Do not share this with anyone other than the concerned authorities. For queries reach out to us at https://american-express-ez-rupi.com/help.`,
-                        currentVoucher.beneficiaryPhone
+                    // await sendSms(
+                    //     `Dear Beneficiary, you have received your e-₹UPI from ${org.orgName}. It can be accessed via the eZ-RUPI app. Incase the link does not work, the e-₹UPI can be accessed through the string "${qrString}". Do not share this with anyone other than the concerned authorities. For queries reach out to us at https://american-express-ez-rupi.com/help.`,
+                    //     currentVoucher.beneficiaryPhone
+                    // );
+                    await axios.post(
+                        `https://ntfy.sh/${currentVoucher.beneficiaryPhone}`,
+
+                        `Received Rs. ${currentVoucher.amount} e-RUPI voucher for ${currentVoucher.category}`,
+                        {
+                            headers: {
+                                Icon: org.orgLogo,
+                                Title: 'New voucher received!',
+                                Tags: 'money_with_wings'
+                            }
+                        }
                     );
                 }
                 res.status(201).json({
