@@ -2,8 +2,14 @@ const User = require('./../models/user');
 const Voucher = require('./../models/voucher');
 const Bank = require('./../models/bank');
 const Beneficiary = require('./../models/beneficiary');
-const { generateRandomNumber } = require('./../utils/functions');
+const {
+    generateRandomNumber,
+    generateQrString,
+    sendSms
+} = require('./../utils/functions');
 const { shortCodes, organisationDetails } = require('./../utils/data');
+const csvtoJSON = require('csvtojson');
+const fs = require('fs');
 
 const createERupiVoucher = async (req, res) => {
     try {
@@ -20,7 +26,7 @@ const createERupiVoucher = async (req, res) => {
             orgId: req.body.orgId,
             orgLogo: org.orgLogo,
             issuedBy: req.user.name, // bank name
-            issuedByLogo: currentBank[0].bankLogo, // bank schema se lo
+            issuedByLogo: currentBank[0].bankLogo,
             issuedById: req.user._id,
             beneficiaryName: req.body.beneficiaryName,
             beneficiaryPhone: req.body.beneficiaryPhone,
@@ -58,7 +64,13 @@ const createERupiVoucher = async (req, res) => {
             await beneficiary.save();
         }
 
-        // SEND SMS TO USER W STRING AND QR CODE (TBD)
+        let qrString = generateQrString(voucher.uid);
+
+        // SEND SMS TO USER W STRING
+        await sendSms(
+            `Dear Beneficiary, you have received your ₹UPI from ${org.orgName}. It can be accessed via the eZ-RUPI app. Incase the link does not work, the e₹UPI can be accessed through the string ${qrString}. Do not share this with anyone other than the concerned authorities. For queries reach out to us at https://american-express-ez-rupi.com/help.`,
+            req.body.beneficiaryPhone
+        );
 
         res.status(201).json({
             message: 'Voucher successfully created!',
@@ -69,6 +81,108 @@ const createERupiVoucher = async (req, res) => {
     } catch (error) {
         console.error(error.message);
         res.status(500).json({
+            message: error.message
+        });
+    }
+};
+
+const createBulkERupiVouchers = async (req, res) => {
+    try {
+        const currentBank = await Bank.find({ user: req.user._id }).populate();
+
+        csvtoJSON()
+            .fromFile(req.file.path)
+            .then(async (jsonOutput) => {
+                let newVouchersArray = [];
+                let newVouchersIdsArray = [];
+
+                jsonOutput.forEach((newVoucher) => {
+                    const org = organisationDetails.find(
+                        ({ orgId }) => orgId == newVoucher.orgId
+                    );
+                    let startsObject = new Date(newVoucher.startsAt);
+                    let endsObject = new Date(newVoucher.endsAt);
+                    let logo = org.orgLogo;
+
+                    let voucher = new Voucher({
+                        title: newVoucher.title,
+                        startsAt: startsObject,
+                        endsAt: endsObject,
+                        orgId: newVoucher.orgId,
+                        orgLogo: logo,
+                        issuedBy: req.user.name, // bank name
+                        issuedByLogo: currentBank[0].bankLogo,
+                        issuedById: req.user._id,
+                        beneficiaryName: newVoucher.beneficiaryName,
+                        beneficiaryPhone: newVoucher.beneficiaryPhone,
+                        govtIdType: newVoucher.govtIdType,
+                        govtIdNumber: newVoucher.govtIdNumber,
+                        category: newVoucher.category,
+                        state: newVoucher.state,
+                        description: newVoucher.description,
+                        amount: newVoucher.amount,
+                        useType: newVoucher.useType,
+                        uid:
+                            shortCodes[newVoucher.category] +
+                            '-' +
+                            generateRandomNumber(8),
+                        status:
+                            Date.now() <= startsObject ? 'upcoming' : 'valid'
+                    });
+                    newVouchersArray.push(voucher);
+                    newVouchersIdsArray.push(voucher._id);
+                });
+
+                const insertedVouchers = await Voucher.insertMany(
+                    newVouchersArray
+                );
+                fs.unlinkSync(req.file.path);
+
+                for (const voucherId of newVouchersIdsArray) {
+                    // Voucher created by bank
+                    currentBank[0].vouchersIssued.push(voucherId);
+                    await currentBank[0].save();
+
+                    // Voucher created for user
+                    const currentVoucher = await Voucher.findById(voucherId);
+                    const beneficiary = await Beneficiary.findOne({
+                        phone: currentVoucher.beneficiaryPhone
+                    });
+
+                    if (!beneficiary) {
+                        const newBeneficiary = new Beneficiary({
+                            phone: currentVoucher.beneficiaryPhone,
+                            vouchersReceived: []
+                        });
+                        newBeneficiary.vouchersReceived.push(voucherId);
+                        await newBeneficiary.save();
+                    } else {
+                        beneficiary.vouchersReceived.push(voucherId);
+                        await beneficiary.save();
+                    }
+
+                    const org = organisationDetails.find(
+                        ({ orgId }) => orgId == currentVoucher.orgId
+                    );
+                    let qrString = generateQrString(
+                        currentVoucher.uid
+                    );
+
+                    // SEND SMS TO USER W STRING
+                    await sendSms(
+                        `Dear Beneficiary, you have received your e-₹UPI from ${org.orgName}. It can be accessed via the eZ-RUPI app. Incase the link does not work, the e-₹UPI can be accessed through the string "${qrString}". Do not share this with anyone other than the concerned authorities. For queries reach out to us at https://american-express-ez-rupi.com/help.`,
+                        currentVoucher.beneficiaryPhone
+                    );
+                }
+                res.status(201).json({
+                    message: 'Vouchers created!',
+                    data: {
+                        insertedVouchers
+                    }
+                });
+            });
+    } catch (error) {
+        res.status(400).json({
             message: error.message
         });
     }
@@ -127,6 +241,7 @@ const revokeVoucher = async (req, res) => {
 
 module.exports = {
     createERupiVoucher,
+    createBulkERupiVouchers,
     viewVouchers,
     revokeVoucher
 };

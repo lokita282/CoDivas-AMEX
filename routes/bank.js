@@ -2,9 +2,11 @@
 const express = require('express');
 // Importing Middleware
 const authorizeJWT = require('../middleware/jwt');
+const upload = require('./../utils/multer');
 
 const {
     createERupiVoucher,
+    createBulkERupiVouchers,
     viewVouchers,
     revokeVoucher
 } = require('../controllers/bank');
@@ -16,6 +18,13 @@ router.post(
     '/create-voucher',
     [authorizeJWT.verifyJWT, authorizeJWT.roleBank],
     createERupiVoucher
+);
+
+router.post(
+    '/create-bulk-vouchers',
+    [authorizeJWT.verifyJWT, authorizeJWT.roleBank],
+    upload.single('file'),
+    createBulkERupiVouchers
 );
 
 router.get(

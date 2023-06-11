@@ -1,5 +1,6 @@
-var SHA256 = require("crypto-js/sha256");
-
+const dotenv = require('dotenv').config();
+var AES = require("crypto-js/aes");
+const CryptoJS = require("crypto-js");
 const removeSensitiveData = (data) => {
     data.password = undefined;
     data.tokens = undefined;
@@ -11,7 +12,6 @@ const removeSensitiveData = (data) => {
     return data;
 };
 
-
 const generateRandomNumber = (numLength) => {
     let digits = '0123456789';
     let num = '';
@@ -21,14 +21,39 @@ const generateRandomNumber = (numLength) => {
     return num;
 };
 
-const generateHash = (data) => {
-    const hashedString = SHA256(data).toString();
-    return hashedString.slice(0, 24);
+const generateQrString =  (data) => {
+    const encryptedString = AES.encrypt(data, process.env.QR_SECRET_KEY).toString();
+    const qrString = `xxx-${encryptedString}-xxx`
+    return qrString;
 };
 
+const decryptQrString = (data) => {
+    const decryptedString = AES.decrypt(data, process.env.QR_SECRET_KEY).toString(CryptoJS.enc.Utf8);
+    return decryptedString;
+};
+
+const sendSms = (message, mobile) => {
+    const accountSid = process.env.TWILIO_ACCOUNT_SID;
+    const authToken = process.env.TWILIO_AUTH_TOKEN;
+
+    const client = require('twilio')(accountSid, authToken, {
+        lazyLoading: true
+    });
+
+    client.messages
+        .create({
+            from: process.env.TWILIO_MOBILE_NUMBER,
+            to: '+91' + mobile,
+            body: message
+        })
+        .then((message) => console.log(`Message SID ${message.sid}`))
+        .catch((error) => console.error(error));
+};
 
 module.exports = {
     removeSensitiveData,
     generateRandomNumber,
-    generateHash
+    generateQrString,
+    decryptQrString,
+    sendSms
 };

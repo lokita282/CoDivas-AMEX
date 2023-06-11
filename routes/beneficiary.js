@@ -10,7 +10,8 @@ const {
     viewCategoryVouchersByStatus,
     viewOneVoucher,
     getRedemptionStatus,
-    getVerificationCode
+    getVerificationCode,
+    getTransactions
 } = require('../controllers/user');
 
 // Initializing router
@@ -56,6 +57,12 @@ router.get(
     '/verification-code/:id',
     [authorizeJWT.verifyJWT, authorizeJWT.roleBeneficiary],
     getVerificationCode
+);
+
+router.get(
+    '/transactions',
+    [authorizeJWT.verifyJWT, authorizeJWT.roleBeneficiary],
+    getTransactions
 );
 
 module.exports = router;
