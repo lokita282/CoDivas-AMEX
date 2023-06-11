@@ -36,6 +36,8 @@ const createERupiVoucher = async (req, res) => {
             state: req.body.state,
             description: req.body.description,
             amount: req.body.amount,
+            balanceAmount:
+                req.body.useType == 'multiple' ? req.body.amount : undefined,
             useType: req.body.useType,
             uid: shortCodes[req.body.category] + '-' + generateRandomNumber(8),
             status: Date.now() <= req.body.startsAt ? 'upcoming' : 'valid'
@@ -121,6 +123,10 @@ const createBulkERupiVouchers = async (req, res) => {
                         state: newVoucher.state,
                         description: newVoucher.description,
                         amount: newVoucher.amount,
+                        balanceAmount:
+                            newVoucher.useType == 'multiple'
+                                ? newVoucher.amount
+                                : undefined,
                         useType: newVoucher.useType,
                         uid:
                             shortCodes[newVoucher.category] +
@@ -164,9 +170,7 @@ const createBulkERupiVouchers = async (req, res) => {
                     const org = organisationDetails.find(
                         ({ orgId }) => orgId == currentVoucher.orgId
                     );
-                    let qrString = generateQrString(
-                        currentVoucher.uid
-                    );
+                    let qrString = generateQrString(currentVoucher.uid);
 
                     // SEND SMS TO USER W STRING
                     await sendSms(

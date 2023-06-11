@@ -86,6 +86,9 @@ const voucherSchema = new mongoose.Schema(
             type: Number,
             required: true
         },
+        balanceAmount: {
+            type: Number
+        },
         useType: {
             type: String,
             enum: ['single', 'multiple']
