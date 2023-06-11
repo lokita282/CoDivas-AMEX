@@ -6,13 +6,15 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import { AppBar, Toolbar, Tooltip } from '@mui/material';
+import { AppBar, Avatar, Button, CardMedia, Toolbar, Tooltip } from '@mui/material';
 import { Icon } from '@iconify/react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { btn, circularImage, df_jc_ac, df_jfe_ac } from '../../theme/CssMy'
 import { useContext } from 'react';
 import { codivascontext } from '../../context/MainContext';
+import { generateFromString } from 'generate-avatar'
+import slogo from '../../images/logo.png'
 
 const drawerWidth = 240;
 
@@ -94,15 +96,20 @@ export default function SideDrawer(props) {
 
     return (
         <Box sx={{ display: 'flex' }}>
-            <AppBar sx={{ marginLeft: '50px', backgroundColor: 'white', color: '#3770FF', boxShadow: '0px 1px 26px rgba(94, 99, 116, 0.05)' }}>
+            <AppBar sx={{ marginLeft: '50px', backgroundColor: 'white', color: '#375EC0', boxShadow: '0px 1px 26px rgba(94, 99, 116, 0.05)' }}>
                 <Toolbar sx={df_jfe_ac}>
-                    Hey
+                    <Avatar sx={{ marginRight: '2%' }} alt={user?.phone} src={`data:image/svg+xml;utf8,${generateFromString(user?.phone)}`} />
+                    <Button sx={btn} onClick={() => {
+                        localStorage.setItem('codivasUser', null)
+                        localStorage.setItem('codivasToken', null)
+                        navigate('/login')
+                    }}>Logout</Button>
                 </Toolbar>
             </AppBar>
             <Drawer variant="permanent" >
                 <Box sx={gridcon}>
                     <Box sx={{ ...df_jc_ac, marginTop: '5%' }}>
-                        {/* <CardMedia component='img' image={logo} sx={{ borderRadius: '50px', width: '75%' }} /> */}
+                        <CardMedia component='img' image={slogo} sx={{ borderRadius: '50px', width: '98%', marginTop: '15%' }} />
                     </Box>
                     <Box>
                         <List>
@@ -110,7 +117,7 @@ export default function SideDrawer(props) {
                                 <ListItem disablePadding onClick={() => navigate('/')} sx={{ display: 'block', marginTop: '20%' }}>
                                     <ListItemButton sx={listItemBtn}>
                                         <ListItemIcon sx={listItemIco}>
-                                            <Icon icon="material-symbols:home-rounded" color={url === '' ? '#3770FF' : '#6A707F'} width='26' height='26' />
+                                            <Icon icon="material-symbols:home-rounded" color={url === 'dashboard' ? '#375EC0' : '#6A707F'} width='26' height='26' />
                                         </ListItemIcon>
                                     </ListItemButton>
                                 </ListItem>
@@ -120,7 +127,7 @@ export default function SideDrawer(props) {
                                 <ListItem disablePadding onClick={() => navigate('/chat')} sx={{ display: 'block', marginTop: '20%' }}>
                                     <ListItemButton sx={listItemBtn}>
                                         <ListItemIcon sx={{ ...listItemIco, marginLeft: '2px' }}>
-                                            <Icon color={url.includes('chat') ? '#3770FF' : '#6A707F'} icon="mdi:message" width='20' height='20' />
+                                            <Icon color={url.includes('chat') ? '#375EC0' : '#6A707F'} icon="mdi:message" width='20' height='20' />
                                         </ListItemIcon>
                                     </ListItemButton>
                                 </ListItem>
@@ -129,7 +136,7 @@ export default function SideDrawer(props) {
                                 <ListItem disablePadding onClick={() => navigate('/experts')} sx={{ display: 'block', marginTop: '20%' }}>
                                     <ListItemButton sx={listItemBtn}>
                                         <ListItemIcon sx={listItemIco}>
-                                            <Icon color={url.includes('expert') ? '#3770FF' : '#6A707F'} icon="mdi:user-search" width='24' height='24' />
+                                            <Icon color={url.includes('expert') ? '#375EC0' : '#6A707F'} icon="mdi:user-search" width='24' height='24' />
                                         </ListItemIcon>
                                     </ListItemButton>
                                 </ListItem>
@@ -139,7 +146,7 @@ export default function SideDrawer(props) {
                                 <ListItem disablePadding onClick={() => navigate('/myorganization')} sx={{ display: 'block', marginTop: '20%' }}>
                                     <ListItemButton sx={listItemBtn}>
                                         <ListItemIcon sx={listItemIco}>
-                                            <Icon color={url === 'myorganization' ? '#3770FF' : '#6A707F'} icon="mingcute:building-2-fill" width='24' height='24' />
+                                            <Icon color={url === 'myorganization' ? '#375EC0' : '#6A707F'} icon="mingcute:building-2-fill" width='24' height='24' />
                                         </ListItemIcon>
                                     </ListItemButton>
                                 </ListItem>
@@ -148,7 +155,7 @@ export default function SideDrawer(props) {
                                 <ListItem disablePadding onClick={() => navigate('/organizations')} sx={{ display: 'block', marginTop: '20%' }}>
                                     <ListItemButton sx={listItemBtn}>
                                         <ListItemIcon sx={listItemIco}>
-                                            <Icon color={url.includes('organizations') ? '#3770FF' : '#6A707F'} icon="mdi:briefcase-search" width='24' height='24' />
+                                            <Icon color={url.includes('organizations') ? '#375EC0' : '#6A707F'} icon="mdi:briefcase-search" width='24' height='24' />
                                         </ListItemIcon>
                                     </ListItemButton>
                                 </ListItem>

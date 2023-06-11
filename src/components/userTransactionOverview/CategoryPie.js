@@ -48,7 +48,7 @@ const NivoPie = () => {
       cornerRadius={3}
       activeInnerRadiusOffset={5}
       activeOuterRadiusOffset={8}
-      colors={{ scheme: 'blues' }}
+      colors={{ scheme: 'green_blue' }}
       borderWidth={1}
       borderColor={{
         from: 'color',
@@ -180,14 +180,16 @@ const NivoPie = () => {
             style={{
               height: '350px',
               overflow: 'hidden',
-              borderRadius: '30px',
+              borderRadius: '10px',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
               alignItems: 'center',
               textAlign: 'center',
               verticalAlign: 'middle',
-              backgroundColor: '#fff'
+              backgroundColor: '#fff',
+              padding: '5%',
+              boxShadow: '0px 1px 26px rgba(94, 99, 116, 0.21)'
             }}
           >
             <MyResponsivePie data={pieData} />

@@ -60,25 +60,24 @@ export default function DashboardPage() {
     <SideDrawer>
       <Grid container spacing={2}>
         <Grid item xs={6.5}>
-          <Paper style={styles.imgPaperContainer}></Paper>
+          <Paper style={styles?.imgPaperContainer}></Paper>
         </Grid>
         <Grid item xs={5.5}>
           <Paper style={styles.paperContainer} elevation={0}>
-            <Typography variant="h1" style={styles.gradientText}>
+            <Typography variant="h1" style={styles?.gradientText}>
               <b>Generate e₹UPI</b>
             </Typography>
-            <Button variant="contained" style={styles.proceedBtn}>
+            <Button variant="contained" style={styles?.proceedBtn}>
               <b>Proceed ➤</b>
             </Button>
           </Paper>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h2" style={styles.gradientText}>
+          <Typography variant="h2" style={styles?.gradientText}>
             <b>Analytics</b>
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          {/* <Item>xs=4</Item> */}
           <BankAnalytics />
         </Grid>
       </Grid>

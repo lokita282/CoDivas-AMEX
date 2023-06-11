@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import './App.css';
 import { codivascontext } from './context/MainContext';
-import SideDrawer from './components/sidebar/Sidebar';
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import MainRouter from './router/MainRouter';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { useEffect } from 'react';
 
 
 function App() {
@@ -15,6 +16,11 @@ function App() {
     user, setUser,
     token, setToken
   }
+
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem('codivasUser')))
+    setToken(localStorage.getItem('codivasToken'))
+  }, [])
 
   return (
     <codivascontext.Provider value={context}>
