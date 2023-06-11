@@ -1,10 +1,14 @@
 const { decrypt } = require('crypto-js/aes');
 const User = require('../models/user');
 const Voucher = require('../models/voucher');
-const Bank = require('../models/bank');
+const Transaction = require('../models/transaction');
+const {
+    generateQrString,
+    generateRandomNumber,
+    decryptQrString
+} = require('../utils/functions');
+const { setVoucherStatuses } = require('../utils/cron-jobs');
 const Beneficiary = require('../models/beneficiary');
-
-const { generateHash, generateRandomNumber } = require('../utils/functions');
 
 const viewAllVouchers = async (req, res) => {
     try {
@@ -93,7 +97,8 @@ const viewOneVoucher = async (req, res) => {
         let user = req.user;
         let voucherId = req.params.id;
         let voucher = await Voucher.findOne({ _id: voucherId });
-
+        let voucherStatusSet = await setVoucherStatuses([voucher]);
+        voucher = voucherStatusSet[0];
         if (!voucher) {
             return res.status(404).json({
                 message: 'Voucher not found'
@@ -108,7 +113,7 @@ const viewOneVoucher = async (req, res) => {
         res.status(200).json({
             data: {
                 ...voucher._doc,
-                hash: generateHash(voucher._id.toString() + user.phone)
+                qrString: generateQrString(voucher.uid)
             }
         });
     } catch (error) {
