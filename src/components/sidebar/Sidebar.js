@@ -117,36 +117,26 @@ export default function SideDrawer(props) {
                                 <ListItem disablePadding onClick={() => navigate('/')} sx={{ display: 'block', marginTop: '20%' }}>
                                     <ListItemButton sx={listItemBtn}>
                                         <ListItemIcon sx={listItemIco}>
-                                            <Icon icon="material-symbols:home-rounded" color={url === 'dashboard' ? '#375EC0' : '#6A707F'} width='26' height='26' />
+                                            <Icon icon="material-symbols:home-rounded" color={url === '' ? '#375EC0' : '#6A707F'} width='26' height='26' />
                                         </ListItemIcon>
                                     </ListItemButton>
                                 </ListItem>
                             </Tooltip>
-                            <Tooltip title="Chat">
-
-                                <ListItem disablePadding onClick={() => navigate('/chat')} sx={{ display: 'block', marginTop: '20%' }}>
-                                    <ListItemButton sx={listItemBtn}>
-                                        <ListItemIcon sx={{ ...listItemIco, marginLeft: '2px' }}>
-                                            <Icon color={url.includes('chat') ? '#375EC0' : '#6A707F'} icon="mdi:message" width='20' height='20' />
-                                        </ListItemIcon>
-                                    </ListItemButton>
-                                </ListItem>
-                            </Tooltip>
-                            <Tooltip title="Find experts">
-                                <ListItem disablePadding onClick={() => navigate('/experts')} sx={{ display: 'block', marginTop: '20%' }}>
+                            <Tooltip title="Vouchers">
+                                <ListItem disablePadding onClick={() => navigate('/user/getstarted')} sx={{ display: 'block', marginTop: '20%' }}>
                                     <ListItemButton sx={listItemBtn}>
                                         <ListItemIcon sx={listItemIco}>
-                                            <Icon color={url.includes('expert') ? '#375EC0' : '#6A707F'} icon="mdi:user-search" width='24' height='24' />
+                                            <Icon color={url.includes('user') ? '#375EC0' : '#6A707F'} icon="mingcute:coupon-fill" width='24' height='24' />
                                         </ListItemIcon>
                                     </ListItemButton>
                                 </ListItem>
                             </Tooltip>
-                            <Tooltip title="My organization">
+                            <Tooltip title="Government Schemes">
 
-                                <ListItem disablePadding onClick={() => navigate('/myorganization')} sx={{ display: 'block', marginTop: '20%' }}>
+                                <ListItem disablePadding onClick={() => navigate('/scheme')} sx={{ display: 'block', marginTop: '20%' }}>
                                     <ListItemButton sx={listItemBtn}>
                                         <ListItemIcon sx={listItemIco}>
-                                            <Icon color={url === 'myorganization' ? '#375EC0' : '#6A707F'} icon="mingcute:building-2-fill" width='24' height='24' />
+                                            <Icon color={url.includes('scheme') ? '#375EC0' : '#6A707F'} icon="mingcute:government-fill" width='24' height='24' />
                                         </ListItemIcon>
                                     </ListItemButton>
                                 </ListItem>
