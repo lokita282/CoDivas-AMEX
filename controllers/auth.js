@@ -93,7 +93,6 @@ const signupBeneficiary = async (req, res) => {
         //     }
         // }
 
-        
         let newUser = new User({
             ...req.body,
             type: req.body.type ? req.body.type : 'beneficiary'
@@ -193,7 +192,8 @@ const signupMerchant = async (req, res) => {
                 '-' +
                 fourDigitNumber(newUser._id.toString()),
             ...req.body,
-            businessName
+            businessName,
+            user: newUser._id
         });
         await newMerchant.save();
         newUser.merchant = newMerchant._id;

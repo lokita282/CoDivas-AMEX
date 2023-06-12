@@ -145,9 +145,18 @@ const getTransactions = async (req, res) => {
         const transactions = await Transaction.find({
             merchantId: merchant._id
         });
+        let results = [];
+        for (let transaction of transactions) {
+            let beneficiary = await Beneficiary.findById(transaction.beneficiaryId).populate('user');
+            results.push({
+                ...transaction._doc,
+                beneficiaryName: beneficiary.user.name
+            });
+        }
+                
         res.status(200).json({
             success: true,
-            transactions
+            transactions: results
         });
     } catch (error) {
         res.status(500).json({

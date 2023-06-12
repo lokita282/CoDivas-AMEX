@@ -181,8 +181,16 @@ const getTransactions = async (req, res) => {
         let transactions = await Transaction.find({
             beneficiaryId: beneficiary._id
         });
+
+        let results = [];
+        for (let transaction of transactions) {
+            results.push({
+                ...transaction._doc,
+                beneficiaryName: user.name
+            });
+        }
         res.status(200).json({
-            data: transactions
+            data: results
         });
     } catch (error) {
         res.status(500).json({
