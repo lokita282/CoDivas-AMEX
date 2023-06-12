@@ -22,6 +22,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
+    "fuzzy-search": "^3.2.1",
     "generate-avatar": "^1.4.10",
     "moment": "^2.29.4",
     "qr-scanner": "^1.4.2",
