@@ -7,6 +7,7 @@ import Dashboard from '../pages/Dashboard';
 import ScanPage from '../pages/ScanPage';
 import Verify from '../pages/Verify';
 import Tick from '../components/verification/Tick';
+import Gst from '../components/auth/Gst';
 
 
 export default function MainRouter() {
@@ -16,9 +17,9 @@ export default function MainRouter() {
             <Outlet />
         </> : <>
             {
-                JSON.parse(localStorage.getItem("codivasUser")) === null && setOpen(true)
+                JSON.parse(localStorage.getItem("codivasUser")) === null && <Navigate to="/" />
             }
-            <Navigate to="/usermerch/login" />
+
         </>
     }
 
@@ -31,11 +32,20 @@ export default function MainRouter() {
             <Routes>
                 <Route exact path='/signup' element={<SignupPage />} />
                 <Route exact path='/' element={<LoginPage />} />
-                <Route exact path='/dashboard' element={<Dashboard />} />
-                <Route exact path='/scan' element={<ScanPage />} />
-                <Route exact path='/scan-verify' element={<Verify />} />
-                <Route exact path='/scan-tick' element={<Tick />} />
+                <Route exact path='/gst' element={<Gst />} />
 
+                <Route path='/dashboard' element={<PrivateRouter />} >
+                    <Route exact path='/dashboard' element={<Dashboard />} />
+                </Route>
+                <Route path='/scan' element={<PrivateRouter />} >
+                    <Route exact path='/scan' element={<ScanPage />} />
+                </Route>
+                <Route path='/scan-verify' element={<PrivateRouter />} >
+                    <Route exact path='/scan-verify' element={<Verify />} />
+                </Route>
+                <Route path='/scan-tick' element={<PrivateRouter />} >
+                    <Route exact path='/scan-tick' element={<Tick />} />
+                </Route>
             </Routes>
         </>
     )

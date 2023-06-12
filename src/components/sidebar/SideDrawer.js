@@ -17,11 +17,14 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { Icon } from '@iconify/react';
-import { Avatar, CardMedia } from '@mui/material';
+import { Avatar, Button, CardMedia } from '@mui/material';
 import logo from '../../images/logo.png'
 import slogo from '../../images/logoshort.png'
 import { useNavigate } from 'react-router';
-import { df_jfs_ac_fdc } from '../../theme/CssMy';
+import { btn, df_jfs_ac_fdc } from '../../theme/CssMy';
+import { useContext } from 'react';
+import { merchant } from '../../context/MainContext';
+import { generateFromString } from 'generate-avatar'
 
 const drawerWidth = 240;
 
@@ -34,6 +37,7 @@ function ResponsiveDrawer(props) {
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
+    const { user } = useContext(merchant)
 
     const drawer = (
         <div style={df_jfs_ac_fdc}>
@@ -87,7 +91,14 @@ function ResponsiveDrawer(props) {
                     >
                         <MenuIcon sx={{ color: '#375EC0' }} />
                     </IconButton>
-                    <Avatar >KM</Avatar>
+                    <div style={{ display: 'flex' }}>
+                        <Avatar sx={{ marginRight: '5%' }} alt={user?.phone} src={`data:image/svg+xml;utf8,${generateFromString(user?.phone)}`} />
+                        <Button sx={btn} onClick={() => {
+                            localStorage.setItem('codivasUser', null)
+                            localStorage.setItem('codivasToken', null)
+                            navigate('/')
+                        }}>Logout</Button>
+                    </div>
                 </Toolbar>
             </AppBar>
             <Box
