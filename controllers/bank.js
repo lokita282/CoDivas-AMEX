@@ -11,6 +11,7 @@ const { shortCodes, organisationDetails } = require('./../utils/data');
 const csvtoJSON = require('csvtojson');
 const fs = require('fs');
 const axios = require('axios');
+const _ = require('lodash');
 
 const createERupiVoucher = async (req, res) => {
     try {
@@ -268,9 +269,89 @@ const revokeVoucher = async (req, res) => {
     }
 };
 
+const weeklyData = async (req, res) => {
+    try {
+        let barData = [];
+        const barDataObj = {
+            day: '',
+            health: 0,
+            agriculture: 0,
+            education: 0,
+            food: 0,
+            housing: 0,
+            transportation: 0,
+            utility: 0,
+            telecommunication: 0,
+            other: 0
+        };
+        const weekday = ['SUN', 'MON', 'TUES', 'WED', 'THUR', 'FRI', 'SAT'];
+
+        const bank = await Bank.findById(req.user.bank);
+
+        var d = new Date();
+        d.setDate(d.getDate() - 6);
+
+        let vouchers = await Voucher.find({
+            issuedById: bank.user,
+            createdAt: { $gte: d }
+        });
+
+        const count = (data, d) => {
+            let temp = _.cloneDeep(barDataObj);
+            temp.day = weekday[d.getDay()];
+
+            for (let item of data) {
+                if (item.category == 'health') {
+                    temp.health += 1;
+                } else if (item.category == 'agriculture') {
+                    temp.agriculture += 1;
+                } else if (item.category == 'education') {
+                    temp.education += 1;
+                } else if (item.category == 'food') {
+                    temp.food += 1;
+                } else if (item.category == 'housing') {
+                    temp.housing += 1;
+                } else if (item.category == 'transportation') {
+                    temp.transportation += 1;
+                } else if (item.category == 'utility') {
+                    temp.utility += 1;
+                } else if (item.category == 'telecommunication') {
+                    temp.telecommunication += 1;
+                } else if (item.category == 'other') {
+                    temp.other += 1;
+                }
+            }
+            return temp;
+        };
+
+        for (let i = 0; i < 7; i++) {
+            let temp = [];
+            for (let item of vouchers) {
+                if (item.createdAt.toDateString() === d.toDateString()) {
+                    temp.push(item);
+                }
+            }
+            barData.push(count(temp, d));
+            d.setDate(d.getDate() + 1);
+        }
+
+        res.status(200).json({
+            message: 'Weekly Vouchers',
+            data: {
+                barData
+            }
+        });
+    } catch (error) {
+        res.status(400).json({
+            message: error.message
+        });
+    }
+};
+
 module.exports = {
     createERupiVoucher,
     createBulkERupiVouchers,
     viewVouchers,
-    revokeVoucher
+    revokeVoucher,
+    weeklyData
 };
