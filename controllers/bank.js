@@ -269,7 +269,7 @@ const revokeVoucher = async (req, res) => {
     }
 };
 
-const weeklyData = async (req, res) => {
+const weeklyCategoryData = async (req, res) => {
     try {
         let barData = [];
         const barDataObj = {
@@ -348,10 +348,114 @@ const weeklyData = async (req, res) => {
     }
 };
 
+const weeklyOrgData = async (req, res) => {
+    try {
+        let barData = [];
+        const barDataObj = {
+            id: '',
+            data: [
+                {
+                    x: 'health',
+                    y: 0
+                },
+                {
+                    x: 'agriculture',
+                    y: 0
+                },
+                {
+                    x: 'education',
+                    y: 0
+                },
+                {
+                    x: 'food',
+                    y: 0
+                },
+                {
+                    x: 'housing',
+                    y: 0
+                },
+                {
+                    x: 'transportation',
+                    y: 0
+                },
+                {
+                    x: 'utility',
+                    y: 0
+                },
+                {
+                    x: 'telecommunication',
+                    y: 0
+                },
+                {
+                    x: 'others',
+                    y: 0
+                }
+            ]
+        };
+
+        const bank = await Bank.findById(req.user.bank);
+
+        let vouchers = await Voucher.find({
+            issuedById: bank.user
+        });
+
+        const count = (data, orgName) => {
+            let temp = _.cloneDeep(barDataObj);
+            temp.id = orgName;
+
+            for (let item of data) {
+                if (item.category == 'health') {
+                    temp.data[0].y += 1;
+                } else if (item.category == 'agriculture') {
+                    temp.data[1].y += 1;
+                } else if (item.category == 'education') {
+                    temp.data[2].y += 1;
+                } else if (item.category == 'food') {
+                    temp.data[3].y += 1;
+                } else if (item.category == 'housing') {
+                    temp.data[4].y += 1;
+                } else if (item.category == 'transportation') {
+                    temp.data[5].y += 1;
+                } else if (item.category == 'utility') {
+                    temp.data[6].y += 1;
+                } else if (item.category == 'telecommunication') {
+                    temp.data[7].y += 1;
+                } else if (item.category == 'other') {
+                    temp.data[8].y += 1;
+                }
+            }
+            return temp;
+        };
+
+        for (let item of organisationDetails) {
+            let temp = [];
+            for (let itemception of vouchers) {
+                if (item.orgId.toString() === itemception.orgId.toString()) {
+                    temp.push(itemception);
+                }
+            }
+            console.log(temp);
+            barData.push(count(temp, item.orgName));
+        }
+
+        res.status(200).json({
+            message: 'Weekly Vouchers for Organisation',
+            data: {
+                barData
+            }
+        });
+    } catch (error) {
+        res.status(400).json({
+            message: error.message
+        });
+    }
+};
+
 module.exports = {
     createERupiVoucher,
     createBulkERupiVouchers,
     viewVouchers,
     revokeVoucher,
-    weeklyData
+    weeklyCategoryData,
+    weeklyOrgData
 };

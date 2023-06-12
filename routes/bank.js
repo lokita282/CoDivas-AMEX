@@ -9,7 +9,8 @@ const {
     createBulkERupiVouchers,
     viewVouchers,
     revokeVoucher,
-    weeklyData
+    weeklyCategoryData,
+    weeklyOrgData
 } = require('../controllers/bank');
 
 // Initializing router
@@ -41,9 +42,15 @@ router.patch(
 );
 
 router.get(
-    '/weekly-data',
+    '/weekly-category-data',
     [authorizeJWT.verifyJWT, authorizeJWT.roleBank],
-    weeklyData
+    weeklyCategoryData
+);
+
+router.get(
+    '/weekly-org-data',
+    [authorizeJWT.verifyJWT, authorizeJWT.roleBank],
+    weeklyOrgData
 );
 
 module.exports = router;
