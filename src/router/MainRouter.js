@@ -17,7 +17,7 @@ export default function MainRouter() {
             <Outlet />
         </> : <>
             {
-                JSON.parse(localStorage.getItem("codivasUser")) === null && <Navigate to="/" />
+                JSON.parse(localStorage.getItem("codivasUser")) === null && <Navigate to="/login" />
             }
 
         </>
@@ -31,17 +31,17 @@ export default function MainRouter() {
         <>
             <Routes>
                 <Route exact path='/signup' element={<SignupPage />} />
-                <Route exact path='/' element={<LoginPage />} />
+                <Route exact path='/login' element={<LoginPage />} />
                 <Route exact path='/gst' element={<Gst />} />
 
-                <Route path='/dashboard' element={<PrivateRouter />} >
-                    <Route exact path='/dashboard' element={<Dashboard />} />
+                <Route path='/' element={<PrivateRouter />} >
+                    <Route exact path='/' element={<Dashboard />} />
                 </Route>
                 <Route path='/scan' element={<PrivateRouter />} >
                     <Route exact path='/scan' element={<ScanPage />} />
                 </Route>
-                <Route path='/scan-verify' element={<PrivateRouter />} >
-                    <Route exact path='/scan-verify' element={<Verify />} />
+                <Route path='/scan-verify/:id/:amount' element={<PrivateRouter />} >
+                    <Route exact path='/scan-verify/:id/:amount' element={<Verify />} />
                 </Route>
                 <Route path='/scan-tick' element={<PrivateRouter />} >
                     <Route exact path='/scan-tick' element={<Tick />} />
