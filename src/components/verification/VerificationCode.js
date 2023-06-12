@@ -2,10 +2,36 @@ import React from 'react'
 import ReactInputVerificationCode from 'react-input-verification-code'
 import { bold_name, btn_connect, df_jc_ac, df_jc_ac_fdc, link, ptag } from '../../theme/CssMy'
 import { Box, Button, Divider, Typography } from '@mui/material'
-import { useNavigate } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
+import { useState } from 'react'
+import { redeem } from '../../services/merchantServices'
+import errorHandler from '../toasts/errorHandler'
 
 export default function VerificationCode() {
     const navigate = useNavigate()
+    const params = useParams()
+    const id = params.id
+    const amount = params.amount
+    const [code, setCode] = useState()
+    
+    const clicked = async () => {
+        await redeem({
+            "voucherId": id,
+            "verificationCode": parseInt(code),
+            "transactionAmount": parseInt(amount)
+        })
+            .then((res) => {
+                console.log(res)
+                if(res.success){
+                    navigate('/scan-tick')
+                }else{
+                    errorHandler(res.data.message)
+                    navigate('/')
+                }
+            }).catch((e) => console.log(e))
+    }
+
+    console.log(code)
     return (
         <Box sx={{ ...df_jc_ac_fdc, height: '80vh', padding: '15%' }}>
             <Typography sx={{ ...bold_name, marginBottom: '5%' }}>Verification Code</Typography>
@@ -14,7 +40,7 @@ export default function VerificationCode() {
                 <ReactInputVerificationCode
                     autoFocus
                     placeholder=""
-                    onChange={console.log}
+                    onChange={(e) => setCode(e)}
                 />
             </div>
             <div style={{ marginTop: '10%', ...df_jc_ac }}>
@@ -26,7 +52,7 @@ export default function VerificationCode() {
             <Divider />
             <div style={{ ...df_jc_ac, width: '100%', marginTop: '10%' }}>
                 <Button onClick={() => navigate('/scan')} sx={{ ...btn_connect, width: '100%', marginRight: '5%' }}>Cancel</Button>
-                <Button onClick={() => navigate('/scan-tick')} sx={{ ...btn_connect, backgroundColor: '#375EC0', color: 'white', width: '100%', '&:hover': { color: '#375EC0' } }}>Continue</Button>
+                <Button onClick={clicked} sx={{ ...btn_connect, backgroundColor: '#375EC0', color: 'white', width: '100%', '&:hover': { color: '#375EC0' } }}>Continue</Button>
 
             </div>
         </Box>
