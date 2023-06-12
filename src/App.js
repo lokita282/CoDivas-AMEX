@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import MainRouter from './router/MainRouter';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function App() {
   const [user, setUser] = useState(null)
@@ -13,6 +13,11 @@ function App() {
     user, setUser,
     token, setToken
   }
+
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem('codivasUser')))
+    setToken(localStorage.getItem('codivasToken'))
+  }, [])
 
   return (
     <merchant.Provider value={context}>
