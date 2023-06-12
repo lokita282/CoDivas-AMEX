@@ -10,6 +10,8 @@ const {
 const { shortCodes, organisationDetails } = require('./../utils/data');
 const csvtoJSON = require('csvtojson');
 const fs = require('fs');
+const axios = require('axios');
+const _ = require('lodash');
 
 const createERupiVoucher = async (req, res) => {
     try {
@@ -36,13 +38,14 @@ const createERupiVoucher = async (req, res) => {
             state: req.body.state,
             description: req.body.description,
             amount: req.body.amount,
+            balanceAmount:
+                req.body.useType == 'multiple' ? req.body.amount : undefined,
             useType: req.body.useType,
             uid: shortCodes[req.body.category] + '-' + generateRandomNumber(8),
             status: Date.now() <= req.body.startsAt ? 'upcoming' : 'valid'
         });
 
         await voucher.save();
-
         // Voucher created by bank
         currentBank[0].vouchersIssued.push(voucher._id);
         await currentBank[0].save();
@@ -67,9 +70,22 @@ const createERupiVoucher = async (req, res) => {
         let qrString = generateQrString(voucher.uid);
 
         // SEND SMS TO USER W STRING
-        await sendSms(
-            `Dear Beneficiary, you have received your e-₹UPI from ${org.orgName}. It can be accessed the eZ-RUPI app. Incase the link does not work, the e-₹UPI can be accessed through the string "${qrString}". Do not share this with anyone other than the concerned authorities. For queries, reach out to us at https://american-express-ez-rupi.com/help.`,
-            req.body.beneficiaryPhone
+        // await sendSms(
+        //     `Dear Beneficiary, you have received your ₹UPI from ${org.orgName}. It can be accessed via the eZ-RUPI app. Incase the link does not work, the e₹UPI can be accessed through the string ${qrString}. Do not share this with anyone other than the concerned authorities. For queries reach out to us at https://american-express-ez-rupi.com/help.`,
+        //     req.body.beneficiaryPhone
+        // );
+
+        await axios.post(
+            `https://ntfy.sh/${voucher.beneficiaryPhone}`,
+
+            `Received Rs. ${voucher.amount} e-RUPI voucher for ${voucher.category}`,
+            {
+                headers: {
+                    Icon: org.orgLogo,
+                    Title: 'New voucher received!',
+                    Tags: 'money_with_wings'
+                }
+            }
         );
 
         res.status(201).json({
@@ -121,6 +137,10 @@ const createBulkERupiVouchers = async (req, res) => {
                         state: newVoucher.state,
                         description: newVoucher.description,
                         amount: newVoucher.amount,
+                        balanceAmount:
+                            newVoucher.useType == 'multiple'
+                                ? newVoucher.amount
+                                : undefined,
                         useType: newVoucher.useType,
                         uid:
                             shortCodes[newVoucher.category] +
@@ -167,9 +187,21 @@ const createBulkERupiVouchers = async (req, res) => {
                     let qrString = generateQrString(currentVoucher.uid);
 
                     // SEND SMS TO USER W STRING
-                    await sendSms(
-                        `Dear Beneficiary, you have received you're e-₹UPI from ${org.orgName}. It can be accessed via the eZ-RUPI app. Incase the link does not work, the e-₹UPI can be accessed through the string "${qrString}". Do not share this with anyone other than the concerned authorities. For queries reach out to us at https://american-express-ez-rupi.com/help.`,
-                        currentVoucher.beneficiaryPhone
+                    // await sendSms(
+                    //     `Dear Beneficiary, you have received your e-₹UPI from ${org.orgName}. It can be accessed via the eZ-RUPI app. Incase the link does not work, the e-₹UPI can be accessed through the string "${qrString}". Do not share this with anyone other than the concerned authorities. For queries reach out to us at https://american-express-ez-rupi.com/help.`,
+                    //     currentVoucher.beneficiaryPhone
+                    // );
+                    await axios.post(
+                        `https://ntfy.sh/${currentVoucher.beneficiaryPhone}`,
+
+                        `Received Rs. ${currentVoucher.amount} e-RUPI voucher for ${currentVoucher.category}`,
+                        {
+                            headers: {
+                                Icon: org.orgLogo,
+                                Title: 'New voucher received!',
+                                Tags: 'money_with_wings'
+                            }
+                        }
                     );
                 }
                 res.status(201).json({
@@ -237,9 +269,193 @@ const revokeVoucher = async (req, res) => {
     }
 };
 
+const weeklyCategoryData = async (req, res) => {
+    try {
+        let barData = [];
+        const barDataObj = {
+            day: '',
+            health: 0,
+            agriculture: 0,
+            education: 0,
+            food: 0,
+            housing: 0,
+            transportation: 0,
+            utility: 0,
+            telecommunication: 0,
+            other: 0
+        };
+        const weekday = ['SUN', 'MON', 'TUES', 'WED', 'THUR', 'FRI', 'SAT'];
+
+        const bank = await Bank.findById(req.user.bank);
+
+        var d = new Date();
+        d.setDate(d.getDate() - 6);
+
+        let vouchers = await Voucher.find({
+            issuedById: bank.user,
+            createdAt: { $gte: d }
+        });
+
+        const count = (data, d) => {
+            let temp = _.cloneDeep(barDataObj);
+            temp.day = weekday[d.getDay()];
+
+            for (let item of data) {
+                if (item.category == 'health') {
+                    temp.health += 1;
+                } else if (item.category == 'agriculture') {
+                    temp.agriculture += 1;
+                } else if (item.category == 'education') {
+                    temp.education += 1;
+                } else if (item.category == 'food') {
+                    temp.food += 1;
+                } else if (item.category == 'housing') {
+                    temp.housing += 1;
+                } else if (item.category == 'transportation') {
+                    temp.transportation += 1;
+                } else if (item.category == 'utility') {
+                    temp.utility += 1;
+                } else if (item.category == 'telecommunication') {
+                    temp.telecommunication += 1;
+                } else if (item.category == 'other') {
+                    temp.other += 1;
+                }
+            }
+            return temp;
+        };
+
+        for (let i = 0; i < 7; i++) {
+            let temp = [];
+            for (let item of vouchers) {
+                if (item.createdAt.toDateString() === d.toDateString()) {
+                    temp.push(item);
+                }
+            }
+            barData.push(count(temp, d));
+            d.setDate(d.getDate() + 1);
+        }
+
+        res.status(200).json({
+            message: 'Weekly Vouchers',
+            data: {
+                barData
+            }
+        });
+    } catch (error) {
+        res.status(400).json({
+            message: error.message
+        });
+    }
+};
+
+const weeklyOrgData = async (req, res) => {
+    try {
+        let barData = [];
+        const barDataObj = {
+            id: '',
+            data: [
+                {
+                    x: 'health',
+                    y: 0
+                },
+                {
+                    x: 'agriculture',
+                    y: 0
+                },
+                {
+                    x: 'education',
+                    y: 0
+                },
+                {
+                    x: 'food',
+                    y: 0
+                },
+                {
+                    x: 'housing',
+                    y: 0
+                },
+                {
+                    x: 'transportation',
+                    y: 0
+                },
+                {
+                    x: 'utility',
+                    y: 0
+                },
+                {
+                    x: 'telecommunication',
+                    y: 0
+                },
+                {
+                    x: 'others',
+                    y: 0
+                }
+            ]
+        };
+
+        const bank = await Bank.findById(req.user.bank);
+
+        let vouchers = await Voucher.find({
+            issuedById: bank.user
+        });
+
+        const count = (data, orgName) => {
+            let temp = _.cloneDeep(barDataObj);
+            temp.id = orgName;
+
+            for (let item of data) {
+                if (item.category == 'health') {
+                    temp.data[0].y += 1;
+                } else if (item.category == 'agriculture') {
+                    temp.data[1].y += 1;
+                } else if (item.category == 'education') {
+                    temp.data[2].y += 1;
+                } else if (item.category == 'food') {
+                    temp.data[3].y += 1;
+                } else if (item.category == 'housing') {
+                    temp.data[4].y += 1;
+                } else if (item.category == 'transportation') {
+                    temp.data[5].y += 1;
+                } else if (item.category == 'utility') {
+                    temp.data[6].y += 1;
+                } else if (item.category == 'telecommunication') {
+                    temp.data[7].y += 1;
+                } else if (item.category == 'other') {
+                    temp.data[8].y += 1;
+                }
+            }
+            return temp;
+        };
+
+        for (let item of organisationDetails) {
+            let temp = [];
+            for (let itemception of vouchers) {
+                if (item.orgId.toString() === itemception.orgId.toString()) {
+                    temp.push(itemception);
+                }
+            }
+            console.log(temp);
+            barData.push(count(temp, item.orgName));
+        }
+
+        res.status(200).json({
+            message: 'Weekly Vouchers for Organisation',
+            data: {
+                barData
+            }
+        });
+    } catch (error) {
+        res.status(400).json({
+            message: error.message
+        });
+    }
+};
+
 module.exports = {
     createERupiVoucher,
     createBulkERupiVouchers,
     viewVouchers,
-    revokeVoucher
+    revokeVoucher,
+    weeklyCategoryData,
+    weeklyOrgData
 };

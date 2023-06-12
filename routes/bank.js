@@ -8,7 +8,9 @@ const {
     createERupiVoucher,
     createBulkERupiVouchers,
     viewVouchers,
-    revokeVoucher
+    revokeVoucher,
+    weeklyCategoryData,
+    weeklyOrgData
 } = require('../controllers/bank');
 
 // Initializing router
@@ -37,6 +39,18 @@ router.patch(
     '/revoke-voucher/:id',
     [authorizeJWT.verifyJWT, authorizeJWT.roleBank],
     revokeVoucher
+);
+
+router.get(
+    '/weekly-category-data',
+    [authorizeJWT.verifyJWT, authorizeJWT.roleBank],
+    weeklyCategoryData
+);
+
+router.get(
+    '/weekly-org-data',
+    [authorizeJWT.verifyJWT, authorizeJWT.roleBank],
+    weeklyOrgData
 );
 
 module.exports = router;
