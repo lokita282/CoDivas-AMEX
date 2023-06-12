@@ -33,7 +33,7 @@ export default function Login() {
                     setUser(res.data.user)
                     setToken(res.data.token)
                     successHandler(res.data.message)
-                    navigate('/dashboard')
+                    navigate('/')
                     setLoad(false)
                 }).catch((e) => {
                     errorHandler('Login failed')
