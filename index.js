@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const db = require('./connection');
 const cron = require('node-cron');
+const morgan = require('morgan');
 
 // Initializing an express app
 const app = express();
@@ -15,7 +16,10 @@ app.use(cors({ origin: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const {setAllVoucherStatus } = require('./utils/cron-jobs');
+// Logging incoming requests
+app.use(morgan('dev'));
+
+const { setAllVoucherStatus } = require('./utils/cron-jobs');
 
 // Importing Routes
 const authRoute = require('./routes/auth');
@@ -38,7 +42,7 @@ app.get('/api', (req, res) => {
 // });
 
 cron.schedule('0 0 0 * * *', () => {
-  setAllVoucherStatus();
+    setAllVoucherStatus();
 });
 // Listening on the port
 app.listen(PORT, () => {
