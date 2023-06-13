@@ -19,11 +19,21 @@ const Card = ({ image, title, receivedDate, expiringDate}) => {
 
 const All = ({navigation}) => {
   const [data, setData] = useState([]);
-  useEffect(() => {
-    retrieveUserToken();
-  }, []);
+  const tok = AsyncStorage.getItem('userToken')
+  console.log(tok);
+  // useEffect(() => {
+  //   try {
+  //     const token = AsyncStorage.getItem('userToken');
+  //     if (token !== null) {
+  //       console.log('User token retrieved successfully:',AsyncStorage.getItem('userToken'));
+  //       // Do something with the token, such as updating state or navigating to another screen.
+  //     }
+  //   } catch (error) {
+  //     console.log('Error retrieving user token:', error);
+  //   }
+  // });
 
-  const retrieveUserToken = async () => {
+  async function retrieveUserToken() {
     try {
       const token = await AsyncStorage.getItem('userToken');
       if (token !== null) {
@@ -34,7 +44,9 @@ const All = ({navigation}) => {
       console.log('Error retrieving user token:', error);
     }
   };
+  //retrieveUserToken();
   useEffect(()=>{
+    retrieveUserToken();
     var myHeaders = new Headers();
     myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDg0ZDhlYTk4YmJjODkzYjc3OTI1ZTUiLCJpYXQiOjE2ODY1NTk0NjcsImV4cCI6MTY4NjY0NTg2N30._ErTIBiAeoZCHQEuRn0shoTKGEpckp5vu35Xk4p_VIg");
   
@@ -54,38 +66,6 @@ const All = ({navigation}) => {
     }
     fetchData();
   });
-  // const data = [
-  //   {
-  //     id: 1,
-  //     image: require('../assets/one.png'),
-  //     title: 'Prescription Medication',
-  //     receivedDate: '01/04/2023',
-  //     expiringDate: '01/04/2023',
-  //   },
-  //   {
-  //     id: 2,
-  //     image: require('../assets/two.png'),
-  //     title: 'Doctor Visit',
-  //     receivedDate: '01/04/2023',
-  //     expiringDate: '01/04/2023',
-  //   },
-  //   {
-  //     id: 3,
-  //     image: require('../assets/one.png'),
-  //     title: 'Dental Care',
-  //     receivedDate: '01/04/2023',
-  //     expiringDate: '01/04/2023',
-  //   },
-  //   {
-  //     id: 4,
-  //     image: require('../assets/three.png'),
-  //     title: 'Mental Health',
-  //     receivedDate: '01/04/2023',
-  //     expiringDate: '01/04/2023',
-  //   },
-  //   Add more data objects for additional cards
-  // ];
-
   return (
     <View style={styles.container}>
      {/* {console.log(data)} */}

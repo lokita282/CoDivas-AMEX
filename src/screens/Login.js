@@ -8,26 +8,26 @@ export default function Login({ navigation }) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const [aadhar, setAadhar] = useState('');
-  const [token, setToken] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadingText, setLoadingText] = useState('');
+  const [tok,setTok]=useState('')
 
   const storeUserToken = async (token) => {
     try {
       await AsyncStorage.setItem('userToken',token);
-      console.log('User token stored successfully!');
+      console.log('User token stored successfully!',token);
     } catch (error) {
       console.log('Error storing user token:', error);
     }
+    navigation.navigate('BottomTab')
   };
-  
   const submitPressed = () => {
-    // handle form submission logic here
-    //alert('Registration successful');
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
-    "phone": "9732065755",
-    "password": "test1234"
+    "phone": number,
+    "password": password
     });
 
     var requestOptions = {
@@ -36,14 +36,15 @@ export default function Login({ navigation }) {
     body: raw,
     redirect: 'follow'
     };
-    async function fetchData(){
-    fetch("https://ez-rupi.onrender.com/api/auth/login", requestOptions)
-    .then(response => response.json())
-    .then(result => (setToken(result.token)))
-    .catch(error => console.log('error', error));}
 
+    async function fetchData(){
+      await fetch("https://ez-rupi.onrender.com/api/auth/login", requestOptions)
+      .then(response => response.json())
+      .then(result => storeUserToken(result.token))
+      .catch(error => console.log('error', error));
+    }
     fetchData();
-    storeUserToken(token);
+    //{console.log(tok)};
   };
 
   return (
@@ -72,9 +73,8 @@ export default function Login({ navigation }) {
           <View style={styles.btnContainer}>
             <Button
               title="Login"
-              onPress={() => {submitPressed(); navigation.navigate('BottomTab')}}
+              onPress={() => {submitPressed()}}
               color="#0E1D61"
-              backgroundColor="red"
             />
           </View>
         </ScrollView>
