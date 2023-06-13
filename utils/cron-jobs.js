@@ -4,11 +4,11 @@ const setAllVoucherStatus = async () => {
     try {
         let vouchers = await Voucher.find({});
         for (let voucher of vouchers) {
-            if (voucher.status == 'revoked') {
+            if (voucher.status === 'revoked') {
                 continue;
             }
-            if (voucher.status == 'redeemed') {
-                if (voucher.useType == 'single') {
+            if (voucher.status === 'redeemed') {
+                if (voucher.useType === 'single') {
                     continue;
                 } else {
                     if (voucher.balanceAmount && voucher.balanceAmount > 0) {
@@ -18,13 +18,13 @@ const setAllVoucherStatus = async () => {
                 }
             }
 
-            if (voucher.status == 'upcoming') {
+            if (voucher.status === 'upcoming') {
                 if (voucher.startsAt < Date.now()) {
                     voucher.status = 'valid';
                     await voucher.save();
                 }
             }
-            if (voucher.status == 'valid') {
+            if (voucher.status === 'valid') {
                 if (voucher.startsAt > Date.now()) {
                     voucher.status = 'upcoming';
                     await voucher.save();
@@ -44,27 +44,30 @@ const setAllVoucherStatus = async () => {
 const setVoucherStatuses = async (vouchers) => {
     try {
         for (let voucher of vouchers) {
-            if (voucher.status == 'revoked') {
+            if (voucher.status === 'revoked') {
                 continue;
             }
-            if (voucher.status == 'redeemed') {
-                if (voucher.useType == 'single') {
+            if (voucher.status === 'redeemed') {
+                if (voucher.useType === 'single') {
                     continue;
                 } else {
-                    if (voucher.balanceAmount && voucher.balanceAmount > 0) {
+                    if (
+                        parseInt(voucher._doc.balanceAmount) &&
+                        parseInt(voucher._doc.balanceAmount) > 0
+                    ) {
                         voucher.status = 'valid';
                         await voucher.save();
                     }
                 }
             }
 
-            if (voucher.status == 'upcoming') {
+            if (voucher.status === 'upcoming') {
                 if (voucher.startsAt < Date.now()) {
                     voucher.status = 'valid';
                     await voucher.save();
                 }
             }
-            if (voucher.status == 'valid') {
+            if (voucher.status === 'valid') {
                 if (voucher.startsAt > Date.now()) {
                     voucher.status = 'upcoming';
                     await voucher.save();

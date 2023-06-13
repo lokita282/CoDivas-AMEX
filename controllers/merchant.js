@@ -64,7 +64,7 @@ const redeemVoucher = async (req, res) => {
         const { voucherId, verificationCode, transactionAmount } = req.body;
         const user = req.user;
         const merchant = await Merchant.findById(user.merchant);
-        const voucher = await Voucher.findById(voucherId);
+        let voucher = await Voucher.findById(voucherId);
         if (!voucher) {
             res.status(404).json({
                 success: false,
@@ -91,7 +91,7 @@ const redeemVoucher = async (req, res) => {
         }
         if (
             (voucher.useType === 'multiple' &&
-                voucher.balanceAmount < transactionAmount) ||
+                voucher._doc.balanceAmount < transactionAmount) ||
             (voucher.useType === 'single' && voucher.amount < transactionAmount)
         ) {
             res.status(200).json({
@@ -108,7 +108,8 @@ const redeemVoucher = async (req, res) => {
             amount: transactionAmount,
             closingBalance:
                 voucher.useType === 'multiple'
-                    ? voucher.balanceAmount
+                    ? parseInt(voucher._doc.balanceAmount) -
+                      parseInt(transactionAmount)
                     : undefined,
             beneficiaryPhone: beneficiary.phone,
             payee: merchant.businessName,
@@ -120,8 +121,22 @@ const redeemVoucher = async (req, res) => {
         if (voucher.useType === 'single') {
             voucher.status = 'redeemed';
         } else {
-            voucher.status = 'redeemed';
-            voucher.balanceAmount = voucher.balanceAmount - transactionAmount;
+            let balance =
+                parseInt(voucher._doc.balanceAmount) -
+                parseInt(transactionAmount);
+            console.log('balance', balance);
+
+            voucher = await Voucher.findByIdAndUpdate(
+                voucher._id,
+                {
+                    $set: {
+                        balanceAmount: balance,
+                        status: 'redeemed'
+                    }
+                },
+                { new: true }
+            );
+            console.log('voucher', voucher);
         }
         voucher.verificationCode = undefined;
         await voucher.save();
@@ -147,13 +162,15 @@ const getTransactions = async (req, res) => {
         });
         let results = [];
         for (let transaction of transactions) {
-            let beneficiary = await Beneficiary.findById(transaction.beneficiaryId).populate('user');
+            let beneficiary = await Beneficiary.findById(
+                transaction.beneficiaryId
+            ).populate('user');
             results.push({
                 ...transaction._doc,
                 beneficiaryName: beneficiary.user.name
             });
         }
-                
+
         res.status(200).json({
             success: true,
             transactions: results
