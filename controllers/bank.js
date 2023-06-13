@@ -7,7 +7,11 @@ const {
     generateQrString,
     sendSms
 } = require('./../utils/functions');
-const { shortCodes, organisationDetails } = require('./../utils/data');
+const {
+    shortCodes,
+    organisationDetails,
+    stateCodes
+} = require('./../utils/data');
 const csvtoJSON = require('csvtojson');
 const fs = require('fs');
 const axios = require('axios');
@@ -451,11 +455,66 @@ const weeklyOrgData = async (req, res) => {
     }
 };
 
+const regionDistributionData = async (req, res) => {
+    try {
+        let mapData = [];
+        const mapDataObj = {
+            code: '',
+            value: 0
+        };
+
+        const bank = await Bank.findById(req.user.bank);
+
+        let vouchers = [];
+        if (req.params.type == 'issued') {
+            vouchers = await Voucher.find({
+                issuedById: bank.user
+            });
+        } else if (req.params.type == 'redeemed') {
+            vouchers = await Voucher.find({
+                issuedById: bank.user,
+                status: 'redeemed'
+            });
+        }
+
+        const count = (data, stateCode) => {
+            let temp = _.cloneDeep(mapDataObj);
+
+            temp.code = stateCode;
+            temp.value = data.length;
+
+            return temp;
+        };
+
+        for (let item of stateCodes) {
+            let temp = [];
+            for (let itemception of vouchers) {
+                if (item.state === itemception.state) {
+                    temp.push(itemception);
+                }
+            }
+            mapData.push(count(temp, item.code));
+        }
+
+        res.status(200).json({
+            message: 'Regional Distribution of Vouchers',
+            data: {
+                mapData
+            }
+        });
+    } catch (error) {
+        res.status(400).json({
+            message: error.message
+        });
+    }
+};
+
 module.exports = {
     createERupiVoucher,
     createBulkERupiVouchers,
     viewVouchers,
     revokeVoucher,
     weeklyCategoryData,
-    weeklyOrgData
+    weeklyOrgData,
+    regionDistributionData
 };
