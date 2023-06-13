@@ -61,21 +61,63 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ProfileIcon = () => {
   return <Image source={require('../assets/profile.png')} style={styles.profileIcon} />;
 };
 
-const Redeem = ({navigation}) => {
+const Redeem = ({navigation,route}) => {
+  const [data, setData] = useState([]);
+  const [userToken,setUserToken] = useState('')
+  async function retrieveUserToken() {
+    try {
+      const token = await AsyncStorage.getItem('userToken');
+      if (token !== null) {
+        console.log('User token retrieved successfully:', token);
+        setUserToken(token);
+      }
+    } catch (error) {
+      console.log('Error retrieving user token:', error);
+    }
+  };
+  useEffect(()=>{
+    retrieveUserToken();
+    console.log(userToken);
+  })
   const governmentLogo = require('../assets/govt.png');
   const bankLogo = require('../assets/bank.png');
   const eRupi=require('../assets/erupi.png')
   const schemeTitle = 'PM-JAY';
   const singleUse = 'Single Use';
   const amount = 'INR 5000';
-  const qrCodeData = 'Your QR Code String';
-  const validityDate = 'Validity till - 31/12/2023';
+  const id=route.params.paramKey
+  {console.log(id)}
 
+  useEffect(()=>{
+    const timer=setTimeout(()=>{
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${userToken}`);
+  
+    var raw = "";
+  
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+    async function fetchData(){
+      await fetch(`https://ez-rupi.onrender.com/api/beneficiary/single/${id}`, requestOptions)
+      .then(response => response.json())
+      .then(result => (setData(result.data)))
+      .catch(error => console.log('error', error));
+    }
+    fetchData();},5000);
+    console.log(data)
+    return () => clearTimeout(timer);
+    
+  });
   // useEffect(()=>{
   //   var myHeaders = new Headers();
   //   myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDg0ZDhlYTk4YmJjODkzYjc3OTI1ZTUiLCJpYXQiOjE2ODY1MDk1MDQsImV4cCI6MTY4NjU5NTkwNH0.3Nwlyv741Tg4Y9zItt_enOJTLXRfTFGvvODwaQAn47Q");
@@ -99,24 +141,26 @@ const Redeem = ({navigation}) => {
 
     return () => clearTimeout(timer);
   }, [navigation]);
-
+  const qrCodeData = data.qrString;
+  //const validityDate =  data.endsAt.toString().slice(0,10);
   return (
     <View style={styles.container}>
       <View>
         <ProfileIcon />
       </View>
       <View style={styles.logoContainer}>
-        <Image source={governmentLogo} style={styles.logo} />
-        <Image source={bankLogo} style={styles.logo} />
+        <Image source={{uri:data.orgLogo}} style={styles.logo} />
+        <Image source={{uri:data.issuedByLogo}} style={styles.logo} />
       </View>
       <View style={styles.schemeDetails}>
-        <Text style={styles.maintitle}>{schemeTitle}</Text>
-        <Text style={styles.details}>{`${singleUse} | ${amount}`}</Text>
+        <Text style={styles.maintitle}>{data.title}</Text>
+        <Text style={styles.details}>Voucher Type : {data.useType}</Text>
+        <Text style={styles.details}>Amount left : {data.balanceAmount}</Text>
       </View>
       <View style={styles.qrCodeContainer}>
         <QRCode value={qrCodeData} logo={eRupi} logoSize={50} size={250} />
       </View>
-      <Text style={styles.validity}>{validityDate}</Text>
+      <Text style={styles.validity}>Valid till : 2024-06-04</Text>
       <Text style={styles.info}>Ask Merchant to scan the QR code to redeem the coupon</Text>
       <View style={styles.cardContainer}>
       <Image source={eRupi} style={styles.image} />
@@ -164,7 +208,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   maintitle: {
-    fontSize: 36,
+    fontSize: 30,
+    textAlign:'center',
     fontWeight: 'bold',
     marginBottom: 5,
     color: '#0E1D61'

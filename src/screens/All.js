@@ -19,36 +19,27 @@ const Card = ({ image, title, receivedDate, expiringDate}) => {
 
 const All = ({navigation}) => {
   const [data, setData] = useState([]);
-  const tok = AsyncStorage.getItem('userToken')
-  console.log(tok);
-  // useEffect(() => {
-  //   try {
-  //     const token = AsyncStorage.getItem('userToken');
-  //     if (token !== null) {
-  //       console.log('User token retrieved successfully:',AsyncStorage.getItem('userToken'));
-  //       // Do something with the token, such as updating state or navigating to another screen.
-  //     }
-  //   } catch (error) {
-  //     console.log('Error retrieving user token:', error);
-  //   }
-  // });
-
+  const [userToken,setUserToken] = useState('')
   async function retrieveUserToken() {
     try {
       const token = await AsyncStorage.getItem('userToken');
       if (token !== null) {
         console.log('User token retrieved successfully:', token);
-        // Do something with the token, such as updating state or navigating to another screen.
+        setUserToken(token);
       }
     } catch (error) {
       console.log('Error retrieving user token:', error);
     }
   };
-  //retrieveUserToken();
   useEffect(()=>{
     retrieveUserToken();
+    console.log(userToken);
+  })
+
+  useEffect(()=>{
+    const timer=setTimeout(()=>{
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDg0ZDhlYTk4YmJjODkzYjc3OTI1ZTUiLCJpYXQiOjE2ODY1NTk0NjcsImV4cCI6MTY4NjY0NTg2N30._ErTIBiAeoZCHQEuRn0shoTKGEpckp5vu35Xk4p_VIg");
+    myHeaders.append("Authorization", `Bearer ${userToken}`);
   
     var raw = "";
   
@@ -64,20 +55,21 @@ const All = ({navigation}) => {
       .then(result => (setData(result.data)))
       .catch(error => console.log('error', error));
     }
-    fetchData();
+    fetchData();},5000);
+    return () => clearTimeout(timer);
   });
   return (
     <View style={styles.container}>
-     {/* {console.log(data)} */}
+      {/* {console.log(data)} */}
       {data.map((item) => (
       <TouchableOpacity onPress={() =>
-              navigation.navigate('Redeem')}style={styles.card}>
+              navigation.navigate('Redeem',{paramKey:item._id})}style={styles.card}>
         <Card
           key={item._id}
           image={item.issuedByLogo}
           title={item.title}
-          receivedDate={item.startsAt}
-          expiringDate={item.endsAt}
+          receivedDate={item.startsAt.toString().slice(0,10)}
+          expiringDate={item.endsAt.toString().slice(0,10)}
         /></TouchableOpacity>
       ))}
     </View>
