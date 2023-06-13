@@ -30,7 +30,7 @@ const organisationDetails = [
             'https://res.cloudinary.com/dlwpoojua/image/upload/v1686227187/amex-hackathon/nha_mbgupt.png'
     },
     {
-        orgId: 549012,
+        orgId: 549013,
         orgName: 'Odisha Government',
         orgLogo:
             'https://res.cloudinary.com/dlwpoojua/image/upload/v1686227382/amex-hackathon/odishaGovt_xcs0ek.png'
