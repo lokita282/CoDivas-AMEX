@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, StyleSheet, Text, TextInput, View, SafeAreaView, KeyboardAvoidingView, ScrollView } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState('');
@@ -7,7 +8,17 @@ export default function Login({ navigation }) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const [aadhar, setAadhar] = useState('');
+  const [token, setToken] = useState('');
 
+  const storeUserToken = async (token) => {
+    try {
+      await AsyncStorage.setItem('userToken',token);
+      console.log('User token stored successfully!');
+    } catch (error) {
+      console.log('Error storing user token:', error);
+    }
+  };
+  
   const submitPressed = () => {
     // handle form submission logic here
     //alert('Registration successful');
@@ -25,11 +36,14 @@ export default function Login({ navigation }) {
     body: raw,
     redirect: 'follow'
     };
-
+    async function fetchData(){
     fetch("https://ez-rupi.onrender.com/api/auth/login", requestOptions)
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
+    .then(response => response.json())
+    .then(result => (setToken(result.token)))
+    .catch(error => console.log('error', error));}
+
+    fetchData();
+    storeUserToken(token);
   };
 
   return (
@@ -57,9 +71,10 @@ export default function Login({ navigation }) {
           </View>
           <View style={styles.btnContainer}>
             <Button
-              title="Register"
+              title="Login"
               onPress={() => {submitPressed(); navigation.navigate('BottomTab')}}
               color="#0E1D61"
+              backgroundColor="red"
             />
           </View>
         </ScrollView>

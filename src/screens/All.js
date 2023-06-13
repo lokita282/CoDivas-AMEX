@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Card = ({ image, title, receivedDate, expiringDate}) => {
   return (
@@ -18,6 +19,21 @@ const Card = ({ image, title, receivedDate, expiringDate}) => {
 
 const All = ({navigation}) => {
   const [data, setData] = useState([]);
+  useEffect(() => {
+    retrieveUserToken();
+  }, []);
+
+  const retrieveUserToken = async () => {
+    try {
+      const token = await AsyncStorage.getItem('userToken');
+      if (token !== null) {
+        console.log('User token retrieved successfully:', token);
+        // Do something with the token, such as updating state or navigating to another screen.
+      }
+    } catch (error) {
+      console.log('Error retrieving user token:', error);
+    }
+  };
   useEffect(()=>{
     var myHeaders = new Headers();
     myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDg0ZDhlYTk4YmJjODkzYjc3OTI1ZTUiLCJpYXQiOjE2ODY1NTk0NjcsImV4cCI6MTY4NjY0NTg2N30._ErTIBiAeoZCHQEuRn0shoTKGEpckp5vu35Xk4p_VIg");
@@ -72,7 +88,7 @@ const All = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      {console.log(data)}
+     {/* {console.log(data)} */}
       {data.map((item) => (
       <TouchableOpacity onPress={() =>
               navigation.navigate('Redeem')}style={styles.card}>
