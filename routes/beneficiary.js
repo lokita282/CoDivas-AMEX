@@ -11,7 +11,8 @@ const {
     viewOneVoucher,
     getRedemptionStatus,
     getVerificationCode,
-    getTransactions
+    getTransactions,
+    weeklyCategoryData
 } = require('../controllers/user');
 
 // Initializing router
@@ -63,6 +64,12 @@ router.get(
     '/transactions',
     [authorizeJWT.verifyJWT, authorizeJWT.roleBeneficiary],
     getTransactions
+);
+
+router.get(
+    '/weekly-category-data',
+    [authorizeJWT.verifyJWT, authorizeJWT.roleBeneficiary],
+    weeklyCategoryData
 );
 
 module.exports = router;
