@@ -10,7 +10,8 @@ const {
     viewVouchers,
     revokeVoucher,
     weeklyCategoryData,
-    weeklyOrgData
+    weeklyOrgData,
+    regionDistributionData
 } = require('../controllers/bank');
 
 // Initializing router
@@ -51,6 +52,12 @@ router.get(
     '/weekly-org-data',
     [authorizeJWT.verifyJWT, authorizeJWT.roleBank],
     weeklyOrgData
+);
+
+router.get(
+    '/region-distribution/:type',
+    [authorizeJWT.verifyJWT, authorizeJWT.roleBank],
+    regionDistributionData
 );
 
 module.exports = router;
