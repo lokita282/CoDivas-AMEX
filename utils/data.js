@@ -188,8 +188,48 @@ const stateCodes = [
     }
 ];
 
+const categoryIcons = [
+    {
+        category: 'health',
+        icon: 'https://res.cloudinary.com/dlwpoojua/image/upload/v1686638059/amex-hackathon/health_ewozvh.png'
+    },
+    {
+        category: 'agriculture',
+        icon: 'https://res.cloudinary.com/dlwpoojua/image/upload/v1686638047/amex-hackathon/agriculture_vmdv7i.png'
+    },
+    {
+        category: 'education',
+        icon: 'https://res.cloudinary.com/dlwpoojua/image/upload/v1686638059/amex-hackathon/education_tfyoep.png'
+    },
+    {
+        category: 'food',
+        icon: 'https://res.cloudinary.com/dlwpoojua/image/upload/v1686638058/amex-hackathon/food_fhdstc.png'
+    },
+    {
+        category: 'housing',
+        icon: 'https://res.cloudinary.com/dlwpoojua/image/upload/v1686638059/amex-hackathon/housing_owcqwa.png'
+    },
+    {
+        category: 'transportation',
+        icon: 'https://res.cloudinary.com/dlwpoojua/image/upload/v1686638059/amex-hackathon/transport_up4jt3.png'
+    },
+    {
+        category: 'utility',
+        icon: 'https://res.cloudinary.com/dlwpoojua/image/upload/v1686638057/amex-hackathon/utility_owrycf.png'
+    },
+    {
+        category: 'telecommunication',
+        icon: 'https://res.cloudinary.com/dlwpoojua/image/upload/v1686638059/amex-hackathon/telecommunication_pvjjmt.png'
+    },
+    {
+        category: 'other',
+        icon: 'https://res.cloudinary.com/dlwpoojua/image/upload/v1686638059/amex-hackathon/other_gxipoi.png'
+    }
+];
+
 module.exports = {
     shortCodes,
     organisationDetails,
-    stateCodes
+    stateCodes,
+    categoryIcons
 };
