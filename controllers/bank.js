@@ -434,7 +434,7 @@ const weeklyOrgData = async (req, res) => {
                     temp.push(itemception);
                 }
             }
-            console.log(temp);
+
             barData.push(count(temp, item.orgName));
         }
 
