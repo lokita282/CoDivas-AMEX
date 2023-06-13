@@ -11,7 +11,10 @@ const setAllVoucherStatus = async () => {
                 if (voucher.useType === 'single') {
                     continue;
                 } else {
-                    if (voucher.balanceAmount && voucher.balanceAmount > 0) {
+                    if (
+                        parseInt(voucher._doc.balanceAmount) &&
+                        parseInt(voucher._doc.balanceAmount) > 0
+                    ) {
                         voucher.status = 'valid';
                         await voucher.save();
                     }
