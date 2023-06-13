@@ -10,7 +10,8 @@ const {
 const {
     shortCodes,
     organisationDetails,
-    stateCodes
+    stateCodes,
+    categoryIcons
 } = require('./../utils/data');
 const csvtoJSON = require('csvtojson');
 const fs = require('fs');
@@ -509,6 +510,114 @@ const regionDistributionData = async (req, res) => {
     }
 };
 
+const weeklyTrendingData = async (req, res) => {
+    try {
+        let trendingAssets = [];
+        let countData = [];
+        const countObj = {
+            health: 0,
+            agriculture: 0,
+            education: 0,
+            food: 0,
+            housing: 0,
+            transportation: 0,
+            utility: 0,
+            telecommunication: 0,
+            other: 0
+        };
+        const trendingAssetObj = {
+            category: '',
+            change: '',
+            percent: 0,
+            icon: '',
+            revenue: 0
+        };
+
+        const bank = await Bank.findById(req.user.bank);
+
+        var dOld = new Date();
+        dOld.setDate(dOld.getDate() - 13);
+        var dNew = new Date();
+        dNew.setDate(dNew.getDate() - 6);
+
+        const vouchersOld = await Voucher.find({
+            issuedById: bank.user,
+            createdAt: { $gte: dOld, $lt: dNew }
+        });
+
+        const vouchersNew = await Voucher.find({
+            issuedById: bank.user,
+            createdAt: { $gte: dNew }
+        });
+        const vouchers = [vouchersOld, vouchersNew];
+
+        const count = (data) => {
+            let temp = _.cloneDeep(countObj);
+
+            for (let item of data) {
+                if (item.category == 'health') {
+                    temp.health += item.amount;
+                } else if (item.category == 'agriculture') {
+                    temp.agriculture += item.amount;
+                } else if (item.category == 'education') {
+                    temp.education += item.amount;
+                } else if (item.category == 'food') {
+                    temp.food += item.amount;
+                } else if (item.category == 'housing') {
+                    temp.housing += item.amount;
+                } else if (item.category == 'transportation') {
+                    temp.transportation += item.amount;
+                } else if (item.category == 'utility') {
+                    temp.utility += item.amount;
+                } else if (item.category == 'telecommunication') {
+                    temp.telecommunication += item.amount;
+                } else if (item.category == 'other') {
+                    temp.other += item.amount;
+                }
+            }
+            return temp;
+        };
+
+        for (let item of vouchers) {
+            countData.push(count(item));
+        }
+
+        for (let item of categoryIcons) {
+            let temp = _.cloneDeep(trendingAssetObj);
+            temp.category = item.category;
+            temp.icon = item.icon;
+            temp.revenue = countData[1][temp.category];
+
+            let difference = 0;
+            difference =
+                countData[0][temp.category] - countData[1][temp.category];
+            if (difference > 0) {
+                temp.change = 'dec';
+                temp.percent = difference / countData[0][temp.category];
+            } else if (difference < 0) {
+                difference = -difference;
+                temp.change = 'inc';
+                temp.percent = (difference / countData[1][temp.category]) * 100;
+            } else if (difference == 0) {
+                temp.change = 'no-change';
+            }
+
+            trendingAssets.push(temp);
+        }
+
+        res.status(200).json({
+            message: 'Weekly Trending assets',
+            data: {
+                trendingAssets
+            }
+        });
+    } catch (error) {
+        res.status(400).json({
+            message: error.message
+        });
+    }
+};
+
 module.exports = {
     createERupiVoucher,
     createBulkERupiVouchers,
@@ -516,5 +625,6 @@ module.exports = {
     revokeVoucher,
     weeklyCategoryData,
     weeklyOrgData,
-    regionDistributionData
+    regionDistributionData,
+    weeklyTrendingData
 };

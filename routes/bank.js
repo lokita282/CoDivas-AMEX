@@ -11,7 +11,8 @@ const {
     revokeVoucher,
     weeklyCategoryData,
     weeklyOrgData,
-    regionDistributionData
+    regionDistributionData,
+    weeklyTrendingData
 } = require('../controllers/bank');
 
 // Initializing router
@@ -58,6 +59,12 @@ router.get(
     '/region-distribution/:type',
     [authorizeJWT.verifyJWT, authorizeJWT.roleBank],
     regionDistributionData
+);
+
+router.get(
+    '/weekly-trending-data',
+    [authorizeJWT.verifyJWT, authorizeJWT.roleBank],
+    weeklyTrendingData
 );
 
 module.exports = router;
