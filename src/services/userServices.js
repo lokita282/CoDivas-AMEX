@@ -23,3 +23,19 @@ export const getCategoryCoupon = (cat) => {
         }
     })
 }
+
+export const getSoloCoupon = (id) => {
+    return httpcommon.get(`/beneficiary/single/${id}`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('codivasToken')}`
+        }
+    })
+}
+
+export const getVerifCode = (id) => {
+    return httpcommon.get(`/beneficiary/verification-code/${id}`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('codivasToken')}`
+        }
+    })
+}

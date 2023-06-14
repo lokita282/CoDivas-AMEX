@@ -37,7 +37,7 @@ export default function SignupBene() {
                     setUser(res.data.data.user)
                     setToken(res.data.data.token)
                     successHandler(res.data.message)
-                    navigate('/dashboard')
+                    navigate('/')
                     setLoad(false)
                 }).catch((e) => {
                     errorHandler('Signup failed')

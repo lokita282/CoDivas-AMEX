@@ -12,6 +12,9 @@ import ElectricityBillPage from '../pages/ElectricityBillPage'
 import CreateErupi from '../pages/CreateErupi'
 import Coupons from '../components/coupons/Coupons';
 import CategoryCoupons from '../pages/CategoryCoupons';
+import SchemesPage from '../pages/SchemesPage';
+import SchemeDetails from '../components/schemes/SchemeDetails';
+import SchemeDetsPage from '../pages/SchemeDetsPage';
 
 
 export default function MainRouter() {
@@ -35,8 +38,14 @@ export default function MainRouter() {
             <Routes>
                 <Route exact path='/signup/beneficiary' element={<SignupPage />} />
                 <Route exact path='/login' element={<LoginPage />} />
-                <Route path='/dashboard' element={<PrivateRouter />} >
-                    <Route exact path='/dashboard' element={<DashboardPage />} />
+                <Route path='/' element={<PrivateRouter />} >
+                    <Route exact path='/' element={<DashboardPage />} />
+                </Route>
+                <Route path='/scheme' element={<PrivateRouter />} >
+                    <Route exact path='/scheme' element={<SchemesPage/>} />
+                </Route>
+                <Route path='/scheme/:id' element={<PrivateRouter />} >
+                    <Route exact path='/scheme/:id' element={<SchemeDetsPage/>} />
                 </Route>
                 <Route path='/bank/dashboard' element={<PrivateRouter />} >
                     <Route exact path='/bank/dashboard' element={<BankDashboardPage />} />

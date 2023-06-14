@@ -1,0 +1,902 @@
+[
+    {
+        "id": 0,
+        "name": "Pre Matric Scholarship For Minorities",
+        "heading": "Benefits of scheme",
+        "by": "Ministry Of Minority Affairs",
+        "tags": [
+            "Admission Fee",
+            "Education",
+            "Minority",
+            "Pre-matric",
+            "Scholarship",
+            "School",
+            "Social Welfare",
+            "Student",
+            "Tuition Fee"
+        ],
+        "Details": "A scholarship scheme by Ministry of Minority Affairs for students from minority communities studying in Class 1st to Class 10th in India in a government or private school, including such residential Government institutes and eligible private institutes selected and notified in a transparent manner by the State Government and Union Territory Administration concerned. A total of thirty (30) lakh scholarships are targeted to be distributed as Fresh Scholarships, besides, Renewal scholarships. Scholarship will be awarded to the students who have secured not less than 50% marks in the previous final examination and annual income of their parents/guardian from all sources does not exceed Rs. 1.00 lakh. The scheme aims to encourage parents from minority communities to send their school going children to school, lighten their financial burden on school education and sustain their efforts to support their children to complete school education. The scheme will form the foundation for their educational attainment and provide a level playing field in the competitive employment arena.",
+        "Benefits": [
+            "Admission Fee (Class 6th to Class 10th): Rs. 500/- per annum subject to actuals (both Hosteller & Day Scholar)",
+            "Tuition Fee (Class 6th to Class 10th): Rs. 350/- per month subject to actuals (both Hosteller & Day Scholar)",
+            "Maintenance Allowance (Class 1st to Class 5th*): Rs. 100/- per month for Day Scholar.",
+            "Maintenance Allowance (Class 6th to Class 10th*): Rs. 600/- per month for Hosteller; Rs. 100/-per month for Day Scholar."
+        ],
+        "Eligibility": [
+            "The applicant must be a student in a class between Class 1st to 10th.",
+            "The applicant must be from a Minority Community.",
+            "The Annual income of parents/guardians of the applicant (from all sources) should be less than or equal to ₹ 1 Lakh per Annum.",
+            "The applicant should have secured not less than 50% marks in the previous final examination.",
+            "The applicant must not be availing any other scholarship by the govt.",
+            "The applicant must not be the third sibling in his/her family who has been given this scholarship."
+        ],
+        "Application_Process": [
+            "Keep ready the soft copies of the required documents.",
+            "Step 1: Go to http://www.scholarships.gov.in/. and click “New Registration”.Guidelines for Registration will appear. Scroll to the bottom. Read carefully the undertaking. Accept the Terms. Click “Continue”.",
+            "Step 2:  A Registration Form will appear. (The fields marked as * are compulsory) Fill the details and click “Register”. Your Application ID and password will be displayed. The same will also be sent as an SMS on your registered mobile number. ",
+            "Step 3:  Go to https://scholarships.gov.in/fresh/newstdRegfrmInstruction Click on “Login to Apply”. Enter your Application ID and password. Type the Captcha and click “Login”. On the next screen, provide the OTP received on your registered mobile number. You will be directed to the Password Reset screen. Create a new password and confirm. Click “Submit”. You will be directed to the “Applicant’s Dashboard”.",
+            "Step 4:  On the left pane, click “Application Form”. The fields marked as * are compulsory. Fill the details and upload the documents. You can either click on “Save as Draft” to complete the application later. Else, click “Final Submit” to submit the application."
+        ],
+        "documents": [
+            "Student’s Photo",
+            "Verification Form by the Institution",
+            "Income Certificate, issued from a Competent Authority in the State/UT Govts is required in respect of parent/guardian of the student",
+            "Self-Certified Community Certificate (if the applicant is greater than or equal to 18 years)",
+            "Community Certificate certified by parent/guardian",
+            "Self-attested Mark Sheet of the last qualifying exam",
+            "Fee Receipt of ‘Current Course Year'",
+            "Bank Details (Account No., IFSC Code) of the applicant",
+            "Bank Details of the Parent/Guardian (if the student does not have his/her own bank account)",
+            "Residential/Domicile Certificate",
+            "Aadhaar Number (or alternative identification documents)",
+            "“Bonafide Student Certificate” from the School (if School is located in a State/UT different from domicile State/UT)"
+        ]
+    },
+    {
+        "id": 1,
+        "name": "Affordable Education Scheme",
+        "heading": "Making Education Accessible for All",
+        "by": "Ministry of Education",
+        "tags": [
+            "Education",
+            "Affordable",
+            "Scholarship",
+            "Tuition",
+            "School",
+            "Students",
+            "Financial Aid"
+        ],
+        "Details": "The Affordable Education Scheme aims to provide financial assistance to students from economically disadvantaged backgrounds to ensure they have access to quality education. The scheme covers students studying in both government and private schools, from primary to higher secondary levels. Under this scheme, eligible students can receive scholarships to cover their tuition fees, textbooks, and other educational expenses. The scheme also offers mentorship programs and career counseling to help students make informed choices about their future. The objective of this scheme is to reduce the financial burden on families and promote equal educational opportunities for all.",
+        "Benefits": [
+            "Full or partial tuition fee coverage for eligible students",
+            "Free textbooks and educational materials",
+            "Mentorship programs and career counseling",
+            "Access to educational resources and learning tools",
+            "Financial assistance for extracurricular activities and educational trips"
+        ],
+        "Eligibility": [
+            "Students from economically disadvantaged backgrounds",
+            "Enrolled in a recognized government or private school",
+            "Good academic performance",
+            "Fulfillment of income criteria set by the scheme"
+        ],
+        "Application_Process": [
+            "Obtain the application form from the designated education authority or school",
+            "Complete the application form with accurate information",
+            "Attach the required documents, including income proof, academic records, and identity proof",
+            "Submit the application form to the designated authority or school",
+            "Applications will be reviewed, and eligible students will be notified of their acceptance"
+        ],
+        "documents": [
+            "Proof of income (salary slips, income certificate, etc.)",
+            "Academic records or report cards",
+            "Identity proof (Aadhaar card, birth certificate, etc.)",
+            "Residence proof",
+            "Passport-sized photographs"
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Energy Efficiency Bill Scheme",
+        "heading": "Promoting Sustainable Energy Usage",
+        "by": "Ministry of Power",
+        "tags": [
+            "Energy",
+            "Efficiency",
+            "Bills",
+            "Savings",
+            "Environment",
+            "Renewable Energy"
+        ],
+        "Details": "The Energy Efficiency Bill Scheme is aimed at promoting energy conservation and reducing electricity bills for households. Under this scheme, eligible households can receive financial incentives and support to implement energy-efficient measures in their homes. The scheme encourages the use of renewable energy sources, such as solar panels, and provides subsidies for their installation. It also offers guidance on energy-saving practices, conducts energy audits, and provides recommendations for optimizing energy consumption. By adopting energy-efficient practices, households can reduce their carbon footprint and contribute to a sustainable environment while enjoying reduced energy bills.",
+        "Benefits": [
+            "Financial incentives for energy-efficient home upgrades",
+            "Subsidies for the installation of solar panels",
+            "Energy audits and recommendations for optimizing energy consumption",
+            "Educational materials on energy-saving practices",
+            "Reduced electricity bills"
+        ],
+        "Eligibility": [
+            "Residential households",
+            "Applicants must own the property or have consent from the property owner",
+            "Fulfillment of criteria related to energy consumption and potential for energy savings"
+        ],
+        "Application_Process": [
+            "Contact the designated energy efficiency authority or visit theirwebsite",
+            "Fill out the application form with relevant information",
+            "Provide details about your current energy consumption and potential for energy savings",
+            "Submit the application along with any required supporting documents",
+            "The designated authority will review the application and conduct an energy audit if necessary",
+            "Eligible households will be notified of their acceptance into the scheme"
+        ],
+        "documents": [
+            "Proof of ownership or consent from the property owner",
+            "Energy bills or consumption data for the past few months",
+            "Identification proof (Aadhaar card, driver's license, etc.)",
+            "Address proof",
+            "Photographs of the property (if required)"
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Healthcare Access Program",
+        "heading": "Improving Access to Healthcare Services",
+        "by": "Ministry of Health and Family Welfare",
+        "tags": [
+            "Healthcare",
+            "Medical Services",
+            "Access",
+            "Affordable",
+            "Health Insurance",
+            "Public Health"
+        ],
+        "Details": "The Healthcare Access Program aims to ensure that every individual has access to affordable and quality healthcare services. Under this scheme, eligible individuals can avail medical services, including doctor consultations, hospitalization, diagnostic tests, and medicines, at subsidized rates or free of cost. The program also provides health insurance coverage for those who cannot afford medical expenses. Additionally, the scheme focuses on preventive healthcare and promotes awareness campaigns to educate the public about healthy living practices and disease prevention. By implementing this program, the government aims to improve the overall health and well-being of the population and reduce the burden of healthcare expenses on individuals and families.",
+        "Benefits": [
+            "Subsidized or free medical consultations and treatments",
+            "Access to affordable medicines and diagnostic tests",
+            "Health insurance coverage for eligible individuals",
+            "Preventive healthcare services and awareness campaigns",
+            "Reduced financial burden on healthcare expenses"
+        ],
+        "Eligibility": [
+            "Residents of the country",
+            "Income-based eligibility criteria for subsidized services",
+            "No income criteria for preventive healthcare and awareness campaigns"
+        ],
+        "Application_Process": [
+            "Visit the designated healthcare center or hospital",
+            "Provide necessary identification and income-related documents",
+            "Complete the application form with accurate information",
+            "Undergo an assessment based on the eligibility criteria",
+            "Once approved, receive a healthcare access card or identification number",
+            "Present the card or number during healthcare service utilization"
+        ],
+        "documents": [
+            "Identification proof (Aadhaar card, voter ID, etc.)",
+            "Proof of residence",
+            "Income certificate or proof of income (for subsidized services)",
+            "Other relevant medical documents, if any"
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Digital Literacy Initiative",
+        "heading": "Empowering Individuals with Digital Skills",
+        "by": "Ministry of Information and Technology",
+        "tags": [
+            "Digital Literacy",
+            "Skills Development",
+            "Technology",
+            "Internet",
+            "Empowerment",
+            "Education"
+        ],
+        "Details": "The Digital Literacy Initiative aims to bridge the digital divide by providing individuals with the necessary skills to navigate and utilize digital technologies effectively. The scheme focuses on enhancing digital literacy and promoting the use of digital platforms for education, communication, and accessing government services. Under this initiative, individuals can participate in training programs that cover basic computer skills, internet usage, online safety, and digital applications. The scheme also facilitates the provision of affordable devices and internet connectivity to enable access to digital resources. By empowering individuals with digital literacy, the initiative aims to create a digitally inclusive society and enhance educational and economic opportunities for all.",
+        "Benefits": [
+            "Digital skills training programs",
+            "Access to affordable devices and internet connectivity",
+            "Knowledge on internet usage and online safety",
+            "Enhanced employment and educational opportunities",
+            "Access to government services and information"
+        ],
+        "Eligibility": [
+            "Residents of the country",
+            "No specific age restrictions",
+            "Open to individuals from all socio-economic backgrounds"
+        ],
+        "Application_Process": [
+            "Visit the designated digital literacy center or training institute",
+            "Enroll in the digital skills training program",
+            "Attend the scheduled training sessions",
+            "Participate in hands-on activities and practical exercises",
+            "Complete the assigned coursework and assessments",
+            "Receive a digital literacy certification upon successful completion",
+            "Access additional resources and support for continued skill development"
+        ],
+        "documents": [
+            "Identification proof (Aadhaar card, passport, etc.)",
+            "Proof of residence",
+            "Any additional documents as required by the training institute"
+        ]
+    },
+    {
+        "id": 5,
+        "name": "Entrepreneurship Development Program",
+        "heading": "Fostering Innovation and Business Growth",
+        "by": "Ministry of Micro, Small and Medium Enterprises",
+        "tags": [
+            "Entrepreneurship",
+            "Business Development",
+            "Startups",
+            "Innovation",
+            "Skills",
+            "Financial Support"
+        ],
+        "Details": "The Entrepreneurship Development Program aims to promote entrepreneurship and support aspiring entrepreneurs in starting and scaling their businesses. The scheme provides a comprehensive package of assistance, including training programs, mentorship, access to finance, and business development support. The program focuses on fostering innovation, enhancing entrepreneurial skills, and creating an enabling ecosystem for startups. Through this initiative, the government aims to encourage job creation, economic growth, and sustainable development. The program also promotes inclusivity by supporting entrepreneurship among women, youth, and marginalized communities.",
+        "Benefits": [
+            "Entrepreneurship training and skill development programs",
+            "Mentorship and guidance from experienced entrepreneurs",
+            "Access to finance and financial support for startups",
+            "Business development support and networking opportunities",
+            "Assistance in accessing markets and business resources"
+        ],
+        "Eligibility": [
+            "Aspiring entrepreneurs with a viable business idea or early-stage startups",
+            "No specific age restrictions",
+            "Open to individuals from all backgrounds and communities"
+        ],
+        "Application_Process": [
+            "Visit the designated entrepreneurship development center or website",
+            "Complete the application form with details about your business idea or startup",
+            "Submit a business plan highlighting the viability and potential of the venture",
+            "Participate in selection rounds, which may include interviews or presentations",
+            "Shortlisted applicants will be notified and invited to join the program"
+        ],
+        "documents": [
+            "Identification proof (Aadhaar card, PAN card, etc.)",
+            "Proof of residence",
+            "Business plan and supporting documents",
+            "Any additional documents as specified in the application process"
+        ]
+    },
+    {
+        "id": 6,
+        "name": "Science and Telecommunication Research and Development Program",
+        "heading": "Advancing Scientific Discoveries and Telecommunication Technologies",
+        "by": "Ministry of Science and Technology",
+        "tags": [
+            "Science",
+            "Telecommunication",
+            "Research",
+            "Development",
+            "Innovation",
+            "Technological Advancement"
+        ],
+        "Details": "The Science and Telecommunication Research and Development Program aims to foster scientific research and technological advancements in the field of telecommunication. The scheme provides funding and support for research projects that explore cutting-edge technologies, address industry challenges, and contribute to the advancement of telecommunication infrastructure, services, and applications. The program encourages collaboration between academia, research institutions, and industry players to facilitate knowledge exchange and promote innovation. By investing in research and development, the program aims to drive economic growth, enhance communication networks, and improve the overall quality of telecommunication services in the country.",
+        "Benefits": [
+            "Research funding for scientific studies in the field of telecommunication",
+            "Access to state-of-the-art laboratory facilities and research equipment",
+            "Collaborative opportunities with industry experts and organizations",
+            "Support for prototype development and technology commercialization",
+            "Networking and knowledge-sharing platforms"
+        ],
+        "Eligibility": [
+            "Scientists, researchers, and technologists in the field of telecommunication",
+            "Research institutions, universities, and industry players",
+            "Projects with innovative ideas and potential for technological impact"
+        ],
+        "Application_Process": [
+            "Visit the program's official website or research funding portal",
+            "Review the guidelines and eligibility criteria",
+            "Prepare a detailed research proposal outlining the objectives, methodology, and expected outcomes",
+            "Submit the proposal online along with necessary supporting documents",
+            "Proposals will undergo evaluation by a panel of experts",
+            "Shortlisted projects will receive funding and further guidance for implementation"
+        ],
+        "documents": [
+            "Research proposal",
+            "CVs or profiles of the project team members",
+            "Budget plan and cost estimation",
+            "Institutional affiliation and collaboration letters (if applicable)",
+            "Any additional documents specified in the application guidelines"
+        ]
+    },
+    {
+        "id": 7,
+        "name": "Technology Development and Utilization Program for Women",
+        "heading": "Empowering Women through Technology",
+        "by": "Ministry of Women and Child Development",
+        "tags": [
+            "Technology",
+            "Women Empowerment",
+            "Skill Development",
+            "Entrepreneurship",
+            "Digital Literacy",
+            "Innovation"
+        ],
+        "Details": "The Technology Development and Utilization Program for Women aims to empower women by enhancing their technological skills, fostering innovation, and promoting entrepreneurship. The scheme focuses on bridging the gender gap in technology and ensuring equal opportunities for women in the digital era. The program offers a range of initiatives, including skill development training, capacity-building workshops, access to technology resources, and support for women-led startups. It also promotes digital literacy among women, encouraging them to utilize technology for personal and professional growth. Through this program, the government aims to create a conducive ecosystem where women can thrive, contribute to the technology sector, and lead in leveraging technology for social and economic development.",
+        "Benefits": [
+            "Skill development training in emerging technologies",
+            "Workshops and seminars on entrepreneurship and innovation",
+            "Access to technology resources and mentorship programs",
+            "Financial assistance and incubation support for women-led startups",
+            "Digital literacy programs to enhance technological knowledge",
+            "Networking opportunities and collaboration platforms"
+        ],
+        "Eligibility": [
+            "Women of all ages and backgrounds",
+            "Aspiring entrepreneurs and women interested in technology",
+            "No specific educational or professional qualifications required"
+        ],
+        "Application_Process": [
+            "Visit the program's official website or designated application portal",
+            "Review the available initiatives and eligibility criteria",
+            "Complete the online application form with relevant personal and contact information",
+            "Specify the preferred training programs or support required",
+            "Submit the application along with any required supporting documents",
+            "Applications will be evaluated, and eligible candidates will be notified"
+        ],
+        "documents": [
+            "Identification proof (Aadhaar card, PAN card, etc.)",
+            "Proof of residence",
+            "Resume or curriculum vitae",
+            "Business plan (for aspiring entrepreneurs)",
+            "Any additional documents as specified in the application process"
+        ]
+    },
+    {
+        "id": 8,
+        "name": "Junior Research Fellowship in Sciences, Humanities, and Social Sciences",
+        "heading": "Promoting Research and Innovation among Young Scholars",
+        "by": "National Research Foundation",
+        "tags": [
+            "Research",
+            "Fellowship",
+            "Sciences",
+            "Humanities",
+            "Social Sciences",
+            "Young Scholars",
+            "Innovation"
+        ],
+        "Details": "The Junior Research Fellowship in Sciences, Humanities, and Social Sciences is a prestigious program aimed at nurturing research talent and promoting innovation among young scholars. The scheme provides financial support and opportunities for research in diverse fields, including sciences, humanities, and social sciences. The fellowship enables scholars to engage in cutting-edge research projects, contribute to knowledge creation, and pursue their academic aspirations. The program emphasizes interdisciplinary research and encourages collaboration between scholars from different disciplines. Through this fellowship, the National Research Foundation seeks to cultivate a vibrant research ecosystem and foster the next generation of researchers and thought leaders in various domains.",
+        "Benefits": [
+            "Financial support in the form of a monthly stipend",
+            "Access to research facilities and resources",
+            "Guidance and mentorship from experienced researchers",
+            "Opportunities for presenting research findings at conferences",
+            "Networking and collaboration with fellow scholars",
+            "Exposure to interdisciplinary research environments"
+        ],
+        "Eligibility": [
+            "Young scholars who have completed their postgraduate degree",
+            "Open to candidates from sciences, humanities, and social sciences",
+            "Candidates with a passion for research and academic excellence"
+        ],
+        "Application_Process": [
+            "Visit the National Research Foundation's official website",
+            "Check the eligibility criteria and guidelines for the fellowship",
+            "Prepare a research proposal outlining the objectives and methodology",
+            "Compile the necessary documents, including academic transcripts and references",
+            "Submit the application form along with the research proposal and supporting documents",
+            "Applications will be evaluated based on academic merit and research potential"
+        ],
+        "documents": [
+            "Identification proof (Aadhaar card, passport, etc.)",
+            "Academic transcripts and certificates",
+            "Letter of recommendation from a professor or academic mentor",
+            "Research proposal outlining the research objectives and methodology",
+            "Any additional documents as specified in the application guidelines"
+        ]
+    },
+    {
+        "id": 9,
+        "name": "Women Scientist Scheme-C",
+        "heading": "Promoting Women's Participation in Science and Technology",
+        "by": "Department of Science and Technology",
+        "tags": [
+            "Women Empowerment",
+            "Science",
+            "Technology",
+            "Research",
+            "Career Development"
+        ],
+        "Details": "The Women Scientist Scheme-C is an initiative by the Department of Science and Technology aimed at promoting the participation and career advancement of women in the field of science and technology. The scheme provides opportunities and support for women scientists to pursue research projects, establish their own research groups, and contribute to scientific advancements. It encourages women scientists to undertake independent research and create a conducive environment for their professional growth. The program also emphasizes mentorship, networking, and capacity-building activities to empower women scientists and foster a gender-inclusive scientific community.",
+        "Benefits": [
+            "Research funding for women scientists to conduct independent research projects",
+            "Support for establishing research infrastructure and laboratories",
+            "Capacity-building programs, workshops, and seminars",
+            "Networking and mentorship opportunities with experienced scientists",
+            "Assistance in patent filing and technology commercialization",
+            "Career development support and guidance"
+        ],
+        "Eligibility": [
+            "Women scientists holding a Ph.D. or equivalent degree",
+            "Researchers working in science and technology domains",
+            "Aspiring women scientists with a strong research proposal"
+        ],
+        "Application_Process": [
+            "Visit the Department of Science and Technology's official website",
+            "Review the guidelines and eligibility criteria for the scheme",
+            "Prepare a detailed research proposal highlighting the objectives and methodology",
+            "Compile the necessary documents, including academic qualifications and research experience",
+            "Submit the application form along with the research proposal and supporting documents",
+            "Applications will undergo evaluation by a panel of experts"
+        ],
+        "documents": [
+            "Identification proof (Aadhaar card, passport, etc.)",
+            "Curriculum vitae (CV) highlighting academic qualifications and research experience",
+            "Research proposal outlining the objectives, methodology, and expected outcomes",
+            "Letters of recommendation from professors or senior scientists",
+            "Publications or research papers (if applicable)",
+            "Any additional documents specified in the application guidelines"
+        ]
+    },
+    {
+        "id": 10,
+        "name": "Public Safety Law and Service Initiative",
+        "heading": "Enhancing Public Safety through Legal Support and Services",
+        "by": "Ministry of Home Affairs",
+        "tags": [
+            "Public Safety",
+            "Law Enforcement",
+            "Legal Support",
+            "Community Service",
+            "Crime Prevention",
+            "Citizen Participation"
+        ],
+        "Details": "The Public Safety Law and Service Initiative is a comprehensive program led by the Ministry of Home Affairs to enhance public safety, prevent crime, and promote citizen participation in maintaining law and order. The scheme aims to strengthen the legal framework, improve law enforcement agencies' efficiency, and engage the community in crime prevention efforts. It provides a platform for collaboration between the government, law enforcement agencies, legal professionals, and citizens to create a safer society. Through this initiative, the government endeavors to foster a sense of security, build trust, and ensure the well-being of all individuals.",
+        "Benefits": [
+            "Legal support and advice for individuals and communities",
+            "Increased presence and patrolling of law enforcement personnel",
+            "Public awareness campaigns on safety measures and crime prevention",
+            "Community service initiatives to promote a safe and inclusive environment",
+            "Collaboration between law enforcement agencies and the public",
+            "Training programs for law enforcement personnel on modern crime-fighting techniques"
+        ],
+        "Eligibility": [
+            "Open to all citizens and residents",
+            "Law enforcement agencies and personnel",
+            "Legal professionals and organizations",
+            "Community groups and organizations"
+        ],
+        "Application_Process": [
+            "No specific application process as the scheme primarily focuses on government-led initiatives and community participation",
+            "Citizens can participate by engaging in public safety awareness programs, reporting suspicious activities, and cooperating with law enforcement agencies",
+            "Legal professionals and organizations can collaborate with the Ministry of Home Affairs in providing legal support and services to those in need",
+            "Law enforcement agencies can actively participate by implementing community-oriented policing strategies and engaging with the public through outreach programs",
+            "Community groups and organizations can organize events, workshops, and awareness campaigns related to public safety"
+        ],
+        "documents": [
+            "No specific documents required for participation as the scheme focuses on public safety and community engagement rather than formal application procedures"
+        ]
+    },
+    {
+        "id": 11,
+        "name": "Himachal Pradesh Legal Aid Counsel Scheme",
+        "heading": "Ensuring Access to Justice for All",
+        "by": "Government of Himachal Pradesh",
+        "tags": [
+            "Legal Aid",
+            "Access to Justice",
+            "Legal Services",
+            "Free Legal Assistance",
+            "Justice System",
+            "Empowerment"
+        ],
+        "Details": "The Himachal Pradesh Legal Aid Counsel Scheme is an initiative by the Government of Himachal Pradesh to provide free legal aid and assistance to the marginalized and underprivileged sections of society. The scheme aims to ensure that every individual, irrespective of their socio-economic background, has access to justice and legal representation. It establishes a network of legal aid counsels who offer their services to those in need. The scheme focuses on empowering individuals by equipping them with legal knowledge, resolving disputes, and promoting social justice. Through this initiative, the government seeks to create a more inclusive and equitable society where the rights of all citizens are protected.",
+        "Benefits": [
+            "Free legal assistance and advice for eligible individuals",
+            "Representation by qualified legal aid counsels in courts and legal proceedings",
+            "Legal awareness programs to educate communities about their rights and responsibilities",
+            "Mediation and dispute resolution services to promote amicable settlements",
+            "Support for filing legal documents and accessing relevant legal resources",
+            "Empowerment of marginalized and underprivileged individuals through legal support"
+        ],
+        "Eligibility": [
+            "Residents of Himachal Pradesh",
+            "Individuals belonging to marginalized and economically weaker sections of society",
+            "Individuals unable to afford legal services",
+            "Cases involving violation of fundamental rights, domestic violence, exploitation, etc."
+        ],
+        "Application_Process": [
+            "Visit the designated Legal Aid Counsel office or legal aid clinic",
+            "Provide relevant details about the case and personal circumstances to the legal aid counsel",
+            "The legal aid counsel will assess the eligibility and merits of the case",
+            "If eligible, the legal aid counsel will provide free legal representation and assistance",
+            "In cases where mediation or dispute resolution is appropriate, the legal aid counsel will facilitate the process",
+            "Regular communication and coordination with the legal aid counsel throughout the case"
+        ],
+        "documents": [
+            "Proof of residence in Himachal Pradesh",
+            "Identification documents (Aadhaar card, voter ID, etc.)",
+            "Income certificate or proof of economic status",
+            "Relevant documents related to the case (if available)"
+        ]
+    },
+    {
+        "id": 12,
+        "name": "Meghalaya Victim Compensation Scheme, 2022",
+        "heading": "Providing Compensation and Support to Crime Victims",
+        "by": "Government of Meghalaya",
+        "tags": [
+            "Victim Compensation",
+            "Crime Victims",
+            "Legal Support",
+            "Financial Assistance",
+            "Rehabilitation",
+            "Justice"
+        ],
+        "Details": "The Meghalaya Victim Compensation Scheme, 2022 is an initiative by the Government of Meghalaya to provide financial assistance and support to victims of various crimes. The scheme aims to alleviate the suffering and trauma experienced by victims and ensure their rehabilitation and well-being. It recognizes the rights of victims to compensation, justice, and support services. The scheme covers a wide range of crimes, including sexual offenses, domestic violence, acid attacks, human trafficking, and more. By offering victim compensation and necessary assistance, the government aims to restore the dignity and enable the victims to rebuild their lives.",
+        "Benefits": [
+            "Financial compensation to victims of specified crimes",
+            "Reimbursement of medical expenses and counseling support",
+            "Assistance in the filing of complaints and legal proceedings",
+            "Rehabilitation and reintegration support for victims",
+            "Education and skill development opportunities for victims",
+            "Collaboration with NGOs and support organizations for holistic victim assistance"
+        ],
+        "Eligibility": [
+            "Individuals who are victims of specified crimes in Meghalaya",
+            "The victim or their legal representative can apply for compensation",
+            "Applicants must cooperate with law enforcement agencies during the investigation and prosecution of the case"
+        ],
+        "Application_Process": [
+            "Visit the designated office or website of the Meghalaya Victim Compensation Scheme",
+            "Obtain the application form and guidelines",
+            "Fill out the application form with accurate details about the crime, victim, and supporting documents",
+            "Submit the application form along with the necessary documents",
+            "The application will undergo verification and evaluation by the authorities",
+            "Upon approval, the compensation amount will be disbursed to the victim or their legal representative"
+        ],
+        "documents": [
+            "Copy of FIR (First Information Report) or police complaint",
+            "Medical certificate or report detailing the injuries or harm caused",
+            "Proof of identity and residence",
+            "Any other relevant documents related to the crime and victim's situation"
+        ]
+    },
+    {
+        "id": 13,
+        "name": "SWADHAR Greh (A Scheme For Women In Difficult Circumstances)",
+        "heading": "Empowering and Rehabilitating Women in Challenging Situations",
+        "by": "Ministry of Women and Child Development",
+        "tags": [
+            "Women Empowerment",
+            "Rehabilitation",
+            "Shelter Homes",
+            "Skill Development",
+            "Counseling",
+            "Livelihood Support"
+        ],
+        "Details": "SWADHAR Greh is a comprehensive scheme initiated by the Ministry of Women and Child Development to provide support and rehabilitation services to women facing difficult circumstances. The scheme aims to empower women in distress, including victims of domestic violence, trafficking, abuse, and other challenging situations. SWADHAR Greh provides temporary shelter homes, counseling, skill development programs, and livelihood support to facilitate the socio-economic reintegration of these women. The scheme endeavors to create a safe and enabling environment where women can rebuild their lives, regain their confidence, and lead independent and dignified lives.",
+        "Benefits": [
+            "Safe and temporary shelter homes for women in difficult circumstances",
+            "Counseling and psychological support to overcome trauma and build resilience",
+            "Skill development and vocational training to enhance employability",
+            "Livelihood support for sustainable income generation",
+            "Assistance in accessing entitlements, legal aid, and social welfare schemes",
+            "Reintegration support to mainstream women back into society"
+        ],
+        "Eligibility": [
+            "Women above 18 years of age",
+            "Women facing difficult circumstances such as domestic violence, trafficking, abuse, abandonment, etc.",
+            "Women without any means of support or family/social network",
+            "Women in need of temporary shelter, counseling, and rehabilitation services"
+        ],
+        "Application_Process": [
+            "Contact the nearest District Social Welfare Office or the designated nodal agency",
+            "Express the need for assistance under the SWADHAR Greh scheme",
+            "Provide relevant details about the challenging circumstances and personal information",
+            "Undergo assessment and verification by the authorities",
+            "Upon approval, the women will be provided with shelter, counseling, and necessary support services"
+        ],
+        "documents": [
+            "Proof of age (birth certificate, school leaving certificate, etc.)",
+            "Identity proof (Aadhaar card, voter ID, etc.)",
+            "Proof of difficult circumstances (medical certificate, police report, etc.)",
+            "Any other relevant documents supporting the case"
+        ]
+    },
+    {
+        "id": 14,
+        "name": "Support to Students for Participating in Competition Abroad",
+        "heading": "Encouraging Excellence and International Exposure",
+        "by": "Ministry of Education",
+        "tags": [
+            "Education",
+            "Students",
+            "International Competitions",
+            "Abroad",
+            "Scholarships",
+            "Skill Development"
+        ],
+        "Details": "The Support to Students for Participating in Competition Abroad scheme is an initiative by the Ministry of Education to provide financial and logistical support to students representing India in international competitions held abroad. The scheme aims to encourage students to excel in their chosen fields and gain exposure to international standards and competition. It provides assistance to students from various disciplines, including academics, arts, sports, science, and technology, to participate in prestigious international competitions, conferences, and events. The scheme not only fosters excellence but also enhances cross-cultural understanding, knowledge exchange, and skill development among the students.",
+        "Benefits": [
+            "Financial assistance for travel, accommodation, and registration fees for participating in international competitions abroad",
+            "Support for visa processing and necessary documentation",
+            "Guidance and mentorship for competition preparation",
+            "Skill development workshops and training programs to enhance students' capabilities",
+            "Networking opportunities and exposure to international experts in the respective fields",
+            "Recognition and promotion of students' achievements on national and international platforms"
+        ],
+        "Eligibility": [
+            "Indian students enrolled in recognized educational institutions",
+            "Students who have secured a position or have been selected to represent India in a recognized international competition abroad",
+            "Students demonstrating exceptional talent, skill, or academic excellence in their respective fields"
+        ],
+        "Application_Process": [
+            "Students can apply through the designated portal or application form provided by the Ministry of Education",
+            "Submit the application form along with necessary supporting documents",
+            "The applications will undergo evaluation by a selection committee",
+            "Shortlisted students will be notified and provided with the necessary support and assistance"
+        ],
+        "documents": [
+            "Proof of Indian citizenship (Aadhaar card, passport, etc.)",
+            "Confirmation or acceptance letter from the organizing committee of the international competition",
+            "Details of the competition, including dates, venue, and participation criteria",
+            "Supporting documents showcasing the student's achievements or qualifications in the respective field",
+            "Any other relevant documents as specified by the Ministry"
+        ]
+    },
+    {
+        "id": 15,
+        "name": "Promotion and Development of Tea Tourism Infrastructure in Assam",
+        "heading": "Unveiling the Rich Cultural Heritage of Assam's Tea Gardens",
+        "by": "Government of Assam",
+        "tags": [
+            "Tea Tourism",
+            "Cultural Heritage",
+            "Infrastructure Development",
+            "Assam",
+            "Tourism Promotion",
+            "Economic Growth"
+        ],
+        "Details": "The Promotion and Development of Tea Tourism Infrastructure in Assam scheme is an initiative by the Government of Assam to promote and showcase the rich cultural heritage of the state's tea gardens to tourists. Assam is known for its world-renowned tea production, and this scheme aims to leverage the tea gardens' potential for tourism development. It focuses on enhancing the infrastructure and amenities in and around tea estates to attract both domestic and international tourists. By creating a conducive environment for tea tourism, the scheme aims to generate employment opportunities, boost the local economy, and provide visitors with an immersive experience of Assam's tea heritage and scenic landscapes.",
+        "Benefits": [
+            "Development of tourist amenities and infrastructure in tea gardens",
+            "Creation of tea tourism circuits and trails",
+            "Preservation and promotion of Assam's tea heritage and culture",
+            "Enhanced visitor experience through guided tours and cultural activities",
+            "Training and capacity building for tea garden communities in hospitality and tourism management",
+            "Increased employment opportunities and income generation for local communities"
+        ],
+        "Eligibility": [
+            "Tea gardens and estates in Assam",
+            "Tea garden communities and local stakeholders interested in tea tourism development",
+            "Collaboration with tourism agencies, hospitality providers, and relevant organizations"
+        ],
+        "Application_Process": [
+            "Interested tea garden owners or community representatives can express their interest to participate in the scheme",
+            "Submit a detailed proposal outlining the infrastructure development plans, tourism activities, and expected outcomes",
+            "The proposals will be evaluated by the designated authority or tourism department",
+            "Selected participants will be provided with necessary support and funding for infrastructure development"
+        ],
+        "documents": [
+            "Detailed proposal outlining the tea tourism infrastructure development plans",
+            "Proof of ownership or authorization for tea gardens",
+            "Partnership agreements with tourism agencies or hospitality providers (if applicable)",
+            "Any other relevant documents as specified by the scheme guidelines"
+        ]
+    },
+    {
+        "id": 16,
+        "name": "AICTE-INAE Travel Grant Scheme for Engineering Students",
+        "heading": "Promoting Research and Innovation through Travel Grants",
+        "by": "All India Council for Technical Education (AICTE) and Indian National Academy of Engineering (INAE)",
+        "tags": [
+            "Engineering Students",
+            "Research",
+            "Travel Grants",
+            "Academic Exchange",
+            "Innovation",
+            "Professional Development"
+        ],
+        "Details": "The AICTE-INAE Travel Grant Scheme for Engineering Students is a collaborative initiative by the All India Council for Technical Education (AICTE) and the Indian National Academy of Engineering (INAE). The scheme aims to support engineering students from AICTE-approved engineering colleges and institutions in undertaking research projects, attending conferences, and participating in academic exchange programs within India and abroad. The scheme seeks to promote research and innovation among engineering students, provide exposure to emerging trends and practices, and foster collaboration and knowledge sharing. By offering travel grants, the scheme encourages students to expand their horizons, gain valuable experiences, and contribute to the advancement of engineering knowledge and practices.",
+        "Benefits": [
+            "Financial support for travel expenses related to research projects, conferences, and academic exchange programs",
+            "Opportunity to present research findings and interact with experts in the field",
+            "Enhanced exposure to emerging trends, technologies, and best practices in engineering",
+            "Networking opportunities with peers and professionals from diverse backgrounds",
+            "Professional development and skill enhancement through participation in workshops and seminars",
+            "Recognition and visibility for outstanding research contributions"
+        ],
+        "Eligibility": [
+            "Engineering students enrolled in AICTE-approved engineering colleges or institutions",
+            "Students pursuing undergraduate, postgraduate, or doctoral programs in engineering",
+            "Students who have completed a substantial portion of their academic coursework",
+            "Students with a strong interest in research, innovation, and academic exchange"
+        ],
+        "Application_Process": [
+            "AICTE-approved engineering colleges/institutions will invite applications from eligible students",
+            "Students will be required to submit a research proposal, conference participation details, or academic exchange program details",
+            "Applications will undergo evaluation by a selection committee or designated authority",
+            "Selected students will be notified and provided with the necessary travel grant"
+        ],
+        "documents": [
+            "Completed application form",
+            "Research proposal or project details",
+            "Conference participation or academic exchange program invitation",
+            "Recommendation letters from faculty or mentors",
+            "Academic transcripts or certificates",
+            "Any other supporting documents as required by the scheme"
+        ]
+    },
+    {
+        "id": 17,
+        "name": "Rashtriya Krishi Vikas Yojana",
+        "heading": "Accelerating Agricultural Development for Sustainable Growth",
+        "by": "Ministry of Agriculture and Farmers Welfare, Government of India",
+        "tags": [
+            "Agriculture",
+            "Farmers",
+            "Development",
+            "Sustainable Growth",
+            "Financial Assistance",
+            "Infrastructure",
+            "Technology",
+            "Training"
+        ],
+        "Details": "The Rashtriya Krishi Vikas Yojana (RKVY) is an agricultural development scheme initiated by the Ministry of Agriculture and Farmers Welfare, Government of India. The scheme aims to enhance the productivity and income of farmers, promote sustainable agricultural practices, and ensure food security. Under the RKVY, financial assistance is provided to states and union territories for the implementation of various agricultural projects and initiatives. The scheme focuses on infrastructure development, technology adoption, capacity building, and creating a supportive ecosystem for agricultural growth. By empowering farmers and strengthening the agricultural sector, the RKVY aims to contribute to the overall socio-economic development of rural communities.",
+        "Benefits": [
+            "Financial assistance for agriculture-related projects and initiatives",
+            "Promotion of sustainable agricultural practices",
+            "Infrastructure development in agriculture and allied sectors",
+            "Adoption of modern technologies and innovative farming practices",
+            "Capacity building and training programs for farmers",
+            "Support for research and development in agriculture",
+            "Promotion of agri-entrepreneurship and value addition",
+            "Enhanced market access and agricultural marketing reforms"
+        ],
+        "Eligibility": [
+            "State governments and union territories",
+            "Agricultural departments and agencies",
+            "Farmers and farmer groups",
+            "Agri-entrepreneurs and agricultural institutions"
+        ],
+        "Application_Process": [
+            "State governments and union territories submit project proposals to the designated authority",
+            "The proposals undergo evaluation based on predetermined criteria",
+            "Approved projects receive financial assistance and technical support",
+            "Implementation and monitoring of projects by the respective state or union territory"
+        ],
+        "documents": [
+            "Project proposal with details of objectives, activities, and budget",
+            "Supporting documents related to infrastructure development or technology adoption",
+            "Farmers' registration details or farmer group information",
+            "Institutional or organizational documents as required",
+            "Any other relevant documents specified by the scheme guidelines"
+        ]
+    },
+    {
+        "id": 18,
+        "name": "Saansad Adarsh Gram Yojana",
+        "heading": "Transforming Villages into Model Communities",
+        "by": "Ministry of Rural Development, Government of India",
+        "tags": [
+            "Rural Development",
+            "Villages",
+            "Model Communities",
+            "Integrated Development",
+            "Inclusive Growth",
+            "Member of Parliament",
+            "Community Participation"
+        ],
+        "Details": "The Saansad Adarsh Gram Yojana (SAGY) is an initiative by the Ministry of Rural Development, Government of India. The scheme aims to transform selected villages across India into model communities by ensuring holistic and integrated development. Under the SAGY, Members of Parliament (MPs) adopt a village and work towards its development by focusing on improving social, cultural, economic, and physical infrastructure. The scheme encourages active participation and engagement of the local community in identifying their development needs and implementing solutions. By creating adarsh (ideal) villages, the SAGY aims to promote inclusive growth, bridge the rural-urban divide, and showcase sustainable models of rural development.",
+        "Benefits": [
+            "Holistic development of selected villages",
+            "Improvement in social, cultural, economic, and physical infrastructure",
+            "Enhanced access to basic amenities and services",
+            "Promotion of education, healthcare, and skill development",
+            "Income generation and livelihood enhancement activities",
+            "Preservation of local traditions, art, and culture",
+            "Promotion of sustainable and eco-friendly practices",
+            "Empowerment of women and marginalized sections of society"
+        ],
+        "Eligibility": [
+            "Members of Parliament (MPs) representing constituencies in India"
+        ],
+        "Application_Process": [
+            "MPs select a village from their constituency to adopt under the SAGY",
+            "Conduct a comprehensive survey and needs assessment of the village",
+            "Prepare a detailed village development plan in consultation with the local community",
+            "Mobilize resources and coordinate with government agencies and stakeholders for implementation",
+            "Regular monitoring and evaluation of the progress and impact of the adopted village"
+        ],
+        "documents": [
+            "Adoption letter from the MP selecting the village",
+            "Village survey and needs assessment report",
+            "Village development plan with detailed activities and timelines",
+            "Coordination and communication records with government agencies and stakeholders",
+            "Monitoring and evaluation reports",
+            "Any other relevant documents as required by the scheme guidelines"
+        ]
+    },
+    {
+        "id": 19,
+        "name": "YSR Rythu Bharosa",
+        "heading": "Empowering Farmers for Sustainable Agriculture",
+        "by": "Government of Andhra Pradesh, India",
+        "tags": [
+            "Agriculture",
+            "Farmers",
+            "Financial Assistance",
+            "Crop Investment Support",
+            "Farm Infrastructure",
+            "Insurance",
+            "Input Subsidy",
+            "Farmers' Welfare"
+        ],
+        "Details": "YSR Rythu Bharosa is an agricultural welfare scheme launched by the Government of Andhra Pradesh, India. The scheme aims to support farmers and enhance their income by providing financial assistance, investment support, and various other benefits. Under YSR Rythu Bharosa, eligible farmers receive financial assistance to meet their crop investment needs, such as seeds, fertilizers, pesticides, and labor. The scheme also provides insurance coverage for crops to protect farmers from crop losses due to natural calamities. Additionally, the scheme focuses on improving farm infrastructure and offering input subsidies for agricultural equipment and machinery. YSR Rythu Bharosa strives to uplift the farming community, promote sustainable agriculture, and ensure the welfare of farmers and their families.",
+        "Benefits": [
+            "Financial assistance for crop investment needs",
+            "Insurance coverage for crop losses",
+            "Farm infrastructure development",
+            "Subsidies for agricultural inputs and machinery",
+            "Support for farmer households",
+            "Promotion of sustainable farming practices",
+            "Enhanced income and livelihood opportunities"
+        ],
+        "Eligibility": [
+            "Farmers and tenant farmers",
+            "Landholding families in rural areas",
+            "Residents of Andhra Pradesh, India"
+        ],
+        "Application_Process": [
+            "Farmers register themselves for the scheme through the official channels",
+            "Verification and validation of eligibility criteria by the concerned authorities",
+            "Beneficiary list preparation and allocation of financial assistance",
+            "Disbursement of financial assistance directly to the registered bank accounts of farmers"
+        ],
+        "documents": [
+            "Land ownership documents or tenant farmer certificate",
+            "Identification proof (Aadhaar card, voter ID, etc.)",
+            "Bank account details",
+            "Any other relevant documents as required by the scheme guidelines"
+        ]
+    },
+    {
+        "id": 20,
+        "name": "Galvanizing Organic Bio-Agro Resources Dhan (GOBARdhan)",
+        "heading": "Promoting Bio-Gas Production and Organic Farming",
+        "by": "Ministry of Jal Shakti, Government of India",
+        "tags": [
+            "Bio-Gas",
+            "Organic Farming",
+            "Waste Management",
+            "Rural Development",
+            "Renewable Energy",
+            "Livelihood Generation",
+            "Sustainable Agriculture"
+        ],
+        "Details": "GOBARdhan, an initiative by the Ministry of Jal Shakti, Government of India, aims to promote bio-gas production from cattle dung and organic waste, along with the adoption of organic farming practices. The scheme focuses on effective waste management, rural development, and sustainable agriculture. Under GOBARdhan, rural households, farmers, and dairy farmers are encouraged to set up bio-gas plants using cattle dung and other organic waste. The bio-gas generated can be used for cooking, lighting, and other energy needs, reducing reliance on conventional fuels and promoting renewable energy. Additionally, the scheme supports the conversion of organic waste into organic manure, fostering organic farming practices and enhancing soil health. GOBARdhan aims to create a cleaner and greener rural environment while generating livelihood opportunities and promoting sustainable agricultural practices.",
+        "Benefits": [
+            "Bio-gas production for cooking, lighting, and energy needs",
+            "Reduction in dependency on conventional fuels",
+            "Effective management of cattle dung and organic waste",
+            "Conversion of organic waste into organic manure",
+            "Promotion of organic farming practices",
+            "Enhancement of soil health and fertility",
+            "Rural development and livelihood generation",
+            "Environmental sustainability"
+        ],
+        "Eligibility": [
+            "Rural households",
+            "Farmers",
+            "Dairy farmers",
+            "Communities in rural areas"
+        ],
+        "Application_Process": [
+            "Interested individuals or communities can contact the designated authorities or agencies responsible for implementing GOBARdhan",
+            "Assessment of the feasibility of setting up bio-gas plants",
+            "Identification of suitable locations and arrangements for waste collection",
+            "Training and capacity building programs on bio-gas production and organic farming practices",
+            "Financial assistance and subsidies for setting up bio-gas plants"
+        ],
+        "documents": [
+            "Proof of identity (Aadhaar card, voter ID, etc.)",
+            "Proof of residence",
+            "Ownership documents or authorization for using cattle dung or waste",
+            "Any other relevant documents specified by the scheme guidelines"
+        ]
+    }
+]
