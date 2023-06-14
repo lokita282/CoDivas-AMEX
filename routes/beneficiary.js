@@ -12,7 +12,9 @@ const {
     getRedemptionStatus,
     getVerificationCode,
     getTransactions,
-    weeklyCategoryData
+    weeklyCategoryData,
+    monthlyCategoryData,
+    expenditureCategoryData
 } = require('../controllers/user');
 
 // Initializing router
@@ -70,6 +72,18 @@ router.get(
     '/weekly-category-data',
     [authorizeJWT.verifyJWT, authorizeJWT.roleBeneficiary],
     weeklyCategoryData
+);
+
+router.get(
+    '/monthly-category-data',
+    [authorizeJWT.verifyJWT, authorizeJWT.roleBeneficiary],
+    monthlyCategoryData
+);
+
+router.get(
+    '/expenditure-category-data',
+    [authorizeJWT.verifyJWT, authorizeJWT.roleBeneficiary],
+    expenditureCategoryData
 );
 
 module.exports = router;

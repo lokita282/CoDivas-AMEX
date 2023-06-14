@@ -305,61 +305,111 @@ const monthlyCategoryData = async (req, res) => {
 
         const beneficiary = await Beneficiary.findById(req.user.beneficiary);
         let d = new Date();
-        d.setDate(d.getMonth() - 364);
+        d.setDate(d.getDate() - 334);
 
         let vouchers = await Voucher.find({
             beneficiaryPhone: beneficiary.phone,
             createdAt: { $gte: d }
         });
 
-        const count = (data, d) => {
-            let temp = _.cloneDeep(lineDataObj);
-            temp.id = data[0].category;
+        const count = (data, categoryObj, d) => {
+            let da = _.clone(d);
 
-            for (let itemception of data) {
-                let itemMonth = itemception.getMonth();
-                if (itemception.createdAt.getMonth() == d.getMonth()) {
+            for (let i = 0; i < 12; i++) {
+                let temp = {
+                    x: '',
+                    y: 0
+                };
+                temp.x = month[da.getMonth()];
+                temp.x += '-' + (da.getYear() + 1900);
+
+                for (let item of data) {
+                    if (
+                        item.createdAt.getMonth() == da.getMonth() &&
+                        item.createdAt.getYear() == da.getYear()
+                    ) {
+                        temp.y += 1;
+                    }
                 }
 
-                if (item.category == 'health') {
-                    temp.data[0].y += 1;
-                } else if (item.category == 'agriculture') {
-                    temp.data[1].y += 1;
-                } else if (item.category == 'education') {
-                    temp.data[2].y += 1;
-                } else if (item.category == 'food') {
-                    temp.data[3].y += 1;
-                } else if (item.category == 'housing') {
-                    temp.data[4].y += 1;
-                } else if (item.category == 'transportation') {
-                    temp.data[5].y += 1;
-                } else if (item.category == 'utility') {
-                    temp.data[6].y += 1;
-                } else if (item.category == 'telecommunication') {
-                    temp.data[7].y += 1;
-                } else if (item.category == 'other') {
-                    temp.data[8].y += 1;
-                }
+                categoryObj.data.push(temp);
+                da.setDate(da.getDate() + 30);
             }
-            return temp;
+            return categoryObj;
         };
 
         for (let item of categoryIcons) {
             let temp = [];
+
+            let categoryObj = _.cloneDeep(lineDataObj);
+            categoryObj.id = item.category;
+
             for (let itemception of vouchers) {
-                // let date = item.createdAt
                 if (itemception.category === item.category) {
                     temp.push(itemception);
                 }
             }
-            let innerObj = lineData.push(count(temp, d));
-            d.setDate(d.getDate + 30);
+
+            lineData.push(count(temp, categoryObj, d));
         }
 
         res.status(200).json({
-            message: 'Weekly Vouchers for Organisation',
+            message: 'Monthy Category Data of Beneficiary',
             data: {
-                barData
+                lineData
+            }
+        });
+    } catch (error) {
+        res.status(400).json({
+            message: error.message
+        });
+    }
+};
+
+const expenditureCategoryData = async (req, res) => {
+    try {
+        let expenditureData = [];
+        let expenditureDataObj = {
+            id: '',
+            label: '',
+            value: 0
+        };
+
+        const beneficiary = await Beneficiary.findById(req.user.beneficiary);
+
+        let vouchers = await Voucher.find({
+            beneficiaryPhone: beneficiary.phone,
+            status: 'redeemed'
+        });
+
+        const count = (data, obj) => {
+            for (const item of data) {
+                obj.value += item.amount;
+            }
+
+            return obj;
+        };
+
+        for (const item of categoryIcons) {
+            let temp = _.cloneDeep(expenditureDataObj);
+            temp.id = item.category;
+            temp.label = item.category;
+
+            let data = [];
+
+            for (const itemception of vouchers) {
+                if (itemception.category == item.category) {
+                    data.push(itemception);
+                }
+            }
+
+            expenditureData.push(count(data, temp));
+        }
+
+        res.status(200).json({
+            message: 'Expenditure Data of Beneficiary',
+            data: {
+                expenditureData
             }
         });
     } catch (error) {
@@ -378,5 +428,7 @@ module.exports = {
     getRedemptionStatus,
     getVerificationCode,
     getTransactions,
-    weeklyCategoryData
+    weeklyCategoryData,
+    monthlyCategoryData,
+    expenditureCategoryData
 };
