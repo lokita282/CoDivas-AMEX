@@ -26,11 +26,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
-<<<<<<< HEAD
-    "dayjs": "^1.11.8",
-=======
     "fuzzy-search": "^3.2.1",
->>>>>>> feccc13945343099a37aa62b17b3cdfb4b966f9a
     "generate-avatar": "^1.4.10",
     "install": "^0.13.0",
     "moment": "^2.29.4",

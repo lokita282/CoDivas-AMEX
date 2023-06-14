@@ -1,38 +1,24 @@
-import React from 'react'
+import {React, useState, useEffect} from 'react'
 import { ResponsivePie } from '@nivo/pie'
 import Box from '@mui/material/Box'
 import CssBaseline from '@mui/material/CssBaseline'
+import {categoryPie} from '../../services/userServices'
 
 const NivoPie = () => {
-  const pieData = [
-    {
-      id: 'Health',
-      label: 'Health',
-      value: 120,
-    },
-    {
-      id: 'Other',
-      label: 'Other',
-      value: 512,
-    },
-    {
-      id: 'Utility',
-      label: 'Utility',
-      value: 242,
-    },
-    {
-      id: 'Education',
-      label: 'Education',
-      value: 366,
-    },
-    {
-      id: 'Transport',
-      label: 'Transport',
-      value: 597,
-    },
-  ]
+  const [pieData, setPieData] = useState([])
+  
+  useEffect(() => {
+   const func = async () => {
+     await categoryPie().then((res) => {
+       console.log(res.data.data.expenditureData)
+       setPieData(res.data.data.expenditureData)
+     })
+   }
+   func()
+  }, [])
+  
 
-  const MyResponsivePie = ({ data /* see data tab */ }) => (
+  const MyResponsivePie = ({ data }) => (
     <ResponsivePie
       data={data}
       margin={{ top: 40, right: 80, bottom: 80, left: 80 }}

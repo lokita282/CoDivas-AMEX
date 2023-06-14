@@ -28,23 +28,13 @@ import {
 import { createErupi } from '../../services/bankServices'
 import successHandler from '../toasts/successHandler'
 import errorHandler from '../toasts/errorHandler'
-import moment from 'moment/moment'
-import { DateField } from '@mui/x-date-pickers/DateField'
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 
 const styles = {
   paperContainer: {
-    // height: '450px',
     borderRadius: '30px',
     display: 'flex',
     flexDirection: 'column',
     padding: '10px 30px',
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // textAlign: 'center',
-    // verticalAlign: 'middle',
-    // backgroundColor: '#f5f5f5',
   },
   gradientText: {
     background: 'radial-gradient( #7E8AFF, #375EC0)',
@@ -177,7 +167,6 @@ const SingleVoucher = () => {
   const handleChangeDate = (event) => {
     const name = event.target.name
     var value = event.target.value
-    // value = moment(value).format('MM-DD-YYYY')
     setJson({ ...json, [name]: value })
   }
 
@@ -350,9 +339,15 @@ const SingleVoucher = () => {
               name="category"
               onChange={handleChangeCategory}
             >
-              <MenuItem value="health">Health</MenuItem>
               <MenuItem value="agriculture">Agriculture</MenuItem>
               <MenuItem value="education">Education</MenuItem>
+              <MenuItem value="food">Food</MenuItem>
+              <MenuItem value="health">Health</MenuItem>
+              <MenuItem value="housing">Housing</MenuItem>
+              <MenuItem value="other">Other</MenuItem>
+              <MenuItem value="transportation">Transportation</MenuItem>
+              <MenuItem value="telecommunication">Telecommunication</MenuItem>
+              <MenuItem value="utility">Utility</MenuItem>
             </Select>
           </FormControl>
         </Grid>
@@ -445,9 +440,44 @@ const SingleVoucher = () => {
               label="State"
               onChange={handleChangeState}
             >
-              <MenuItem value="IN-GJ">Gujrat</MenuItem>
-              <MenuItem value="IN-OR">Orissa</MenuItem>
-              <MenuItem value="IN-MH">Maharashtra</MenuItem>
+              <MenuItem value="Andaman and Nicobar">
+                Andaman and Nicobar
+              </MenuItem>
+              <MenuItem value="Andhra Pradesh">Andhra Pradesh</MenuItem>
+              <MenuItem value="Arunachal Pradesh">Arunachal Pradesh</MenuItem>
+              <MenuItem value="Assam">Assam</MenuItem>
+              <MenuItem value="Bihar">Bihar</MenuItem>
+              <MenuItem value="Chandigarh">Chandigarh</MenuItem>
+              <MenuItem value="Chhattisgarh">Chhattisgarh</MenuItem>
+              <MenuItem value="Dadra and Nagar Haveli">
+                Dadra and Nagar Haveli
+              </MenuItem>
+              <MenuItem value="Daman and Diu">Daman and Diu</MenuItem>
+              <MenuItem value="Delhi">Delhi</MenuItem>
+              <MenuItem value="Goa">Goa</MenuItem>
+              <MenuItem value="Gujrat">Gujrat</MenuItem>
+              <MenuItem value="Haryana">Haryana</MenuItem>
+              <MenuItem value="Himachal Pradesh">Himachal Pradesh</MenuItem>
+              <MenuItem value="Jammu and Kashmir">Jammu and Kashmir</MenuItem>
+              <MenuItem value="Jharkhand">Jharkhand</MenuItem>
+              <MenuItem value="Karnataka">Karnataka</MenuItem>
+              <MenuItem value="Kerala">Kerala</MenuItem>
+              <MenuItem value="Madhya Pradesh">Madhya Pradesh</MenuItem>
+              <MenuItem value="Maharashtra">Maharashtra</MenuItem>
+              <MenuItem value="Manipur">Manipur</MenuItem>
+              <MenuItem value="Meghalaya">Meghalaya</MenuItem>
+              <MenuItem value="Mizoram">Mizoram</MenuItem>
+              <MenuItem value="Nagaland">Nagaland</MenuItem>
+              <MenuItem value="Orissa">Orissa</MenuItem>
+              <MenuItem value="Puducherry">Puducherry</MenuItem>
+              <MenuItem value="Punjab">Punjab</MenuItem>
+              <MenuItem value="Rajasthan">Rajasthan</MenuItem>
+              <MenuItem value="Sikkim">Sikkim</MenuItem>
+              <MenuItem value="Tamil Nadu">Tamil Nadu</MenuItem>
+              <MenuItem value="Tripura">Tripura</MenuItem>
+              <MenuItem value="Uttaranchal">Uttaranchal</MenuItem>
+              <MenuItem value="Uttar Pradesh">Uttar Pradesh</MenuItem>
+              <MenuItem value="West Bengal">West Bengal</MenuItem>
             </Select>
           </FormControl>
         </Grid>

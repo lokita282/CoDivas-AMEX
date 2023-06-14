@@ -39,3 +39,27 @@ export const getVerifCode = (id) => {
         }
     })
 }
+
+export const weeklyCatVsAmt = () => {
+  return httpcommon.get(`/beneficiary/weekly-category-data`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('codivasToken')}`,
+    },
+  })
+}
+
+export const yearlyCatVsAmt = () => {
+  return httpcommon.get(`/beneficiary/monthly-category-data`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('codivasToken')}`,
+    },
+  })
+}
+
+export const categoryPie = () => {
+  return httpcommon.get(`/beneficiary/expenditure-category-data`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('codivasToken')}`,
+    },
+  })
+}

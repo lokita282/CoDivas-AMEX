@@ -24,7 +24,7 @@ const NivoBar = () => {
         'health',
         'agriculture',
         'housing',
-        'telecommunication',
+        'telecomm',
         'education',
         'food',
         'transportation',

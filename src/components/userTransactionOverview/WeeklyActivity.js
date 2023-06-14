@@ -1,84 +1,34 @@
-import React from 'react'
+import {React, useState, useEffect} from 'react'
 import { ResponsiveBar } from '@nivo/bar'
 import Box from '@mui/material/Box'
 import CssBaseline from '@mui/material/CssBaseline'
+import { weeklyCatVsAmt } from '../../services/userServices'
 
 const NivoBar = () => {
-
-  const barData = [
-  {
-    "day": "MON",
-    "health": 51,
-    "telecommunication": 58,
-    "education": 78,
-    "food": 68,
-    "utility": 32,
-    "other": 76,
-  },
-  {
-    "day": "TUES",
-    "health": 183,
-    "telecommunication": 138,
-    "education": 119,
-    "food": 68,
-    "utility": 126,
-    "other": 44,
-  },
-  {
-    "day": "WED",
-    "health": 107,
-    "telecommunication": 121,
-    "education": 97,
-    "food": 49,
-    "utility": 50,
-    "other": 30,
-  },
-  {
-    "day": "THUR",
-    "health": 46,
-    "telecommunication": 1,
-    "education": 181,
-    "food": 191,
-    "utility": 57,
-    "other": 101,
-  },
-  {
-    "day": "FRI",
-    "health": 15,
-    "telecommunication": 4,
-    "education": 81,
-    "food": 4,
-    "utility": 166,
-    "other": 0,
-  },
-  {
-    "day": "SAT",
-    "health": 85,
-    "telecommunication": 94,
-    "education": 173,
-    "food": 144,
-    "utility": 69,
-    "other": 117,
-  },
-  {
-    "day": "SUN",
-    "health": 0,
-    "telecommunication": 62,
-    "education": 46,
-    "food": 99,
-    "utility": 32,
-    "other": 115,
-  }
-]
+  const [barData, setBarData] = useState([])
+  
+  useEffect(() => {
+    const func = async () => {
+      await weeklyCatVsAmt().then((res) => {
+        console.log(typeof(res.data.data.barData))
+        console.log(res.data.data.barData)
+        setBarData(res.data.data.barData)
+      })
+    }
+    func()
+  }, [])
 
   const MyResponsiveBar = ({ data }) => (
     <ResponsiveBar
       data={data}
       keys={[
         'health',
-        'telecommunication',
+        'agriculture',
+        'housing',
+        'telecomm',
         'education',
         'food',
+        'transportation',
         'utility',
         'other',
       ]}
@@ -108,20 +58,6 @@ const NivoBar = () => {
           spacing: 10,
         },
       ]}
-      //  fill={[
-      //    {
-      //      match: {
-      //        id: 'utility',
-      //      },
-      //      id: 'dots',
-      //    },
-      //    {
-      //      match: {
-      //        id: 'education',
-      //      },
-      //      id: 'lines',
-      //    },
-      //  ]}
       borderColor={{
         from: 'color',
         modifiers: [['darker', 1.6]],
@@ -189,10 +125,6 @@ const NivoBar = () => {
         <Box
           component="main"
           sx={{
-            // backgroundColor: (theme) =>
-            //   theme.palette.mode === 'light'
-            //     ? theme.palette.grey[100]
-            //     : theme.palette.grey[900],
             flexGrow: 1,
             overflow: 'auto',
           }}
