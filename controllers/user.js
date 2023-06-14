@@ -10,6 +10,7 @@ const {
 } = require('../utils/functions');
 const { setVoucherStatuses } = require('../utils/cron-jobs');
 const Beneficiary = require('../models/beneficiary');
+const { categoryIcons } = require('../utils/data');
 
 const viewAllVouchers = async (req, res) => {
     try {
@@ -268,6 +269,95 @@ const weeklyCategoryData = async (req, res) => {
 
         res.status(200).json({
             message: 'User Weekly Vouchers by Category',
+            data: {
+                barData
+            }
+        });
+    } catch (error) {
+        res.status(400).json({
+            message: error.message
+        });
+    }
+};
+
+const monthlyCategoryData = async (req, res) => {
+    try {
+        let lineData = [];
+        const lineDataObj = {
+            id: '',
+            data: []
+        };
+
+        const month = [
+            'JAN',
+            'FEB',
+            'MAR',
+            'APR',
+            'MAY',
+            'JUN',
+            'JUL',
+            'AUG',
+            'SEP',
+            'OCT',
+            'NOV',
+            'DEC'
+        ];
+
+        const beneficiary = await Beneficiary.findById(req.user.beneficiary);
+        let d = new Date();
+        d.setDate(d.getMonth() - 364);
+
+        let vouchers = await Voucher.find({
+            beneficiaryPhone: beneficiary.phone,
+            createdAt: { $gte: d }
+        });
+
+        const count = (data, d) => {
+            let temp = _.cloneDeep(lineDataObj);
+            temp.id = data[0].category;
+
+            for (let itemception of data) {
+                let itemMonth = itemception.getMonth();
+                if (itemception.createdAt.getMonth() == d.getMonth()) {
+                }
+
+                if (item.category == 'health') {
+                    temp.data[0].y += 1;
+                } else if (item.category == 'agriculture') {
+                    temp.data[1].y += 1;
+                } else if (item.category == 'education') {
+                    temp.data[2].y += 1;
+                } else if (item.category == 'food') {
+                    temp.data[3].y += 1;
+                } else if (item.category == 'housing') {
+                    temp.data[4].y += 1;
+                } else if (item.category == 'transportation') {
+                    temp.data[5].y += 1;
+                } else if (item.category == 'utility') {
+                    temp.data[6].y += 1;
+                } else if (item.category == 'telecommunication') {
+                    temp.data[7].y += 1;
+                } else if (item.category == 'other') {
+                    temp.data[8].y += 1;
+                }
+            }
+            return temp;
+        };
+
+        for (let item of categoryIcons) {
+            let temp = [];
+            for (let itemception of vouchers) {
+                // let date = item.createdAt
+                if (itemception.category === item.category) {
+                    temp.push(itemception);
+                }
+            }
+            let innerObj = lineData.push(count(temp, d));
+            d.setDate(d.getDate + 30);
+        }
+
+        res.status(200).json({
+            message: 'Weekly Vouchers for Organisation',
             data: {
                 barData
             }
