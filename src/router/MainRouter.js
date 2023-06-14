@@ -9,6 +9,7 @@ import UserDashboardPage from '../pages/UserDashboardPage';
 import UserGetStartedPage from '../pages/UserGetStartedPage'
 import HealthcarePage from '../pages/HealthcarePage'
 import ElectricityBillPage from '../pages/ElectricityBillPage'
+import CreateErupi from '../pages/CreateErupi'
 import Coupons from '../components/coupons/Coupons';
 import CategoryCoupons from '../pages/CategoryCoupons';
 
@@ -39,6 +40,9 @@ export default function MainRouter() {
                 </Route>
                 <Route path='/bank/dashboard' element={<PrivateRouter />} >
                     <Route exact path='/bank/dashboard' element={<BankDashboardPage />} />
+                </Route>
+                <Route path='/bank/createerupi' element={<PrivateRouter />} >
+                    <Route exact path='/bank/createerupi' element={<CreateErupi />} />
                 </Route>
                 <Route path='/user/dashboard' element={<PrivateRouter />} >
                     <Route exact path='/user/dashboard' element={<UserDashboardPage />} />

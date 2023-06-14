@@ -7,3 +7,27 @@ body{
   padding: 0 !important;
   overflow-x: hidden !important;
 }
+
+g{
+  transform: scale(0.1) translate(2789.4657838173443, 0) !important;
+}
+
+.jvectormap-container > svg{
+  height: 420px !important
+}
+
+.map div:nth-child(2){ 
+  display: none !important;
+}
+
+.jvectormap-zoomout {
+  display: none !important;
+}
+
+.jvectormap-zoomin {
+  display: none !important;
+}
+
+.jvectormap-tip {
+  display: none !important;
+}
