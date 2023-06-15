@@ -5,7 +5,8 @@ const authorizeJWT = require('../middleware/jwt');
 const {
     validateVoucher,
     redeemVoucher,
-    getTransactions
+    getTransactions,
+    validateVoucherSMS
 } = require('../controllers/merchant');
 
 const router = new express.Router();
@@ -15,6 +16,13 @@ router.post(
     [authorizeJWT.verifyJWT, authorizeJWT.roleMerchant],
     validateVoucher
 );
+
+router.post(
+    '/validate-voucher-sms',
+    [authorizeJWT.verifyJWT, authorizeJWT.roleMerchant],
+    validateVoucherSMS
+);
+
 router.post(
     '/redeem-voucher',
     [authorizeJWT.verifyJWT, authorizeJWT.roleMerchant],

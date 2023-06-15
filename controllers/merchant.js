@@ -5,7 +5,8 @@ const Beneficiary = require('../models/beneficiary');
 const {
     generateQrString,
     generateRandomNumber,
-    decryptQrString
+    decryptQrString,
+    caesarCipherDecrypt
 } = require('../utils/functions');
 
 const validateVoucher = async (req, res) => {
@@ -124,7 +125,6 @@ const redeemVoucher = async (req, res) => {
             let balance =
                 parseInt(voucher._doc.balanceAmount) -
                 parseInt(transactionAmount);
-            console.log('balance', balance);
 
             voucher = await Voucher.findByIdAndUpdate(
                 voucher._id,
@@ -136,7 +136,6 @@ const redeemVoucher = async (req, res) => {
                 },
                 { new: true }
             );
-            console.log('voucher', voucher);
         }
         voucher.verificationCode = undefined;
         await voucher.save();
@@ -182,8 +181,62 @@ const getTransactions = async (req, res) => {
     }
 };
 
+const validateVoucherSMS = async (req, res) => {
+    try {
+        const { encryptedString } = req.body;
+        const user = req.user;
+        const merchant = await Merchant.findById(user.merchant);
+        console.log(encryptedString);
+        const decryptedString = caesarCipherDecrypt(encryptedString, 3);
+        console.log(decryptedString);
+        let voucher = await Voucher.findOne({ uid: decryptedString });
+        if (!voucher) {
+            res.status(404).json({
+                success: false,
+                message: 'Voucher not found!'
+            });
+            return;
+        }
+        if (voucher.status !== 'valid') {
+            res.status(200).json({
+                success: false,
+                message: 'Voucher Invalid!'
+            });
+            return;
+        }
+        if (voucher.category !== merchant.category) {
+            res.status(200).json({
+                success: false,
+                message: 'Voucher not valid for this merchant!'
+            });
+            return;
+        }
+        if (voucher.startsAt > Date.now() || voucher.endsAt < Date.now()) {
+            res.status(200).json({
+                success: false,
+                message: 'Voucher not valid for this time!'
+            });
+            return;
+        }
+        voucher.status = 'scanned';
+        voucher.verificationCode = generateRandomNumber(4);
+        await voucher.save();
+
+        res.status(200).json({
+            success: true,
+            message: 'Verification Code generated!',
+            voucherId: voucher._id
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
+    }
+};
+
 module.exports = {
     validateVoucher,
     redeemVoucher,
-    getTransactions
+    getTransactions,
+    validateVoucherSMS
 };

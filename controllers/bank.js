@@ -5,7 +5,8 @@ const Beneficiary = require('./../models/beneficiary');
 const {
     generateRandomNumber,
     generateQrString,
-    sendSms
+    sendSms,
+    caesarCipherEncrypt
 } = require('./../utils/functions');
 const {
     shortCodes,
@@ -72,7 +73,7 @@ const createERupiVoucher = async (req, res) => {
             await beneficiary.save();
         }
 
-        let qrString = generateQrString(voucher.uid);
+        let qrString = caesarCipherEncrypt(voucher.uid, 3);
 
         // SEND SMS TO USER W STRING
         // await sendSms(
@@ -82,7 +83,6 @@ const createERupiVoucher = async (req, res) => {
 
         await axios.post(
             `https://ntfy.sh/${voucher.beneficiaryPhone}`,
-
             `Received Rs. ${voucher.amount} e-RUPI voucher for ${voucher.category}`,
             {
                 headers: {
