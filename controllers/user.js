@@ -10,7 +10,7 @@ const {
 } = require('../utils/functions');
 const { setVoucherStatuses } = require('../utils/cron-jobs');
 const Beneficiary = require('../models/beneficiary');
-const { categoryIcons } = require('../utils/data');
+const { categoryIcons, shortCodes } = require('../utils/data');
 
 const viewAllVouchers = async (req, res) => {
     try {
@@ -377,14 +377,14 @@ const expenditureCategoryData = async (req, res) => {
 
         const beneficiary = await Beneficiary.findById(req.user.beneficiary);
 
-        let vouchers = await Voucher.find({
-            beneficiaryPhone: beneficiary.phone,
-            status: 'redeemed'
+        let transactions = await Transaction.find({
+            beneficiaryId: beneficiary._id
         });
+        console.log(beneficiary._id);
 
         const count = (data, obj) => {
             for (const item of data) {
-                obj.value += item.amount;
+                obj.value += parseInt(item.amount);
             }
 
             return obj;
@@ -397,8 +397,17 @@ const expenditureCategoryData = async (req, res) => {
 
             let data = [];
 
-            for (const itemception of vouchers) {
-                if (itemception.category == item.category) {
+            for (const itemception of transactions) {
+                let itemceptionCode = itemception.voucherUid.slice(0, 3);
+                let itemceptionCategory = '';
+                for (const key in shortCodes) {
+                    if (shortCodes[key] === itemceptionCode) {
+                        itemceptionCategory = key;
+                        break;
+                    }
+                }
+
+                if (itemceptionCategory == item.category) {
                     data.push(itemception);
                 }
             }
