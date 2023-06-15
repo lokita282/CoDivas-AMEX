@@ -5,8 +5,7 @@ const Voucher = require('../models/voucher');
 const Transaction = require('../models/transaction');
 const {
     generateQrString,
-    generateRandomNumber,
-    decryptQrString
+    generateRandomNumber
 } = require('../utils/functions');
 const { setVoucherStatuses } = require('../utils/cron-jobs');
 const Beneficiary = require('../models/beneficiary');
