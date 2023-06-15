@@ -15,16 +15,15 @@ const Stack = createNativeStackNavigator();
 const BottomTab=()=>{
     return(
         <Tab.Navigator  screenOptions={{
-                tabBarShowLabel:false,
+                tabBarShowLabel:true,
+                tabBarActiveTintColor: 'white',
+                tabBarInactiveTintColor: 'white',
+                tabBarActiveBackgroundColor:'#324080',
                 tabBarStyle:{
                 position:'absolute',
-                //bottom:25,
-                //left:20,
-                //right:20,
                 elevation:0,
                 backgroundColor:'#0E1D61',
-                //borderRadius:15,
-                height:70,
+                height:90,
                 ...styles.shadow
 
                 
@@ -59,7 +58,6 @@ const BottomTab=()=>{
                         style={{
                             width:25,
                             height:25,
-                            //tintColor:focused?'#e32f45':'#748c94'
 
                         }}/>
                     </View>
@@ -95,5 +93,5 @@ const styles=StyleSheet.create({
     },
     shadowOpacity:0.25,
     shadowRadius:3.5,
-    elevation:5,}
+    elevation:3,}
 })

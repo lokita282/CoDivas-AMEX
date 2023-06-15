@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     marginLeft:330,
-    marginTop:15,
+    marginTop:50,
   },
   header:{
     color:'#0E1D61',

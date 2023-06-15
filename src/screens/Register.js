@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, StyleSheet, Text, TextInput, View, SafeAreaView, KeyboardAvoidingView, ScrollView } from 'react-native';
+import { Button, StyleSheet, Text,Image, TextInput,TouchableOpacity, View, SafeAreaView, KeyboardAvoidingView, ScrollView } from 'react-native';
 
 export default function Register({ navigation }) {
   const [email, setEmail] = useState('');
@@ -39,6 +39,10 @@ export default function Register({ navigation }) {
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
         <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+        <View style={styles.logoContainer}>
+            <Image source={require('../assets/logo.png')} style={styles.logo} />
+          </View>
+          <Text style={styles.welcomeText}>Welcome to EZ-Rupi !!</Text>
           <Text style={styles.header}>Register</Text>
           <View style={styles.inputTextWrapper}>
             <TextInput
@@ -88,9 +92,12 @@ export default function Register({ navigation }) {
             <Button
               title="Register"
               onPress={() => {submitPressed(); navigation.navigate('BottomTab')}}
-              color="#0E1D61"
+              color="white"
             />
           </View>
+          <TouchableOpacity onPress={() => {navigation.navigate('Login')}}>
+          <Text style={styles.registerText}>Already a member ! Login</Text>
+          </TouchableOpacity>
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -123,7 +130,31 @@ const styles = StyleSheet.create({
     paddingRight: 30,
   },
   btnContainer: {
-    backgroundColor: 'white',
+    backgroundColor: '#0E1D61',
     marginTop: 36,
+  },
+  logoContainer: {
+    alignItems: 'flex-start',
+    marginBottom: 20,
+  },
+  logo: {
+    width: 100,
+    height: 100,
+    resizeMode:'contain'
+  },
+  welcomeText: {
+    fontSize: 25,
+    textAlign: 'center',
+    marginBottom: 20,
+    fontStyle:'italic',
+    //marginTop:15,
+  },
+  registerText: {
+    marginTop: 40,
+    textAlign: 'center',
+    color: 'black',
+    textDecorationLine: 'underline',
+    fontSize: 18,
+    fontStyle:'italic',
   },
 });

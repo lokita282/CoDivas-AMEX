@@ -135,7 +135,7 @@ const Redeemed = ({navigation}) => {
     try {
       const token = await AsyncStorage.getItem('userToken');
       if (token !== null) {
-        console.log('User token retrieved successfully:', token);
+        //console.log('User token retrieved successfully:', token);
         setUserToken(token);
       }
     } catch (error) {
@@ -144,7 +144,7 @@ const Redeemed = ({navigation}) => {
   };
   useEffect(()=>{
     retrieveUserToken();
-    console.log(userToken);
+    //console.log(userToken);
   })
 
   useEffect(()=>{
@@ -174,7 +174,7 @@ const Redeemed = ({navigation}) => {
       {/* {console.log(data)} */}
       {data.map((item) => (
       <TouchableOpacity onPress={() =>
-              navigation.navigate('Redeem')}style={styles.card}>
+        navigation.navigate('Redeem',{paramKey:item._id})}style={styles.card}>
         <Card
           key={item._id}
           image={item.issuedByLogo}

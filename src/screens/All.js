@@ -24,7 +24,7 @@ const All = ({navigation}) => {
     try {
       const token = await AsyncStorage.getItem('userToken');
       if (token !== null) {
-        console.log('User token retrieved successfully:', token);
+        //console.log('User token retrieved successfully:', token);
         setUserToken(token);
       }
     } catch (error) {
@@ -33,7 +33,7 @@ const All = ({navigation}) => {
   };
   useEffect(()=>{
     retrieveUserToken();
-    console.log(userToken);
+    //console.log(userToken);
   })
 
   useEffect(()=>{

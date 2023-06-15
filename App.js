@@ -16,6 +16,8 @@ import GovernmentScheme from './src/screens/GovernementScheme';
 import Otp from './src/screens/Otp';
 import Verified from './src/screens/Verified';
 import Login from './src/screens/Login';
+import Splash from './src/screens/Splash';
+import IntroScreen from './src/screens/IntroScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -24,6 +26,16 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+      <Stack.Screen
+          name="Splash"
+          component={Splash}
+          options={{headerShown:false}}
+        />
+      <Stack.Screen
+          name="IntroScreen"
+          component={IntroScreen}
+          options={{headerShown:false}}
+        />
       <Stack.Screen
           name="Login"
           component={Login}

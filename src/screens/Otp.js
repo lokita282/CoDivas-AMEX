@@ -1,27 +1,62 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function OTPScreen({navigation}) {
+export default function OTPScreen({navigation,route}) {
   const [otp, setOTP] = useState('');
   const [isLoading, setIsLoading] = useState(true);
-
+  const id=route.params.paramKey
+  console.log(id)
+  const [userToken,setUserToken] = useState('')
+  async function retrieveUserToken() {
+    try {
+      const token = await AsyncStorage.getItem('userToken');
+      if (token !== null) {
+        //console.log('User token retrieved successfully:', token);
+        setUserToken(token);
+      }
+    } catch (error) {
+      //console.log('Error retrieving user token:', error);
+    }
+  };
+  useEffect(()=>{
+    retrieveUserToken();
+    //console.log(userToken);
+  })
+  useEffect(()=>{
+    const timer=setTimeout(()=>{
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${userToken}`);
+  
+    var raw = "";
+  
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+    async function fetchData(){
+      await fetch(`https://ez-rupi.onrender.com/api/beneficiary/verification-code/${id}`, requestOptions)
+      .then(response => response.json())
+      .then(result => (setOTP(result.verificationCode)))
+      .catch(error => console.log('error', error));
+    }
+    fetchData();},5000);
+    return () => clearTimeout(timer);
+    
+  });
   useEffect(() => {
     // Simulate delay of 1 minute
     const timer = setTimeout(() => {
-      // Generate OTP (here, we're using a static value)
-      const generatedOTP = '123456';
-
-      setOTP(generatedOTP);
       setIsLoading(false);
-    }, 15000);
-
-    // Clear the timer if the component is unmounted
+    }, 7000);
     return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigation.navigate('Verified');
+      navigation.navigate('Verified',{paramKey:id});
     }, 30000);
 
     return () => clearTimeout(timer);

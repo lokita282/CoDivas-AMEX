@@ -1,63 +1,3 @@
-// import React from 'react';
-// import { Text, View } from 'react-native';
-// import QRCode from 'react-native-qrcode-svg';
-
-// const Redeem = () => {
-//   let logoFromFile = require('../assets/transport.png');
-//   return (
-//     <QRCode
-//       value="Just some ksfhkfhkw jhfeifi"
-//       logo={logoFromFile}
-//     />
-//   );
-// }
-// export default Redeem;
-
-// import React, { useState, useEffect } from "react";
-// import { View, StyleSheet } from "react-native";
-// import QRCode from "react-native-qrcode-svg";
-// import axios from "axios";
-
-// const App = () => {
-// const [qrString, setQrString] = useState("");
-
-// // Fetch the string from an API and set it as the qrString state
-// // useEffect(() => {
-// // axios
-// // .get("https://example.com/api/string") // Replace this with your API URL
-// // .then((response) => {
-// // setQrString(response.data);
-// // })
-// // .catch((error) => {
-// // console.error(error);
-// // });
-// // }, []);
-
-// return (
-// <View style={styles.container}>
-// {/* Display the QR code with a logo in the center */}
-// <QRCode
-// value={qrString} // The string to encode in the QR code
-// size={200} // The size of the QR code in pixels
-// logo={require("../assets/profile.png")} // The logo image to display in the center of the QR code
-// logoSize={50} // The size of the logo image in pixels
-// logoBackgroundColor="transparent" // The background color of the logo image
-// />
-// </View>
-// );
-// };
-
-// const styles = StyleSheet.create({
-// container: {
-// flex: 1,
-// backgroundColor: "#fff",
-// alignItems: "center",
-// justifyContent: "center",
-// },
-// });
-
-// export default App;
-
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
@@ -74,16 +14,16 @@ const Redeem = ({navigation,route}) => {
     try {
       const token = await AsyncStorage.getItem('userToken');
       if (token !== null) {
-        console.log('User token retrieved successfully:', token);
+        //console.log('User token retrieved successfully:', token);
         setUserToken(token);
       }
     } catch (error) {
-      console.log('Error retrieving user token:', error);
+      //console.log('Error retrieving user token:', error);
     }
   };
   useEffect(()=>{
     retrieveUserToken();
-    console.log(userToken);
+    //console.log(userToken);
   })
   const governmentLogo = require('../assets/govt.png');
   const bankLogo = require('../assets/bank.png');
@@ -92,7 +32,7 @@ const Redeem = ({navigation,route}) => {
   const singleUse = 'Single Use';
   const amount = 'INR 5000';
   const id=route.params.paramKey
-  {console.log(id)}
+  //{console.log(id)}
 
   useEffect(()=>{
     const timer=setTimeout(()=>{
@@ -114,30 +54,14 @@ const Redeem = ({navigation,route}) => {
       .catch(error => console.log('error', error));
     }
     fetchData();},5000);
-    console.log(data)
+    //console.log(data)
     return () => clearTimeout(timer);
     
   });
-  // useEffect(()=>{
-  //   var myHeaders = new Headers();
-  //   myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDg0ZDhlYTk4YmJjODkzYjc3OTI1ZTUiLCJpYXQiOjE2ODY1MDk1MDQsImV4cCI6MTY4NjU5NTkwNH0.3Nwlyv741Tg4Y9zItt_enOJTLXRfTFGvvODwaQAn47Q");
-
-  //   var requestOptions = {
-  //     method: 'GET',
-  //     headers: myHeaders,
-  //     redirect: 'follow'
-  //   };
-
-  //   fetch("https://ez-rupi.onrender.com/api/beneficiary/single/648608edbd36eab4f6687783", requestOptions)
-  //     .then(response => response.text())
-  //     .then(result => console.log(result.data))
-  //     .catch(error => console.log('error', error));
-  // });
-
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigation.navigate('Otp');
-    }, 15000);
+      navigation.navigate('Otp',{paramKey:id});
+    }, 30000);
 
     return () => clearTimeout(timer);
   }, [navigation]);
@@ -176,9 +100,6 @@ const Redeem = ({navigation,route}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //padding: 16,
-    //justifyContent: 'center',
-    //alignItems: 'center',
   },
   header: {
     position: 'absolute',
@@ -195,7 +116,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 16,
-    //alignItems: 'center',
     marginBottom: 16,
     marginTop:13,
   },

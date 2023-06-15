@@ -1,39 +1,65 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import moment from 'moment/moment';
 
 const TransactionHistory = () => {
-  const transactionHistory = [
-    {
-      payee: 'John Doe',
-      amount: 1000,
-      voucherUid: 'VCH123456',
-      date: '2023-06-01',
-      time: '10:30 AM',
-    },
-    {
-      payee: 'Jane Wex',
-      amount: 5000,
-      voucherUid: 'VCH789012',
-      date: '2023-06-02',
-      time: '2:45 PM',
-    },
-    // Add more transaction history objects here
-  ];
+  const [data, setData] = useState([]);
+  const [userToken,setUserToken] = useState('')
+  async function retrieveUserToken() {
+    try {
+      const token = await AsyncStorage.getItem('userToken');
+      if (token !== null) {
+        //console.log('User token retrieved successfully:', token);
+        setUserToken(token);
+      }
+    } catch (error) {
+      console.log('Error retrieving user token:', error);
+    }
+  };
+  useEffect(()=>{
+    retrieveUserToken();
+    //console.log(userToken);
+  })
+  useEffect(()=>{
+    const timer=setTimeout(()=>{
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${userToken}`);
+  
+    var raw = "";
+  
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+    async function fetchData(){
+      await fetch("https://ez-rupi.onrender.com/api/beneficiary/transactions", requestOptions)
+      .then(response => response.json())
+      .then(result => (setData(result.data)))
+      .catch(error => console.log('error', error));
+    }
+    fetchData();},5000);
+    return () => clearTimeout(timer);
+  });
 
   const renderTransactionHistory = () => {
-    return transactionHistory.map((transaction, index) => (
+    return data.map((transaction, index) => (
       <View style={styles.transactionContainer} key={index}>
-        <View style={{flexDirection:'row'}}>
-        <Text style={styles.payee}>{transaction.payee}</Text>
-        <Text style={styles.amount}>INR {transaction.amount}</Text></View>
-        <Text style={styles.details}>{transaction.voucherUid}</Text>
-        <Text style={styles.details}>{transaction.date}</Text>
-        <Text style={styles.details}>{transaction.time}</Text>
+        <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+        <Text style={styles.payee}>{transaction.voucherTitle}</Text>
+        <View>
+        <Text style={styles.amount}>₹{transaction.amount}</Text></View>
+        </View>
+        <Text style={styles.details}>Voucher ID :{transaction.voucherUid}</Text>
+        <Text style={styles.details}>{moment(transaction.datetime).format("MMM Do YYYY")} at {moment(transaction.datetime).format("h:mm a")} </Text>
       </View>
     ));
   };
 
   return (
+    <ScrollView>
     <View style={styles.container}>
       <View style={styles.header}>
       <TouchableOpacity style={styles.profileIcon}>
@@ -43,6 +69,7 @@ const TransactionHistory = () => {
       <Text style={styles.title}>Transaction History</Text>
       <View style={styles.historyContainer}>{renderTransactionHistory()}</View>
     </View>
+    </ScrollView>
   );
 };
 
@@ -84,15 +111,14 @@ const styles = StyleSheet.create({
   },
   payee: {
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 15,
     color: '#0E1D61',
   },
   amount: {
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 18,
     color: '#0E1D61',
-    marginLeft:150,
-    alignSelf: 'flex-end',
+    //marginLeft:70,
   },
   details: {
     fontSize: 12,

@@ -1,21 +1,55 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function Verified({navigation}) {
+export default function Verified({navigation,route}) {
   const [isVerified, setIsVerified] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-
+  const [status, setStatus] = useState(true);
+  const id=route.params.paramKey
+  const [userToken,setUserToken] = useState('')
+  async function retrieveUserToken() {
+    try {
+      const token = await AsyncStorage.getItem('userToken');
+      if (token !== null) {
+        //console.log('User token retrieved successfully:', token);
+        setUserToken(token);
+      }
+    } catch (error) {
+      //console.log('Error retrieving user token:', error);
+    }
+  };
+  useEffect(()=>{
+    retrieveUserToken();
+    //console.log(userToken);
+  })
+  useEffect(()=>{
+    const timer=setTimeout(()=>{
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${userToken}`);
+  
+    var raw = "";
+  
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+    async function fetchData(){
+      await fetch(`https://ez-rupi.onrender.com/api/beneficiary/redeemed//${id}`, requestOptions)
+      .then(response => response.json())
+      .then(result => (cosnole.log(result)))
+      .catch(error => console.log('error', error));
+    }
+    fetchData();},5000);
+    return () => clearTimeout(timer);
+    
+  });
   useEffect(() => {
-    // Simulate delay of 5 seconds
     const timer = setTimeout(() => {
-      // Simulate verification status (true for verified, false for not verified)
-      const verificationStatus = Math.random() < 0.5 ? true : false;
-
-      setIsVerified(verificationStatus);
       setIsLoading(false);
     }, 5000);
-
-    // Clear the timer if the component is unmounted
     return () => clearTimeout(timer);
   }, []);
 
@@ -29,14 +63,14 @@ export default function Verified({navigation}) {
   if (isLoading) {
     return (
       <View style={styles.container}>
-        <Text style={styles.loadingText}>Checking Verification Status...</Text>
+        <Text style={styles.loadingText}>Checking Redemption Status...</Text>
       </View>
     );
   }
 
   return (
     <View style={styles.container}>
-      {isVerified ? (
+      {status ? (
         <Text style={[styles.statusIcon, styles.greenTick]}>✓</Text>
       ) : (
         <Text style={[styles.statusIcon, styles.redCross]}>✕</Text>
