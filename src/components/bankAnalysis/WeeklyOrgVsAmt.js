@@ -26,7 +26,7 @@ const NivoRadialBar = () => {
       endAngle={290}
       cornerRadius={2}
       margin={{ top: 40, right: 120, bottom: 40, left: 40 }}
-      colors={{ scheme: 'purples' }}
+      colors={{ scheme: 'blues' }}
       borderColor={{
         from: 'color',
         modifiers: [['darker', '1']],

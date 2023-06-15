@@ -1,7 +1,10 @@
-import React from 'react'
+import {React, useState, useEffect} from 'react'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp'
+import ArrowCircleDownOutlinedIcon from '@mui/icons-material/ArrowCircleDownOutlined'
+import { trendingData } from '../../services/userServices'
+
 
 import utilityImage from '../../images/utility.png'
 import { Grid } from '@mui/material'
@@ -30,13 +33,28 @@ const styles = {
 }
 
 const MonthlySpend = () => {
+  const [monthData, setMonthData] = useState([])
+
+  useEffect(() => {
+    const func = async () => {
+      await trendingData().then((res) => {
+        console.log(res.data.data.trendingData)
+        setMonthData(res.data.data.trendingData)
+      })
+    }
+    func()
+  }, [])
   return (
     <Paper style={styles.paperContainerAnalysis}>
-      <Grid container sx={df_jc_ac_fdc} >
+      <Grid container sx={df_jc_ac_fdc}>
         <Grid item md={12} sx={df_jc_ac_fdc}>
           {/* <Icon icon="bxs:calendar-week" width={44} height={44} style={{ color: '#3F64C9', borderRadius: '50%', backgroundColor: '#3F64C95c', padding: '6px' }} /> */}
-          <Typography variant="h3" color="initial" sx={{ color: '#3F64C9', fontFamily: 'Poppins' }}>
-            <b>₹ 2,500</b>
+          <Typography
+            variant="h3"
+            color="initial"
+            sx={{ color: '#3F64C9', fontFamily: 'Poppins' }}
+          >
+            <b>₹ {monthData.monthExpenditure}</b>
           </Typography>
           <Typography variant="p" color="#909090" sx={ptag}>
             Spent this Month
@@ -46,20 +64,34 @@ const MonthlySpend = () => {
 
       <Grid container sx={{ marginTop: '15%' }}>
         <Grid item md={6}>
-          <Typography variant='h6' sx={{ ...bold_name, ...df_jc_ac }}>
-            <ArrowCircleUpIcon />1%
+          <Typography variant="h6" sx={{ ...bold_name, ...df_jc_ac }}>
+            {monthData ? (
+              monthData.monthChange === 'inc' ? (
+                <ArrowCircleUpIcon />
+              ) : (
+                <ArrowCircleDownOutlinedIcon />
+              )
+            ) : (
+              'Loading'
+            )}
+            {monthData.monthPercent}%
           </Typography>
           <Typography
             variant="body1"
             color="#909090"
             sx={{ ...ptag, textAlign: 'center' }}
           >
-            up since last month
+            {monthData.monthChange === 'inc' ? 'up' : 'down'} since last month
           </Typography>
         </Grid>
         <Grid item md={6} sx={df_jc_ac_fdc}>
-          <Typography variant='h6' sx={{ ...bold_name, ...df_jc_ac }}>
-            <b> Telecom </b>
+          <Typography variant="h6" sx={{ ...bold_name, ...df_jc_ac }}>
+            <b>
+              {monthData.monthHighestCategory
+                ? monthData.monthHighestCategory[0].toUpperCase() +
+                  monthData.monthHighestCategory.substring(1)
+                : 'Loading'}
+            </b>
           </Typography>
           <Typography variant="p" sx={{ ...ptag, textAlign: 'center' }}>
             Most Spent On

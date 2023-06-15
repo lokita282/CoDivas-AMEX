@@ -63,3 +63,11 @@ export const categoryPie = () => {
     },
   })
 }
+
+export const trendingData = () => {
+  return httpcommon.get(`/beneficiary/trending-data`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('codivasToken')}`,
+    },
+  })
+}
