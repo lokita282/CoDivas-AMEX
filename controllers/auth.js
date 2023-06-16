@@ -4,7 +4,11 @@ const Bank = require('./../models/bank');
 const Beneficiary = require('./../models/beneficiary');
 const Voucher = require('./../models/voucher');
 const bcryptjs = require('bcryptjs');
-const { removeSensitiveData } = require('../utils/functions');
+const {
+    removeSensitiveData,
+    encryptData,
+    decryptData
+} = require('../utils/functions');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv').config();
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
@@ -393,6 +397,41 @@ const changePassword = async (req, res) => {
     }
 };
 
+const testEncryption = async (req, res) => {
+    try {
+        // this will come at the end of our controllers
+        const encryptedData = encryptData(req.body);
+
+        res.status(200).json({
+            message: 'Encrypted data taiyaar',
+            data: {
+                encryptedData
+            }
+        });
+    } catch (error) {
+        res.status(400).json({
+            message: error.message
+        });
+    }
+};
+
+const testDecryption = async (req, res) => {
+    try {
+        // this will come at the beginning of our controller
+        let decryptedString = decryptData(req.body.encryptedData);
+        let decryptedData = JSON.parse(decryptedString);
+
+        res.status(200).json({
+            message: 'Encrypted data ko decrypt karke woh bhi taiyaar',
+            data: decryptedData
+        });
+    } catch (error) {
+        res.status(400).json({
+            message: error.message
+        });
+    }
+};
+
 // Exporting modules
 module.exports = {
     signupBeneficiary,
@@ -403,5 +442,7 @@ module.exports = {
     changePassword,
     forgotPassword,
     resetPassword,
-    testTwilio
+    testTwilio,
+    testEncryption,
+    testDecryption
 };

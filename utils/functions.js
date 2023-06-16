@@ -132,13 +132,17 @@ const sendSms = (message, mobile) => {
         .catch((error) => console.error(error));
 };
 
-// these should come from env
-let privateKey;
-let publicKey;
-
 const rsaUtil = new RSAUtil.RSAUtil();
-rsaUtil.privateKeyPEMString = privateKey;
-rsaUtil.publicKeyPEMString = publicKey;
+
+rsaUtil.privateKeyPEMString = Buffer.from(
+    process.env.PRIVATE_KEY,
+    'base64'
+).toString('ascii');
+
+rsaUtil.publicKeyPEMString = Buffer.from(
+    process.env.PUBLIC_KEY,
+    'base64'
+).toString('ascii');
 
 // ENCRYPTION USING PUBLIC KEY
 const encryptData = (data) => {
@@ -161,5 +165,7 @@ module.exports = {
     decryptQrString,
     sendSms,
     caesarCipherEncrypt,
-    caesarCipherDecrypt
+    caesarCipherDecrypt,
+    encryptData,
+    decryptData
 };

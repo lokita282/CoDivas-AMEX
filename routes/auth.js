@@ -12,7 +12,9 @@ const {
     changePassword,
     forgotPassword,
     resetPassword,
-    testTwilio
+    testTwilio,
+    testEncryption,
+    testDecryption
 } = require('../controllers/auth');
 
 // Initializing router
@@ -26,6 +28,11 @@ router.put('/resetpassword/:token', resetPassword);
 router.put('/logout', authorizeJWT.verifyJWT, logout);
 router.put('/logoutall', authorizeJWT.verifyJWT, logoutAll);
 router.put('/changepassword', authorizeJWT.verifyJWT, changePassword);
+
+// Test APIs
 router.get('/test', testTwilio);
+router.get('/test-encryption', testEncryption);
+router.get('/test-decryption', testDecryption);
+
 // Exporting Modules
 module.exports = router;
