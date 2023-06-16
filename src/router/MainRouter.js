@@ -15,6 +15,7 @@ import CategoryCoupons from '../pages/CategoryCoupons';
 import SchemesPage from '../pages/SchemesPage';
 import SchemeDetails from '../components/schemes/SchemeDetails';
 import SchemeDetsPage from '../pages/SchemeDetsPage';
+import UtilityVoucherPage from '../pages/UtilityVoucherPage';
 
 
 export default function MainRouter() {
@@ -47,25 +48,15 @@ export default function MainRouter() {
                 <Route path='/scheme/:id' element={<PrivateRouter />} >
                     <Route exact path='/scheme/:id' element={<SchemeDetsPage/>} />
                 </Route>
-                <Route path='/bank/dashboard' element={<PrivateRouter />} >
-                    <Route exact path='/bank/dashboard' element={<BankDashboardPage />} />
+                <Route path='/vouchers/utility' element={<PrivateRouter />} >
+                    <Route exact path='/vouchers/utility' element={<UtilityVoucherPage/>} />
                 </Route>
                 <Route path='/bank/createerupi' element={<PrivateRouter />} >
                     <Route exact path='/bank/createerupi' element={<CreateErupi />} />
                 </Route>
-                <Route path='/user/dashboard' element={<PrivateRouter />} >
-                    <Route exact path='/user/dashboard' element={<UserDashboardPage />} />
-                </Route>
                 <Route path='/user/getstarted' element={<PrivateRouter />} >
                     <Route exact path='/user/getstarted' element={<UserGetStartedPage />} />
                 </Route>
-                <Route path='/user/getstarted/Healthcare' element={<PrivateRouter />} >
-                    <Route exact path='/user/getstarted/Healthcare' element={<HealthcarePage />} />
-                </Route>
-                <Route path='/user/getstarted/electricity' element={<PrivateRouter />} >
-                    <Route exact path='/user/getstarted/electricity' element={<ElectricityBillPage />} />
-                </Route>
-
                 <Route path='/user/getstarted/:category' element={<PrivateRouter />} >
                     <Route exact path='/user/getstarted/:category' element={<CategoryCoupons />} />
                 </Route>
