@@ -156,8 +156,6 @@ const decryptData = (data) => {
     return decryptedData;
 };
 
-// console.log(encryptData('hellomello'));
-
 module.exports = {
     removeSensitiveData,
     generateRandomNumber,
