@@ -80,8 +80,6 @@ const viewCategoryVouchersByStatus = async (req, res) => {
 const viewCategoryVouchers = async (req, res) => {
     try {
         let user = req.user;
-        console.log(req.userIPAddress);
-        console.log(req.userAgent);
         let category = req.params.category;
         let vouchers = await Voucher.find({
             beneficiaryPhone: user.phone,
