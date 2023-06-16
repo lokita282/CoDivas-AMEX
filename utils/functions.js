@@ -1,7 +1,6 @@
 const dotenv = require('dotenv').config();
 var AES = require('crypto-js/aes');
 const CryptoJS = require('crypto-js');
-// const rsa = require('node-rsa');
 const RSAUtil = require('node-crypto-rsa');
 
 const removeSensitiveData = (data) => {
