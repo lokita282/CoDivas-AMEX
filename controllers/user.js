@@ -3,6 +3,7 @@ const _ = require('lodash');
 const User = require('../models/user');
 const Voucher = require('../models/voucher');
 const Transaction = require('../models/transaction');
+const Merchant = require('../models/merchant');
 const {
     generateQrString,
     generateRandomNumber
@@ -673,6 +674,28 @@ const trendingData = async (req, res) => {
     }
 };
 
+const getAllMerchants = async (req, res) => {
+    try {
+        const merchants = await Merchant.find(
+            {},
+            {
+                bankAccountDetails: 0,
+                user: 0
+            }
+        );
+        res.status(200).json({
+            message: 'All Merchants returned successfully',
+            data: {
+                merchants
+            }
+        });
+    } catch (error) {
+        res.status(400).json({
+            message: error.message
+        });
+    }
+};
+
 module.exports = {
     viewAllVouchers,
     viewAllVouchersByCategory,
@@ -685,5 +708,6 @@ module.exports = {
     weeklyCategoryData,
     monthlyCategoryData,
     expenditureCategoryData,
-    trendingData
+    trendingData,
+    getAllMerchants
 };
