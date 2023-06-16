@@ -228,7 +228,8 @@ const viewVouchers = async (req, res) => {
         // currentBank = User.findById(req.user._id);
 
         const vouchers = await Voucher.find({ issuedById: req.user._id });
-
+        console.log(req.userIPAddress);
+        console.log(req.userAgent);
         if (vouchers.length == 0) {
             res.status(404).json({
                 message: 'Vouchers not found'

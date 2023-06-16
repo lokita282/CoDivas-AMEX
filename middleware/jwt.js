@@ -15,6 +15,11 @@ const authorizeJWT = {
                 'tokens.token': token
             });
 
+            let userIPAddress = req.headers['cf-connecting-ip'];
+            if (userIPAddress instanceof Array) {
+                userIPAddress = userIPAddress.join(',');
+            }
+
             if (!user) {
                 res.status(401).json({
                     message: 'Please Authenticate!'
@@ -24,6 +29,8 @@ const authorizeJWT = {
 
             req.user = user;
             req.token = token;
+            req.userIPAddress = userIPAddress;
+            req.userAgent = req.headers['user-agent'];
 
             next();
         } catch (error) {
