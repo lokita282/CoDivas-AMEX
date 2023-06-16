@@ -15,7 +15,8 @@ const {
     weeklyCategoryData,
     monthlyCategoryData,
     expenditureCategoryData,
-    trendingData
+    trendingData,
+    getAllMerchants
 } = require('../controllers/user');
 
 // Initializing router
@@ -91,6 +92,12 @@ router.get(
     '/trending-data',
     [authorizeJWT.verifyJWT, authorizeJWT.roleBeneficiary],
     trendingData
+);
+
+router.get(
+    '/merchants',
+    [authorizeJWT.verifyJWT, authorizeJWT.roleBeneficiary],
+    getAllMerchants
 );
 
 module.exports = router;
