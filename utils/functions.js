@@ -1,6 +1,8 @@
 const dotenv = require('dotenv').config();
 var AES = require('crypto-js/aes');
 const CryptoJS = require('crypto-js');
+const RSAUtil = require('node-crypto-rsa');
+
 const removeSensitiveData = (data) => {
     data.password = undefined;
     data.tokens = undefined;
@@ -126,6 +128,28 @@ const sendSms = (message, mobile) => {
         .then((message) => console.log(`Message SID ${message.sid}`))
         .catch((error) => console.error(error));
 };
+
+// these should come from env
+publicKey = '';
+privateKey = '';
+
+const rsaUtil = new RSAUtil.RSAUtil();
+rsaUtil.privateKeyPEMString = privateKey;
+rsaUtil.publicKeyPEMString = publicKey;
+
+// ENCRYPTION USING PUBLIC KEY
+const encryptData = (data) => {
+    const encryptedData = rsaUtil.encrypt(data);
+    return encryptedData;
+};
+
+// DECRYPTION USING PRIVATE KEY
+const decryptData = (data) => {
+    const decryptedData = rsaUtil.decrypt(data);
+    return decryptedData;
+};
+
+console.log(encryptData('hellomello'));
 
 module.exports = {
     removeSensitiveData,
