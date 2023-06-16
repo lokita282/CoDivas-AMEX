@@ -15,6 +15,7 @@ const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require('twilio')(accountSid, authToken);
 const axios = require('axios');
+const { recordActivity } = require('../services/activity-log');
 
 const fourDigitNumber = (customString) =>
     Array.from(customString).reduce(
@@ -134,6 +135,22 @@ const signupBeneficiary = async (req, res) => {
 
         newUser = removeSensitiveData(newUser);
 
+        // Activity Log
+        let userIPAddress = req.headers['cf-connecting-ip'];
+        if (userIPAddress instanceof Array) {
+            userIPAddress = userIPAddress.join(',');
+        }
+        let userReq = {
+            user: {
+                _id: newUser._id,
+                type: newUser.type
+            },
+            userAgent: req.headers['user-agent'],
+            userIPAddress: userIPAddress
+        };
+
+        const activityLog = await recordActivity(userReq, newUser, 'Sign Up');
+
         res.status(201).json({
             message: 'User Signed Up',
             data: {
@@ -204,6 +221,27 @@ const signupMerchant = async (req, res) => {
         await newUser.save();
 
         newUser = removeSensitiveData(newUser);
+
+        // Activity Log
+        let userIPAddress = req.headers['cf-connecting-ip'];
+        if (userIPAddress instanceof Array) {
+            userIPAddress = userIPAddress.join(',');
+        }
+        let userReq = {
+            user: {
+                _id: newUser._id,
+                type: newUser.type
+            },
+            userAgent: req.headers['user-agent'],
+            userIPAddress: userIPAddress
+        };
+
+        const activityLog = await recordActivity(
+            userReq,
+            newMerchant,
+            'Sign Up'
+        );
+
         // Sending a response back
         res.status(201).json({
             message: 'User Signed Up',
