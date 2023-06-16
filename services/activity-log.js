@@ -7,7 +7,7 @@ const recordActivity = async (req, obj, action) => {
             userIPAddress: req.userIPAddress ? req.userIPAddress : 'Postman',
             userAgent: req.userAgent ? req.userAgent : undefined,
             userType: req.user.type,
-            uid: obj.uid ? uid : undefined,
+            uid: obj.uid ? obj.uid : undefined,
             occuredAt: Date.now().toString(),
             actionType: action,
             body: `${action} operation performed by ${
