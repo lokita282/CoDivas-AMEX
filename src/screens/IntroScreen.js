@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { View, Image, Text, StyleSheet } from 'react-native';
+import LottieView from 'lottie-react-native';
 const IntroScreen = ({navigation}) => {
 
     useEffect(() => {
@@ -14,6 +15,11 @@ const IntroScreen = ({navigation}) => {
 
     return (
       <View style={styles.container}>
+        <LottieView
+        source={require('../assets/sparkle.json')} // Replace with the path to your Lottie animation file
+        autoPlay
+        loop
+      />
         <Image source={require('../assets/logo.png')} style={styles.logo} />
         <Text style={styles.tagline}>Empowering Seamless Transactions, the eZ-RUPI Way!</Text>
       </View>
@@ -35,7 +41,7 @@ const IntroScreen = ({navigation}) => {
       marginTop: 20,
       textAlign:'center',
       padding:10,
-      fontStyle:'italic'
+      fontStyle:'normal'
     },
   });
 

@@ -161,7 +161,7 @@ const Redeemed = ({navigation}) => {
       redirect: 'follow'
     };
     async function fetchData(){
-      await fetch("https://ez-rupi.onrender.com/api/beneficiary/multiple/education/valid", requestOptions)
+      await fetch("https://ez-rupi.onrender.com/api/beneficiary/multiple/education/redeemed", requestOptions)
       .then(response => response.json())
       .then(result => (setData(result.data)))
       .catch(error => console.log('error', error));
@@ -172,9 +172,9 @@ const Redeemed = ({navigation}) => {
   return (
     <View style={styles.container}>
       {/* {console.log(data)} */}
-      {data.map((item) => (
+      {data.map((item,index) => (
       <TouchableOpacity onPress={() =>
-        navigation.navigate('Redeem',{paramKey:item._id})}style={styles.card}>
+        navigation.navigate('Redeem',{paramKey:item._id})}style={styles.card} key={index}> 
         <Card
           key={item._id}
           image={item.issuedByLogo}

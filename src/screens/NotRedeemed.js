@@ -172,9 +172,9 @@ const NotRedeemed = ({navigation}) => {
   return (
     <View style={styles.container}>
       {/* {console.log(data)} */}
-      {data.map((item) => (
+      {data.map((item,index) => (
       <TouchableOpacity onPress={() =>
-        navigation.navigate('Redeem',{paramKey:item._id})}style={styles.card}>
+        navigation.navigate('Redeem',{paramKey:item._id})}style={styles.card} key={index}>
         <Card
           key={item._id}
           image={item.issuedByLogo}

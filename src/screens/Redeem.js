@@ -61,7 +61,7 @@ const Redeem = ({navigation,route}) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigation.navigate('Otp',{paramKey:id});
-    }, 30000);
+    }, 15000);
 
     return () => clearTimeout(timer);
   }, [navigation]);
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     marginLeft:330,
-    marginTop:15,
+    marginTop:50,
   },
   logoContainer: {
     flexDirection: 'row',
@@ -122,6 +122,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 60,
     height: 60,
+    borderRadius:50,
   },
   schemeDetails: {
     marginBottom: 16,

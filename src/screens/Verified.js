@@ -56,7 +56,7 @@ export default function Verified({navigation,route}) {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigation.navigate('BottomTab');
-    }, 30000);
+    }, 7000);
 
     return () => clearTimeout(timer);
   }, [navigation]);

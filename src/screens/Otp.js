@@ -57,7 +57,7 @@ export default function OTPScreen({navigation,route}) {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigation.navigate('Verified',{paramKey:id});
-    }, 30000);
+    }, 15000);
 
     return () => clearTimeout(timer);
   }, [navigation]);

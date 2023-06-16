@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import LottieView from 'lottie-react-native';
 import moment from 'moment/moment';
 
 const TransactionHistory = () => {
   const [data, setData] = useState([]);
   const [userToken,setUserToken] = useState('')
+  const [isLoading, setIsLoading] = useState(true);
   async function retrieveUserToken() {
     try {
       const token = await AsyncStorage.getItem('userToken');
@@ -21,6 +23,12 @@ const TransactionHistory = () => {
     retrieveUserToken();
     //console.log(userToken);
   })
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 8000);
+    return () => clearTimeout(timer);
+  }, []);
   useEffect(()=>{
     const timer=setTimeout(()=>{
     var myHeaders = new Headers();
@@ -57,7 +65,17 @@ const TransactionHistory = () => {
       </View>
     ));
   };
-
+  if (isLoading) {
+    return (
+      <View style={styles.loader}>
+        <LottieView
+      source={require('../assets/loader.json')} // Replace with the path to your Lottie animation file
+      autoPlay
+      loop
+    />
+      </View>
+    );
+  }
   return (
     <ScrollView>
     <View style={styles.container}>
@@ -76,8 +94,15 @@ const TransactionHistory = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    padding: 20,
     backgroundColor: '#fff',
+    justifyContent:'center'
+  },
+  loader:{
+    justifyContent:'center',
+    backgroundColor: '#fff',
+    flex: 1,
+    padding: 20,
   },
   header: {
     flexDirection: 'row',
@@ -87,7 +112,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   profileIcon: {
-    marginLeft: 300,
+    marginLeft: 280,
   },
   profileImage: {
     width: 50,

@@ -1,12 +1,13 @@
 
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import LottieView from 'lottie-react-native';
 
 const Card = ({ image, title, receivedDate, expiringDate}) => {
   return (
 
-    <View style={styles.cardContainer}>
+    <View style={styles.cardContainer} >
       <Image source={{uri:image}} style={styles.image} />
       <View style={styles.cardText}>
         <Text style={styles.title}>{title}</Text>
@@ -20,6 +21,7 @@ const Card = ({ image, title, receivedDate, expiringDate}) => {
 const All = ({navigation}) => {
   const [data, setData] = useState([]);
   const [userToken,setUserToken] = useState('')
+  const [isLoading, setIsLoading] = useState(true);
   async function retrieveUserToken() {
     try {
       const token = await AsyncStorage.getItem('userToken');
@@ -35,6 +37,13 @@ const All = ({navigation}) => {
     retrieveUserToken();
     //console.log(userToken);
   })
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 8000);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(()=>{
     const timer=setTimeout(()=>{
@@ -58,12 +67,24 @@ const All = ({navigation}) => {
     fetchData();},5000);
     return () => clearTimeout(timer);
   });
+  if (isLoading) {
+    return (
+      <View style={styles.loader}>
+        <LottieView
+        source={require('../assets/load.json')} // Replace with the path to your Lottie animation file
+        autoPlay
+        loop
+    />
+      </View>
+    );
+  }
   return (
+    <ScrollView>
     <View style={styles.container}>
       {/* {console.log(data)} */}
-      {data.map((item) => (
+      {data.map((item,index) => (
       <TouchableOpacity onPress={() =>
-              navigation.navigate('Redeem',{paramKey:item._id})}style={styles.card}>
+              navigation.navigate('Redeem',{paramKey:item._id})}style={styles.card} key={index}>
         <Card
           key={item._id}
           image={item.issuedByLogo}
@@ -73,6 +94,7 @@ const All = ({navigation}) => {
         /></TouchableOpacity>
       ))}
     </View>
+    </ScrollView>
   );
 };
 
@@ -96,6 +118,13 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight:30,
     borderRadius: 4,
+  },
+  loader:{
+    justifyContent:'center',
+    alignItems:'center',
+    backgroundColor: '#fff',
+    flex: 1,
+    padding: 20,
   },
   cardText: {
     flex: 1,

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, StyleSheet, Text,Image, TextInput,TouchableOpacity, View, SafeAreaView, KeyboardAvoidingView, ScrollView } from 'react-native';
+import LottieView from 'lottie-react-native';
 
 export default function Register({ navigation }) {
   const [email, setEmail] = useState('');
@@ -42,7 +43,6 @@ export default function Register({ navigation }) {
         <View style={styles.logoContainer}>
             <Image source={require('../assets/logo.png')} style={styles.logo} />
           </View>
-          <Text style={styles.welcomeText}>Welcome to EZ-Rupi !!</Text>
           <Text style={styles.header}>Register</Text>
           <View style={styles.inputTextWrapper}>
             <TextInput
@@ -107,6 +107,10 @@ export default function Register({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding:7,
+  },
+  lottie: {
+    padding:40,
   },
   scrollViewContainer: {
     flexGrow: 1,
@@ -142,19 +146,12 @@ const styles = StyleSheet.create({
     height: 100,
     resizeMode:'contain'
   },
-  welcomeText: {
-    fontSize: 25,
-    textAlign: 'center',
-    marginBottom: 20,
-    fontStyle:'italic',
-    //marginTop:15,
-  },
   registerText: {
     marginTop: 40,
     textAlign: 'center',
     color: 'black',
     textDecorationLine: 'underline',
     fontSize: 18,
-    fontStyle:'italic',
+    fontStyle:'normal',
   },
 });
