@@ -5,12 +5,14 @@ const recordActivity = async (req, obj, action) => {
         const log = new ActivityLog({
             userId: req.user._id,
             userIPAddress: req.userIPAddress ? req.userIPAddress : 'Postman',
-            userAgent: req.userAgent,
+            userAgent: req.userAgent ? req.userAgent : undefined,
             userType: req.user.type,
             uid: obj.uid ? uid : undefined,
             occuredAt: Date.now().toString(),
             actionType: action,
-            body: `${actionType} operation performed by ${type} (${req.user._id.toString()})`
+            body: `${action} operation performed by ${
+                req.user.type
+            } (${req.user._id.toString()})`
         });
 
         await log.save();
@@ -19,9 +21,10 @@ const recordActivity = async (req, obj, action) => {
             data: log,
             message: 'Activity log added successfully'
         };
+        return result;
     } catch (error) {
         console.error(error.message);
-        throw new error();
+        throw new Error(error);
     }
 };
 
