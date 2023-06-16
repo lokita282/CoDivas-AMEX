@@ -140,7 +140,7 @@ export default function Categories() {
                         </div>
                     </CardContent>
                 </Grid>
-                <Grid item md={3} sx={{ height: '100%', cursor: 'pointer' }} onClick={() => navigate('/user/getstarted/utility')}>
+                {/* <Grid item md={3} sx={{ height: '100%', cursor: 'pointer' }} onClick={() => navigate('/user/getstarted/utility')}>
                     <CardContent sx={{ bgcolor: 'white', height: '23vh', boxShadow: '0px 1px 26px rgba(94, 99, 116, 0.21)', borderRadius: '10px' }}>
                         <div style={df_jc_ac_fdc}>
                             <CardMedia component='img' image={uti} sx={{ height: '20vh', width: 'auto' }} />
@@ -157,7 +157,7 @@ export default function Categories() {
 
                         </div>
                     </CardContent>
-                </Grid>
+                </Grid> */}
                 <Grid item md={3} sx={{ height: '100%', cursor: 'pointer' }} onClick={() => navigate('/user/getstarted/telecommunication')}>
                     <CardContent sx={{ bgcolor: 'white', height: '23vh', boxShadow: '0px 1px 26px rgba(94, 99, 116, 0.21)', borderRadius: '10px' }}>
                         <div style={df_jc_ac_fdc}>
@@ -195,142 +195,6 @@ export default function Categories() {
                     </CardContent>
                 </Grid>
             </Grid>
-            {/* <Grid container spacing={2}>
-        <Grid item xs={8}>
-          <Typography variant="h2" style={styles.gradientText}>
-            <b>Our Categories</b>
-          </Typography>
-        </Grid>
-        <Grid item xs={4}>
-          <Typography
-            variant="body1"
-            color="#909090"
-            sx={{ paddingTop: 2, fontFamily: 'Poppins' }}
-          >
-            Various categories for you to make your payments easily and
-            seamlessly!
-          </Typography>
-        </Grid>
-        {categories.map((category) => {
-          return (
-            <Grid item xs={3}>
-              <Link
-                to={`/user/getstarted/${category.name}`}
-                style={{ textDecoration: 'none' }}
-              >
-                <Card sx={{ margin: 1, borderRadius: '20px' }}>
-                  <CardActionArea>
-                    <CardMedia
-                      component="img"
-                      height="250"
-                      // width="20"
-                      image={category.img}
-                      alt="green iguana"
-                    />
-                    <CardContent>
-                      <Typography
-                        gutterBottom
-                        variant="body1"
-                        component="div"
-                        sx={{ textAlign: 'center', fontFamily: 'Poppins' }}
-                        color="#18152C"
-                      >
-                        <b>{category.name}</b>
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                </Card>
-              </Link>
-            </Grid>
-          )
-        })}
-
-        <Grid item xs={8}>
-          <Typography variant="h2" style={styles.gradientText}>
-            <b>Utilities</b>
-          </Typography>
-        </Grid>
-        <Grid item xs={4}>
-          <Typography
-            variant="body1"
-            color="#909090"
-            sx={{ paddingTop: 2, fontFamily: 'Poppins' }}
-          >
-            Recharge and pay for utilities easily at the comfort of your home!
-          </Typography>
-        </Grid>
-        {utilities.map((utility) => {
-          return (
-            <Grid item xs={3}>
-              <Link
-                to={`/user/getstarted/${utility.link}`}
-                style={{ textDecoration: 'none' }}
-              >
-                <Card sx={{ margin: 1, borderRadius: '20px' }}>
-                  <CardActionArea>
-                    <CardMedia
-                      component="img"
-                      height="250"
-                      width="20"
-                      image={utility.img}
-                      alt="green iguana"
-                    />
-                    <CardContent>
-                      <Typography
-                        gutterBottom
-                        variant="body1"
-                        component="div"
-                        sx={{ textAlign: 'center', fontFamily: 'Poppins' }}
-                        color="#18152C"
-                      >
-                        <b>{utility.name}</b>
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                </Card>
-              </Link>
-            </Grid>
-          )
-        })}
-
-        <Grid item xs={8}>
-          <Typography variant="h2" style={styles.gradientText}>
-            <b>Government Schemes</b>
-          </Typography>
-        </Grid>
-        <Grid item xs={4}>
-          <Typography
-            variant="body1"
-            color="#909090"
-            sx={{ paddingTop: 2, fontFamily: 'Poppins' }}
-          >
-            View and avail various government schemes for your benefit!
-          </Typography>
-        </Grid>
-
-        <Grid item xs={12}>
-          {schemes.map((scheme) => {
-            return (
-              <Accordion>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1a-content"
-                  id="panel1a-header"
-                >
-                  <Typography sx={{ fontFamily: 'Poppins' }}>
-                    {scheme.name}
-                  </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Typography sx={{ fontFamily: 'Poppins' }}>
-                    {scheme.desc}
-                  </Typography>
-                </AccordionDetails>
-              </Accordion>
-            )
-          })}
-        </Grid>
-      </Grid> */}
         </>
     )
 }
