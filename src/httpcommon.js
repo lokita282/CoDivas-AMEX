@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 export default axios.create({
-    baseURL: `https://ez-rupi.onrender.com/api`,
+    baseURL: `https://ez-rupi-api.up.railway.app/api`,
 
     headers: {
         "Content-type": "application/json",
