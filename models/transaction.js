@@ -34,8 +34,7 @@ const transactionSchema = new mongoose.Schema(
         },
         merchantId: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Merchant',
-            required: true
+            ref: 'Merchant'
         },
         beneficiaryId: {
             type: mongoose.Schema.Types.ObjectId,

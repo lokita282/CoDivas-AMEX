@@ -6,7 +6,9 @@ const Transaction = require('../models/transaction');
 const Merchant = require('../models/merchant');
 const {
     generateQrString,
-    generateRandomNumber
+    generateRandomNumber,
+    sendSms,
+    decryptQrString
 } = require('../utils/functions');
 const { setVoucherStatuses } = require('../utils/cron-jobs');
 const Beneficiary = require('../models/beneficiary');
@@ -696,6 +698,164 @@ const getAllMerchants = async (req, res) => {
     }
 };
 
+/********************** UTILITY APIS ***********************/
+
+const validateVoucherUtility = async (req, res) => {
+    try {
+        const { encryptedString } = req.body;
+        const user = req.user;
+        const decryptedString = decryptQrString(encryptedString);
+        let voucher = await Voucher.findOne({ uid: decryptedString });
+        if (!voucher) {
+            res.status(404).json({
+                success: false,
+                message: 'Voucher not found!'
+            });
+            return;
+        }
+        if (voucher.status !== 'valid') {
+            res.status(200).json({
+                success: false,
+                message: 'Voucher Invalid!'
+            });
+            return;
+        }
+        if (voucher.category !== 'utility') {
+            res.status(200).json({
+                success: false,
+                message: 'Voucher not valid for utility!'
+            });
+            return;
+        }
+        if (voucher.startsAt > Date.now() || voucher.endsAt < Date.now()) {
+            res.status(200).json({
+                success: false,
+                message: 'Voucher not valid for this time!'
+            });
+            return;
+        }
+
+        voucher.verificationCode = generateRandomNumber(4);
+        await voucher.save();
+
+        await sendSms(
+            `Your e-RUPI Voucher has been scanned for a Utility transaction. Please use the verification code ${voucher.verificationCode} to complete the transaction.`,
+            voucher.beneficiaryPhone
+        );
+        voucher.status = 'scanned';
+        await voucher.save();
+        res.status(200).json({
+            success: true,
+            message: 'Verification Code sent!',
+            voucherId: voucher._id
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
+    }
+};
+
+const redeemVoucherUtility = async (req, res) => {
+    try {
+        const {
+            voucherId,
+            verificationCode,
+            transactionAmount,
+            transactionTitle
+        } = req.body;
+        const user = req.user;
+        let voucher = await Voucher.findById(voucherId);
+        let utilMerchant = await Merchant.findOne({
+            businessName: 'Utility Payments',
+            uid: 'UTI-0000'
+        });
+        if (!voucher) {
+            res.status(404).json({
+                success: false,
+                message: 'Voucher not found!'
+            });
+            return;
+        }
+        if (voucher.status !== 'scanned') {
+            res.status(200).json({
+                success: false,
+                message: 'Invalid Transaction!'
+            });
+            return;
+        }
+        const beneficiary = await Beneficiary.findOne({
+            phone: voucher.beneficiaryPhone
+        });
+        if (voucher.verificationCode !== verificationCode) {
+            res.status(200).json({
+                success: false,
+                message: 'Verification Code not matched!'
+            });
+            return;
+        }
+        if (
+            (voucher.useType === 'multiple' &&
+                voucher._doc.balanceAmount < transactionAmount) ||
+            (voucher.useType === 'single' && voucher.amount < transactionAmount)
+        ) {
+            res.status(200).json({
+                success: false,
+                message: 'Insufficient Balance!'
+            });
+            return;
+        }
+
+        const transaction = new Transaction({
+            datetime: Date.now(),
+            voucherUid: voucher.uid,
+            voucherTitle: voucher.title,
+            amount: transactionAmount,
+            closingBalance:
+                voucher.useType === 'multiple'
+                    ? parseInt(voucher._doc.balanceAmount) -
+                      parseInt(transactionAmount)
+                    : undefined,
+            beneficiaryPhone: beneficiary.phone,
+            payee: transactionTitle,
+            beneficiaryId: beneficiary._id,
+            merchantId: utilMerchant._id
+        });
+        await transaction.save();
+
+        if (voucher.useType === 'single') {
+            voucher.status = 'redeemed';
+        } else {
+            let balance =
+                parseInt(voucher._doc.balanceAmount) -
+                parseInt(transactionAmount);
+
+            voucher = await Voucher.findByIdAndUpdate(
+                voucher._id,
+                {
+                    $set: {
+                        balanceAmount: balance,
+                        status: 'redeemed'
+                    }
+                },
+                { new: true }
+            );
+        }
+        voucher.verificationCode = undefined;
+        await voucher.save();
+
+        res.status(200).json({
+            success: true,
+            message: 'Voucher Redeemed!',
+            transactionDetails: transaction
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
+    }
+};
+
 module.exports = {
     viewAllVouchers,
     viewAllVouchersByCategory,
@@ -709,5 +869,7 @@ module.exports = {
     monthlyCategoryData,
     expenditureCategoryData,
     trendingData,
-    getAllMerchants
+    getAllMerchants,
+    validateVoucherUtility,
+    redeemVoucherUtility
 };
