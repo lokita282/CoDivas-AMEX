@@ -47,11 +47,13 @@ const CreateErupi = () => {
 
   return (
     <SideDrawer>
+      {/* <Box  */}
       <Tabs
         value={value}
         onChange={handleChange}
         aria-label="basic tabs example"
-      >
+        centered
+        >
         <Tab label="Single Voucher creation" {...a11yProps(0)} />
         <Tab label="Bulk Voucher creation" {...a11yProps(1)} />
       </Tabs>
@@ -61,6 +63,7 @@ const CreateErupi = () => {
       <TabPanel value={value} index={1}>
         <BulkVoucher />
       </TabPanel>
+      {/* </Box> */}
     </SideDrawer>
   )
 }

@@ -1,4 +1,4 @@
-import {React, useState} from 'react'
+import { React, useState } from 'react'
 import {
   bold_name,
   btn_connect,
@@ -23,18 +23,24 @@ import {
   TextField,
   InputLabel,
   Select,
-  MenuItem, Button, Box, CircularProgress
-} from '@mui/material' 
+  MenuItem,
+  Button,
+  Box,
+  CircularProgress,
+} from '@mui/material'
 import { createErupi } from '../../services/bankServices'
 import successHandler from '../toasts/successHandler'
 import errorHandler from '../toasts/errorHandler'
+import ReCAPTCHA from 'react-google-recaptcha'
 
 const styles = {
   paperContainer: {
-    borderRadius: '30px',
+    borderRadius: '10px',
+    boxShadow: '0px 1px 26px rgba(94, 99, 116, 0.21)',
     display: 'flex',
     flexDirection: 'column',
     padding: '10px 30px',
+    width: '70%',
   },
   gradientText: {
     background: 'radial-gradient( #7E8AFF, #375EC0)',
@@ -55,9 +61,9 @@ const styles = {
     height: '50%',
     fontFamily: 'Poppins',
   },
-  gridContainer: { 
-    marginTop: 7
-  }
+  gridContainer: {
+    marginTop: 7,
+  },
 }
 
 // const organisationDetails = [
@@ -173,26 +179,26 @@ const SingleVoucher = () => {
   const handleSubmit = async () => {
     setLoad(true)
     // if (json.phone && json.password) {
-      await createErupi({
-        ...json,
-        startsAt: new Date(json.startsAt),
-        endsAt: new Date(json.endsAt)
+    await createErupi({
+      ...json,
+      startsAt: new Date(json.startsAt),
+      endsAt: new Date(json.endsAt),
+    })
+      .then((res) => {
+        console.log('first')
+        console.log(res.data)
+        // localStorage.setItem('codivasToken', res.data.token)
+        // localStorage.setItem('codivasUser', JSON.stringify(res.data.user))
+        // setUser(res.data.user)
+        // setToken(res.data.token)
+        successHandler(res.data.message)
+        // navigate('/dashboard')
+        setLoad(false)
       })
-        .then((res) => {
-          console.log('first')
-          console.log(res.data)
-          // localStorage.setItem('codivasToken', res.data.token)
-          // localStorage.setItem('codivasUser', JSON.stringify(res.data.user))
-          // setUser(res.data.user)
-          // setToken(res.data.token)
-          successHandler(res.data.message)
-          // navigate('/dashboard')
-          setLoad(false)
-        })
-        .catch((e) => {
-          errorHandler('createErupi failed')
-          setLoad(false)
-        })
+      .catch((e) => {
+        errorHandler('createErupi failed')
+        setLoad(false)
+      })
     // } else {
     //   // !json.phone && errorHandler('Phone number cannot be empty')
     //   // !json.password && errorHandler('Password cannot be empty')
@@ -200,199 +206,214 @@ const SingleVoucher = () => {
     // }
   }
 
+  function onChangeCaptcha(value) {
+    console.log('Captcha value:', value)
+  }
+
+
   return (
-    <Paper style={styles.paperContainer}>
-      <Typography variant="h4" style={styles.gradientText}>
-        <b>Generate an e-₹UPI voucher for a single beneficiary</b>
-      </Typography>
-      <Grid container spacing={2} style={styles.gridContainer}>
-        <Grid item xs={6}>
-          <TextField
-            id="title"
-            label="Title Of Voucher"
-            name="title"
-            variant="outlined"
-            fullWidth
-            value={json.title}
-            onChange={handleChange}
-          />
-        </Grid>
-        <Grid item xs={2.8}>
-          <TextField
-            fullWidth
-            type="date"
-            id="startsAt"
-            name="startsAt"
-            value={json.startsAt}
-            onChange={handleChangeDate}
-          />
-          {console.log(json)}
-        </Grid>
-        <Grid
-          item
-          xs={0.4}
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            verticalAlign: 'middle',
-            alignItems: 'center',
-          }}
-        >
-          <Typography variant="body1" sx={{ fontFamily: 'Poppins' }}>
-            to
-          </Typography>
-        </Grid>
-        <Grid item xs={2.8}>
-          <TextField
-            fullWidth
-            type="date"
-            id="endsAt"
-            name="endsAt"
-            value={json.endsAt}
-            onChange={handleChange}
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <TextField
-            id="beneficiaryName"
-            label="Name of the beneficiary"
-            name="beneficiaryName"
-            variant="outlined"
-            value={json.beneficiaryName}
-            onChange={handleChange}
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <TextField
-            id="beneficiaryPhone"
-            label="Beneficiary phone number"
-            name="beneficiaryPhone"
-            variant="outlined"
-            type="number"
-            value={json.beneficiaryPhone}
-            onChange={handleChange}
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={3}>
-          <FormControl>
-            <FormLabel id="demo-controlled-radio-buttons-group">
-              Type of Government ID
-            </FormLabel>
-            <RadioGroup
-              aria-labelledby="demo-controlled-radio-buttons-group"
-              name="controlled-radio-buttons-group"
-              value={governmentId}
-              onChange={handleChangeGovtId}
-              defaultChecked
-              sx={{ display: 'flex', flexDirection: 'row' }}
-            >
-              <FormControlLabel
-                value="pan"
-                name="govtIdType"
-                control={<Radio />}
-                label="PAN"
-              />
-              <FormControlLabel
-                value="aadhar"
-                name="govtIdType"
-                control={<Radio />}
-                label="Aadhar"
-              />
-            </RadioGroup>
-          </FormControl>
-        </Grid>
-        <Grid item xs={3}>
-          {governmentId === 'pan' ? (
+    <Grid
+      container
+      spacing={0}
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <Paper style={styles.paperContainer}>
+        <Typography variant="h4" style={styles.gradientText}>
+          <b>Generate an e-₹UPI voucher for a single beneficiary</b>
+        </Typography>
+        <Grid container spacing={2} style={styles.gridContainer}>
+          <Grid item xs={6}>
             <TextField
-              id="pan"
-              label="Beneficiary PAN Number"
-              name="govtIdNumber"
-              value={json.govtIdNumber}
-              onChange={handleChange}
+              id="title"
+              placeholder="Title Of Voucher"
+              name="title"
               variant="outlined"
               fullWidth
+              value={json.title}
+              onChange={handleChange}
             />
-          ) : (
+          </Grid>
+          <Grid item xs={2.8}>
             <TextField
-              id="aadhar"
-              label="Beneficiary Aadhar number"
-              name="govtIdNumber"
+              fullWidth
+              type="date"
+              id="startsAt"
+              name="startsAt"
+              value={json.startsAt}
+              onChange={handleChangeDate}
+            />
+            {console.log(json)}
+          </Grid>
+          <Grid
+            item
+            xs={0.4}
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              verticalAlign: 'middle',
+              alignItems: 'center',
+            }}
+          >
+            <Typography variant="body1" sx={{ fontFamily: 'Poppins' }}>
+              to
+            </Typography>
+          </Grid>
+          <Grid item xs={2.8}>
+            <TextField
+              fullWidth
+              type="date"
+              id="endsAt"
+              name="endsAt"
+              value={json.endsAt}
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              id="beneficiaryName"
+              placeholder="Name of the beneficiary"
+              name="beneficiaryName"
               variant="outlined"
-              value={json.govtIdNumber}
+              value={json.beneficiaryName}
               onChange={handleChange}
               fullWidth
             />
-          )}
-        </Grid>
-        <Grid item xs={6}>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">
-              Category of e-₹UPI voucher
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={category}
-              label="Age"
-              name="category"
-              onChange={handleChangeCategory}
-            >
-              <MenuItem value="agriculture">Agriculture</MenuItem>
-              <MenuItem value="education">Education</MenuItem>
-              <MenuItem value="food">Food</MenuItem>
-              <MenuItem value="health">Health</MenuItem>
-              <MenuItem value="housing">Housing</MenuItem>
-              <MenuItem value="other">Other</MenuItem>
-              <MenuItem value="transportation">Transportation</MenuItem>
-              <MenuItem value="telecommunication">Telecommunication</MenuItem>
-              <MenuItem value="utility">Utility</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-        <Grid item xs={4}>
-          <TextField
-            id="amount"
-            label="Amount"
-            name="amount"
-            value={json.value}
-            onChange={handleChange}
-            variant="outlined"
-            type="number"
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={4} sx={{ display: 'flex', justifyContent: 'center' }}>
-          <FormControl>
-            <FormLabel id="demo-controlled-radio-buttons-group">
-              Type of e-₹UPI voucher
-            </FormLabel>
-            <RadioGroup
-              aria-labelledby="demo-controlled-radio-buttons-group"
-              name="controlled-radio-buttons-group"
-              value={type}
-              onChange={handleChangeType}
-              defaultChecked
-              sx={{ display: 'flex', flexDirection: 'row' }}
-            >
-              <FormControlLabel
-                value="single"
-                name="useType"
-                control={<Radio />}
-                label="Single Use"
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              id="beneficiaryPhone"
+              placeholder="Beneficiary phone number"
+              name="beneficiaryPhone"
+              variant="outlined"
+              type="number"
+              value={json.beneficiaryPhone}
+              onChange={handleChange}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={2.5}>
+            <FormControl>
+              <FormLabel id="demo-controlled-radio-buttons-group">
+                Type of Government ID
+              </FormLabel>
+              <RadioGroup
+                aria-labelledby="demo-controlled-radio-buttons-group"
+                name="controlled-radio-buttons-group"
+                value={governmentId}
+                onChange={handleChangeGovtId}
+                defaultChecked
+                sx={{ display: 'flex', flexDirection: 'row' }}
+              >
+                <FormControlLabel
+                  value="pan"
+                  name="govtIdType"
+                  control={<Radio />}
+                  label="PAN"
+                />
+                <FormControlLabel
+                  value="aadhar"
+                  name="govtIdType"
+                  control={<Radio />}
+                  label="Aadhar"
+                />
+              </RadioGroup>
+            </FormControl>
+          </Grid>
+          <Grid item xs={3.5}>
+            {governmentId === 'pan' ? (
+              <TextField
+                id="pan"
+                placeholder="Beneficiary PAN Number"
+                name="govtIdNumber"
+                value={json.govtIdNumber}
+                onChange={handleChange}
+                variant="outlined"
+                fullWidth
               />
-              <FormControlLabel
-                value="multiple"
-                name="useType"
-                control={<Radio />}
-                label="Multiple Use"
+            ) : (
+              <TextField
+                id="aadhar"
+                placeholder="Beneficiary Aadhar Number"
+                name="govtIdNumber"
+                variant="outlined"
+                value={json.govtIdNumber}
+                onChange={handleChange}
+                fullWidth
               />
-            </RadioGroup>
-          </FormControl>
-        </Grid>
-        <Grid item xs={4}>
-          {/* {type === 'multiple' ? (
+            )}
+          </Grid>
+          <Grid item xs={6}>
+            <FormControl fullWidth>
+              {/* <InputLabel id="demo-simple-select-label">
+                Category of e-₹UPI voucher
+              </InputLabel> */}
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                placeholder="Category of e-₹UPI voucher"
+                value={category}
+                displayEmpty
+                label="Age"
+                name="category"
+                onChange={handleChangeCategory}
+              >
+                <MenuItem value="">Select Category</MenuItem>
+                <MenuItem value="agriculture">Agriculture</MenuItem>
+                <MenuItem value="education">Education</MenuItem>
+                <MenuItem value="food">Food</MenuItem>
+                <MenuItem value="health">Health</MenuItem>
+                <MenuItem value="housing">Housing</MenuItem>
+                <MenuItem value="other">Other</MenuItem>
+                <MenuItem value="transportation">Transportation</MenuItem>
+                <MenuItem value="telecommunication">Telecommunication</MenuItem>
+                <MenuItem value="utility">Utility</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={4}>
+            <TextField
+              id="amount"
+              placeholder="Amount"
+              name="amount"
+              value={json.value}
+              onChange={handleChange}
+              variant="outlined"
+              type="number"
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={4} sx={{ display: 'flex', justifyContent: 'center' }}>
+            <FormControl>
+              <FormLabel id="demo-controlled-radio-buttons-group">
+                Type of e-₹UPI voucher
+              </FormLabel>
+              <RadioGroup
+                aria-labelledby="demo-controlled-radio-buttons-group"
+                name="controlled-radio-buttons-group"
+                value={type}
+                onChange={handleChangeType}
+                defaultChecked
+                sx={{ display: 'flex', flexDirection: 'row' }}
+              >
+                <FormControlLabel
+                  value="single"
+                  name="useType"
+                  control={<Radio />}
+                  label="Single Use"
+                />
+                <FormControlLabel
+                  value="multiple"
+                  name="useType"
+                  control={<Radio />}
+                  label="Multiple Use"
+                />
+              </RadioGroup>
+            </FormControl>
+          </Grid>
+          <Grid item xs={4}>
+            {/* {type === 'multiple' ? (
             <TextField
               id="balanceAmount "
               label="Balance Amount"
@@ -406,116 +427,118 @@ const SingleVoucher = () => {
           ) : (
             ''
           )} */}
-        </Grid>
-        <Grid item xs={6}>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Organization</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              name="orgId"
-              value={orgId}
-              label="organization"
-              onChange={handleChangeOrg}
-            >
-              <MenuItem value="678431">Think360</MenuItem>
-              <MenuItem value="689346">Stark Industries</MenuItem>
-              <MenuItem value="549012">
-                National Health Authority of India
-              </MenuItem>
-              <MenuItem value="549013">Odisha Government</MenuItem>
-              <MenuItem value="120871">Pratham Foundation</MenuItem>
-              <MenuItem value="989791">Goonj Foundation</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-        <Grid item xs={6}>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">State</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={state}
-              name="state"
-              label="State"
-              onChange={handleChangeState}
-            >
-              <MenuItem value="Andaman and Nicobar">
-                Andaman and Nicobar
-              </MenuItem>
-              <MenuItem value="Andhra Pradesh">Andhra Pradesh</MenuItem>
-              <MenuItem value="Arunachal Pradesh">Arunachal Pradesh</MenuItem>
-              <MenuItem value="Assam">Assam</MenuItem>
-              <MenuItem value="Bihar">Bihar</MenuItem>
-              <MenuItem value="Chandigarh">Chandigarh</MenuItem>
-              <MenuItem value="Chhattisgarh">Chhattisgarh</MenuItem>
-              <MenuItem value="Dadra and Nagar Haveli">
-                Dadra and Nagar Haveli
-              </MenuItem>
-              <MenuItem value="Daman and Diu">Daman and Diu</MenuItem>
-              <MenuItem value="Delhi">Delhi</MenuItem>
-              <MenuItem value="Goa">Goa</MenuItem>
-              <MenuItem value="Gujrat">Gujrat</MenuItem>
-              <MenuItem value="Haryana">Haryana</MenuItem>
-              <MenuItem value="Himachal Pradesh">Himachal Pradesh</MenuItem>
-              <MenuItem value="Jammu and Kashmir">Jammu and Kashmir</MenuItem>
-              <MenuItem value="Jharkhand">Jharkhand</MenuItem>
-              <MenuItem value="Karnataka">Karnataka</MenuItem>
-              <MenuItem value="Kerala">Kerala</MenuItem>
-              <MenuItem value="Madhya Pradesh">Madhya Pradesh</MenuItem>
-              <MenuItem value="Maharashtra">Maharashtra</MenuItem>
-              <MenuItem value="Manipur">Manipur</MenuItem>
-              <MenuItem value="Meghalaya">Meghalaya</MenuItem>
-              <MenuItem value="Mizoram">Mizoram</MenuItem>
-              <MenuItem value="Nagaland">Nagaland</MenuItem>
-              <MenuItem value="Orissa">Orissa</MenuItem>
-              <MenuItem value="Puducherry">Puducherry</MenuItem>
-              <MenuItem value="Punjab">Punjab</MenuItem>
-              <MenuItem value="Rajasthan">Rajasthan</MenuItem>
-              <MenuItem value="Sikkim">Sikkim</MenuItem>
-              <MenuItem value="Tamil Nadu">Tamil Nadu</MenuItem>
-              <MenuItem value="Tripura">Tripura</MenuItem>
-              <MenuItem value="Uttaranchal">Uttaranchal</MenuItem>
-              <MenuItem value="Uttar Pradesh">Uttar Pradesh</MenuItem>
-              <MenuItem value="West Bengal">West Bengal</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            id="Description "
-            label="Description"
-            name="Description"
-            value={json.Description}
-            onChange={handleChange}
-            multiline
-            rows={4}
-            variant="outlined"
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'end' }}>
-          {load ? (
-            <Box sx={df_jc_ac}>
+          </Grid>
+          <Grid item xs={6}>
+            <FormControl fullWidth>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                name="orgId"
+                value={orgId}
+                label="organization"
+                displayEmpty
+                onChange={handleChangeOrg}
+              >
+                <MenuItem value="">Select Organisation</MenuItem>
+                <MenuItem value="678431">Think360</MenuItem>
+                <MenuItem value="689346">Stark Industries</MenuItem>
+                <MenuItem value="549012">
+                  National Health Authority of India
+                </MenuItem>
+                <MenuItem value="549013">Odisha Government</MenuItem>
+                <MenuItem value="120871">Pratham Foundation</MenuItem>
+                <MenuItem value="989791">Goonj Foundation</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={6}>
+            <FormControl fullWidth>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={state}
+                name="state"
+                label="State"
+                displayEmpty
+                onChange={handleChangeState}
+              >
+                <MenuItem value="">Select State</MenuItem>
+                <MenuItem value="Andaman and Nicobar">
+                  Andaman and Nicobar
+                </MenuItem>
+                <MenuItem value="Andhra Pradesh">Andhra Pradesh</MenuItem>
+                <MenuItem value="Arunachal Pradesh">Arunachal Pradesh</MenuItem>
+                <MenuItem value="Assam">Assam</MenuItem>
+                <MenuItem value="Bihar">Bihar</MenuItem>
+                <MenuItem value="Chandigarh">Chandigarh</MenuItem>
+                <MenuItem value="Chhattisgarh">Chhattisgarh</MenuItem>
+                <MenuItem value="Dadra and Nagar Haveli">
+                  Dadra and Nagar Haveli
+                </MenuItem>
+                <MenuItem value="Daman and Diu">Daman and Diu</MenuItem>
+                <MenuItem value="Delhi">Delhi</MenuItem>
+                <MenuItem value="Goa">Goa</MenuItem>
+                <MenuItem value="Gujrat">Gujrat</MenuItem>
+                <MenuItem value="Haryana">Haryana</MenuItem>
+                <MenuItem value="Himachal Pradesh">Himachal Pradesh</MenuItem>
+                <MenuItem value="Jammu and Kashmir">Jammu and Kashmir</MenuItem>
+                <MenuItem value="Jharkhand">Jharkhand</MenuItem>
+                <MenuItem value="Karnataka">Karnataka</MenuItem>
+                <MenuItem value="Kerala">Kerala</MenuItem>
+                <MenuItem value="Madhya Pradesh">Madhya Pradesh</MenuItem>
+                <MenuItem value="Maharashtra">Maharashtra</MenuItem>
+                <MenuItem value="Manipur">Manipur</MenuItem>
+                <MenuItem value="Meghalaya">Meghalaya</MenuItem>
+                <MenuItem value="Mizoram">Mizoram</MenuItem>
+                <MenuItem value="Nagaland">Nagaland</MenuItem>
+                <MenuItem value="Orissa">Orissa</MenuItem>
+                <MenuItem value="Puducherry">Puducherry</MenuItem>
+                <MenuItem value="Punjab">Punjab</MenuItem>
+                <MenuItem value="Rajasthan">Rajasthan</MenuItem>
+                <MenuItem value="Sikkim">Sikkim</MenuItem>
+                <MenuItem value="Tamil Nadu">Tamil Nadu</MenuItem>
+                <MenuItem value="Tripura">Tripura</MenuItem>
+                <MenuItem value="Uttaranchal">Uttaranchal</MenuItem>
+                <MenuItem value="Uttar Pradesh">Uttar Pradesh</MenuItem>
+                <MenuItem value="West Bengal">West Bengal</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              id="Description "
+              placeholder="Description"
+              name="Description"
+              value={json.Description}
+              onChange={handleChange}
+              multiline
+              rows={4}
+              variant="outlined"
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} sx={{ display: 'flex' }}>
+            <ReCAPTCHA
+              sitekey="6LeuTKImAAAAAHGzGmP26m4V8IAO55NVL-Pc4EoO"
+              onChange={onChangeCaptcha}
+            />
+          </Grid>
+          <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'end' }}>
+            {load ? (
+              <Box sx={df_jc_ac}>
+                <Button style={styles.createBtn} onClick={handleSubmit}>
+                  <CircularProgress size={15} sx={circularprog} />
+                </Button>
+              </Box>
+            ) : (
               <Button style={styles.createBtn} onClick={handleSubmit}>
-                <CircularProgress size={15} sx={circularprog} />
+                Create
               </Button>
-            </Box>
-          ) : (
-            <Button style={styles.createBtn} onClick={handleSubmit}>
-              Create
-            </Button>
-          )}
-          {/* <Button
-            color="primary"
-            style={styles.createBtn}
-            onClick={handleSubmit}
-          >
-            Create
-          </Button> */}
+            )}
+          </Grid>
         </Grid>
-      </Grid>
-    </Paper>
+      </Paper>
+    </Grid>
   )
 }
 
