@@ -26,11 +26,13 @@ const authRoute = require('./routes/auth');
 const bankRoute = require('./routes/bank');
 const beneficiaryRoute = require('./routes/beneficiary');
 const merchantRoute = require('./routes/merchant');
+const adminRoute = require('./routes/admin');
 // Routes
 app.use('/api/auth', authRoute);
 app.use('/api/bank', bankRoute);
 app.use('/api/beneficiary', beneficiaryRoute);
 app.use('/api/merchant', merchantRoute);
+app.use('/api/admin', adminRoute);
 
 app.get('/api', (req, res) => {
     res.json({ message: 'Hello from server!' });
