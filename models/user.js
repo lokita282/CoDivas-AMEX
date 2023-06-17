@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema(
         },
         type: {
             type: String,
-            enum: ['merchant', 'bank', 'beneficiary', 'organisation'],
+            enum: ['merchant', 'bank', 'beneficiary', 'organisation', 'admin'],
             required: true
         },
         merchant: {
