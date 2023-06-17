@@ -13,6 +13,7 @@ const {
 const { setVoucherStatuses } = require('../utils/cron-jobs');
 const Beneficiary = require('../models/beneficiary');
 const { categoryIcons, shortCodes } = require('../utils/data');
+const { recordActivity } = require('../services/activity-log');
 
 const viewAllVouchers = async (req, res) => {
     try {
@@ -743,6 +744,14 @@ const validateVoucherUtility = async (req, res) => {
             voucher.beneficiaryPhone
         );
         voucher.status = 'scanned';
+
+        const activityLog = await recordActivity(
+            req,
+            user,
+            'Validate',
+            voucher
+        );
+
         await voucher.save();
         res.status(200).json({
             success: true,
@@ -843,6 +852,13 @@ const redeemVoucherUtility = async (req, res) => {
         }
         voucher.verificationCode = undefined;
         await voucher.save();
+
+        const activityLog = await recordActivity(
+            req,
+            utilMerchant,
+            'Redeem',
+            voucher
+        );
 
         res.status(200).json({
             success: true,

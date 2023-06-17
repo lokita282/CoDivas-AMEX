@@ -2,6 +2,7 @@ const Merchant = require('../models/merchant');
 const Voucher = require('../models/voucher');
 const Transaction = require('../models/transaction');
 const Beneficiary = require('../models/beneficiary');
+const { recordActivity } = require('../services/activity-log');
 const {
     generateQrString,
     generateRandomNumber,
@@ -47,6 +48,13 @@ const validateVoucher = async (req, res) => {
         voucher.status = 'scanned';
         voucher.verificationCode = generateRandomNumber(4);
         await voucher.save();
+
+        const activityLog = await recordActivity(
+            req,
+            merchant,
+            'Validate',
+            voucher
+        );
 
         res.status(200).json({
             success: true,
@@ -140,6 +148,13 @@ const redeemVoucher = async (req, res) => {
         voucher.verificationCode = undefined;
         await voucher.save();
 
+        const activityLog = await recordActivity(
+            req,
+            merchant,
+            'Redeem',
+            voucher
+        );
+
         res.status(200).json({
             success: true,
             message: 'Voucher Redeemed!',
@@ -221,6 +236,13 @@ const validateVoucherSMS = async (req, res) => {
         voucher.status = 'scanned';
         voucher.verificationCode = generateRandomNumber(4);
         await voucher.save();
+
+        const activityLog = await recordActivity(
+            req,
+            merchant,
+            'Validate',
+            voucher
+        );
 
         res.status(200).json({
             success: true,
