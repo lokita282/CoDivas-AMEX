@@ -1,8 +1,7 @@
 const dotenv = require('dotenv').config();
 var AES = require('crypto-js/aes');
 const CryptoJS = require('crypto-js');
-const RSAUtil = require('node-crypto-rsa');
-
+const NodeRSA = require('node-rsa');
 const removeSensitiveData = (data) => {
     data.password = undefined;
     data.tokens = undefined;
@@ -132,27 +131,26 @@ const sendSms = (message, mobile) => {
         .catch((error) => console.error(error));
 };
 
-const rsaUtil = new RSAUtil.RSAUtil();
-
-rsaUtil.privateKeyPEMString = Buffer.from(
-    process.env.PRIVATE_KEY,
-    'base64'
-).toString('ascii');
-
-rsaUtil.publicKeyPEMString = Buffer.from(
-    process.env.PUBLIC_KEY,
-    'base64'
-).toString('ascii');
+const privateKeyPEM = Buffer.from(process.env.PRIVATE_KEY, 'base64').toString(
+    'ascii'
+);
+const publicKeyPEM = Buffer.from(process.env.PUBLIC_KEY, 'base64').toString(
+    'ascii'
+);
+const key = new NodeRSA();
+key.setOptions({ encryptionScheme: 'pkcs1' });
+key.importKey(publicKeyPEM, 'pkcs1-public-pem');
+key.importKey(privateKeyPEM, 'pkcs1-private-pem');
 
 // ENCRYPTION USING PUBLIC KEY
 const encryptData = (data) => {
-    const encryptedData = rsaUtil.encrypt(data);
+    const encryptedData = key.encrypt(data, 'base64');
     return encryptedData;
 };
 
 // DECRYPTION USING PRIVATE KEY
 const decryptData = (data) => {
-    const decryptedData = rsaUtil.decrypt(data);
+    const decryptedData = key.decrypt(data, 'utf8');
     return decryptedData;
 };
 
