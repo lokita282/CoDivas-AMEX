@@ -104,7 +104,7 @@ const signupBeneficiary = async (req, res) => {
         });
         await newUser.save();
         let beneficiary = await Beneficiary.findOne({ phone: newUser.phone });
-        console.log(beneficiary);
+
         if (beneficiary) {
             beneficiary.user = newUser._id;
             await beneficiary.save();
@@ -458,7 +458,7 @@ const testDecryption = async (req, res) => {
         // this will come at the beginning of our controller
         let decryptedString = decryptData(req.body.encryptedData);
         let decryptedData = JSON.parse(decryptedString);
-        
+
         res.status(200).json({
             message: 'Encrypted data ko decrypt karke woh bhi taiyaar',
             data: decryptedData
