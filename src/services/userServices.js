@@ -64,6 +64,14 @@ export const categoryPie = () => {
   })
 }
 
+export const redemptionStatus = (id) => {
+  return httpcommon.get(`/beneficiary/redeemed/${id}`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('codivasToken')}`,
+    },
+  })
+}
+
 export const trendingData = () => {
   return httpcommon.get(`/beneficiary/trending-data`, {
     headers: {

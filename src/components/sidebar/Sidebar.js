@@ -93,7 +93,8 @@ export default function SideDrawer(props) {
     const navigate = useNavigate()
     console.log(url)
     console.log(user)
-
+    const isBene = (JSON.parse(localStorage.getItem('codivasUser'))).type === 'beneficiary' ? true : false
+console.log(isBene)
     return (
         <Box sx={{ display: 'flex' }}>
             <AppBar sx={{ marginLeft: '50px', backgroundColor: 'white', color: '#375EC0', boxShadow: '0px 1px 26px rgba(94, 99, 116, 0.05)' }}>
@@ -112,7 +113,7 @@ export default function SideDrawer(props) {
                         <CardMedia component='img' image={slogo} sx={{ borderRadius: '50px', width: '98%', marginTop: '15%' }} />
                     </Box>
                     <Box>
-                        <List>
+                        {isBene ? <List>
                             <Tooltip title="Dashboard">
                                 <ListItem disablePadding onClick={() => navigate('/')} sx={{ display: 'block', marginTop: '20%' }}>
                                     <ListItemButton sx={listItemBtn}>
@@ -127,6 +128,15 @@ export default function SideDrawer(props) {
                                     <ListItemButton sx={listItemBtn}>
                                         <ListItemIcon sx={listItemIco}>
                                             <Icon color={url.includes('user') ? '#375EC0' : '#6A707F'} icon="mingcute:coupon-fill" width='24' height='24' />
+                                        </ListItemIcon>
+                                    </ListItemButton>
+                                </ListItem>
+                            </Tooltip>
+                            <Tooltip title="Utility">
+                                <ListItem disablePadding onClick={() => navigate('/vouchers/utility')} sx={{ display: 'block', marginTop: '20%' }}>
+                                    <ListItemButton sx={listItemBtn}>
+                                        <ListItemIcon sx={listItemIco}>
+                                            <Icon color={url.includes('vouchers') ? '#375EC0' : '#6A707F'} icon="mingcute:bill-fill" width='24' height='24' />
                                         </ListItemIcon>
                                     </ListItemButton>
                                 </ListItem>
@@ -150,7 +160,29 @@ export default function SideDrawer(props) {
                                     </ListItemButton>
                                 </ListItem>
                             </Tooltip>
-                        </List>
+                            
+                        </List> : <>
+                        <List>
+                            <Tooltip title="Dashboard">
+                                <ListItem disablePadding onClick={() => navigate('/')} sx={{ display: 'block', marginTop: '20%' }}>
+                                    <ListItemButton sx={listItemBtn}>
+                                        <ListItemIcon sx={listItemIco}>
+                                            <Icon icon="material-symbols:home-rounded" color={url === '' ? '#375EC0' : '#6A707F'} width='26' height='26' />
+                                        </ListItemIcon>
+                                    </ListItemButton>
+                                </ListItem>
+                            </Tooltip>
+                            <Tooltip title="Create e-RUPI">
+                                <ListItem disablePadding onClick={() => navigate('/bank/createerupi')} sx={{ display: 'block', marginTop: '20%' }}>
+                                    <ListItemButton sx={listItemBtn}>
+                                        <ListItemIcon sx={listItemIco}>
+                                            <Icon color={url.includes('bank') ? '#375EC0' : '#6A707F'} icon="gridicons:create" width='24' height='24' />
+                                        </ListItemIcon>
+                                    </ListItemButton>
+                                </ListItem>
+                            </Tooltip>
+                            </List>
+                        </>}
                     </Box>
                     <Box>
 
