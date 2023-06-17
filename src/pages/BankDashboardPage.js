@@ -13,7 +13,8 @@ const styles = {
   imgPaperContainer: {
     // backgroundImage: `url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST7SRW4J8PGymU6U8QnIxL15Gmn-FC9kx6Fxh5iRfO-PFcNV5vnJtNStr_L24837G_aog&usqp=CAU')`,
     height: '525px',
-    borderRadius: '30px',
+    borderRadius: '10px',
+    boxShadow: '0px 1px 26px rgba(94, 99, 116, 0.21)',
     // backgroundRepeat: 'no-repeat',
   },
   paperContainer: {
@@ -69,7 +70,7 @@ export default function DashboardPage() {
       <Grid item xs={5.5}>
         <Paper style={styles.paperContainer} elevation={0}>
           <Typography variant="h1" style={styles?.gradientText}>
-            <b>Generate e₹UPI</b>
+            <b>Generate e-₹UPI</b>
           </Typography>
           <Link style={styles.proceedBtn} to="/bank/createerupi">
             <Button

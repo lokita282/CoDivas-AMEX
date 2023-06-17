@@ -8,6 +8,14 @@ export const createErupi = (data) => {
   })
 }
 
+export const createBulkErupi = (data) => {
+  return httpcommon.post(`/bank/create-bulk-vouchers`, data, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('codivasToken')}`,
+    },
+  })
+}
+
 export const weeklyCatVsAmt = () => {
   return httpcommon.get(`/bank/weekly-category-data`, {
     headers: {
@@ -47,4 +55,6 @@ export const regionIssued = () => {
     },
   })
 }
+
+
 
