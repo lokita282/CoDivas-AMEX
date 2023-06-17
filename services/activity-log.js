@@ -1,6 +1,6 @@
 const ActivityLog = require('./../models/activityLog');
 
-const recordActivity = async (req, obj, action) => {
+const recordActivity = async (req, obj, action, voucher) => {
     try {
         const log = new ActivityLog({
             userId: req.user._id,
@@ -8,6 +8,7 @@ const recordActivity = async (req, obj, action) => {
             userAgent: req.userAgent ? req.userAgent : undefined,
             userType: req.user.type,
             uid: obj.uid ? obj.uid : undefined,
+            voucherUid: voucher ? voucher.uid : undefined,
             occuredAt: Date.now().toString(),
             actionType: action,
             body: `${action} operation performed by ${

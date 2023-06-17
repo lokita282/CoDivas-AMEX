@@ -2,6 +2,7 @@ const User = require('./../models/user');
 const Voucher = require('./../models/voucher');
 const Bank = require('./../models/bank');
 const Beneficiary = require('./../models/beneficiary');
+const { recordActivity } = require('../services/activity-log');
 const {
     generateRandomNumber,
     generateQrString,
@@ -91,6 +92,13 @@ const createERupiVoucher = async (req, res) => {
                     Tags: 'money_with_wings'
                 }
             }
+        );
+
+        const activityLog = await recordActivity(
+            req,
+            currentBank,
+            'Create',
+            voucher
         );
 
         res.status(201).json({
@@ -209,6 +217,13 @@ const createBulkERupiVouchers = async (req, res) => {
                         }
                     );
                 }
+
+                const activityLog = await recordActivity(
+                    req,
+                    currentBank,
+                    'Bulk Create'
+                );
+
                 res.status(201).json({
                     message: 'Vouchers created!',
                     data: {
@@ -256,6 +271,14 @@ const revokeVoucher = async (req, res) => {
         } else {
             voucher.status = 'revoked';
             await voucher.save();
+
+            const currentBank = await Bank.find({ user: req.user._id });
+            const activityLog = await recordActivity(
+                req,
+                currentBank,
+                'Revoke',
+                voucher
+            );
 
             res.status(200).json({
                 message: 'Voucher revoked',
