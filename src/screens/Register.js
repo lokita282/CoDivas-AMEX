@@ -96,7 +96,10 @@ export default function Register({ navigation }) {
             />
           </View>
           <TouchableOpacity onPress={() => {navigation.navigate('Login')}}>
-          <Text style={styles.registerText}>Already a member ! Login</Text>
+          <Text style={styles.registerText}>
+        Already have an account ?{' '}
+        <Text style={styles.link}>Login</Text>
+      </Text>
           </TouchableOpacity>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -130,8 +133,9 @@ const styles = StyleSheet.create({
   textInput: {
     height: 40,
     borderColor: '#000000',
-    borderBottomWidth: 1,
+    borderWidth: 1,
     paddingRight: 30,
+    paddingLeft:10,
   },
   btnContainer: {
     backgroundColor: '#0E1D61',
@@ -150,8 +154,11 @@ const styles = StyleSheet.create({
     marginTop: 40,
     textAlign: 'center',
     color: 'black',
-    textDecorationLine: 'underline',
     fontSize: 18,
     fontStyle:'normal',
+  },
+  link: {
+    color: '#0E1D61',
+    textDecorationLine: 'underline',
   },
 });

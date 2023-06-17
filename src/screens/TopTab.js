@@ -1,22 +1,3 @@
-// import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-// import All from './All';
-// import Redeemed from './Redeemed';
-// import Expired from './Expired';
-// import NotRedeemed from './NotRedeemed';
-// const Tab = createMaterialTopTabNavigator();
-
-// function TopTab() {
-//   return (
-//     <Tab.Navigator>
-//       <Tab.Screen name="All" component={All} />
-//       <Tab.Screen name="Redeemed" component={Redeemed} />
-//       <Tab.Screen name="Not Redeemed" component={NotRedeemed} />
-//       <Tab.Screen name="Expired" component={Expired} />
-
-//     </Tab.Navigator>
-//   );
-// }
-
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -29,13 +10,13 @@ const Tab = createMaterialTopTabNavigator();
 const ProfileIcon = () => {
   return <Image source={require('../assets/profile.png')} style={styles.profileIcon} />;
 };
-const CustomTabBar = ({ state, descriptors, navigation }) => {
+const CustomTabBar = ({ state, descriptors, navigation ,title}) => {
   return (
     <View style={styles.container}> 
     <View>
         <ProfileIcon />
     </View>
-    <Text style={styles.header}>Education</Text>
+    <Text style={styles.header}>{title}</Text>
     <View style={styles.tabContainer}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
@@ -81,13 +62,26 @@ const TabScreen2 = () => <View style={styles.screenContainer}><Text>Tab 2 Conten
 const TabScreen3 = () => <View style={styles.screenContainer}><Text>Tab 3 Content</Text></View>;
 const TabScreen4 = () => <View style={styles.screenContainer}><Text>Tab 4 Content</Text></View>;
 
-const TopTab = () => {
+const TopTab = ({navigation,route}) => {
+  const title=route.params.paramKey;
   return (
-    <Tab.Navigator tabBar={(props) => <CustomTabBar {...props} />}>
-      <Tab.Screen name="All" component={All} />
+    <Tab.Navigator tabBar={(props) => <CustomTabBar {...props} title={title} />}>
+      <Tab.Screen name="All">
+        {() => <All title={title} />}
+      </Tab.Screen>
+      <Tab.Screen name="Redeemed">
+        {() => <Redeemed title={title} />}
+      </Tab.Screen>
+      <Tab.Screen name="Pending">
+        {() => <NotRedeemed title={title} />}
+      </Tab.Screen>
+      <Tab.Screen name="Expired">
+        {() => <Expired title={title} />}
+      </Tab.Screen>
+      {/* <Tab.Screen name="All" component={() => <All title={title} />} />
       <Tab.Screen name="Redeemed" component={Redeemed} />
       <Tab.Screen name="Pending" component={NotRedeemed} />
-      <Tab.Screen name="Expired" component={Expired} />
+      <Tab.Screen name="Expired" component={Expired} /> */}
     </Tab.Navigator>
   );
 };

@@ -16,7 +16,7 @@ export default function Login({ navigation }) {
   const storeUserToken = async (token) => {
     try {
       await AsyncStorage.setItem('userToken',token);
-      //console.log('User token stored successfully!',token);
+      console.log('User token stored successfully!',token);
     } catch (error) {
       console.log('Error storing user token:', error);
     }
@@ -65,7 +65,7 @@ export default function Login({ navigation }) {
           <Text style={styles.header}>Login</Text>
           <View style={styles.inputTextWrapper}>
             <TextInput
-              placeholder="Mobile Number"
+              placeholder="Phone Number"
               style={styles.textInput}
               value={number}
               keyboardType="numeric"
@@ -89,7 +89,10 @@ export default function Login({ navigation }) {
             />
           </View>
           <TouchableOpacity onPress={() => {navigation.navigate('Register')}}>
-          <Text style={styles.registerText}>New user? Register now</Text>
+          <Text style={styles.registerText}>
+        Don't have an account?{' '}
+        <Text style={styles.link}>Signup</Text>
+      </Text>
           </TouchableOpacity>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -126,16 +129,17 @@ const styles = StyleSheet.create({
     //paddingVertical: 10,
     textAlign: 'center',
     color: 'black',
-    marginBottom:5,
+    marginBottom:10,
   },
   inputTextWrapper: {
     marginBottom: 24,
   },
   textInput: {
     height: 40,
-    borderColor: '#000000',
-    borderBottomWidth: 1,
+    borderColor: 'gray',
+    borderWidth: 1,
     paddingRight: 30,
+    paddingLeft: 10,
   },
   btnContainer: {
     backgroundColor: '#0E1D61',
@@ -145,7 +149,6 @@ const styles = StyleSheet.create({
     marginTop: 40,
     textAlign: 'center',
     color: 'black',
-    textDecorationLine: 'underline',
     fontSize: 18,
     fontStyle:'normal',
   },
@@ -165,6 +168,10 @@ const styles = StyleSheet.create({
     textAlign:'center',
     marginTop:30,
     marginBottom: 20,
+  },
+  link: {
+    color: '#0E1D61',
+    textDecorationLine: 'underline',
   },
 });
 

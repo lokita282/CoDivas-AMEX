@@ -7,19 +7,19 @@ const DOMAIN_DATA = [
   { id: 3, title: 'Housing', image: require('../assets/housing.png') },
   { id: 4, title: 'Food', image: require('../assets/food.png') },
   { id: 5, title: 'Telecom', image: require('../assets/telecommunication.png') },
-  { id: 6, title: 'Transport', image: require('../assets/transport.png') },
-  { id: 7, title: 'Healthcare', image: require('../assets/healthcare.png') },
+  { id: 6, title: 'Transportation', image: require('../assets/transport.png') },
+  { id: 7, title: 'Health', image: require('../assets/healthcare.png') },
   { id: 8, title: 'Utility', image: require('../assets/utility.png') },
-  { id: 9, title: 'Others', image: require('../assets/others.png') },
+  { id: 9, title: 'Other', image: require('../assets/others.png') },
 ];
-const DOMAIN_CARD_WIDTH = 100;
+const DOMAIN_CARD_WIDTH = 110;
 const screenWidth = Dimensions.get('window').width;
 const numColumns = Math.floor(screenWidth / (DOMAIN_CARD_WIDTH + 35));
 
-const Category = ({ navigation }) => {
+const Category = ({ navigation,route }) => {
   const renderItem = ({ item }) => (
     <TouchableOpacity
-      onPress={() => navigation.navigate('TopTab')}
+      onPress={() => navigation.navigate('TopTab',{paramKey:item.title})}
       style={[styles.card, { marginRight: 0.05 * screenWidth }]}
     >
       <Image source={item.image} style={styles.cardImage} />
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     borderRadius: 0.04 * screenWidth,
   },
   cardContainer: {
-    paddingHorizontal: 0.06 * screenWidth,
+    paddingHorizontal: 0.03 * screenWidth,
     paddingTop: 0.04 * screenWidth,
   },
   card: {
@@ -90,8 +90,9 @@ const styles = StyleSheet.create({
     marginBottom: 0.02 * screenWidth,
   },
   cardTitle: {
-    fontSize: 15,
-    textAlign: 'center',
+    fontSize: 12,
+    //textAlign: 'center',
+    fontWeight:'bold',
     color: 'black',
   },
 });
