@@ -19,6 +19,9 @@ const activityLogSchema = new mongoose.Schema({
     uid: {
         type: String
     },
+    voucherUid: {
+        type: String
+    },
     occurredAt: {
         type: Date
     },
