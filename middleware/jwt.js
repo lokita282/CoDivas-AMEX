@@ -102,6 +102,22 @@ const authorizeJWT = {
                 message: error.message
             });
         }
+    },
+
+    roleAdmin: (req, res, next) => {
+        try {
+            if (req.user.type === 'admin') {
+                next();
+            } else {
+                res.status(403).json({
+                    message: 'Access Denied'
+                });
+            }
+        } catch (error) {
+            res.status(500).json({
+                message: error.message
+            });
+        }
     }
 };
 
