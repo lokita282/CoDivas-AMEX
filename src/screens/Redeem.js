@@ -65,8 +65,8 @@ const Redeem = ({navigation,route}) => {
 
     return () => clearTimeout(timer);
   }, [navigation]);
+
   const qrCodeData = data.qrString;
-  //const validityDate =  data.endsAt.toString().slice(0,10);
   return (
     <View style={styles.container}>
       <View>

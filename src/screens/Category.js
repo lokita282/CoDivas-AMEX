@@ -12,7 +12,6 @@ const DOMAIN_DATA = [
   { id: 8, title: 'Utility', image: require('../assets/utility.png') },
   { id: 9, title: 'Others', image: require('../assets/others.png') },
 ];
-
 const DOMAIN_CARD_WIDTH = 100;
 const screenWidth = Dimensions.get('window').width;
 const numColumns = Math.floor(screenWidth / (DOMAIN_CARD_WIDTH + 35));

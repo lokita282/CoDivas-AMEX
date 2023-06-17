@@ -39,7 +39,7 @@ export default function Verified({navigation,route}) {
     async function fetchData(){
       await fetch(`https://ez-rupi.onrender.com/api/beneficiary/redeemed//${id}`, requestOptions)
       .then(response => response.json())
-      .then(result => (cosnole.log(result)))
+      .then(result => (console.log(result)))
       .catch(error => console.log('error', error));
     }
     fetchData();},5000);
