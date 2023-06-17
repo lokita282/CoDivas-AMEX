@@ -151,11 +151,11 @@ console.log(isBene)
                                     </ListItemButton>
                                 </ListItem>
                             </Tooltip>
-                            <Tooltip title="Find organizations">
-                                <ListItem disablePadding onClick={() => navigate('/organizations')} sx={{ display: 'block', marginTop: '20%' }}>
+                            <Tooltip title="Find merchants">
+                                <ListItem disablePadding onClick={() => navigate('/merchant/list')} sx={{ display: 'block', marginTop: '20%' }}>
                                     <ListItemButton sx={listItemBtn}>
                                         <ListItemIcon sx={listItemIco}>
-                                            <Icon color={url.includes('organizations') ? '#375EC0' : '#6A707F'} icon="mdi:briefcase-search" width='24' height='24' />
+                                            <Icon color={url.includes('merchant') ? '#375EC0' : '#6A707F'} icon="mdi:briefcase-search" width='24' height='24' />
                                         </ListItemIcon>
                                     </ListItemButton>
                                 </ListItem>

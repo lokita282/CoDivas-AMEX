@@ -5,6 +5,7 @@ import BeneDashboard from '../components/dashboard/BeneDashboard'
 import BankDashboardPage from './BankDashboardPage'
 import OrgDashboard from '../components/dashboard/OrgDashboard'
 import UserDashboardPage from './UserDashboardPage'
+import MyComponent from '../services/encryptdecrypt'
 
 export default function DashboardPage() {
     const { user } = useContext(codivascontext)
@@ -15,6 +16,7 @@ export default function DashboardPage() {
                     : user?.type === "bank" ? <BankDashboardPage />
                         : <OrgDashboard />
             }
+            <MyComponent/>
         </SideDrawer>
     )
 }
