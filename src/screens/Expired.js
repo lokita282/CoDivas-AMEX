@@ -137,6 +137,13 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
     color:'black'
   },
+  noDataContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    flex: 1,
+    padding: 20,
+  },
 });
 
 export default Expired;

@@ -68,6 +68,13 @@ const Redeemed = ({title}) => {
     fetchData();},5000);
     return () => clearTimeout(timer);
   });
+  if (data.length === 0) {
+    return (
+      <View style={styles.noDataContainer}>
+        <LottieView source={require('../assets/notfound.json')} autoPlay loop />
+      </View>
+    );
+  }
   return (
     <View style={styles.container}>
       {/* {console.log(data)} */}
@@ -127,6 +134,13 @@ const styles = StyleSheet.create({
   normalText: {
     fontWeight: 'normal',
     color:'black'
+  },
+  noDataContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    flex: 1,
+    padding: 20,
   },
 });
 

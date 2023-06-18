@@ -88,7 +88,7 @@ const Redeem = ({navigation,route}) => {
       </View>
       <View style={styles.schemeDetails}>
         <Text style={styles.maintitle}>{data.title}</Text>
-        <Text style={styles.details}>{data.useType.charAt(0).toUpperCase() + data.useType.slice(1)}| ₹ {data.balanceAmount}</Text>
+        <Text style={styles.details}>{data.useType.charAt(0).toUpperCase() + data.useType.slice(1)}| ₹ {data.amount}</Text>
       </View>
       <View style={styles.qrCodeContainer}>
         <QRCode value={qrCodeData} logo={eRupi} logoSize={50} size={250} />

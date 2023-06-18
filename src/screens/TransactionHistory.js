@@ -95,7 +95,7 @@ const TransactionHistory = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: 10,
    // backgroundColor: '#fff',
     justifyContent:'center'
   },
@@ -125,20 +125,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 16,
     color: '#000',
+    marginLeft:10,
   },
   historyContainer: {
     marginTop: 16,
   },
-  // transactionContainer: {
-  //   backgroundColor: '#F3F5FF',
-  //   padding: 16,
-  //   borderRadius: 8,
-  //   marginBottom: 8,
-  // },
   transactionContainer:{
     backgroundColor: 'white',
     margin: 10,
-    width: 340,
+    width: 350,
     height: 79,
     borderRadius: 5,
     padding:5,
