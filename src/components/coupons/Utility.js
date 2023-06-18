@@ -7,6 +7,7 @@ import moment from 'moment/moment'
 import BasicModal from './Modal'
 import { Icon } from '@iconify/react'
 import Loading from '../loader/Loading'
+import UtilityModal from './UtilityModal'
 
 export default function Utility() {
     const navigate = useNavigate()
@@ -171,6 +172,7 @@ export default function Utility() {
                     </Grid>
                 </Box>
             }
+            <UtilityModal open={open} setOpen={setOpen} setCat={setCat} string={qrString} solo={solo} cat={cat} category={category} />
     </>
   )
 }
