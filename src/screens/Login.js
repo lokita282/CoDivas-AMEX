@@ -108,7 +108,7 @@ setLoading(false)
           {loading ? <View style={{flex:0.01, justifyContent:'center', left:160}}>
 
           <LottieView
-              source={require("../assets/load.json")} // Replace with the path to your Lottie animation file
+              source={require("../assets/load.json")} 
               autoPlay
               loop
               style={{height:50}}
