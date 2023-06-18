@@ -3,7 +3,7 @@ import { useParams } from 'react-router'
 import schemearray from './scheme.json'
 import { useState } from 'react'
 import { useEffect } from 'react'
-import { Box, CardContent, List, ListItem, Typography } from '@mui/material'
+import { Box, CardContent, Chip, List, ListItem, Typography } from '@mui/material'
 import { bold_name, card, ptag } from '../../theme/CssMy'
 
 export default function SchemeDetails() {
@@ -23,7 +23,16 @@ export default function SchemeDetails() {
                 dets && <Box sx={{ padding: '0% 20%' }}>
                     <p style={ptag}>{dets.by}</p>
                     <Typography sx={bold_name} variant='h5'>{dets.name}</Typography>
-
+                    {
+                            dets.tags.map((ta, i) => {
+                                return <Chip
+                                    label={ta}
+                                    size='small'
+                                    key={i}
+                                    sx={{ marginRight: '1%', marginBottom: '1%' }}
+                                />
+                            })
+                        }
                     <CardContent sx={{ ...card, marginTop: '5%', padding:'4%', paddingBottom:'5%', marginBottom:'5%' }}>
                         <Typography sx={{ ...bold_name }}>Details</Typography>
                         <p style={{ ...ptag }}>{dets.Details}</p>

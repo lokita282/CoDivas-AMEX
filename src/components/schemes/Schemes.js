@@ -38,7 +38,7 @@ export default function Schemes() {
         <Box sx={{ padding: '0% 20%' }}>
             <TextField value={search} sx={textField} InputProps={{
                 endAdornment: <InputAdornment position="end"><Icon icon="ic:round-search" width={22} height={22} /></InputAdornment>,
-            }} placeholder='Search Experts By Name or Skills' onChange={(e) => setSearch(e.target.value)} />
+            }} placeholder='Search schemes' onChange={(e) => setSearch(e.target.value)} />
             {
                 showSch.map((sc, i) => {
                     return <CardContent onClick={() => navigate(`/scheme/${sc.id}`)} sx={{ ...card, cursor:'pointer', height: 'auto', marginBottom: '3%', paddingBottom: '1%' }}>

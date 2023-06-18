@@ -6,6 +6,8 @@ import { bold_name, card, df_jc_ac, df_jfs_ac, ptag } from '../../theme/CssMy'
 import moment from 'moment/moment'
 import BasicModal from './Modal'
 import { Icon } from '@iconify/react'
+import Loading from '../loader/Loading'
+import UtilityModal from './UtilityModal'
 
 export default function Utility() {
     const navigate = useNavigate()
@@ -13,16 +15,19 @@ export default function Utility() {
     const [solo, setSolo] = useState(null)
     const [qrString, setQRString] = useState('')
     const [open, setOpen] = useState(false)
+    const [loading, setLoading]  = useState(false)
     const category = 'utility'
     console.log(category)
 
     useEffect(() => {
+        setLoading(true)
         const func = async () => {
             await getCategoryCoupon(category)
                 .then((res) => {
                     console.log(res.data.data)
                     setCat(res.data.data)
                 })
+                setLoading(false)
         }
         func()
     }, [])
@@ -32,9 +37,11 @@ export default function Utility() {
   return (
     <>
         {
-                cat && <Box>
+                loading ? <Box sx={{...df_jc_ac, height:'80vh'}}>
+                    <Loading/>
+                </Box> : cat && <Box>
                 <Box sx={{display:'flex'}}>
-                <Icon icon="ep:arrow-left-bold" onClick={() => navigate('/user/getstarted')} style={{padding:'0.4%',backgroundColor: '#375EC05c', borderRadius:'50px', color:'white', marginRight:'1%', cursor:'pointer'}} />
+                <Icon icon="ep:arrow-left-bold" onClick={() => navigate('/')} style={{padding:'0.4%',backgroundColor: '#375EC05c', borderRadius:'50px', color:'white', marginRight:'1%', cursor:'pointer'}} />
                 <Typography sx={{...bold_name, marginBottom:'3%'}}>{category.toLocaleUpperCase()}</Typography>
                 </Box>
                     <Grid container spacing={3}>
@@ -165,7 +172,7 @@ export default function Utility() {
                     </Grid>
                 </Box>
             }
-            <BasicModal open={open} setOpen={setOpen} string={qrString} solo={solo} setSolo={setSolo} category={category} cat={cat} setCat={setCat} />
+            <UtilityModal open={open} setOpen={setOpen} setCat={setCat} string={qrString} solo={solo} cat={cat} category={category} />
     </>
   )
 }
