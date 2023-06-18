@@ -73,7 +73,7 @@ const Redeem = ({navigation,route}) => {
   if (data.length === 0) {
     return (
       <View style={styles.noDataContainer}>
-        <LottieView source={require('../assets/notfound.json')} autoPlay loop />
+        <LottieView source={require('../assets/loader.json')} autoPlay loop />
       </View>
     );
   }
