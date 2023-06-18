@@ -11,7 +11,7 @@ export const textField = { width: '100%', marginBottom: '2%', backgroundColor: '
 export const circularImage = { borderRadius: '50%', width: '100px', height: '100px', objectFit: 'cover' }
 export const bold_name = { fontFamily: 'Poppins', fontWeight: 'bold' }
 export const btn_connect = { textTransform: 'none', fontSize: '14px', borderRadius: '50px', fontFamily: 'Poppins', color: '#375EC0', border: '2px solid #375EC0', width: '100%', '&:hover': { backgroundColor: '#375EC0', color: 'white' } }
+export const btn_bank = { textTransform: 'none', fontSize: '14px', borderRadius: '50px', fontFamily: 'Poppins', color: '#375EC0', border: '2px solid #375EC0', width: '50%', '&:hover': { backgroundColor: '#375EC0', color: 'white' } }
 export const btn_hire = { textTransform: 'none', fontSize: '14px', borderRadius: '50px', fontFamily: 'Poppins', color: 'white', border: '2px solid #375EC0', backgroundColor: '#375EC0', width: '100%', '&:hover': { backgroundColor: 'transparent', color: '#375EC0' } }
 export const circularprog = { backgroundColor: '#375EC0', color: 'white', borderRadius: '50%', padding: '5px' }
 export const link = { color: '#375EC0', textDecoration: 'underline', cursor: 'pointer' }
-
