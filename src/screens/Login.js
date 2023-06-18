@@ -77,7 +77,7 @@ setLoading(false)
               loop
             />
           </View>
-          <Text style={styles.header}>Welcome Back</Text>
+          <Text style={styles.header}>Welcome Back!</Text>
           <View style={styles.inputTextWrapper}>
             <TextInput
               placeholder="Phone Number"
@@ -113,7 +113,7 @@ setLoading(false)
               loop
               style={{height:50}}
             /></View> : <TouchableOpacity onPress={() => submitPressed()} style={styles.btnContainer} >
-            <Text style={styles.btn}>Signin</Text>
+            <Text style={styles.btn}>Login</Text>
           </TouchableOpacity>}
           <TouchableOpacity
             onPress={() => {
@@ -121,7 +121,7 @@ setLoading(false)
             }}
           >
             <Text style={styles.registerText}>
-              Don't have an account? <Text style={styles.link}>Signup</Text>
+              Don't have an account? <Text style={styles.link}>Sign Up</Text>
             </Text>
           </TouchableOpacity>
         </ScrollView>
@@ -210,6 +210,7 @@ const styles = StyleSheet.create({
   link: {
     color: "#375EC0",
     textDecorationLine: "underline",
+    fontWeight:'bold'
   },
   btn: {
     borderRadius: 150,

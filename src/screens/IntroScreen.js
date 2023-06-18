@@ -41,7 +41,7 @@ const IntroScreen = ({navigation}) => {
       marginTop: 20,
       textAlign:'center',
       fontStyle:'normal',
-      color:'#8D8D8D',
+      color:'#000000',
       fontSize:18
     },
   });
