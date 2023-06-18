@@ -82,6 +82,14 @@ export const trendingData = () => {
   })
 }
 
+export const getTrans = () => {
+  return httpcommon.get(`/beneficiary/transactions`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('codivasToken')}`,
+    },
+  })
+}
+
 export const getAllMerchants = () => {
   return httpcommon.get(`/beneficiary/merchants`, {
     headers: {
