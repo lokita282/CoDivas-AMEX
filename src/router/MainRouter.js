@@ -17,6 +17,7 @@ import SchemeDetails from '../components/schemes/SchemeDetails';
 import SchemeDetsPage from '../pages/SchemeDetsPage';
 import UtilityVoucherPage from '../pages/UtilityVoucherPage';
 import MerchantList from '../pages/MerchantList';
+import TransactionPage from '../pages/TransactionPage';
 
 
 export default function MainRouter() {
@@ -63,6 +64,9 @@ export default function MainRouter() {
                 </Route>
                 <Route path='/merchant/list' element={<PrivateRouter />} >
                     <Route exact path='/merchant/list' element={<MerchantList/>} />
+                </Route>
+                <Route path='/transactions' element={<PrivateRouter />} >
+                    <Route exact path='/transactions' element={<TransactionPage/>} />
                 </Route>
                 {/* not needed for now */}
                 <Route exact path='/signup/merchant' element={<SignupPage />} />

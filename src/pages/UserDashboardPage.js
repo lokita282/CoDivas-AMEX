@@ -101,8 +101,8 @@ const UserDashboardPage = () => {
           >
             Empowering Seamless Transactions, the eZ-RUPI Way!
           </Typography>
-          <Link style={styles.payBtn} to="/user/getstarted">
-            <Button sx={{ color: '#fff', fontFamily: 'Poppins' }}>
+          <Link style={{...styles.payBtn, width:'auto'}} to="/user/getstarted">
+            <Button sx={{ color: '#fff', fontFamily: 'Poppins', width:'auto' }}>
               <b>Get Started ➤</b>
             </Button>
           </Link>
