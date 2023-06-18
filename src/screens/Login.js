@@ -70,7 +70,7 @@ export default function Login({ navigation }) {
               loop
             />
           </View>
-          <Text style={styles.header}>Login</Text>
+          <Text style={styles.header}>Hey! Welcome Back</Text>
           <View style={styles.inputTextWrapper}>
             <TextInput
               placeholder="Phone Number"
@@ -89,15 +89,6 @@ export default function Login({ navigation }) {
               onChangeText={(text) => setPassword(text)}
             />
           </View>
-          <View style={styles.btnContainer}>
-            <Button
-              title="Login"
-              onPress={() => {
-                submitPressed();
-              }}
-              color="#fff"
-            />
-          </View>
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("Register");
@@ -106,6 +97,17 @@ export default function Login({ navigation }) {
             <Text style={styles.registerText}>
               Don't have an account? <Text style={styles.link}>Signup</Text>
             </Text>
+          </TouchableOpacity>
+          {/* <Button
+              title="Login"
+              onPress={() => {
+                submitPressed();
+              }}
+              color="#375EC0"
+              style={styles.btn}
+            /> */}
+          <TouchableOpacity onPress={() => submitPressed()} style={styles.btnContainer} >
+            <Text style={styles.btn}>Login</Text>
           </TouchableOpacity>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -138,30 +140,38 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   },
   header: {
-    fontSize: 36,
+    fontSize: 24,
     //paddingVertical: 10,
-    textAlign: "center",
+    textAlign: "left",
     color: "black",
     marginBottom: 10,
+    fontWeight: 'bold',
+    color: '#375EC0',
+    marginBottom: 30
   },
   inputTextWrapper: {
     marginBottom: 24,
   },
   textInput: {
-    height: 40,
-    borderColor: "gray",
+    height: 50,
+    borderColor: "#B0B0B0",
     borderWidth: 1,
     paddingRight: 30,
     paddingLeft: 10,
+    borderRadius: 5,
   },
   btnContainer: {
-    backgroundColor: "#375EC0",
+    borderColor: '#375EC0',
+    borderWidth: 2,
     marginTop: 36,
-    borderRadius: 50,
+    borderRadius: 150,
+    height:48,
+    color:'#375EC0',
   },
   registerText: {
-    marginTop: 40,
-    textAlign: "center",
+    marginBottom: 20,
+    marginTop:20,
+    textAlign: "left",
     color: "black",
     fontSize: 18,
     fontStyle: "normal",
@@ -187,4 +197,15 @@ const styles = StyleSheet.create({
     color: "#375EC0",
     textDecorationLine: "underline",
   },
+  btn: {
+    borderRadius: 150,
+    color:'#375EC0',
+    flex:1,
+    justifyContent:'center',
+    alignItems:'center',
+    textAlign:'center',
+    padding: 10,
+    fontSize:20, 
+    fontWeight:'bold'
+  }
 });

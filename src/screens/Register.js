@@ -106,7 +106,7 @@ export default function Register({ navigation }) {
               onChangeText={(text) => setAadhar(text)}
             />
           </View>
-          <View style={styles.btnContainer}>
+          {/* <View style={styles.btnContainer}>
             <Button
               title="Register"
               onPress={() => {
@@ -115,7 +115,7 @@ export default function Register({ navigation }) {
               }}
               color="white"
             />
-          </View>
+          </View> */}
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("Login");
@@ -124,6 +124,9 @@ export default function Register({ navigation }) {
             <Text style={styles.registerText}>
               Already have an account ? <Text style={styles.link}>Login</Text>
             </Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => submitPressed()} style={styles.btnContainer} >
+            <Text style={styles.btn}>SignUp</Text>
           </TouchableOpacity>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -137,53 +140,91 @@ const styles = StyleSheet.create({
     padding: 7,
   },
   lottie: {
-    padding: 70,
+    flex: 1,
+    padding: 5,
   },
   scrollViewContainer: {
     flexGrow: 1,
-    justifyContent: "center",
+    //justifyContent: 'center',
     padding: 16,
     paddingBottom: 100,
   },
-  header: {
-    fontSize: 36,
-    paddingVertical: 24,
-    textAlign: "center",
-    color: "black",
-  },
-  inputTextWrapper: {
-    marginBottom: 24,
-  },
-  textInput: {
-    height: 40,
-    borderColor: "#000000",
-    borderWidth: 1,
-    paddingRight: 30,
-    paddingLeft: 10,
-  },
-  btnContainer: {
-    backgroundColor: "#375EC0",
-    marginTop: 36,
-    borderRadius: 50,
-  },
   logoContainer: {
     alignItems: "flex-start",
-    marginBottom: 20,
+    //marginBottom: 5,
   },
   logo: {
     width: 100,
     height: 100,
     resizeMode: "contain",
   },
+  header: {
+    fontSize: 24,
+    //paddingVertical: 10,
+    textAlign: "left",
+    color: "black",
+    marginBottom: 10,
+    fontWeight: 'bold',
+    color: '#375EC0',
+    marginBottom: 30
+  },
+  inputTextWrapper: {
+    marginBottom: 24,
+  },
+  textInput: {
+    height: 50,
+    borderColor: "#B0B0B0",
+    borderWidth: 1,
+    paddingRight: 30,
+    paddingLeft: 10,
+    borderRadius: 5,
+  },
+  btnContainer: {
+    borderColor: '#375EC0',
+    borderWidth: 2,
+    marginTop: 36,
+    borderRadius: 150,
+    height:48,
+    color:'#375EC0',
+  },
   registerText: {
-    marginTop: 40,
-    textAlign: "center",
+    marginBottom: 20,
+    marginTop:20,
+    textAlign: "left",
     color: "black",
     fontSize: 18,
     fontStyle: "normal",
+  },
+  socialIconsContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  socialIcon: {
+    width: 35,
+    height: 35,
+    marginHorizontal: 10,
+  },
+  social: {
+    fontSize: 17,
+    fontStyle: "normal",
+    textAlign: "center",
+    marginTop: 30,
+    marginBottom: 20,
   },
   link: {
     color: "#375EC0",
     textDecorationLine: "underline",
   },
+  btn: {
+    borderRadius: 150,
+    color:'#375EC0',
+    flex:1,
+    justifyContent:'center',
+    alignItems:'center',
+    textAlign:'center',
+    padding: 10,
+    fontSize:20, 
+    fontWeight:'bold'
+  }
 });

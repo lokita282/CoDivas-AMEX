@@ -19,7 +19,6 @@ import Login from './src/screens/Login';
 import Splash from './src/screens/Splash';
 import IntroScreen from './src/screens/IntroScreen';
 
-
 const Stack = createNativeStackNavigator();
 
 const App = () => {

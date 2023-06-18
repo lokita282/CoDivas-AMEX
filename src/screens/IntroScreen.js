@@ -30,6 +30,7 @@ const IntroScreen = ({navigation}) => {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
+      padding:50
     },
     logo: {
       width: 200,
@@ -37,11 +38,11 @@ const IntroScreen = ({navigation}) => {
       resizeMode:'contain'
     },
     tagline: {
-      fontSize: 24,
       marginTop: 20,
       textAlign:'center',
-      padding:10,
-      fontStyle:'normal'
+      fontStyle:'normal',
+      color:'#8D8D8D',
+      fontSize:18
     },
   });
 
