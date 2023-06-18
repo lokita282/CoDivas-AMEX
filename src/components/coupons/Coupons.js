@@ -7,6 +7,7 @@ import moment from 'moment/moment'
 import BasicModal from './Modal'
 import { Icon } from '@iconify/react'
 import Loading from '../loader/Loading'
+import NTS from '../loader/NTS'
 
 export default function Coupons() {
     const navigate = useNavigate()
@@ -41,7 +42,7 @@ export default function Coupons() {
                     <Box sx={{...df_jc_ac, height:'80vh'}}>
                     <Loading/>
                     </Box>
-                 : cat && <Box>
+                 : cat.length ?  <Box>
                 <Box sx={{display:'flex'}}>
                 <Icon icon="ep:arrow-left-bold" onClick={() => navigate('/user/getstarted')} style={{padding:'0.4%',backgroundColor: '#375EC05c', borderRadius:'50px', color:'white', marginRight:'1%', cursor:'pointer'}} />
                 <Typography sx={{...bold_name, marginBottom:'3%'}}>{category.toLocaleUpperCase()}</Typography>
@@ -173,7 +174,9 @@ export default function Coupons() {
                         </Grid>
                     </Grid>
                 </Box>
-            }
+           : <Box sx={{ width: '100%',height:'80vh', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+            <NTS/>
+          </Box> }
             <BasicModal open={open} setOpen={setOpen} string={qrString} solo={solo} setSolo={setSolo} category={category} cat={cat} setCat={setCat} />
         </>
     )
