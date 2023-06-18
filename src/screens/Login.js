@@ -19,15 +19,21 @@ export default function Login({ navigation }) {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
+  const [loading, setLoading] = useState(false)
   const [aadhar, setAadhar] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [loadingText, setLoadingText] = useState("");
   const [tok, setTok] = useState("");
 
-  const storeUserToken = async (token) => {
+  const storeUserToken = async (res) => {
     try {
+      console.log(res)
+      let token = res.token
       await AsyncStorage.setItem("userToken", token);
-      console.log("User token stored successfully!", token);
+      await AsyncStorage.setItem("codivasUser", JSON.stringify(res.user));
+setLoading(false)
+      console.log("User token stored successfully!", res.token);
+      console.log(await AsyncStorage.getItem("codivasUser"))
     } catch (error) {
       console.log("Error storing user token:", error);
     }
@@ -35,6 +41,7 @@ export default function Login({ navigation }) {
   };
 
   const submitPressed = () => {
+    setLoading(true)
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -53,7 +60,7 @@ export default function Login({ navigation }) {
     async function fetchData() {
       await fetch("https://ez-rupi.onrender.com/api/auth/login", requestOptions)
         .then((response) => response.json())
-        .then((result) => storeUserToken(result.token))
+        .then((result) => storeUserToken(result))
         .catch((error) => console.log("error", error));
     }
     fetchData();
@@ -70,7 +77,7 @@ export default function Login({ navigation }) {
               loop
             />
           </View>
-          <Text style={styles.header}>Hey! Welcome Back</Text>
+          <Text style={styles.header}>Welcome Back</Text>
           <View style={styles.inputTextWrapper}>
             <TextInput
               placeholder="Phone Number"
@@ -89,15 +96,7 @@ export default function Login({ navigation }) {
               onChangeText={(text) => setPassword(text)}
             />
           </View>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("Register");
-            }}
-          >
-            <Text style={styles.registerText}>
-              Don't have an account? <Text style={styles.link}>Signup</Text>
-            </Text>
-          </TouchableOpacity>
+          
           {/* <Button
               title="Login"
               onPress={() => {
@@ -106,8 +105,24 @@ export default function Login({ navigation }) {
               color="#375EC0"
               style={styles.btn}
             /> */}
-          <TouchableOpacity onPress={() => submitPressed()} style={styles.btnContainer} >
-            <Text style={styles.btn}>Login</Text>
+          {loading ? <View style={{flex:0.01, justifyContent:'center', left:160}}>
+
+          <LottieView
+              source={require("../assets/load.json")} // Replace with the path to your Lottie animation file
+              autoPlay
+              loop
+              style={{height:50}}
+            /></View> : <TouchableOpacity onPress={() => submitPressed()} style={styles.btnContainer} >
+            <Text style={styles.btn}>Signin</Text>
+          </TouchableOpacity>}
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("Register");
+            }}
+          >
+            <Text style={styles.registerText}>
+              Don't have an account? <Text style={styles.link}>Signup</Text>
+            </Text>
           </TouchableOpacity>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -163,7 +178,6 @@ const styles = StyleSheet.create({
   btnContainer: {
     borderColor: '#375EC0',
     borderWidth: 2,
-    marginTop: 36,
     borderRadius: 150,
     height:48,
     color:'#375EC0',

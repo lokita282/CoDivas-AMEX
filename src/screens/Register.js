@@ -61,7 +61,8 @@ export default function Register({ navigation }) {
               loop
             />
           </View>
-          <Text style={styles.header}>Register</Text>
+          <Text style={styles.header}>Good to see you</Text>
+
           <View style={styles.inputTextWrapper}>
             <TextInput
               placeholder="Email"
@@ -116,17 +117,18 @@ export default function Register({ navigation }) {
               color="white"
             />
           </View> */}
+         
+          <TouchableOpacity onPress={() => submitPressed()} style={styles.btnContainer} >
+            <Text style={styles.btn}>SignUp</Text>
+          </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("Login");
             }}
           >
             <Text style={styles.registerText}>
-              Already have an account ? <Text style={styles.link}>Login</Text>
+              Already have an account ? <Text style={styles.link}>Signin</Text>
             </Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => submitPressed()} style={styles.btnContainer} >
-            <Text style={styles.btn}>SignUp</Text>
           </TouchableOpacity>
         </ScrollView>
       </KeyboardAvoidingView>
