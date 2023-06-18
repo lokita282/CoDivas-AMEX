@@ -2,10 +2,7 @@
     "build": {
       "preview": {
         "android": {
-          "buildType": "apk",
-          "ios":{
-            "simulator":true
-          }
+          "buildType": "apk"
         }
       },
       "preview2": {

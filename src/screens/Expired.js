@@ -3,6 +3,7 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from 'moment/moment';
 import { useNavigation } from '@react-navigation/native';
+import LottieView from 'lottie-react-native';
 
 const Card = ({ image, title, receivedDate, expiringDate}) => {
   return (
@@ -67,6 +68,15 @@ const Expired = ({title}) => {
     fetchData();},5000);
     return () => clearTimeout(timer);
   });
+
+  if (data.length === 0) {
+    return (
+      <View style={styles.noDataContainer}>
+        <LottieView source={require('../assets/notfound.json')} autoPlay loop />
+      </View>
+    );
+  }
+  
   return (
     <View style={styles.container}>
       {/* {console.log(data)} */}

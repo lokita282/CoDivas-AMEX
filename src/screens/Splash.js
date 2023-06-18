@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet,Image } from 'react-native';
 import LottieView from 'lottie-react-native';
 import * as LocalAuthentication from 'expo-local-authentication';
 
@@ -27,6 +27,7 @@ const Splash = ({ navigation }) => {
         autoPlay
         loop
       />
+      {/* <Image source={require('../assets/first.gif')} /> */}
     </View>
   );
 };

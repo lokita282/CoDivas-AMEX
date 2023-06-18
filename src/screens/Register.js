@@ -1,13 +1,24 @@
-import React, { useState } from 'react';
-import { Button, StyleSheet, Text,Image, TextInput,TouchableOpacity, View, SafeAreaView, KeyboardAvoidingView, ScrollView } from 'react-native';
-import LottieView from 'lottie-react-native';
+import React, { useState } from "react";
+import {
+  Button,
+  StyleSheet,
+  Text,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  View,
+  SafeAreaView,
+  KeyboardAvoidingView,
+  ScrollView,
+} from "react-native";
+import LottieView from "lottie-react-native";
 
 export default function Register({ navigation }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
-  const [aadhar, setAadhar] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [number, setNumber] = useState("");
+  const [aadhar, setAadhar] = useState("");
 
   const submitPressed = () => {
     // handle form submission logic here
@@ -16,32 +27,39 @@ export default function Register({ navigation }) {
     myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
-      "aadhar": aadhar,
-      "pan": "AAACU2254N",
-      "name": name,
-      "phone": number,
-      "password": password
+      aadhar: aadhar,
+      pan: "AAACU2254N",
+      name: name,
+      phone: number,
+      password: password,
     });
 
     var requestOptions = {
-      method: 'POST',
+      method: "POST",
       headers: myHeaders,
       body: raw,
-      redirect: 'follow'
+      redirect: "follow",
     };
 
-    fetch("https://ez-rupi.onrender.com/api/auth/beneficiary/signup", requestOptions)
-      .then(response => response.text())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error));
+    fetch(
+      "https://ez-rupi.onrender.com/api/auth/beneficiary/signup",
+      requestOptions
+    )
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
         <ScrollView contentContainerStyle={styles.scrollViewContainer}>
-        <View style={styles.logoContainer}>
-            <Image source={require('../assets/logo.png')} style={styles.logo} />
+          <View style={styles.lottie}>
+            <LottieView
+              source={require("../assets/login.json")} // Replace with the path to your Lottie animation file
+              autoPlay
+              loop
+            />
           </View>
           <Text style={styles.header}>Register</Text>
           <View style={styles.inputTextWrapper}>
@@ -91,15 +109,21 @@ export default function Register({ navigation }) {
           <View style={styles.btnContainer}>
             <Button
               title="Register"
-              onPress={() => {submitPressed(); navigation.navigate('BottomTab')}}
+              onPress={() => {
+                submitPressed();
+                navigation.navigate("BottomTab");
+              }}
               color="white"
             />
           </View>
-          <TouchableOpacity onPress={() => {navigation.navigate('Login')}}>
-          <Text style={styles.registerText}>
-        Already have an account ?{' '}
-        <Text style={styles.link}>Login</Text>
-      </Text>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("Login");
+            }}
+          >
+            <Text style={styles.registerText}>
+              Already have an account ? <Text style={styles.link}>Login</Text>
+            </Text>
           </TouchableOpacity>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -110,55 +134,56 @@ export default function Register({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding:7,
+    padding: 7,
   },
   lottie: {
-    padding:40,
+    padding: 70,
   },
   scrollViewContainer: {
     flexGrow: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
     padding: 16,
     paddingBottom: 100,
   },
   header: {
     fontSize: 36,
     paddingVertical: 24,
-    textAlign: 'center',
-    color: 'black',
+    textAlign: "center",
+    color: "black",
   },
   inputTextWrapper: {
     marginBottom: 24,
   },
   textInput: {
     height: 40,
-    borderColor: '#000000',
+    borderColor: "#000000",
     borderWidth: 1,
     paddingRight: 30,
-    paddingLeft:10,
+    paddingLeft: 10,
   },
   btnContainer: {
-    backgroundColor: '#0E1D61',
+    backgroundColor: "#375EC0",
     marginTop: 36,
+    borderRadius: 50,
   },
   logoContainer: {
-    alignItems: 'flex-start',
+    alignItems: "flex-start",
     marginBottom: 20,
   },
   logo: {
     width: 100,
     height: 100,
-    resizeMode:'contain'
+    resizeMode: "contain",
   },
   registerText: {
     marginTop: 40,
-    textAlign: 'center',
-    color: 'black',
+    textAlign: "center",
+    color: "black",
     fontSize: 18,
-    fontStyle:'normal',
+    fontStyle: "normal",
   },
   link: {
-    color: '#0E1D61',
-    textDecorationLine: 'underline',
+    color: "#375EC0",
+    textDecorationLine: "underline",
   },
 });

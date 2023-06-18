@@ -56,7 +56,8 @@ const TransactionHistory = () => {
     return data.map((transaction, index) => (
       <View style={styles.transactionContainer} key={index}>
         <View style={{flexDirection:'row',justifyContent:'space-between'}}>
-        <Text style={styles.payee}>{transaction.voucherTitle}</Text>
+        
+        <Text style={styles.payee}>{transaction.payee}</Text>
         <View>
         <Text style={styles.amount}>₹{transaction.amount}</Text></View>
         </View>
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#fff',
+   // backgroundColor: '#fff',
     justifyContent:'center'
   },
   loader:{
@@ -108,7 +109,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingVertical: 16,
+    paddingVertical: 20,
     paddingHorizontal: 16,
   },
   profileIcon: {
@@ -123,31 +124,39 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginTop: 16,
-    color: '#0E1D61',
+    color: '#000',
   },
   historyContainer: {
     marginTop: 16,
   },
-  transactionContainer: {
-    backgroundColor: '#F3F5FF',
-    padding: 16,
-    borderRadius: 8,
-    marginBottom: 8,
+  // transactionContainer: {
+  //   backgroundColor: '#F3F5FF',
+  //   padding: 16,
+  //   borderRadius: 8,
+  //   marginBottom: 8,
+  // },
+  transactionContainer:{
+    backgroundColor: 'white',
+    margin: 10,
+    width: 340,
+    height: 79,
+    borderRadius: 5,
+    padding:5,
   },
   payee: {
     fontWeight: 'bold',
     fontSize: 15,
-    color: '#0E1D61',
+    color: '#000',
   },
   amount: {
     fontWeight: 'bold',
     fontSize: 18,
-    color: '#0E1D61',
+    color: '#000',
     //marginLeft:70,
   },
   details: {
     fontSize: 12,
-    color: '#0E1D61',
+    color: '#000',
     marginTop: 4,
   },
 });

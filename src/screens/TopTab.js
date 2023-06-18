@@ -42,13 +42,13 @@ const CustomTabBar = ({ state, descriptors, navigation ,title}) => {
             style={[
               styles.tabItem,
               {
-                backgroundColor: isFocused ? '#0E1D61' : '#ffffff',
+                backgroundColor: isFocused ? '#375EC0' : '#ffffff',
                 borderRadius: index === 0 ? 50 : 50,
                 //borderTopRightRadius: index === state.routes.length - 16 ? 16 : 16,
               },
             ]}
           >
-            <Text style={[styles.tabLabel,{color: isFocused ? '#ffffff' : '#0E1D61'}]}>{label}</Text>
+            <Text style={[styles.tabLabel,{color: isFocused ? '#ffffff' : '#375EC0'}]}>{label}</Text>
           </TouchableOpacity>
         );
       })}
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     marginTop:50,
   },
   header:{
-    color:'#0E1D61',
+    color:'#375EC0',
     fontSize:20,
     fontWeight:'bold',
     margin:20

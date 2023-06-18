@@ -86,13 +86,13 @@ const styles = StyleSheet.create({
   },
   loadingText: {
     fontSize: 20,
-    color: '#0E1D61',
+    color: '#375EC0',
     textAlign: 'center',
   },
   otpText: {
     fontSize: 48,
     fontWeight: 'bold',
-    color: '#0E1D61',
+    color: '#375EC0',
     textAlign: 'center',
   },
 });

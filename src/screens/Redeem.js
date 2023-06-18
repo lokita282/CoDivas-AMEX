@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import moment from 'moment/moment';
+import LottieView from 'lottie-react-native';
 
 const ProfileIcon = () => {
   return <Image source={require('../assets/profile.png')} style={styles.profileIcon} />;
@@ -67,6 +69,14 @@ const Redeem = ({navigation,route}) => {
   }, [navigation]);
 
   const qrCodeData = data.qrString;
+  {console.log(typeof(data.useType))};
+  if (data.length === 0) {
+    return (
+      <View style={styles.noDataContainer}>
+        <LottieView source={require('../assets/notfound.json')} autoPlay loop />
+      </View>
+    );
+  }
   return (
     <View style={styles.container}>
       <View>
@@ -78,19 +88,18 @@ const Redeem = ({navigation,route}) => {
       </View>
       <View style={styles.schemeDetails}>
         <Text style={styles.maintitle}>{data.title}</Text>
-        <Text style={styles.details}>Voucher Type : {data.useType}</Text>
-        <Text style={styles.details}>Amount left : {data.balanceAmount}</Text>
+        <Text style={styles.details}>{data.useType.charAt(0).toUpperCase() + data.useType.slice(1)}| ₹ {data.balanceAmount}</Text>
       </View>
       <View style={styles.qrCodeContainer}>
         <QRCode value={qrCodeData} logo={eRupi} logoSize={50} size={250} />
       </View>
-      <Text style={styles.validity}>Valid till : 2024-06-04</Text>
-      <Text style={styles.info}>Ask Merchant to scan the QR code to redeem the coupon</Text>
+      <Text style={styles.validity}>Valid till : {moment(data.validity).format("MMM Do, YYYY")}</Text>
+      <Text style={styles.info}>Ask Merchant to scan the QR code to redeem the coupon.</Text>
       <View style={styles.cardContainer}>
       <Image source={eRupi} style={styles.image} />
       <View style={styles.cardText}>
         <Text style={styles.title}>To know more about e-RUPI</Text>
-        <Text style={styles.title}>Click Here</Text>
+        <Text style={styles.title1}>Click Here</Text>
       </View>
     </View>
     </View>
@@ -133,7 +142,7 @@ const styles = StyleSheet.create({
     textAlign:'center',
     fontWeight: 'bold',
     marginBottom: 5,
-    color: '#0E1D61'
+    color: '#375EC0'
   },
   details: {
     fontSize: 20,
@@ -168,7 +177,7 @@ const styles = StyleSheet.create({
     marginTop:60,
     padding:10,
     marginLeft:0,
-    backgroundColor:'#0E1D61'
+    backgroundColor:'#375EC0'
   },
   image: {
     width: 70,
@@ -187,6 +196,20 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign:'center',
     color:'white'
+  },
+  title1: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign:'center',
+    color:'white',
+    textDecorationLine:'underline',
+  },
+  noDataContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    flex: 1,
+    padding: 20,
   },
 });
 
