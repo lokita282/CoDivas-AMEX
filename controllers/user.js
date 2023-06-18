@@ -557,8 +557,9 @@ const trendingData = async (req, res) => {
             trendingData.weekChange = 'inc';
             trendingData.weekPercent = (difference / max1.value) * 100;
         } else if (difference == 0) {
-            trendingData.weekPercent = 'no-change';
+            trendingData.weekChange = 'no-change';
         }
+        trendingData.weekPercent = trendingData.weekPercent?.toFixed(1);
 
         // MONTHLY CALCULATION
         let countMonthData = [];

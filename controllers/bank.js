@@ -77,10 +77,10 @@ const createERupiVoucher = async (req, res) => {
         let qrString = caesarCipherEncrypt(voucher.uid, 3);
 
         // SEND SMS TO USER W STRING
-        await sendSms(
-            `Dear Beneficiary, you have received your ₹UPI from ${org.orgName}. It can be accessed via the eZ-RUPI app. Incase the link does not work, the e₹UPI can be accessed through the string ${qrString}. Do not share this with anyone other than the concerned authorities. For queries reach out to us at https://american-express-ez-rupi.com/help.`,
-            req.body.beneficiaryPhone
-        );
+        // await sendSms(
+        //     `Dear Beneficiary, you have received your ₹UPI from ${org.orgName}. It can be accessed via the eZ-RUPI app. Incase the link does not work, the e₹UPI can be accessed through the string ${qrString}. Do not share this with anyone other than the concerned authorities. For queries reach out to us at https://american-express-ez-rupi.com/help.`,
+        //     req.body.beneficiaryPhone
+        // );
 
         await axios.post(
             `https://ntfy.sh/${voucher.beneficiaryPhone}`,
@@ -622,6 +622,7 @@ const weeklyTrendingData = async (req, res) => {
                 temp.change = 'no-change';
             }
 
+            temp.percent = temp.percent?.toFixed(1);
             trendingAssets.push(temp);
         }
 
