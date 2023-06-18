@@ -181,6 +181,15 @@ console.log(isBene)
                                     </ListItemButton>
                                 </ListItem>
                             </Tooltip>
+                            <Tooltip title="View Vouchers">
+                                <ListItem disablePadding onClick={() => navigate('/viewvouchers')} sx={{ display: 'block', marginTop: '20%' }}>
+                                    <ListItemButton sx={listItemBtn}>
+                                        <ListItemIcon sx={listItemIco}>
+                                            <Icon color={url.includes('viewvouchers') ? '#375EC0' : '#6A707F'} icon="mdi:tag" width='24' height='24' />
+                                        </ListItemIcon>
+                                    </ListItemButton>
+                                </ListItem>
+                            </Tooltip>
                             <Tooltip title="Create e-RUPI">
                                 <ListItem disablePadding onClick={() => navigate('/bank/createerupi')} sx={{ display: 'block', marginTop: '20%' }}>
                                     <ListItemButton sx={listItemBtn}>

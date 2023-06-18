@@ -1,7 +1,20 @@
 import {React, useState} from 'react'
 import { Paper, Typography, Grid, Button, TextField } from '@mui/material'
+import {
+  bold_name,
+  btn_connect,
+  btn_bank,
+  circularprog,
+  df_jc_ac,
+  df_jfs_ac,
+  df_jfs_ac_fdc,
+  link,
+  ptag,
+  textField,
+} from '../../theme/CssMy'
 import fileSaver from 'file-saver'
 import TemplateTable from './TemplateTable'
+import ReCAPTCHA from 'react-google-recaptcha'
 import { createBulkErupi } from '../../services/bankServices'
 
 const excel_base_64 =
@@ -126,6 +139,10 @@ const BulkVoucher = () => {
     //     // ########### setLoad(false)
     //   })
   }
+
+  function onChangeCaptcha(value) {
+    console.log('Captcha value:', value)
+  }
   
   return (
     <>
@@ -143,25 +160,20 @@ const BulkVoucher = () => {
                 <b>Generate multiple e-₹UPI vouchers at once</b>
               </Typography>
             </Grid>
-            <Grid item xs={8}>
+            <Grid item xs={9}>
               <Typography
                 variant="body1"
                 sx={{
                   color: '#a2a2a2',
                   fontFamily: 'Poppins',
-                  paddingTop: '20px',
                 }}
               >
                 Generate multiple e-₹UPI vouchers by CSV upload. Download the
                 template to get started!
               </Typography>
             </Grid>
-            <Grid item xs={4} sx={{ display: 'flex', justifyContent: 'end' }}>
-              <Button
-                color="primary"
-                onClick={handleDownload}
-                style={styles.downloadBtn}
-              >
+            <Grid item xs={3} sx={{ display: 'flex', justifyContent: 'end' }}>
+              <Button onClick={handleDownload} sx={btn_connect}>
                 Download Template
               </Button>
             </Grid>
@@ -180,7 +192,7 @@ const BulkVoucher = () => {
             <Grid item xs={12}>
               <TemplateTable />
             </Grid>
-            <Grid item xs={8}>
+            <Grid item xs={8} sx={{ paddingBottom: '20px' }}>
               {/* <Button variant="contained" component="label">
                 Select File */}
               {/* <input type="file" /> */}
@@ -194,8 +206,23 @@ const BulkVoucher = () => {
 
               {/* </Button> */}
             </Grid>
-            <Grid item xs={4}>
-              <Button style={styles.submitBtn} onClick={handleSubmit}>
+            <Grid item xs={12}>
+            <ReCAPTCHA
+              sitekey="6LeuTKImAAAAAHGzGmP26m4V8IAO55NVL-Pc4EoO"
+              onChange={onChangeCaptcha}
+            />
+            </Grid>
+            <Grid item xs={8}> </Grid>
+            <Grid
+              item
+              xs={4}
+              sx={{
+                display: 'flex',
+                justifyContent: 'end',
+                paddingBottom: '20px',
+              }}
+            >
+              <Button sx={btn_bank} onClick={handleSubmit}>
                 Upload Data
               </Button>{' '}
             </Grid>

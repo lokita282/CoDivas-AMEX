@@ -45,7 +45,7 @@ export default function TemplateTable() {
           backgroundColor: '#d5d5d5',
           borderRadius: 2,
         },
-        width: '70%'
+        // width: '70%'
       }}
     >
       <Table aria-label="simple table">
@@ -196,3 +196,5 @@ export default function TemplateTable() {
     </TableContainer>
   )
 }
+
+

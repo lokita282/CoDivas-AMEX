@@ -56,5 +56,23 @@ export const regionIssued = () => {
   })
 }
 
+export const viewVouchers = () => {
+  return httpcommon.get(`/bank/vouchers`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('codivasToken')}`,
+    },
+  })
+}
+
+export const revokeVoucher = (id) => {
+  return httpcommon.patch(`/bank/revoke-voucher/${id}`,{}, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('codivasToken')}`,
+    },
+  })
+}
+
+
+
 
 

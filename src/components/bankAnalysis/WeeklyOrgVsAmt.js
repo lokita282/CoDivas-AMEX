@@ -72,7 +72,7 @@ const NivoRadialBar = () => {
             overflow: 'auto',
           }}
         >
-          <div style={{ height: '400px', width: '600px', overflow: 'hidden' }}>
+          <div style={{ height: '400px', width: '575px', overflow: 'hidden' }}>
             <MyResponsiveRadialBar data={radialBarData} />
           </div>
         </Box>

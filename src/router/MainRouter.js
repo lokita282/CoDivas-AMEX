@@ -10,6 +10,7 @@ import UserGetStartedPage from '../pages/UserGetStartedPage'
 import HealthcarePage from '../pages/HealthcarePage'
 import ElectricityBillPage from '../pages/ElectricityBillPage'
 import CreateErupi from '../pages/CreateErupi'
+import ViewVouchers from '../pages/ViewVouchers'
 import Coupons from '../components/coupons/Coupons';
 import CategoryCoupons from '../pages/CategoryCoupons';
 import SchemesPage from '../pages/SchemesPage';
@@ -55,6 +56,9 @@ export default function MainRouter() {
                 </Route>
                 <Route path='/bank/createerupi' element={<PrivateRouter />} >
                     <Route exact path='/bank/createerupi' element={<CreateErupi />} />
+                </Route>
+                <Route path='/viewvouchers' element={<PrivateRouter />} >
+                    <Route exact path='/viewvouchers' element={<ViewVouchers />} />
                 </Route>
                 <Route path='/user/getstarted' element={<PrivateRouter />} >
                     <Route exact path='/user/getstarted' element={<UserGetStartedPage />} />
