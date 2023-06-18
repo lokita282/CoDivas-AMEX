@@ -63,3 +63,20 @@ body{
     stroke-dashoffset: 900;
   }
 }
+
+.full-height-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  background-color: #f2f2f2;
+}
+
+.qr-reader {
+  width: 60%;
+  max-width: 400px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}

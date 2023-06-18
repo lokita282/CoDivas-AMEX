@@ -8,6 +8,7 @@ import ScanPage from '../pages/ScanPage';
 import Verify from '../pages/Verify';
 import Tick from '../components/verification/Tick';
 import Gst from '../components/auth/Gst';
+import ScanMessagePage from '../pages/ScanMessagePage';
 
 
 export default function MainRouter() {
@@ -39,6 +40,9 @@ export default function MainRouter() {
                 </Route>
                 <Route path='/scan' element={<PrivateRouter />} >
                     <Route exact path='/scan' element={<ScanPage />} />
+                </Route>
+                <Route path='/message' element={<PrivateRouter />} >
+                    <Route exact path='/message' element={<ScanMessagePage/>} />
                 </Route>
                 <Route path='/scan-verify/:id/:amount' element={<PrivateRouter />} >
                     <Route exact path='/scan-verify/:id/:amount' element={<Verify />} />

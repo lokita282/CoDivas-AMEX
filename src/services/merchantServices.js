@@ -31,3 +31,11 @@ export const getTrans = () => {
         }
     })
 }
+
+export const scanSMS = (data) => {
+    return httpcommon.post(`/merchant/validate-voucher-sms`, data, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('codivasToken')}`
+        }
+    })
+}

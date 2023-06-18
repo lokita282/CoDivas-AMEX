@@ -43,10 +43,10 @@ function ResponsiveDrawer(props) {
         <div style={df_jfs_ac_fdc}>
             <CardMedia sx={{ width: '80%', paddingLeft: '5%', paddingTop: '5%' }} component='img' image={logo} />
             <List>
-                <ListItem disablePadding onClick={() => navigate('/')} sx={url?.includes('dashboard') ? { color: '#375EC0' } : { color: "#6A707F" }}>
+                <ListItem disablePadding onClick={() => navigate('/')} sx={url === '' ? { color: '#375EC0' } : { color: "#6A707F" }}>
                     <ListItemButton>
                         <ListItemIcon>
-                            <Icon color={url?.includes('') ? '#375EC0' : '#6A707F'} icon="ic:round-dashboard" width={26} height={26} />
+                            <Icon color={url === '' ? '#375EC0' : '#6A707F'} icon="ic:round-dashboard" width={26} height={26} />
                         </ListItemIcon>
                         <ListItemText primary={'Dashboard'} />
                     </ListItemButton>
@@ -57,6 +57,14 @@ function ResponsiveDrawer(props) {
                             <Icon icon="ph:scan-fill" width={26} height={26} color={url?.includes('scan') ? '#375EC0' : '#6A707F'} />
                         </ListItemIcon>
                         <ListItemText primary={'Scan QR'} />
+                    </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding onClick={() => navigate('/message')} sx={url?.includes('message') ? { color: '#375EC0' } : { color: "#6A707F" }}>
+                    <ListItemButton>
+                        <ListItemIcon>
+                            <Icon icon="mdi:message" width={26} height={26} color={url?.includes('message') ? '#375EC0' : '#6A707F'} />
+                        </ListItemIcon>
+                        <ListItemText primary={'Scan Message'} />
                     </ListItemButton>
                 </ListItem>
             </List>
