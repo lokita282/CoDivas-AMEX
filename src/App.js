@@ -1,25 +1,47 @@
-import logo from './logo.svg';
+import { useState, useEffect } from 'react';
 import './App.css';
+import { codivascontext } from './context/MainContext';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import MainRouter from './router/MainRouter';
+import { BrowserRouter as Router } from 'react-router-dom';
+
 
 function App() {
+  const [user, setUser] = useState(null)
+  const [token, setToken] = useState(null)
+
+  const context = {
+    user, setUser,
+    token, setToken
+  }
+
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem('codivasUser')))
+    setToken(localStorage.getItem('codivasToken'))
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <codivascontext.Provider value={context}>
+      <ToastContainer
+        position="bottom-left"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+      <Router>
+        {/* <SideDrawer> */}
+        <MainRouter />
+        {/* </SideDrawer> */}
+      </Router>
+    </codivascontext.Provider>
   );
 }
 
-export default App;
+export default App
+

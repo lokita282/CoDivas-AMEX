@@ -1,38 +1,106 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif !important;
+  background-color: #161616 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden !important;
+  overflow-anchor: none !important;
+  /* overflow: hidden  !important; */
+}
+.react-terminal-wrapper {
+  width: 90%;
+  background: #1d1d1d !important;
+  color: #eee;
+  font-size: 18px;
+  font-family: 'Fira Mono', Consolas, Menlo, Monaco, 'Courier New', Courier,
+    monospace;
+  border-radius: 4px;
+  padding: 75px 45px 35px;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  overflow-anchor: none;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.react-terminal::-webkit-scrollbar {
+    height: 10px ;
+    width: 5px;
+  }
+  
+.react-terminal::-webkit-scrollbar-track {
+    background-color: 'white';
+  }
+  
+.react-terminal::-webkit-scrollbar-thumb {
+    background-color: '#d5d5d5';
+    border-radius: 2;
+  }
+
+  .MuiDivider-root {
+    color: #fff !important;
+  }
+
+
+.svgg {
+  width: 150px;
+  display: block;
+  /* margin: 40px auto 0; */
+}
+.path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 0;
+}
+.path.circle {
+  -webkit-animation: dash 0.9s ease-in-out;
+  animation: dash 0.9s ease-in-out;
+}
+.path.line {
+  stroke-dashoffset: 1000;
+  -webkit-animation: dash 0.9s 0.35s ease-in-out forwards;
+  animation: dash 0.9s 0.35s ease-in-out forwards;
+}
+.path.check {
+  stroke-dashoffset: -100;
+  -webkit-animation: dash-check 0.9s 0.35s ease-in-out forwards;
+  animation: dash-check 0.9s 0.35s ease-in-out forwards;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+@-webkit-keyframes dash {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes dash {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@-webkit-keyframes dash-check {
+  0% {
+    stroke-dashoffset: -100;
+  }
+  100% {
+    stroke-dashoffset: 900;
+  }
+}
+@keyframes dash-check {
+  0% {
+    stroke-dashoffset: -100;
+  }
+  100% {
+    stroke-dashoffset: 900;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.highlighted {
+  background-color: yellow;
+  font-weight: bold;
 }
