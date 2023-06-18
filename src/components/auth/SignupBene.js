@@ -91,7 +91,7 @@ export default function SignupBene() {
                         {load ? <Box sx={df_jc_ac}>
                             <CircularProgress size={30} sx={circularprog} />
                         </Box> :
-                            <Button sx={btn_connect} onClick={clickSubmit} >Signin as beneficiary</Button>}
+                            <Button sx={btn_connect} onClick={clickSubmit} >Signup as beneficiary</Button>}
                     </Grid>
                 </Grid>
             </Box>

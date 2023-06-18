@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
@@ -37,6 +37,13 @@ export default function UtilityModal({ open, setOpen, setCat, solo, string, cat,
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  useEffect(() => {
+    setShowVerif(false)
+    setLoading(false)
+    setClick(false)
+    setRedeemed(false)
+  }, [])
+
   const validate = async () => {
     setLoading(true)
     const regex = /xxx-(.*?)-xxx/;
@@ -56,7 +63,7 @@ export default function UtilityModal({ open, setOpen, setCat, solo, string, cat,
     setLoading(true)
     let res = await redeemUtility({
       "voucherId": id,
-      "verificationCode": code,
+      "verificationCode": parseInt(code),
       "transactionAmount": amnt,
       "transactionTitle": title
     })
@@ -99,9 +106,9 @@ export default function UtilityModal({ open, setOpen, setCat, solo, string, cat,
             <CardMedia component='img' image={solo?.issuedByLogo} sx={{ width: '50px', borderRadius: '50px' }} />
             <CardMedia component='img' image={solo?.orgLogo} sx={{ width: '50px', borderRadius: '50px' }} />
           </div>
-          {loading  ? <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+          {loading ? <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
             <Loading />
-          </Box> :  !redeemed ? <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', marginTop: '5%' }}>
+          </Box> : !redeemed ? <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', marginTop: '5%' }}>
             <Typography sx={bold_name} >{solo?.title}</Typography>
             <p style={ptag}>{solo?.useType === 'multiple' ? "Multiple Use" : "Single Use"} | <b>₹ {solo?.useType === 'multiple' ? solo?.balanceAmount : solo?.amount}</b></p>
             {!click ? <><Typography variant='h5' sx={{ ...bold_name, textAlign: 'center', marginTop: '10%' }}>Would you like to continue and redeem the voucher?</Typography>
@@ -126,7 +133,7 @@ export default function UtilityModal({ open, setOpen, setCat, solo, string, cat,
               />
               <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', marginTop: '10%' }}>
                 <Button onClick={() => setOpen(false)} sx={{ ...btn_connect, width: 'auto' }}>Back</Button>
-                <Button onClick={() => redeemvou} sx={{ ...btn_hire, width: 'auto' }}>Redeem</Button>
+                <Button onClick={() => redeemvou()} sx={{ ...btn_hire, width: 'auto' }}>Redeem</Button>
               </Box>
             </>}
           </Box> : <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '10%', alignItems: 'center', flexDirection: 'column' }}>
@@ -135,7 +142,7 @@ export default function UtilityModal({ open, setOpen, setCat, solo, string, cat,
               <polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 " />
             </svg>
             <Typography sx={{ ...ptag, color: '#73AF55', marginTop: '5%' }}>Redemption Successful</Typography>
-          </Box>  }
+          </Box>}
         </Box>
       </Modal>
     </div>
