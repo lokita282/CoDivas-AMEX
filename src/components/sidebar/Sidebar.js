@@ -141,6 +141,15 @@ console.log(isBene)
                                     </ListItemButton>
                                 </ListItem>
                             </Tooltip>
+                            <Tooltip title="Transaction History">
+                                <ListItem disablePadding onClick={() => navigate('/transactions')} sx={{ display: 'block', marginTop: '20%' }}>
+                                    <ListItemButton sx={listItemBtn}>
+                                        <ListItemIcon sx={listItemIco}>
+                                            <Icon color={url.includes('transaction') ? '#375EC0' : '#6A707F'} icon="uil:transaction" width='24' height='24' />
+                                        </ListItemIcon>
+                                    </ListItemButton>
+                                </ListItem>
+                            </Tooltip>
                             <Tooltip title="Government Schemes">
 
                                 <ListItem disablePadding onClick={() => navigate('/scheme')} sx={{ display: 'block', marginTop: '20%' }}>
