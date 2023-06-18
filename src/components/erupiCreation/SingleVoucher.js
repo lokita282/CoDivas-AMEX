@@ -1,7 +1,7 @@
 import { React, useState } from 'react'
 import {
   bold_name,
-  btn_connect,
+  btn_bank,
   circularprog,
   df_jc_ac,
   df_jfs_ac,
@@ -178,7 +178,6 @@ const SingleVoucher = () => {
 
   const handleSubmit = async () => {
     setLoad(true)
-    // if (json.phone && json.password) {
     await createErupi({
       ...json,
       startsAt: new Date(json.startsAt),
@@ -187,23 +186,13 @@ const SingleVoucher = () => {
       .then((res) => {
         console.log('first')
         console.log(res.data)
-        // localStorage.setItem('codivasToken', res.data.token)
-        // localStorage.setItem('codivasUser', JSON.stringify(res.data.user))
-        // setUser(res.data.user)
-        // setToken(res.data.token)
         successHandler(res.data.message)
-        // navigate('/dashboard')
         setLoad(false)
       })
       .catch((e) => {
         errorHandler('createErupi failed')
         setLoad(false)
       })
-    // } else {
-    //   // !json.phone && errorHandler('Phone number cannot be empty')
-    //   // !json.password && errorHandler('Password cannot be empty')
-    //   // setLoad(false)
-    // }
   }
 
   function onChangeCaptcha(value) {
@@ -523,15 +512,16 @@ const SingleVoucher = () => {
               onChange={onChangeCaptcha}
             />
           </Grid>
-          <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'end' }}>
+          <Grid item xs={6}></Grid>
+          <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'end', paddingBottom: '20px' }}>
             {load ? (
               <Box sx={df_jc_ac}>
-                <Button style={styles.createBtn} onClick={handleSubmit}>
+                <Button sx={btn_bank} onClick={handleSubmit}>
                   <CircularProgress size={15} sx={circularprog} />
                 </Button>
               </Box>
             ) : (
-              <Button style={styles.createBtn} onClick={handleSubmit}>
+              <Button sx={btn_bank} onClick={handleSubmit}>
                 Create
               </Button>
             )}

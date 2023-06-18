@@ -21,6 +21,7 @@ const TrendingAssets = () => {
   useEffect(() => {
     const func = async () => {
       await weeklyTrending().then((res) => {
+        console.log('trending')
         console.log(res.data.data.trendingAssets)
         setTrendingAssets(res.data.data.trendingAssets.slice(0,4))
       })
@@ -37,16 +38,51 @@ const TrendingAssets = () => {
                 <Paper>
                   <div style={{ display: 'flex', flexDirection: 'row' }}>
                     <Grid item xs={8}>
-                    <Typography variant="h6" style={styles.gradientText}>
-                      <b>{asset.category[0].toUpperCase() + asset.category.substring(1)}</b>
-                    </Typography>
+                      <Typography variant="h6" style={styles.gradientText}>
+                        <b>
+                          {asset.category[0].toUpperCase() +
+                            asset.category.substring(1)}
+                        </b>
+                      </Typography>
                     </Grid>
                     <Grid item xs={4}>
-                    <Chip
-                      label={asset.incOrDec === 'inc' ? ('+' + asset.percent + '%') : ('-' + asset.percent + '%')}
-                      color={asset.incOrDec === 'inc' ? 'success' : 'error'}
-                      sx={{ opacity: 0.8, display: 'flex', justifyContent: 'center', mt:2.5, mr: 1 }}
-                    />
+                      {asset.change === 'inc' ? (
+                        <Chip
+                          label={
+                            asset.change === 'inc'
+                              ? '+' + asset.percent + '%'
+                              : '-' + asset.percent + '%'
+                          }
+                          // color={asset.change === 'inc' ? 'success' : 'error'}
+
+                          sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            mt: 2.5,
+                            mr: 1,
+                            backgroundColor: '#009946',
+                            color: '#fff',
+                          }}
+                        />
+                      ) : (
+                        <Chip
+                          label={
+                            asset.change === 'inc'
+                              ? '+' + asset.percent + '%'
+                              : '-' + asset.percent + '%'
+                          }
+                          // color={asset.change === 'inc' ? 'success' : 'error'}
+
+                          sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            mt: 2.5,
+                            mr: 1,
+                            backgroundColor: '#EA323E',
+                            color: '#fff',
+                          }}
+                        />
+                      )}
                     </Grid>
                   </div>
                   <Avatar
@@ -60,7 +96,9 @@ const TrendingAssets = () => {
                     color="initial"
                     sx={{ fontFamily: 'Poppins', padding: 2 }}
                   >
-                    Revenue Generated:<br/><b> ₹{asset.revenue}</b>
+                    Revenue Generated:
+                    <br />
+                    <b> ₹{asset.revenue}</b>
                   </Typography>
                 </Paper>
               </Grid>

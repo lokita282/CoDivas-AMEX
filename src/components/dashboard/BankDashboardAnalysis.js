@@ -105,7 +105,7 @@ export default function BankDashboard() {
               <Typography
                 variant="h6"
                 color="initial"
-                sx={{ fontFamily: 'Poppins', mt: 3}}
+                sx={{ fontFamily: 'Poppins', mt: 3 }}
               >
                 <b>Weekly Trending Assets</b>
               </Typography>
@@ -127,14 +127,15 @@ export default function BankDashboard() {
                 onChange={handleChange}
                 aria-label="basic tabs example"
               >
-                <Tab label="Vouchers Redeemed" {...a11yProps(0)} />
-                <Tab label="Vouchers Issued" {...a11yProps(1)} />
+                <Tab label="Vouchers Issued" {...a11yProps(0)} />
+                <Tab label="Vouchers Redeemed" {...a11yProps(1)} />
               </Tabs>
               <TabPanel value={value} index={0}>
-                <RegionRedeemed />
-              </TabPanel>
-              <TabPanel value={value} index={1}>
                 <RegionIssued />
+              </TabPanel>
+
+              <TabPanel value={value} index={1}>
+                <RegionRedeemed />
               </TabPanel>
             </Paper>
           </Grid>
