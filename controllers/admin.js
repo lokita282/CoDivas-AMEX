@@ -39,13 +39,13 @@ const getOnboardedEntities = async (req, res) => {
         // get all banks
         const banks = await Bank.find({});
         let bankUsers = [];
-        let bankUser = {
-            user: {},
-            bank: {}
-        };
 
         for (const bank of banks) {
-            const user = await User.findById(bank.user);
+            const user = await User.findById(bank.user, { tokens: 0 });
+            let bankUser = {
+                user: {},
+                bank: {}
+            };
             bankUser.user = user;
             bankUser.bank = bank;
             bankUsers.push(bankUser);
