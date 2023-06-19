@@ -88,6 +88,7 @@ const styles = StyleSheet.create({
   loadingText: {
     fontSize: 20,
     textAlign: 'center',
+    color:'#375EC0',
   },
   statusIcon: {
     fontSize: 100,
