@@ -8,7 +8,7 @@ const { organisationDetails } = require('./../utils/data');
 
 const getActivityLogs = async (req, res) => {
     try {
-        const logs = await ActivityLog.find({}).sort({ createdAt: -1 });
+        const logs = await ActivityLog.find({});
 
         res.status(200).json({
             message: 'Logs found!',
