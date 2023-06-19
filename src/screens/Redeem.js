@@ -1,17 +1,34 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
 import QRCode from "react-native-qrcode-svg";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import moment from "moment/moment";
 import LottieView from "lottie-react-native";
 
+const screenWidth = Dimensions.get("window").width;
 const ProfileIcon = () => {
+  const [data,setData]=useState(null);
+  async function retrieveUserToken() {
+    try {
+      const user = await AsyncStorage.getItem('codivasUser');
+      if (user !== null) {
+        setData(JSON.parse(user));
+      }
+    } catch (error) {
+      console.log('Error retrieving user token:', error);
+    }
+  }
+
+  useEffect(() => {
+    retrieveUserToken();
+  }, []);
   return (
-    <Image
-      source={require("../assets/profile.png")}
-      style={styles.profileIcon}
-    />
-  );
+  <View style={styles.header1}>
+    <TouchableOpacity style={styles.profileIcon}>
+          <Text style={styles.profileImage}>{data && data.name.charAt(0)}</Text>
+          {/* <Image source={require('../assets/profile.png')} style={styles.profileImage} /> */}
+        </TouchableOpacity>
+  </View>)
 };
 
 const Redeem = ({ navigation, route }) => {
@@ -228,6 +245,16 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
   },
+  header1:{
+    header: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingVertical: 0.02 * screenWidth,
+      paddingHorizontal: 0.05 * screenWidth,
+      marginTop:50,
+    },
+  }
 });
 
 export default Redeem;
