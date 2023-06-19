@@ -19,6 +19,7 @@ import Login from './src/screens/Login';
 import Splash from './src/screens/Splash';
 import IntroScreen from './src/screens/IntroScreen';
 import Details from './src/screens/Details';
+import Dashboard from './src/screens/Dashboard'
 const Stack = createNativeStackNavigator();
 
 const App = () => {
@@ -101,6 +102,11 @@ const App = () => {
           name="Details"
           component={Details}
           options={{headerShown:false}}/>
+          <Stack.Screen
+          name="Dashboard"
+          component={Dashboard}
+          options={{headerShown:false}}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

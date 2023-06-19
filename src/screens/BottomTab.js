@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Category from './Category';
 import GovernmentScheme from './GovernementScheme';
 import TransactionHistory from './TransactionHistory';
+import Dashboard from "./Dashboard";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Tab = createBottomTabNavigator();
@@ -28,13 +29,16 @@ const BottomTab = () => {
         tabBarIcon: ({ focused }) => {
           let iconSource;
           let iconColor;
-          if (route.name === 'Category') {
+          if (route.name === 'Home') {
+            iconSource = require('../assets/home.png');
+            iconColor = focused ? '#375EC0' : '#748c94';
+          } else if (route.name === 'Category') {
             iconSource = require('../assets/category.png');
             iconColor = focused ? '#375EC0' : '#748c94';
-          } else if (route.name === 'Government Schemes') {
+          } else if (route.name === 'Schemes') {
             iconSource = require('../assets/govt2.png');
             iconColor = focused ? '#375EC0' : '#748c94';
-          } else if (route.name === 'Transaction History') {
+          } else if (route.name === 'Transactions') {
             iconSource = require('../assets/invoice.png');
             iconColor = focused ? '#375EC0' : '#748c94';
           }
@@ -55,14 +59,19 @@ const BottomTab = () => {
         },
       })}
     >
+      <Tab.Screen
+        name="Home"
+        component={Dashboard}
+        options={{ headerShown: false }}
+      />
       <Tab.Screen name="Category" component={Category} options={{ headerShown: false }} />
       <Tab.Screen
-        name="Government Schemes"
+        name="Schemes"
         component={GovernmentScheme}
         options={{ headerShown: false }}
       />
       <Tab.Screen
-        name="Transaction History"
+        name="Transactions"
         component={TransactionHistory}
         options={{ headerShown: false }}
       />

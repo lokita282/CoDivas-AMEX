@@ -339,10 +339,11 @@ const GovernmentScheme = () => {
         <View style={styles.container}>
         <View style={styles.header}>
           <TextInput style={styles.searchInput} placeholder="Search..." />
-          <TouchableOpacity style={styles.profileIcon}>
-            <Text style={styles.profileImage}>{data.name.charAt(0)}</Text>
-            {/* <Image source={require('../assets/profile.png')} style={styles.profileImage} /> */}
-          </TouchableOpacity>
+          <View style={styles.profileIconContainer}>
+              <TouchableOpacity style={styles.profileIcon}>
+                <Text style={styles.profileImage}>{data.name.charAt(0)}</Text>
+              </TouchableOpacity>
+            </View>
         </View>
           <View style={styles.schemesContainer}>{renderGovernmentSchemes()}</View>
         </View>
@@ -372,20 +373,30 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 0.03 * screenWidth,
   },
-  profileIcon: {
+  profileIconContainer: {
     marginLeft: 0.04 * screenWidth,
+    overflow: "hidden",
+  },
+  profileIcon: {
+    width: 0.13 * screenWidth,
+    height: 0.13 * screenWidth,
+    borderRadius: 0.065 * screenWidth,
+    backgroundColor: "#0E1D61",
+    color: "white",
+    //textAlign: "center",
+    fontSize: 30,
+    padding: 5,
+    overflow:"hidden",
   },
   profileImage: {
     width: 0.13 * screenWidth,
     height: 0.13 * screenWidth,
-    borderRadius: 0.04 * screenWidth,
-    backgroundColor:'#0E1D61',
-    borderRadius:50,
-    color:'white',
-    textAlign:'center',
-    fontSize:30,
-    padding:5,
-  
+    backgroundColor: "#0E1D61",
+    color: "white",
+    fontSize: 30,
+    padding: 5,
+    marginLeft:Platform.OS === "android" ? 0.015 * screenWidth : 0.017 * screenWidth,
+    marginTop:Platform.OS === "android" ? -5: -2,
   },
   title: {
     fontSize: 0.06 * screenWidth,

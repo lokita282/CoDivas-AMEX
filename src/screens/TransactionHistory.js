@@ -19,6 +19,7 @@ const TransactionHistory = () => {
   const [user, setUser] = useState(null);
   const [userToken, setUserToken] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+ 
   // async function retrieveUserToken() {
   //   try {
   //     const token = await AsyncStorage.getItem('userToken');
@@ -74,23 +75,42 @@ const TransactionHistory = () => {
 
 
   const renderTransactionHistory = () => {
+    const getRandomColor = () => {
+      const letters = '0123456789ABCDEF';
+      let color = '#';
+      for (let i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+  };
     return (
       data &&
-      data.map((transaction, index) => (
+      data.reverse().map((transaction, index) => (
         <View style={styles.transactionContainer} key={index}>
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
+            {/* <Image
+              source={require('../assets/logo.png')} // Replace with the image source path
+              style={styles.image}
+            /> */}
+            <View style={styles.payeeIconContainer}>
+              <TouchableOpacity style={[styles.payeeIcon,{ backgroundColor: getRandomColor()}]}>
+                <Text style={[styles.payeeImage,{ backgroundColor: '#00000000'}]}>{transaction.payee.charAt(0)}</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{marginLeft:-30}}>
             <Text style={styles.payee}>{transaction.payee}</Text>
+            <Text style={styles.details}>
+            {moment(transaction.datetime).format("MMM Do YYYY")} at{" "}
+            {moment(transaction.datetime).format("h:mm a")}
+          </Text>
+            </View>
             <View>
               <Text style={styles.amount}>₹{transaction.amount}</Text>
             </View>
           </View>
-          {/* <Text style={styles.details}>Voucher ID :{transaction.voucherUid}</Text> */}
-          <Text style={styles.details}>
-            {moment(transaction.datetime).format("MMM Do YYYY")} at{" "}
-            {moment(transaction.datetime).format("h:mm a")}{" "}
-          </Text>
+          
         </View>
       ))
     );
@@ -156,19 +176,57 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 0.03 * screenWidth,
   },
+  profileIconContainer: {
+    marginLeft: 0.02 * screenWidth,
+    overflow: "hidden",
+  },
   profileIcon: {
-    marginLeft: 0.04 * screenWidth,
+    width: 0.13 * screenWidth,
+    height: 0.13 * screenWidth,
+    borderRadius: 0.065 * screenWidth,
+    backgroundColor: "#0E1D61",
+    color: "white",
+    //textAlign: "center",
+    fontSize: 30,
+    padding: 5,
+    overflow:"hidden",
+    marginLeft: 0.03 * screenWidth,
   },
   profileImage: {
     width: 0.13 * screenWidth,
     height: 0.13 * screenWidth,
-    borderRadius: 0.04 * screenWidth,
     backgroundColor: "#0E1D61",
-    borderRadius: 50,
     color: "white",
-    textAlign: "center",
     fontSize: 30,
     padding: 5,
+    marginLeft:Platform.OS === "android" ? 0.015 * screenWidth : 0.017 * screenWidth,
+    marginTop:Platform.OS === "android" ? -5: -2,
+  },
+  payeeIconContainer: {
+    marginLeft: 0.04 * screenWidth,
+    overflow: "hidden",
+  },
+  payeeIcon: {
+    width: 0.13 * screenWidth,
+    height: 0.13 * screenWidth,
+    borderRadius: 0.065 * screenWidth,
+    //backgroundColor: "#0E1D61",
+    color: "white",
+    //textAlign: "center",
+    fontSize: 30,
+    padding: 5,
+    overflow:"hidden",
+    marginLeft: 0,
+  },
+  payeeImage: {
+    width: 0.13 * screenWidth,
+    height: 0.13 * screenWidth,
+    //backgroundColor: "#0E1D61",
+    color: "white",
+    fontSize: 30,
+    padding: 5,
+    marginLeft:Platform.OS === "android" ? 0.015 * screenWidth : 0.017 * screenWidth,
+    marginTop:Platform.OS === "android" ? -5: -2,
   },
   title: {
     fontSize: 24,
@@ -187,6 +245,7 @@ const styles = StyleSheet.create({
     height: 79,
     borderRadius: 5,
     padding: 10,
+    paddingTop:15,
   },
   payee: {
     fontWeight: "bold",
@@ -197,11 +256,19 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 18,
     color: "#000",
+    paddingRight:10,
   },
   details: {
     fontSize: 13,
     color: "#000",
     marginTop: 4,
+  },
+  image: {
+    width: 30,
+    height: 30,
+    marginLeft: 10,
+    borderRadius: 4,
+    marginTop:10,
   },
 });
 
