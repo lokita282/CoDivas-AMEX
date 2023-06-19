@@ -700,6 +700,55 @@ const getAllMerchants = async (req, res) => {
     }
 };
 
+const getAccountSummary = async (req, res) => {
+    try {
+        const user = req.user;
+        const beneficiary = await Beneficiary.findOne({
+            user: user._id
+        }).populate('vouchersReceived');
+        let vouchers = await setVoucherStatuses(beneficiary.vouchersReceived);
+        let totalVouchers = vouchers.length;
+        let totalValidVouchers = vouchers.filter(
+            (voucher) => voucher.status === 'valid'
+        ).length;
+        let totalRedeemedVouchers = vouchers.filter(
+            (voucher) => voucher.status === 'redeemed'
+        ).length;
+        let totalExpiredVouchers = vouchers.filter(
+            (voucher) => voucher.status === 'expired'
+        ).length;
+        let totalUpcomingVouchers = vouchers.filter(
+            (voucher) => voucher.status === 'upcoming'
+        ).length;
+        let totalAmount = vouchers.reduce((acc, voucher) => {
+            if (voucher.status === 'valid') {
+                if (voucher.useType === 'single') {
+                    return acc + voucher.amount;
+                } else {
+                    return acc + voucher.balanceAmount;
+                }
+            } else {
+                return acc;
+            }
+        }, 0);
+        res.status(200).json({
+            message: 'Account Summary returned successfully',
+            data: {
+                totalVouchers,
+                totalValidVouchers,
+                totalRedeemedVouchers,
+                totalExpiredVouchers,
+                totalUpcomingVouchers,
+                totalAmount
+            }
+        });
+    } catch (error) {
+        res.status(400).json({
+            message: error.message
+        });
+    }
+};
+
 /********************** UTILITY APIS ***********************/
 
 const validateVoucherUtility = async (req, res) => {
@@ -888,5 +937,6 @@ module.exports = {
     trendingData,
     getAllMerchants,
     validateVoucherUtility,
-    redeemVoucherUtility
+    redeemVoucherUtility,
+    getAccountSummary
 };

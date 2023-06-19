@@ -18,7 +18,8 @@ const {
     trendingData,
     getAllMerchants,
     validateVoucherUtility,
-    redeemVoucherUtility
+    redeemVoucherUtility,
+    getAccountSummary
 } = require('../controllers/user');
 
 // Initializing router
@@ -112,6 +113,12 @@ router.post(
     '/utility/redeem-voucher',
     [authorizeJWT.verifyJWT, authorizeJWT.roleBeneficiary],
     redeemVoucherUtility
+);
+
+router.get(
+    '/account-summary',
+    [authorizeJWT.verifyJWT, authorizeJWT.roleBeneficiary],
+    getAccountSummary
 );
 
 module.exports = router;
