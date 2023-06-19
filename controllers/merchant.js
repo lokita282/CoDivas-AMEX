@@ -103,6 +103,9 @@ const redeemVoucher = async (req, res) => {
                 voucher._doc.balanceAmount < transactionAmount) ||
             (voucher.useType === 'single' && voucher.amount < transactionAmount)
         ) {
+            voucher.status = 'valid';
+            voucher.verificationCode = undefined;
+            await voucher.save();
             res.status(200).json({
                 success: false,
                 message: 'Insufficient Balance!'
