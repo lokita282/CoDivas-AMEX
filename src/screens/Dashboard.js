@@ -72,7 +72,7 @@ const Dashboard = () => {
       ) : data ? <ScrollView>
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.welcomeText}>Welcome, user !</Text>
+          <Text style={styles.welcomeText}>Welcome, {userData.name} !</Text>
           <View style={styles.profileIconContainer}>
               <TouchableOpacity style={styles.profileIcon}>
                 <Text style={styles.profileImage}>{userData.name.charAt(0)}</Text>
