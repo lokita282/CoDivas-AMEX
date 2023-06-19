@@ -24,9 +24,9 @@ const Card = ({ image, title, receivedDate, expiringDate }) => {
   );
 };
 
-const All = ({ route }) => {
+const All = ({ title }) => {
   const navigation = useNavigation();
-  const title=route.params.title;
+  //const title=route.params.title;
   const lowercaseTitle = title.charAt(0).toLowerCase() + title.slice(1);
   const [data, setData] = useState([]);
   const [userToken, setUserToken] = useState('');
@@ -70,7 +70,7 @@ const All = ({ route }) => {
 
       async function fetchData() {
         try {
-          const response = await fetch(`https://ez-rupi.onrender.com/api/beneficiary/multiple/${lowercaseTitle}`, requestOptions);
+          const response = await fetch(`https://ez-rupi.onrender.com/api/beneficiary/multiple/${lowercaseTitle}/upcoming`, requestOptions);
           const result = await response.json();
           setData(result.data);
         } catch (error) {
@@ -87,6 +87,7 @@ const All = ({ route }) => {
   if (isLoading) {
     return (
       <View style={styles.loader}>
+        {/* <Text>Loading</Text> */}
         <LottieView source={require('../assets/loader.json')} autoPlay loop />
       </View>
     );
@@ -95,7 +96,8 @@ const All = ({ route }) => {
   if (data.length === 0) {
     return (
       <View style={styles.noDataContainer}>
-        <LottieView source={require('../assets/notfound.json')} autoPlay loop />
+        <Image source={require('../assets/notfound.png')} style={styles.notfound}/>
+        {/* <LottieView source={require('../assets/not.json')} autoPlay loop /> */}
       </View>
     );
   }
@@ -104,7 +106,6 @@ const All = ({ route }) => {
     <ScrollView>
       <View style={styles.container}>
         {data.map((item, index) => (
-          <TouchableOpacity key={index} onPress={() => navigation.navigate('Redeem', { paramKey: item._id })} style={styles.card}>
             <Card
               key={item._id}
               image={item.issuedByLogo}
@@ -112,7 +113,6 @@ const All = ({ route }) => {
               receivedDate={item.startsAt.toString().slice(0, 10)}
               expiringDate={item.endsAt.toString().slice(0, 10)}
             />
-          </TouchableOpacity>
         ))}
       </View>
     </ScrollView>
@@ -180,6 +180,11 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
     color: 'black',
   },
+  notfound:{
+    resizeMode:'contain',
+    height:200,
+    width:300,
+  }
 });
 
 export default All;

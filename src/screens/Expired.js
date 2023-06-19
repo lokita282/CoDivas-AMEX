@@ -25,9 +25,9 @@ const Card = ({ image, title, receivedDate, expiringDate}) => {
   );
 };
 
-const Expired = ({route}) => {
+const Expired = ({title}) => {
   const navigation = useNavigation();
-  const title=route.params.title;
+  //const title=route.params.title;
   const lowercaseTitle = title.charAt(0).toLowerCase() + title.slice(1);
   const [data, setData] = useState([]);
   const [userToken,setUserToken] = useState('')
@@ -73,7 +73,8 @@ const Expired = ({route}) => {
   if (data.length === 0) {
     return (
       <View style={styles.noDataContainer}>
-        <LottieView source={require('../assets/notfound.json')} autoPlay loop />
+        <Image source={require('../assets/notfound.png')} style={styles.notfound}/>
+        {/* <LottieView source={require('../assets/notfound.json')} autoPlay loop /> */}
       </View>
     );
   }
@@ -82,15 +83,13 @@ const Expired = ({route}) => {
     <View style={styles.container}>
       {/* {console.log(data)} */}
       {data.map((item,index) => (
-      <TouchableOpacity onPress={() =>
-        navigation.navigate('Redeem',{paramKey:item._id})}style={styles.card} key={index}>
         <Card
           key={item._id}
           image={item.issuedByLogo}
           title={item.title}
           receivedDate={item.startsAt.toString().slice(0,10)}
           expiringDate={item.endsAt.toString().slice(0,10)}
-        /></TouchableOpacity>
+        />
       ))}
     </View>
   );
@@ -145,6 +144,11 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
   },
+  notfound:{
+    resizeMode:'contain',
+    height:200,
+    width:300,
+  }
 });
 
 export default Expired;

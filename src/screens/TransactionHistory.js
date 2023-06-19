@@ -61,7 +61,7 @@ const TransactionHistory = () => {
         <View>
         <Text style={styles.amount}>₹{transaction.amount}</Text></View>
         </View>
-        <Text style={styles.details}>Voucher ID :{transaction.voucherUid}</Text>
+        {/* <Text style={styles.details}>Voucher ID :{transaction.voucherUid}</Text> */}
         <Text style={styles.details}>{moment(transaction.datetime).format("MMM Do YYYY")} at {moment(transaction.datetime).format("h:mm a")} </Text>
       </View>
     ));
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     width: 350,
     height: 79,
     borderRadius: 5,
-    padding:5,
+    padding:10,
   },
   payee: {
     fontWeight: 'bold',
@@ -147,10 +147,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 18,
     color: '#000',
-    //marginLeft:70,
   },
   details: {
-    fontSize: 12,
+    fontSize: 13,
     color: '#000',
     marginTop: 4,
   },

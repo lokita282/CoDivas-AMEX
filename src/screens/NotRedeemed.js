@@ -1,97 +1,129 @@
+import React, { useState, useEffect } from "react";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import moment from "moment/moment";
+import { useNavigation } from "@react-navigation/native";
+import LottieView from "lottie-react-native";
 
-import React, { useState, useEffect } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import moment from 'moment/moment';
-import { useNavigation } from '@react-navigation/native';
-import LottieView from 'lottie-react-native';
-
-const Card = ({ image, title, receivedDate, expiringDate}) => {
+const Card = ({ image, title, receivedDate, expiringDate }) => {
   return (
-
     <View style={styles.cardContainer}>
-      <Image source={{uri:image}} style={styles.image} />
+      <Image source={{ uri: image }} style={styles.image} />
       <View style={styles.cardText}>
         <Text style={styles.title}>{title}</Text>
         <Text style={[styles.info, styles.dateText]}>
           {`Starts At - `}
-          <Text style={styles.normalText}>{moment(receivedDate).format("MMM Do, YYYY")}</Text>
+          <Text style={styles.normalText}>
+            {moment(receivedDate).format("MMM Do, YYYY")}
+          </Text>
         </Text>
         <Text style={[styles.info, styles.dateText]}>
           {`Ends At - `}
-          <Text style={styles.normalText}>{moment(expiringDate).format("MMM Do, YYYY")}</Text>
+          <Text style={styles.normalText}>
+            {moment(expiringDate).format("MMM Do, YYYY")}
+          </Text>
         </Text>
       </View>
     </View>
   );
 };
 
-const NotRedeemed = ({route}) => {
+const NotRedeemed = ({ title }) => {
   const navigation = useNavigation();
-  const title=route.params.title;
+  //const title=route.params.title;
   const lowercaseTitle = title.charAt(0).toLowerCase() + title.slice(1);
   const [data, setData] = useState([]);
-  const [userToken,setUserToken] = useState('')
+  const [userToken, setUserToken] = useState("");
   async function retrieveUserToken() {
     try {
-      const token = await AsyncStorage.getItem('userToken');
+      const token = await AsyncStorage.getItem("userToken");
       if (token !== null) {
         //console.log('User token retrieved successfully:', token);
         setUserToken(token);
       }
     } catch (error) {
-      console.log('Error retrieving user token:', error);
+      console.log("Error retrieving user token:", error);
     }
-  };
-  useEffect(()=>{
+  }
+  useEffect(() => {
     retrieveUserToken();
     //console.log(userToken);
-  })
+  });
 
-  useEffect(()=>{
-    const timer=setTimeout(()=>{
-    var myHeaders = new Headers();
-    myHeaders.append("Authorization", `Bearer ${userToken}`);
-  
-    var raw = "";
-  
-    var requestOptions = {
-      method: 'GET',
-      headers: myHeaders,
-      body: raw,
-      redirect: 'follow'
-    };
-    async function fetchData(){
-      await fetch(`https://ez-rupi.onrender.com/api/beneficiary/multiple/${lowercaseTitle}/valid`, requestOptions)
-      .then(response => response.json())
-      .then(result => (setData(result.data)))
-      .catch(error => console.log('error', error));
-    }
-    fetchData();},5000);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      var myHeaders = new Headers();
+      myHeaders.append("Authorization", `Bearer ${userToken}`);
+
+      var raw = "";
+
+      var requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow",
+      };
+      async function fetchData() {
+        await fetch(
+          `https://ez-rupi.onrender.com/api/beneficiary/multiple/${lowercaseTitle}/valid`,
+          requestOptions
+        )
+          .then((response) => response.json())
+          .then((result) => setData(result.data))
+          .catch((error) => console.log("error", error));
+      }
+      fetchData();
+    }, 5000);
     return () => clearTimeout(timer);
   });
 
   if (data.length === 0) {
     return (
       <View style={styles.noDataContainer}>
-        <LottieView source={require('../assets/notfound.json')} autoPlay loop />
+        <Image
+          source={require("../assets/notfound.png")}
+          style={styles.notfound}
+        />
+        {/* <LottieView source={require('../assets/notfound.json')} autoPlay loop /> */}
       </View>
     );
   }
-  
+
   return (
     <View style={styles.container}>
       {/* {console.log(data)} */}
-      {data.map((item,index) => (
-      <TouchableOpacity onPress={() =>
-        navigation.navigate('Redeem',{paramKey:item._id})}style={styles.card} key={index}>
-        <Card
-          key={item._id}
-          image={item.issuedByLogo}
-          title={item.title}
-          receivedDate={item.startsAt.toString().slice(0,10)}
-          expiringDate={item.endsAt.toString().slice(0,10)}
-        /></TouchableOpacity>
+      {data.map((item, index) => (
+        <TouchableOpacity
+          onPress={() => {
+            var myHeaders = new Headers();
+            myHeaders.append("Authorization", `Bearer ${userToken}`);
+
+            var requestOptions = {
+              method: "GET",
+              headers: myHeaders,
+              redirect: "follow",
+            };
+
+            fetch(
+              `https://ez-rupi.onrender.com/api/beneficiary/single/${item._id}`,
+              requestOptions
+            )
+              .then((response) => response.json())
+              .then((result) => navigation.navigate("Redeem", { paramKey: item._id,paramKey1:result.data ,paramKey2:userToken}))
+              .catch((error) => console.log("error", error));
+            
+          }}
+          style={styles.card}
+          key={index}
+        >
+          <Card
+            key={item._id}
+            image={item.issuedByLogo}
+            title={item.title}
+            receivedDate={item.startsAt.toString().slice(0, 10)}
+            expiringDate={item.endsAt.toString().slice(0, 10)}
+          />
+        </TouchableOpacity>
       ))}
     </View>
   );
@@ -102,20 +134,20 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   cardContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor:'white',
-    margin:10,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "white",
+    margin: 10,
     width: 370,
     height: 79,
-    borderRadius:5
+    borderRadius: 5,
     //marginBottom: 16,
   },
   image: {
     width: 30,
     height: 30,
     marginLeft: 20,
-    marginRight:30,
+    marginRight: 30,
     borderRadius: 4,
   },
   cardText: {
@@ -123,28 +155,33 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 15,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 4,
-    color:'black'
+    color: "black",
   },
   info: {
     fontSize: 12,
     margin: 3,
   },
   dateText: {
-    color: '#333333',
-    fontWeight: 'bold',
+    color: "#333333",
+    fontWeight: "bold",
   },
   normalText: {
-    fontWeight: 'normal',
-    color:'black'
+    fontWeight: "normal",
+    color: "black",
   },
   noDataContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff",
     flex: 1,
     padding: 20,
+  },
+  notfound: {
+    resizeMode: "contain",
+    height: 200,
+    width: 300,
   },
 });
 
