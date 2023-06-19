@@ -199,7 +199,7 @@ const categoryIcons = [
     },
     {
         category: 'education',
-        icon: 'https://res.cloudinary.com/dlwpoojua/image/upload/v1686638059/amex-hackathon/education_tfyoep.png'
+        icon: 'https://res.cloudinary.com/dlwpoojua/image/upload/v1687189893/amex-hackathon/education_tljczg.png'
     },
     {
         category: 'food',
