@@ -1,36 +1,44 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView,Dimensions,TextInput } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LottieView from 'lottie-react-native';
 import moment from 'moment/moment';
 
+const screenWidth = Dimensions.get("window").width;
 const TransactionHistory = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(null);
+  const [user,setUser]=useState(null);
   const [userToken,setUserToken] = useState('')
-  const [isLoading, setIsLoading] = useState(true);
-  async function retrieveUserToken() {
+  const [isLoading, setIsLoading] = useState(false);
+  // async function retrieveUserToken() {
+  //   try {
+  //     const token = await AsyncStorage.getItem('userToken');
+  //     if (token !== null) {
+  //       //console.log('User token retrieved successfully:', token);
+  //       setUserToken(token);
+  //     }
+  //   } catch (error) {
+  //     console.log('Error retrieving user token:', error);
+  //   }
+  // };
+  async function retrieveUser() {
     try {
-      const token = await AsyncStorage.getItem('userToken');
-      if (token !== null) {
-        //console.log('User token retrieved successfully:', token);
-        setUserToken(token);
+      const user = await AsyncStorage.getItem('codivasUser');
+      const userToken = await AsyncStorage.getItem('userToken');
+      if (user !== null && userToken !==null) {
+        setUser(JSON.parse(user));
+        setUserToken(userToken)
       }
     } catch (error) {
       console.log('Error retrieving user token:', error);
     }
-  };
+  }
   useEffect(()=>{
-    retrieveUserToken();
+    setIsLoading(true);
+    retrieveUser();
     //console.log(userToken);
   })
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 8000);
-    return () => clearTimeout(timer);
-  }, []);
   useEffect(()=>{
-    const timer=setTimeout(()=>{
     var myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${userToken}`);
   
@@ -48,12 +56,13 @@ const TransactionHistory = () => {
       .then(result => (setData(result.data)))
       .catch(error => console.log('error', error));
     }
-    fetchData();},5000);
-    return () => clearTimeout(timer);
+
+    fetchData();
+    {data && setIsLoading(false);}
   });
 
   const renderTransactionHistory = () => {
-    return data.map((transaction, index) => (
+    return data && data.map((transaction, index) => (
       <View style={styles.transactionContainer} key={index}>
         <View style={{flexDirection:'row',justifyContent:'space-between'}}>
         
@@ -66,29 +75,34 @@ const TransactionHistory = () => {
       </View>
     ));
   };
-  if (isLoading) {
-    return (
-      <View style={styles.loader}>
+  
+  return (
+
+    <>
+      {
+        isLoading?<View style={styles.loader}>
         <LottieView
       source={require('../assets/loader.json')} // Replace with the path to your Lottie animation file
       autoPlay
       loop
     />
-      </View>
-    );
-  }
-  return (
-    <ScrollView>
-    <View style={styles.container}>
-      <View style={styles.header}>
-      <TouchableOpacity style={styles.profileIcon}>
-          <Image source={require('../assets/profile.png')} style={styles.profileImage} />
-        </TouchableOpacity>
-      </View>
-      <Text style={styles.title}>Transaction History</Text>
-      <View style={styles.historyContainer}>{renderTransactionHistory()}</View>
-    </View>
-    </ScrollView>
+      </View>:
+        user? <ScrollView>
+        <View style={styles.container}>
+        <View style={styles.header}>
+          <TextInput style={styles.searchInput} placeholder="Search..." />
+          <TouchableOpacity style={styles.profileIcon}>
+            <Text style={styles.profileImage}>{user.name.charAt(0)}</Text>
+            {/* <Image source={require('../assets/profile.png')} style={styles.profileImage} /> */}
+          </TouchableOpacity>
+        </View>
+          <Text style={styles.title}>Transaction History</Text>
+          <View style={styles.historyContainer}>{renderTransactionHistory()}</View>
+        </View>
+        </ScrollView>:""
+      }
+    </>
+    
   );
 };
 
@@ -109,16 +123,31 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingVertical: 20,
-    paddingHorizontal: 16,
+    paddingVertical: 0.02 * screenWidth,
+    paddingHorizontal: 0.05 * screenWidth,
+    marginTop:50,
+  },
+  searchInput: {
+    flex: 1,
+    height: 50,
+    backgroundColor: '#ffffff',
+    borderRadius: 8,
+    paddingHorizontal: 0.03 * screenWidth,
   },
   profileIcon: {
-    marginLeft: 280,
+    marginLeft: 0.04 * screenWidth,
   },
   profileImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 15,
+    width: 0.13 * screenWidth,
+    height: 0.13 * screenWidth,
+    borderRadius: 0.04 * screenWidth,
+    backgroundColor:'#0E1D61',
+    borderRadius:50,
+    color:'white',
+    textAlign:'center',
+    fontSize:30,
+    padding:5,
+  
   },
   title: {
     fontSize: 24,

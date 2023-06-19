@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState,useEffect } from "react";
 import { View, Text, TextInput, Image, TouchableOpacity, StyleSheet, FlatList, Dimensions } from 'react-native';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const DOMAIN_DATA = [
   { id: 1, title: 'Agriculture', image: require('../assets/agriculture.png') },
@@ -17,6 +18,23 @@ const screenWidth = Dimensions.get('window').width;
 const numColumns = Math.floor(screenWidth / (DOMAIN_CARD_WIDTH + 35));
 
 const Category = ({ navigation,route }) => {
+
+  const [data,setData]=useState(null);
+  async function retrieveUserToken() {
+    try {
+      const user = await AsyncStorage.getItem('codivasUser');
+      if (user !== null) {
+        setData(JSON.parse(user));
+      }
+    } catch (error) {
+      console.log('Error retrieving user token:', error);
+    }
+  }
+
+  useEffect(() => {
+    retrieveUserToken();
+  }, []);
+  
   const renderItem = ({ item }) => (
     <TouchableOpacity
       onPress={() => navigation.navigate('TopTab',{paramKey:item.title})}
@@ -28,11 +46,14 @@ const Category = ({ navigation,route }) => {
   );
 
   return (
-    <View style={styles.container}>
+    <>
+    {
+      data?<View style={styles.container}>
       <View style={styles.header}>
         <TextInput style={styles.searchInput} placeholder="Search..." />
         <TouchableOpacity style={styles.profileIcon}>
-          <Image source={require('../assets/profile.png')} style={styles.profileImage} />
+          <Text style={styles.profileImage}>{data.name.charAt(0)}</Text>
+          {/* <Image source={require('../assets/profile.png')} style={styles.profileImage} /> */}
         </TouchableOpacity>
       </View>
       <FlatList
@@ -42,7 +63,10 @@ const Category = ({ navigation,route }) => {
         contentContainerStyle={styles.cardContainer}
         numColumns={3}
       />
-    </View>
+    </View>:""
+    }
+    </>
+    
   );
 };
 
@@ -60,7 +84,7 @@ const styles = StyleSheet.create({
   },
   searchInput: {
     flex: 1,
-    height: 0.09 * screenWidth,
+    height:50,
     backgroundColor: '#ffffff',
     borderRadius: 8,
     paddingHorizontal: 0.03 * screenWidth,
@@ -72,6 +96,13 @@ const styles = StyleSheet.create({
     width: 0.13 * screenWidth,
     height: 0.13 * screenWidth,
     borderRadius: 0.04 * screenWidth,
+    backgroundColor:'#0E1D61',
+    borderRadius:50,
+    color:'white',
+    textAlign:'center',
+    fontSize:30,
+    padding:5,
+  
   },
   cardContainer: {
     paddingHorizontal: 0.03 * screenWidth,
