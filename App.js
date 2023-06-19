@@ -18,6 +18,7 @@ import Verified from './src/screens/Verified';
 import Login from './src/screens/Login';
 import Splash from './src/screens/Splash';
 import IntroScreen from './src/screens/IntroScreen';
+import Details from './src/screens/Details';
 
 const Stack = createNativeStackNavigator();
 
@@ -96,6 +97,10 @@ const App = () => {
          <Stack.Screen 
           name="Verified"
           component={Verified}
+          options={{headerShown:false}}/>
+         <Stack.Screen 
+          name="Details"
+          component={Details}
           options={{headerShown:false}}/>
       </Stack.Navigator>
     </NavigationContainer>
