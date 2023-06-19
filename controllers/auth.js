@@ -22,7 +22,11 @@ const fourDigitNumber = (customString) =>
         (a, b) => a + parseInt(b.charCodeAt(0)).toString(16),
         ''
     ) % 10000;
-
+const toTitleCase = (str) =>
+    str.replace(
+        /(^\w|\s\w)(\S*)/g,
+        (_, m1, m2) => m1.toUpperCase() + m2.toLowerCase()
+    );
 const testTwilio = (req, res) => {
     try {
         client.messages
@@ -200,7 +204,9 @@ const signupMerchant = async (req, res) => {
             );
             if (gstDetailsRes.data && gstDetailsRes.data.data) {
                 if (gstDetailsRes.data.data.tradeName) {
-                    businessName = gstDetailsRes.data.data.tradeName;
+                    businessName = toTitleCase(
+                        gstDetailsRes.data.data.tradeName
+                    );
                     gstDetails = gstDetailsRes.data.data;
                 }
             }
