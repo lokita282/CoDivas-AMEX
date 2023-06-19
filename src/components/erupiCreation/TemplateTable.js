@@ -112,80 +112,67 @@ export default function TemplateTable() {
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell
-                align="center"
-                sx={{ fontFamily: 'Poppins', color: '#a2a2a2' }}
+                sx={{ fontFamily: 'Poppins', color: '#a2a2a2', fontSize:'10px' }}
               >
                 {row.title}
               </TableCell>
               <TableCell
-                align="center"
-                sx={{ fontFamily: 'Poppins', color: '#a2a2a2' }}
+                sx={{ fontFamily: 'Poppins', color: '#a2a2a2', fontSize:'10px' }}
               >
                 {row.startsAt}
               </TableCell>
               <TableCell
-                align="center"
-                sx={{ fontFamily: 'Poppins', color: '#a2a2a2' }}
+                sx={{ fontFamily: 'Poppins', color: '#a2a2a2', fontSize:'10px' }}
               >
                 {row.endsAt}
               </TableCell>
               <TableCell
-                align="center"
-                sx={{ fontFamily: 'Poppins', color: '#a2a2a2' }}
+                sx={{ fontFamily: 'Poppins', color: '#a2a2a2', fontSize:'10px' }}
               >
                 {row.orgId}
               </TableCell>
               <TableCell
-                align="center"
-                sx={{ fontFamily: 'Poppins', color: '#a2a2a2' }}
+                sx={{ fontFamily: 'Poppins', color: '#a2a2a2', fontSize:'10px' }}
               >
                 {row.beneName}
               </TableCell>
               <TableCell
-                align="center"
-                sx={{ fontFamily: 'Poppins', color: '#a2a2a2' }}
+                sx={{ fontFamily: 'Poppins', color: '#a2a2a2', fontSize:'10px' }}
               >
                 {row.benePhone}
               </TableCell>
               <TableCell
-                align="center"
-                sx={{ fontFamily: 'Poppins', color: '#a2a2a2' }}
+                sx={{ fontFamily: 'Poppins', color: '#a2a2a2', fontSize:'10px' }}
               >
                 {row.govtIdType}
               </TableCell>
               <TableCell
-                align="center"
-                sx={{ fontFamily: 'Poppins', color: '#a2a2a2' }}
+                sx={{ fontFamily: 'Poppins', color: '#a2a2a2', fontSize:'10px' }}
               >
                 {row.govtIdNum}
               </TableCell>
               <TableCell
-                align="center"
-                sx={{ fontFamily: 'Poppins', color: '#a2a2a2' }}
+                sx={{ fontFamily: 'Poppins', color: '#a2a2a2', fontSize:'10px' }}
               >
                 {row.category}
               </TableCell>
               <TableCell
-                align="center"
-                sx={{ fontFamily: 'Poppins', color: '#a2a2a2' }}
+                sx={{ fontFamily: 'Poppins', color: '#a2a2a2', fontSize:'10px' }}
               >
                 {row.state}
               </TableCell>
               <TableCell
-                align="center"
-                sx={{ fontFamily: 'Poppins', color: '#a2a2a2' }}
+                sx={{ fontFamily: 'Poppins', color: '#a2a2a2', fontSize:'10px' }}
               >
                 {row.desc}
               </TableCell>
               <TableCell
-                align="center"
-                sx={{ fontFamily: 'Poppins', color: '#a2a2a2' }}
+                sx={{ fontFamily: 'Poppins', color: '#a2a2a2', fontSize:'10px' }}
               >
                 {row.amount}
               </TableCell>
               <TableCell
-                align="center"
-                sx={{ fontFamily: 'Poppins', color: '#a2a2a2' }}
+                sx={{ fontFamily: 'Poppins', color: '#a2a2a2', fontSize:'10px' }}
               >
                 {row.useType}
               </TableCell>

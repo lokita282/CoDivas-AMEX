@@ -69,7 +69,7 @@ export default function Utility() {
                                             </AvatarGroup>
                                             <div>
                                                 <Typography variant='p' sx={bold_name}>{ca.title}</Typography>
-                                                <p style={{ ...ptag, fontSize: '11px' }} ><b>Starts At -</b> {moment(ca.startsAt).format("MMMM DD, YYYY")}</p>
+                                                <p style={{ ...ptag, fontSize: '11px' }} ><b>Received On -</b> {moment(ca.startsAt).format("MMMM DD, YYYY")}</p>
                                                 <p style={{ ...ptag, fontSize: '11px' }} ><b>Ends At - </b>{moment(ca.endsAt).format("MMMM DD, YYYY")}</p>
                                             </div>
 
@@ -98,7 +98,7 @@ export default function Utility() {
                                             </AvatarGroup>
                                             <div>
                                                 <Typography variant='p' sx={bold_name}>{ca.title}</Typography>
-                                                <p style={{ ...ptag, fontSize: '11px' }} ><b>Starts At -</b> {moment(ca.startsAt).format("MMMM DD, YYYY")}</p>
+                                                <p style={{ ...ptag, fontSize: '11px' }} ><b>Received On -</b> {moment(ca.startsAt).format("MMMM DD, YYYY")}</p>
                                                 <p style={{ ...ptag, fontSize: '11px' }} ><b>Ends At - </b>{moment(ca.endsAt).format("MMMM DD, YYYY")}</p>
                                             </div>
 
@@ -126,7 +126,7 @@ export default function Utility() {
                                             </AvatarGroup>
                                             <div>
                                                 <Typography variant='p' sx={bold_name}>{ca.title}</Typography>
-                                                <p style={{ ...ptag, fontSize: '11px' }} ><b>Starts At -</b> {moment(ca.startsAt).format("MMMM DD, YYYY")}</p>
+                                                <p style={{ ...ptag, fontSize: '11px' }} ><b>Received On -</b> {moment(ca.startsAt).format("MMMM DD, YYYY")}</p>
                                                 <p style={{ ...ptag, fontSize: '11px' }} ><b>Ends At - </b>{moment(ca.endsAt).format("MMMM DD, YYYY")}</p>
                                             </div>
 
@@ -154,7 +154,7 @@ export default function Utility() {
                                             </AvatarGroup>
                                             <div>
                                                 <Typography variant='p' sx={bold_name}>{ca.title}</Typography>
-                                                <p style={{ ...ptag, fontSize: '11px' }} ><b>Starts At -</b> {moment(ca.startsAt).format("MMMM DD, YYYY")}</p>
+                                                <p style={{ ...ptag, fontSize: '11px' }} ><b>Received On -</b> {moment(ca.startsAt).format("MMMM DD, YYYY")}</p>
                                                 <p style={{ ...ptag, fontSize: '11px' }} ><b>Ends At - </b>{moment(ca.endsAt).format("MMMM DD, YYYY")}</p>
                                             </div>
 

@@ -53,6 +53,7 @@ const CreateErupi = () => {
         onChange={handleChange}
         aria-label="basic tabs example"
         centered
+        sx={{width:'90vw'}}
         >
         <Tab label="Single Voucher creation" {...a11yProps(0)} />
         <Tab label="Bulk Voucher creation" {...a11yProps(1)} />

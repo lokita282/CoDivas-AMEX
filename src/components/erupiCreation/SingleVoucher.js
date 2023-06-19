@@ -209,7 +209,7 @@ const SingleVoucher = () => {
       justifyContent="center"
     >
       <Paper style={styles.paperContainer}>
-        <Typography variant="h4" style={styles.gradientText}>
+        <Typography variant="h6" style={styles.gradientText}>
           <b>Generate an e-₹UPI voucher for a single beneficiary</b>
         </Typography>
         <Grid container spacing={2} style={styles.gridContainer}>

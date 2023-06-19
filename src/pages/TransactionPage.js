@@ -30,7 +30,7 @@ export default function TransactionPage() {
   return (
     <SideDrawer>
         {
-            !trans.length ? <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+            !trans.length ? <Box sx={{ width: '100%',height:'85vh', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
             <Loading />
           </Box> :<Grid container sx={{padding:{md:'0% 30%', xs:'2%'}}}>
           <Typography variant='v5' sx={bold_name}>Transaction History</Typography>

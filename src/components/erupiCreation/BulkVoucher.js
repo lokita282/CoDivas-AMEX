@@ -1,5 +1,6 @@
 import {React, useState} from 'react'
 import { Paper, Typography, Grid, Button, TextField } from '@mui/material'
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import {
   bold_name,
   btn_connect,
@@ -34,7 +35,7 @@ const styles = {
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
     fontFamily: 'Poppins',
-    padding: '15px 0px',
+    padding: '10px 0px',
   },
   downloadBtn: {
     background: 'radial-gradient( #7E8AFF, #375EC0)',
@@ -148,32 +149,28 @@ const BulkVoucher = () => {
     <>
       <Grid
         container
-        spacing={0}
-        direction="column"
-        alignItems="center"
-        justifyContent="center"
+        sx={{display:'flex', justifyContent:'center', width:'90vw'}}
       >
         <Paper style={styles.paperContainer}>
           <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <Typography variant="h4" style={styles.gradientText}>
+            <Grid item xs={9}>
+              <Typography variant="h6" style={styles.gradientText}>
                 <b>Generate multiple e-₹UPI vouchers at once</b>
               </Typography>
-            </Grid>
-            <Grid item xs={9}>
               <Typography
                 variant="body1"
                 sx={{
                   color: '#a2a2a2',
                   fontFamily: 'Poppins',
+                  ...ptag
                 }}
               >
                 Generate multiple e-₹UPI vouchers by CSV upload. Download the
                 template to get started!
               </Typography>
             </Grid>
-            <Grid item xs={3} sx={{ display: 'flex', justifyContent: 'end' }}>
-              <Button onClick={handleDownload} sx={btn_connect}>
+            <Grid item xs={3} sx={{ display: 'flex', justifyContent: 'center', alignItems:'center'}}>
+              <Button size='small' onClick={handleDownload} sx={{...btn_connect, height:'60%', width:'auto'}}>
                 Download Template
               </Button>
             </Grid>
@@ -183,6 +180,7 @@ const BulkVoucher = () => {
                 sx={{
                   color: '#a2a2a2',
                   fontFamily: 'Poppins',
+                  ...ptag,
                   paddingTop: '20px',
                 }}
               >
@@ -222,7 +220,7 @@ const BulkVoucher = () => {
                 paddingBottom: '20px',
               }}
             >
-              <Button sx={btn_bank} onClick={handleSubmit}>
+              <Button sx={btn_bank} startIcon={<CloudUploadIcon />} onClick={handleSubmit}>
                 Upload Data
               </Button>{' '}
             </Grid>

@@ -7,6 +7,7 @@ import { styled } from '@mui/material/styles'
 import eRUPIImage from '../images/erupi.png'
 import bankDashboard from '../assets/bankDashboard.json'
 import BankAnalytics from '../components/dashboard/BankDashboardAnalysis'
+import gipphy from '../images/gipphy22.png'
 
 const styles = {
   imgPaperContainer: {
@@ -35,13 +36,11 @@ const styles = {
     fontFamily: 'Poppins',
     padding: '15px 0px',
   },
-  proceedBtn: {
+  payBtn: {
     background: 'radial-gradient( #7E8AFF, #375EC0)',
     color: '#fff',
-    padding: '10px 20px',
     border: 'none',
     cursor: 'pointer',
-    marginTop: 20,
     borderRadius: '20px',
     width: '30%',
     height: '10.5%',
@@ -62,42 +61,34 @@ export default function DashboardPage() {
   }
 
   return (
-    <Grid container spacing={2} sx={{ padding: 5 }}>
-      <Grid item xs={6.5}>
-        <Paper style={styles?.imgPaperContainer}>
-          {/* <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST7SRW4J8PGymU6U8QnIxL15Gmn-FC9kx6Fxh5iRfO-PFcNV5vnJtNStr_L24837G_aog&usqp=CAU"
-            alt="buildqr"
-            style={{
-              display: 'block',
-              marginLeft: 'auto',
-              marginRight: 'auto',
-              width: '70%',
-              paddingTop: '80px',
-            }}
-          /> */}
+    <Grid container columnSpacing={2} >
+
+      <Grid item xs={0} md={7} sx={{ padding: '0', position: 'relative', margin: '0', display: 'flex', justifyContent: 'flex-start' }}>
+       
+        <img style={{ marginTop: '-15px',  height: '89vh' }} src={gipphy} />
           <Lottie
             options={defaultOptions}
-            height={440}
-            width={400}
+            height={340}
+            width={340}
             speed={1.25}
+            style={{ position: 'absolute', top: '165px', left: '150px' }}
           />
-        </Paper>
       </Grid>
-      <Grid item xs={5.5}>
+      <Grid item xs={5}>
         <Paper style={styles.paperContainer} elevation={0}>
           <Typography variant="h1" style={styles?.gradientText}>
             <b>
               Generate <br /> e-₹UPI
             </b>
           </Typography>
-          <Button onClick={() => navigate('/bank/createerupi')} sx={btn_bank}>
-            <b>Proceed ➤</b>
-          </Button>
+         
+          <Button onClick={() => navigate('/bank/createerupi')} sx={{ color: '#fff', fontFamily: 'Poppins', width:'auto', ...styles.payBtn }}>
+              <b>Proceed ➤</b>
+            </Button>
         </Paper>
       </Grid>
       <Grid item xs={12} sx={{ marginTop: 7.5 }}>
-        <Typography variant="h3" style={styles?.gradientText}>
+        <Typography variant="h5" style={styles?.gradientText}>
           <b>Analytics</b>
         </Typography>
       </Grid>
