@@ -64,7 +64,7 @@ export default function OTPScreen({navigation,route}) {
           style={styles.lottie}
         />
       <Text style={styles.liner}>Your verification code is :</Text>
-      <Text style={styles.otpText}>1234</Text>
+      <Text style={styles.otpText}>{otp}</Text>
 
       {/* <Text style={styles.otpText}>{otp}</Text> */}
     </View>

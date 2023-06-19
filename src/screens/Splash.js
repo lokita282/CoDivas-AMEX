@@ -30,7 +30,7 @@ const Splash = ({ navigation }) => {
       // Navigate to the next screen after successful authentication
       const timer = setTimeout(() => {
         navigation.navigate('IntroScreen');
-      }, 7000);
+      }, 5000);
 
       // Clear the timer when the component is unmounted
       return () => clearTimeout(timer);
