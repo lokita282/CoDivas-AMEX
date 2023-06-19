@@ -41,28 +41,38 @@ const NumOfCards = () => {
                   minWidth: 275,
                   backgroundColor: '#1d1d1d',
                   borderRadius: '10px',
-                  height: '100%',
+                  // height: '100%',
                   padding: '10px',
                   margingBottom: '0%',
                   paddingBottom: '0% !important',
                 }}
               >
-                <CardContent sx={{ display: 'flex', flexDirection: 'row' }}>
+                <CardContent
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}
+                >
                   <Grid item xs={3}>
                     <Icon
                       icon="ic:twotone-emoji-people"
                       color={'#fff'}
-                      width="50"
-                      height="50"
-                      style={{ padding: '30px' }}
+                      width="55"
+                      height="55"
+                      style={{ padding: '10px' }}
                     />
                   </Grid>
-                  <Grid item xs={9}>
+                  <Grid
+                    item
+                    xs={9}
+                    sx={{ display: 'flex', flexDirection: 'column' }}
+                  >
                     <Typography
-                      variant="h6"
+                      variant="body1"
                       color="#fff"
                       style={{
-                        borderLeft: '0.1em solid white',
+                        // borderLeft: '0.1em solid #ffffff5c',
                         padding: '0.5em',
                         display: 'flex',
                         justifyContent: 'center',
@@ -70,26 +80,20 @@ const NumOfCards = () => {
                       }}
                       align="center"
                     >
-                      Number of Registered Merchants
+                      Registered Merchants
                     </Typography>
-                    <Grid item xs={3}></Grid>
-                    <Grid item xs={9}>
-                      <Typography
-                        variant="h6"
-                        color="#fff"
-                        style={{
-                          borderLeft: '0.1em solid white',
-                          padding: '0.5em',
-                          paddingLeft: '3.5em',
-                          display: 'flex',
-                          justifyContent: 'center',
-                          fontFamily: 'Poppins',
-                        }}
-                        align="center"
-                      >
-                        <b>{entities?.merchants.length}</b>
-                      </Typography>
-                    </Grid>
+                    <Typography
+                      variant="h1"
+                      color="#fff"
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        fontFamily: 'Poppins',
+                      }}
+                      align="center"
+                    >
+                      <b>{entities?.merchants.length}</b>
+                    </Typography>
                   </Grid>
                 </CardContent>
               </Card>
@@ -101,56 +105,58 @@ const NumOfCards = () => {
                   minWidth: 275,
                   backgroundColor: '#1d1d1d',
                   borderRadius: '10px',
-                  height: '100%',
                   padding: '10px',
                   margingBottom: '0%',
                   paddingBottom: '0% !important',
                 }}
               >
-                <CardContent sx={{ display: 'flex', flexDirection: 'row' }}>
+                <CardContent
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}
+                >
                   <Grid item xs={3}>
                     <Icon
                       icon="mdi:bank-check"
                       color={'#fff'}
                       width="50"
                       height="50"
-                      style={{ padding: '30px' }}
+                      style={{ padding: '10px' }}
                     />
                   </Grid>
-                  <Grid item xs={9}>
+                  <Grid
+                    item
+                    xs={9}
+                    sx={{ display: 'flex', flexDirection: 'column' }}
+                  >
                     <Typography
-                      variant="h6"
+                      variant="body1"
                       color="#fff"
                       style={{
-                        borderLeft: '0.1em solid white',
+                        // borderLeft: '0.1em solid #ffffff5c',
                         padding: '0.5em',
                         display: 'flex',
                         justifyContent: 'center',
-                        // height: '100%',
                         fontFamily: 'Poppins',
                       }}
                       align="center"
                     >
-                      Number of Registered Banks
+                      Registered Banks
                     </Typography>
-                    <Grid item xs={3}></Grid>
-                    <Grid item xs={9}>
-                      <Typography
-                        variant="h6"
-                        color="#fff"
-                        style={{
-                          borderLeft: '0.1em solid white',
-                          padding: '0.5em',
-                          paddingLeft: '3.5em',
-                          display: 'flex',
-                          justifyContent: 'center',
-                          fontFamily: 'Poppins',
-                        }}
-                        align="center"
-                      >
-                        <b>{entities?.bankUsers.length}</b>
-                      </Typography>
-                    </Grid>
+                    <Typography
+                      variant="h1"
+                      color="#fff"
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        fontFamily: 'Poppins',
+                      }}
+                      align="center"
+                    >
+                      <b>{entities?.bankUsers.length}</b>
+                    </Typography>
                   </Grid>
                 </CardContent>
               </Card>
@@ -162,56 +168,58 @@ const NumOfCards = () => {
                   minWidth: 275,
                   backgroundColor: '#1d1d1d',
                   borderRadius: '10px',
-                  height: '100%',
                   padding: '10px',
                   margingBottom: '0%',
                   paddingBottom: '0% !important',
                 }}
               >
-                <CardContent sx={{ display: 'flex', flexDirection: 'row' }}>
+                <CardContent
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}
+                >
                   <Grid item xs={3}>
                     <Icon
                       icon="mdi:account-group-outline"
                       color={'#fff'}
                       width="50"
                       height="50"
-                      style={{ padding: '30px' }}
+                      style={{ padding: '10px' }}
                     />
                   </Grid>
-                  <Grid item xs={9}>
+                  <Grid
+                    item
+                    xs={9}
+                    sx={{ display: 'flex', flexDirection: 'column' }}
+                  >
                     <Typography
-                      variant="h6"
+                      variant="body1"
                       color="#fff"
                       style={{
-                        borderLeft: '0.1em solid white',
+                        // borderLeft: '0.1em solid #ffffff5c',
                         padding: '0.5em',
                         display: 'flex',
                         justifyContent: 'center',
-                        // height: '100%',
                         fontFamily: 'Poppins',
                       }}
                       align="center"
                     >
-                      Number of Registered Organisations
+                      Registered Organisations
                     </Typography>
-                    <Grid item xs={3}></Grid>
-                    <Grid item xs={9}>
-                      <Typography
-                        variant="h6"
-                        color="#fff"
-                        style={{
-                          borderLeft: '0.1em solid white',
-                          padding: '0.5em',
-                          paddingLeft: '3.5em',
-                          display: 'flex',
-                          justifyContent: 'center',
-                          fontFamily: 'Poppins',
-                        }}
-                        align="center"
-                      >
-                        <b>{entities?.organisationDetails.length}</b>
-                      </Typography>
-                    </Grid>
+                    <Typography
+                      variant="h1"
+                      color="#fff"
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        fontFamily: 'Poppins',
+                      }}
+                      align="center"
+                    >
+                      <b>{entities?.organisationDetails.length}</b>
+                    </Typography>
                   </Grid>
                 </CardContent>
               </Card>
@@ -228,21 +236,21 @@ const NumOfCards = () => {
               >
                 Registered Merchant Details
               </Typography>
-              <TableContainer component={Paper}>
+              <TableContainer component={Paper} sx={{ borderRadius: '10px' }}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                   <TableHead>
                     <TableRow sx={{ backgroundColor: 'rgba(55, 94, 192, 1)' }}>
                       <TableCell sx={{ fontFamily: 'Poppins', color: '#fff' }}>
-                        Business Name
+                        <b>Business Name</b>
                       </TableCell>
                       <TableCell sx={{ fontFamily: 'Poppins', color: '#fff' }}>
-                        GST No.
+                        <b>GST No.</b>
                       </TableCell>
                       <TableCell sx={{ fontFamily: 'Poppins', color: '#fff' }}>
-                        UID
+                        <b>UID</b>
                       </TableCell>
                       <TableCell sx={{ fontFamily: 'Poppins', color: '#fff' }}>
-                        ID
+                        <b>ID</b>
                       </TableCell>
                     </TableRow>
                   </TableHead>
@@ -292,15 +300,15 @@ const NumOfCards = () => {
               >
                 Registered Organization Details
               </Typography>
-              <TableContainer component={Paper}>
+              <TableContainer component={Paper} sx={{ borderRadius: '10px' }}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                   <TableHead>
                     <TableRow sx={{ backgroundColor: 'rgba(55, 94, 192, 1)' }}>
                       <TableCell sx={{ fontFamily: 'Poppins', color: '#fff' }}>
-                        Organization Name
+                        <b>Organization Name</b>
                       </TableCell>
                       <TableCell sx={{ fontFamily: 'Poppins', color: '#fff' }}>
-                        Organization ID
+                        <b>Organization </b>
                       </TableCell>
                     </TableRow>
                   </TableHead>
@@ -357,25 +365,24 @@ const NumOfCards = () => {
               >
                 Registered Bank Details
               </Typography>
-              <TableContainer component={Paper}>
+              <TableContainer component={Paper} sx={{ borderRadius: '10px' }}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                   <TableHead>
                     <TableRow sx={{ backgroundColor: 'rgba(55, 94, 192, 1)' }}>
-                      {/* <TableCell sx={{ fontFamily: 'Poppins' }}></TableCell> */}
                       <TableCell sx={{ fontFamily: 'Poppins', color: '#fff' }}>
-                        Bank
+                        <b>Bank</b>
                       </TableCell>
                       <TableCell sx={{ fontFamily: 'Poppins', color: '#fff' }}>
-                        PAN No.
+                        <b> PAN No. </b>
                       </TableCell>
                       <TableCell sx={{ fontFamily: 'Poppins', color: '#fff' }}>
-                        Registered Contact No.
+                        <b>Registered Contact No.</b>
                       </TableCell>
                       <TableCell sx={{ fontFamily: 'Poppins', color: '#fff' }}>
-                        Vouchers Issued
+                        <b>Vouchers Issued</b>
                       </TableCell>
                       <TableCell sx={{ fontFamily: 'Poppins', color: '#fff' }}>
-                        ID
+                        <b>ID</b>
                       </TableCell>
                     </TableRow>
                   </TableHead>
