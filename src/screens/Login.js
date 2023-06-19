@@ -27,18 +27,22 @@ export default function Login({ navigation }) {
   const [tok, setTok] = useState("");
 
   const storeUserToken = async (res) => {
+    console.log(res);
     try {
-      console.log(res);
       let token = res.token;
       await AsyncStorage.setItem("userToken", token);
       await AsyncStorage.setItem("codivasUser", JSON.stringify(res.user));
       setLoading(false);
       console.log("User token stored successfully!", res.token);
       console.log(await AsyncStorage.getItem("codivasUser"));
+      navigation.navigate("BottomTab")
     } catch (error) {
       console.log("Error storing user token:", error);
+      setLoading(false);
+      Alert.alert(res.message);
+
     }
-    navigation.navigate("BottomTab");
+    // navigation.navigate("BottomTab");
   };
 
   const submitPressed = () => {
