@@ -26,8 +26,9 @@ const Card = ({ image, title, receivedDate, expiringDate}) => {
   );
 };
 
-const NotRedeemed = ({title}) => {
+const NotRedeemed = ({route}) => {
   const navigation = useNavigation();
+  const title=route.params.title;
   const lowercaseTitle = title.charAt(0).toLowerCase() + title.slice(1);
   const [data, setData] = useState([]);
   const [userToken,setUserToken] = useState('')
