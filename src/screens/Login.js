@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useCallback,useEffect } from "react";
 import {
   Button,
   StyleSheet,
@@ -25,6 +25,7 @@ export default function Login({ navigation }) {
   const [isLoading, setIsLoading] = useState(false);
   const [loadingText, setLoadingText] = useState("");
   const [tok, setTok] = useState("");
+  const [font, setFont] = useState(false);
 
   const storeUserToken = async (res) => {
     console.log(res);
@@ -77,6 +78,7 @@ export default function Login({ navigation }) {
     }
     fetchData();
   };
+
 
   return (
     <SafeAreaView style={styles.container}>
