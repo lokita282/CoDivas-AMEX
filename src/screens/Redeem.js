@@ -16,12 +16,7 @@ const ProfileIcon = () => {
 
 const Redeem = ({ navigation, route }) => {
   const [status,setStatus]=useState(false);
-  const governmentLogo = require("../assets/govt.png");
-  const bankLogo = require("../assets/bank.png");
   const eRupi = require("../assets/erupi.png");
-  const schemeTitle = "PM-JAY";
-  const singleUse = "Single Use";
-  const amount = "INR 5000";
   const id = route.params.paramKey;
   const data =route.params.paramKey1;
   const userToken=route.params.paramKey2;
@@ -53,7 +48,7 @@ const Redeem = ({ navigation, route }) => {
           setStatus(result.scanned);
           console.log(result.scanned);
           if (result.scanned) {
-            navigation.navigate("Otp", { paramKey: id, code: result.verificationCode, token:userToken });
+            navigation.navigate("Otp", { paramKey: id, code: result.verificationCode, token:userToken ,bankLogo:data.issuedByLogo, orgLogo:data.orgLogo});
           }
         }
       } catch (error) {

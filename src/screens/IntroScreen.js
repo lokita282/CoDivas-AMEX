@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { View, Image, Text, StyleSheet } from 'react-native';
 import LottieView from 'lottie-react-native';
+
+
 const IntroScreen = ({navigation}) => {
 
     useEffect(() => {
@@ -20,7 +22,7 @@ const IntroScreen = ({navigation}) => {
         autoPlay
         loop
       />
-        <Image source={require('../assets/logo.png')} style={styles.logo} />
+        <Image source={require('../assets/logo.gif')} style={styles.logo} />
         <Text style={styles.tagline}>Empowering Seamless Transactions, the eZ-RUPI Way!</Text>
       </View>
     );
@@ -28,6 +30,7 @@ const IntroScreen = ({navigation}) => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
+      backgroundColor:'white',
       justifyContent: 'center',
       alignItems: 'center',
       padding:50

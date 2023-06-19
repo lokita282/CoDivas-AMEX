@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet,Image,Dimensions } from 'react-native';
+import LottieView from 'lottie-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+const screenWidth = Dimensions.get('window').width;
 
 export default function OTPScreen({navigation,route}) {
   //const [otp, setOTP] = useState('');
@@ -9,6 +11,8 @@ export default function OTPScreen({navigation,route}) {
   const id=route.params.paramKey;
   const otp=route.params.code;
   const userToken=route.params.token;
+  const bank=route.params.bankLogo;
+  const org=route.params.orgLogo;
   console.log(id)
   
   useEffect(() => {
@@ -53,7 +57,16 @@ export default function OTPScreen({navigation,route}) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.otpText}>{otp}</Text>
+      <LottieView
+          source={require('../assets/otp2.json')}
+          autoPlay
+          loop
+          style={styles.lottie}
+        />
+      <Text style={styles.liner}>Your verification code is :</Text>
+      <Text style={styles.otpText}>1234</Text>
+
+      {/* <Text style={styles.otpText}>{otp}</Text> */}
     </View>
   );
 }
@@ -61,8 +74,17 @@ export default function OTPScreen({navigation,route}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor:'white',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  lottie:{
+    width:200,
+    height:200,
+
+  },
+  container1: {
+    backgroundColor:'white',
   },
   loadingText: {
     fontSize: 20,
@@ -70,9 +92,27 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   otpText: {
-    fontSize: 48,
-    fontWeight: 'bold',
-    color: '#375EC0',
+    fontSize: 70,
+    fontWeight: '700',
+    color: '#4A4A4A',
     textAlign: 'center',
+  },
+  liner: {
+    fontSize: 20,
+    color: '#4A4A4A',
+    textAlign: 'center',
+  },
+  logoContainer: {
+    flexDirection: "row",
+    justifyContent:'space-between',
+    marginBottom: 16,
+    marginTop: 13,
+    padding:30,
+    width:screenWidth,
+  },
+  logo: {
+    width: 50,
+    height: 50,
+    borderRadius: 50,
   },
 });

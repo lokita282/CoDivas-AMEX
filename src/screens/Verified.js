@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet,Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import LottieView from 'lottie-react-native';
 
 export default function Verified({navigation,route}) {
   const [isVerified, setIsVerified] = useState(null);
@@ -18,7 +19,13 @@ export default function Verified({navigation,route}) {
   return (
     <View style={styles.container}>
       {status ? (
-        <Text style={[styles.statusIcon, styles.greenTick]}>✓</Text>
+        <View style={styles.container}>
+        <LottieView
+          source={require('../assets/verified.json')}
+          autoPlay
+          loop
+        />
+        <Text style={styles.label}>Redemption successful.</Text></View>
       ) : (
         <Text style={[styles.statusIcon, styles.redCross]}>✕</Text>
       )}
@@ -48,4 +55,14 @@ const styles = StyleSheet.create({
   redCross: {
     color: 'red',
   },
+  verified: {
+    width: 200,
+    height: 200,
+  },
+  label:{
+    marginTop:200,
+    fontSize:20,
+    color:'gray',
+    fontWeight:'bold'
+  }
 });
