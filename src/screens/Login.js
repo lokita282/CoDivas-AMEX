@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   Button,
   StyleSheet,
@@ -10,6 +10,7 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import LottieView from "lottie-react-native";
@@ -19,21 +20,31 @@ export default function Login({ navigation }) {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [aadhar, setAadhar] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [loadingText, setLoadingText] = useState("");
   const [tok, setTok] = useState("");
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  useEffect(() => {
+    if (loading) {
+      setIsAnimating(true);
+    } else {
+      setIsAnimating(false);
+    }
+  }, [loading]);
+
 
   const storeUserToken = async (res) => {
     try {
-      console.log(res)
-      let token = res.token
+      console.log(res);
+      let token = res.token;
       await AsyncStorage.setItem("userToken", token);
       await AsyncStorage.setItem("codivasUser", JSON.stringify(res.user));
-setLoading(false)
+      setLoading(false);
       console.log("User token stored successfully!", res.token);
-      console.log(await AsyncStorage.getItem("codivasUser"))
+      console.log(await AsyncStorage.getItem("codivasUser"));
     } catch (error) {
       console.log("Error storing user token:", error);
     }
@@ -41,7 +52,11 @@ setLoading(false)
   };
 
   const submitPressed = () => {
-    setLoading(true)
+    if (number.trim() === "" || password.trim() === "") {
+      Alert.alert("Error", "Please enter both phone number and password");
+      return;
+    }
+    setLoading(true);
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -58,7 +73,10 @@ setLoading(false)
     };
 
     async function fetchData() {
-      await fetch("https://ez-rupi.onrender.com/api/auth/login", requestOptions)
+      await fetch(
+        "https://ez-rupi.onrender.com/api/auth/login",
+        requestOptions
+      )
         .then((response) => response.json())
         .then((result) => storeUserToken(result))
         .catch((error) => console.log("error", error));
@@ -96,7 +114,7 @@ setLoading(false)
               onChangeText={(text) => setPassword(text)}
             />
           </View>
-          
+
           {/* <Button
               title="Login"
               onPress={() => {
@@ -105,23 +123,28 @@ setLoading(false)
               color="#375EC0"
               style={styles.btn}
             /> */}
-          {loading ? <View style={{flex:0.01, justifyContent:'center', left:160}}>
-
-          <LottieView
-              source={require("../assets/load.json")} 
-              autoPlay
-              loop
-              style={{height:50}}
-            /></View> : <TouchableOpacity onPress={() => submitPressed()} style={styles.btnContainer} >
-            <Text style={styles.btn}>Signin</Text>
-          </TouchableOpacity>}
+          {loading ? (
+            <View style={styles.loaderContainer}>
+            <LottieView
+              source={require("../assets/load.json")}
+              autoPlay={isAnimating}
+              loop={isAnimating}
+              style={styles.loader}
+            />
+          </View>
+          ) : (
+            <TouchableOpacity onPress={() => submitPressed()} style={styles.btnContainer}>
+              <Text style={styles.btn}>Signin</Text>
+            </TouchableOpacity>
+          )}
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("Register");
             }}
           >
             <Text style={styles.registerText}>
-              Don't have an account? <Text style={styles.link}>Signup</Text>
+              Don't have an account?{" "}
+              <Text style={styles.link}>Signup</Text>
             </Text>
           </TouchableOpacity>
         </ScrollView>
@@ -160,9 +183,9 @@ const styles = StyleSheet.create({
     textAlign: "left",
     color: "black",
     marginBottom: 10,
-    fontWeight: 'bold',
-    color: '#375EC0',
-    marginBottom: 30
+    fontWeight: "bold",
+    color: "#375EC0",
+    marginBottom: 30,
   },
   inputTextWrapper: {
     marginBottom: 24,
@@ -176,15 +199,15 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   btnContainer: {
-    borderColor: '#375EC0',
+    borderColor: "#375EC0",
     borderWidth: 2,
     borderRadius: 150,
-    height:48,
-    color:'#375EC0',
+    height: 48,
+    color: "#375EC0",
   },
   registerText: {
     marginBottom: 20,
-    marginTop:20,
+    marginTop: 20,
     textAlign: "left",
     color: "black",
     fontSize: 18,
@@ -213,13 +236,20 @@ const styles = StyleSheet.create({
   },
   btn: {
     borderRadius: 150,
-    color:'#375EC0',
-    flex:1,
-    justifyContent:'center',
-    alignItems:'center',
-    textAlign:'center',
+    color: "#375EC0",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
     padding: 10,
-    fontSize:20, 
-    fontWeight:'bold'
-  }
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  loaderContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  loader: {
+    height: 50,
+  },
 });
