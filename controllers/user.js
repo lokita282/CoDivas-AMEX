@@ -8,28 +8,21 @@ const {
     generateQrString,
     generateRandomNumber,
     sendSms,
-    decryptQrString,
-    encryptData,
-    decryptData
+    decryptQrString
 } = require('../utils/functions');
 const { setVoucherStatuses } = require('../utils/cron-jobs');
 const Beneficiary = require('../models/beneficiary');
 const { categoryIcons, shortCodes } = require('../utils/data');
 const { recordActivity } = require('../services/activity-log');
+
 const viewAllVouchers = async (req, res) => {
     try {
         let user = req.user;
         let vouchers = await Voucher.find({ beneficiaryPhone: user.phone });
         vouchers = await setVoucherStatuses(vouchers);
-        const encryptedData = encryptData(
-            JSON.stringify({
-                data: vouchers
-            })
-        );
-        // res.status(200).json({
-        //     data: vouchers
-        // });
-        res.status(200).send(encryptedData);
+        res.status(200).json({
+            data: vouchers
+        });
     } catch (error) {
         res.status(500).json({
             message: error.message
@@ -47,15 +40,10 @@ const viewAllVouchersByCategory = async (req, res) => {
             r[a.category].push(a);
             return r;
         }, Object.create(null));
-        const encryptedData = encryptData(
-            JSON.stringify({
-                data: result
-            })
-        );
-        // res.status(200).json({
-        //     data: result
-        // });
-        res.status(200).send(encryptedData);
+
+        res.status(200).json({
+            data: result
+        });
     } catch (error) {
         res.status(500).json({
             message: error.message
@@ -80,15 +68,9 @@ const viewCategoryVouchersByStatus = async (req, res) => {
         //     return r;
         // }, Object.create(null));
         let result = vouchers;
-        const encryptedData = encryptData(
-            JSON.stringify({
-                data: result
-            })
-        );
-        // res.status(200).json({
-        //     data: result
-        // });
-        res.status(200).send(encryptedData);
+        res.status(200).json({
+            data: result
+        });
     } catch (error) {
         res.status(500).json({
             message: error.message
@@ -105,15 +87,9 @@ const viewCategoryVouchers = async (req, res) => {
             category: category
         });
         vouchers = await setVoucherStatuses(vouchers);
-        const encryptedData = encryptData(
-            JSON.stringify({
-                data: vouchers
-            })
-        );
-        // res.status(200).json({
-        //     data: vouchers
-        // });
-        res.status(200).send(encryptedData);
+        res.status(200).json({
+            data: vouchers
+        });
     } catch (error) {
         res.status(500).json({
             message: error.message
@@ -139,16 +115,12 @@ const viewOneVoucher = async (req, res) => {
             });
         }
 
-        const encryptedData = encryptData(
-            JSON.stringify({
-                data: {
-                    ...voucher._doc,
-                    qrString: generateQrString(voucher.uid)
-                }
-            })
-        );
-        // res.status(200).json();
-        res.status(200).send(encryptedData);
+        res.status(200).json({
+            data: {
+                ...voucher._doc,
+                qrString: generateQrString(voucher.uid)
+            }
+        });
     } catch (error) {
         res.status(500).json({
             message: error.message
@@ -168,15 +140,9 @@ const getRedemptionStatus = async (req, res) => {
             });
         }
 
-        const encryptedData = encryptData(
-            JSON.stringify({
-                redeemed: voucher.status === 'redeemed'
-            })
-        );
-        // res.status(200).json({
-        //     redeemed: voucher.status === 'redeemed'
-        // });
-        res.status(200).send(encryptedData);
+        res.status(200).json({
+            redeemed: voucher.status === 'redeemed'
+        });
     } catch (error) {
         res.status(500).json({
             message: error.message
@@ -196,28 +162,15 @@ const getVerificationCode = async (req, res) => {
             });
         }
         if (voucher.status !== 'scanned') {
-            const encryptedData = encryptData(
-                JSON.stringify({
-                    scanned: false
-                })
-            );
-            // res.status(200).json({
-            //     scanned: false
-            // });
-            res.status(200).send(encryptedData);
+            res.status(200).json({
+                scanned: false
+            });
         } else {
             // get verification code from db
-            const encryptedData = encryptData(
-                JSON.stringify({
-                    scanned: true,
-                    verificationCode: voucher.verificationCode
-                })
-            );
-            // res.status(200).json({
-            //     scanned: true,
-            //     verificationCode: voucher.verificationCode
-            // });
-            res.status(200).send(encryptedData);
+            res.status(200).json({
+                scanned: true,
+                verificationCode: voucher.verificationCode
+            });
         }
     } catch (error) {
         res.status(500).json({
@@ -241,15 +194,9 @@ const getTransactions = async (req, res) => {
                 beneficiaryName: user.name
             });
         }
-        const encryptedData = encryptData(
-            JSON.stringify({
-                data: results
-            })
-        );
-        // res.status(200).json({
-        //     data: results
-        // });
-        res.status(200).send(encryptedData);
+        res.status(200).json({
+            data: results
+        });
     } catch (error) {
         res.status(500).json({
             message: error.message
@@ -322,21 +269,13 @@ const weeklyCategoryData = async (req, res) => {
             barData.push(count(temp, d));
             d.setDate(d.getDate() + 1);
         }
-        const encryptedData = encryptData(
-            JSON.stringify({
-                message: 'User Weekly Vouchers by Category',
-                data: {
-                    barData
-                }
-            })
-        );
-        // res.status(200).json({
-        //     message: 'User Weekly Vouchers by Category',
-        //     data: {
-        //         barData
-        //     }
-        // });
-        res.status(200).send(encryptedData);
+
+        res.status(200).json({
+            message: 'User Weekly Vouchers by Category',
+            data: {
+                barData
+            }
+        });
     } catch (error) {
         res.status(400).json({
             message: error.message
@@ -416,22 +355,13 @@ const monthlyCategoryData = async (req, res) => {
 
             lineData.push(count(temp, categoryObj, d));
         }
-        const encryptedData = encryptData(
-            JSON.stringify({
-                message: 'Monthy Category Data of Beneficiary',
-                data: {
-                    lineData
-                }
-            })
-        );
 
-        // res.status(200).json({
-        //     message: 'Monthy Category Data of Beneficiary',
-        //     data: {
-        //         lineData
-        //     }
-        // });
-        res.status(200).send(encryptedData);
+        res.status(200).json({
+            message: 'Monthy Category Data of Beneficiary',
+            data: {
+                lineData
+            }
+        });
     } catch (error) {
         res.status(400).json({
             message: error.message
@@ -487,21 +417,13 @@ const expenditureCategoryData = async (req, res) => {
 
             expenditureData.push(count(data, temp));
         }
-        const encryptedData = encryptData(
-            JSON.stringify({
-                message: 'Expenditure Data of Beneficiary',
-                data: {
-                    expenditureData
-                }
-            })
-        );
-        // res.status(200).json({
-        //     message: 'Expenditure Data of Beneficiary',
-        //     data: {
-        //         expenditureData
-        //     }
-        // });
-        res.status(200).send(encryptedData);
+
+        res.status(200).json({
+            message: 'Expenditure Data of Beneficiary',
+            data: {
+                expenditureData
+            }
+        });
     } catch (error) {
         res.status(400).json({
             message: error.message
@@ -742,21 +664,13 @@ const trendingData = async (req, res) => {
         } else if (difference == 0) {
             trendingData.monthPercent = 'no-change';
         }
-        const encryptedData = encryptData(
-            JSON.stringify({
-                message: 'Weekly & Monthly Trending for Beneficiary',
-                data: {
-                    trendingData
-                }
-            })
-        );
-        // res.status(200).json({
-        //     message: 'Weekly & Monthly Trending for Beneficiary',
-        //     data: {
-        //         trendingData
-        //     }
-        // });
-        res.status(200).send(encryptedData);
+
+        res.status(200).json({
+            message: 'Weekly & Monthly Trending for Beneficiary',
+            data: {
+                trendingData
+            }
+        });
     } catch (error) {
         res.status(400).json({
             message: error.message
@@ -773,21 +687,12 @@ const getAllMerchants = async (req, res) => {
                 user: 0
             }
         );
-        const encryptedData = encryptData(
-            JSON.stringify({
-                message: 'All Merchants returned successfully',
-                data: {
-                    merchants
-                }
-            })
-        );
-        // res.status(200).json({
-        //     message: 'All Merchants returned successfully',
-        //     data: {
-        //         merchants
-        //     }
-        // });
-        res.status(200).send(encryptedData);
+        res.status(200).json({
+            message: 'All Merchants returned successfully',
+            data: {
+                merchants
+            }
+        });
     } catch (error) {
         res.status(400).json({
             message: error.message
@@ -799,8 +704,7 @@ const getAllMerchants = async (req, res) => {
 
 const validateVoucherUtility = async (req, res) => {
     try {
-        const bodyData = JSON.parse(decryptData(req.body.data));
-        const { encryptedString } = bodyData;
+        const { encryptedString } = req.body;
         const user = req.user;
         const decryptedString = decryptQrString(encryptedString);
         let voucher = await Voucher.findOne({ uid: decryptedString });
@@ -811,47 +715,25 @@ const validateVoucherUtility = async (req, res) => {
             });
             return;
         }
-        let encryptedData = '';
         if (voucher.status !== 'valid') {
-            encryptedData = encryptData(
-                JSON.stringify({
-                    success: false,
-                    message: 'Voucher Invalid!'
-                })
-            );
-            // res.status(200).json({
-            //     success: false,
-            //     message: 'Voucher Invalid!'
-            // });
-            res.status(200).send(encryptedData);
+            res.status(200).json({
+                success: false,
+                message: 'Voucher Invalid!'
+            });
             return;
         }
         if (voucher.category !== 'utility') {
-            encryptedData = encryptData(
-                JSON.stringify({
-                    success: false,
-                    message: 'Voucher not valid for utility!'
-                })
-            );
-            // res.status(200).json({
-            //     success: false,
-            //     message: 'Voucher not valid for utility!'
-            // });
-            res.status(200).send(encryptedData);
+            res.status(200).json({
+                success: false,
+                message: 'Voucher not valid for utility!'
+            });
             return;
         }
         if (voucher.startsAt > Date.now() || voucher.endsAt < Date.now()) {
-            encryptedData = encryptData(
-                JSON.stringify({
-                    success: false,
-                    message: 'Voucher not valid for this time!'
-                })
-            );
-            res.status(200).send(encryptedData);
-            // res.status(200).json({
-            //     success: false,
-            //     message: 'Voucher not valid for this time!'
-            // });
+            res.status(200).json({
+                success: false,
+                message: 'Voucher not valid for this time!'
+            });
             return;
         }
 
@@ -872,20 +754,11 @@ const validateVoucherUtility = async (req, res) => {
         );
 
         await voucher.save();
-        encryptedData = encryptData(
-            JSON.stringify({
-                success: true,
-                message: 'Verification Code sent!',
-                voucherId: voucher._id
-            })
-        );
-
-        // res.status(200).json({
-        //     success: true,
-        //     message: 'Verification Code sent!',
-        //     voucherId: voucher._id
-        // });
-        res.status(200).send(encryptedData);
+        res.status(200).json({
+            success: true,
+            message: 'Verification Code sent!',
+            voucherId: voucher._id
+        });
     } catch (error) {
         res.status(500).json({
             message: error.message
@@ -895,14 +768,12 @@ const validateVoucherUtility = async (req, res) => {
 
 const redeemVoucherUtility = async (req, res) => {
     try {
-        const bodyData = JSON.parse(decryptData(req.body.data));
-
         const {
             voucherId,
             verificationCode,
             transactionAmount,
             transactionTitle
-        } = bodyData;
+        } = req.body;
         const user = req.user;
         let voucher = await Voucher.findById(voucherId);
         let utilMerchant = await Merchant.findOne({
@@ -917,34 +788,20 @@ const redeemVoucherUtility = async (req, res) => {
             return;
         }
         if (voucher.status !== 'scanned') {
-            const encryptedData = encryptData(
-                JSON.stringify({
-                    success: false,
-                    message: 'Invalid Transaction!'
-                })
-            );
-            // res.status(200).json({
-            //     success: false,
-            //     message: 'Invalid Transaction!'
-            // });
+            res.status(200).json({
+                success: false,
+                message: 'Invalid Transaction!'
+            });
             return;
         }
         const beneficiary = await Beneficiary.findOne({
             phone: voucher.beneficiaryPhone
         });
         if (voucher.verificationCode !== verificationCode) {
-            const encryptedData = encryptData(
-                JSON.stringify({
-                    success: false,
-                    message: 'Verification Code not matched!'
-                })
-            );
-
-            // res.status(200).json({
-            //     success: false,
-            //     message: 'Verification Code not matched!'
-            // });
-            res.status(200).send(encryptedData);
+            res.status(200).json({
+                success: false,
+                message: 'Verification Code not matched!'
+            });
             return;
         }
         if (
@@ -952,17 +809,10 @@ const redeemVoucherUtility = async (req, res) => {
                 voucher._doc.balanceAmount < transactionAmount) ||
             (voucher.useType === 'single' && voucher.amount < transactionAmount)
         ) {
-            const encryptedData = encryptData(
-                JSON.stringify({
-                    success: false,
-                    message: 'Insufficient Balance!'
-                })
-            );
-            // res.status(200).json({
-            //     success: false,
-            //     message: 'Insufficient Balance!'
-            // });
-            res.status(200).send(encryptedData);
+            res.status(200).json({
+                success: false,
+                message: 'Insufficient Balance!'
+            });
             return;
         }
 
@@ -1010,19 +860,12 @@ const redeemVoucherUtility = async (req, res) => {
             'Redeem',
             voucher
         );
-        const encryptedData = encryptData(
-            JSON.stringify({
-                success: true,
-                message: 'Voucher Redeemed!',
-                transactionDetails: transaction
-            })
-        );
-        // res.status(200).json({
-        //     success: true,
-        //     message: 'Voucher Redeemed!',
-        //     transactionDetails: transaction
-        // });
-        res.status(200).send(encryptedData);
+
+        res.status(200).json({
+            success: true,
+            message: 'Voucher Redeemed!',
+            transactionDetails: transaction
+        });
     } catch (error) {
         res.status(500).json({
             message: error.message
