@@ -11,7 +11,7 @@ import {
   TableHead,
   Table,
   TableBody,
-  Avatar
+  Avatar,
 } from '@mui/material'
 import { Icon } from '@iconify/react'
 import { getEntities } from '../../services/userServices'
@@ -36,7 +36,17 @@ const NumOfCards = () => {
         <>
           <Grid container spacing={5} sx={{ padding: '0px 25px' }}>
             <Grid item xs={4}>
-              <Card sx={{ minWidth: 275, backgroundColor: '#1d1d1d' }}>
+              <Card
+                sx={{
+                  minWidth: 275,
+                  backgroundColor: '#1d1d1d',
+                  borderRadius: '10px',
+                  height: '100%',
+                  padding: '10px',
+                  margingBottom: '0%',
+                  paddingBottom: '0% !important',
+                }}
+              >
                 <CardContent sx={{ display: 'flex', flexDirection: 'row' }}>
                   <Grid item xs={3}>
                     <Icon
@@ -84,8 +94,19 @@ const NumOfCards = () => {
                 </CardContent>
               </Card>
             </Grid>
+
             <Grid item xs={4}>
-              <Card sx={{ minWidth: 275, backgroundColor: '#1d1d1d' }}>
+              <Card
+                sx={{
+                  minWidth: 275,
+                  backgroundColor: '#1d1d1d',
+                  borderRadius: '10px',
+                  height: '100%',
+                  padding: '10px',
+                  margingBottom: '0%',
+                  paddingBottom: '0% !important',
+                }}
+              >
                 <CardContent sx={{ display: 'flex', flexDirection: 'row' }}>
                   <Grid item xs={3}>
                     <Icon
@@ -134,8 +155,19 @@ const NumOfCards = () => {
                 </CardContent>
               </Card>
             </Grid>
+
             <Grid item xs={4}>
-              <Card sx={{ minWidth: 275, backgroundColor: '#1d1d1d' }}>
+              <Card
+                sx={{
+                  minWidth: 275,
+                  backgroundColor: '#1d1d1d',
+                  borderRadius: '10px',
+                  height: '100%',
+                  padding: '10px',
+                  margingBottom: '0%',
+                  paddingBottom: '0% !important',
+                }}
+              >
                 <CardContent sx={{ display: 'flex', flexDirection: 'row' }}>
                   <Grid item xs={3}>
                     <Icon
@@ -190,7 +222,6 @@ const NumOfCards = () => {
                 variant="h6"
                 color="#fff"
                 style={{
-                  borderLeft: '0.1em solid white',
                   padding: '0.5em',
                   fontFamily: 'Poppins',
                 }}
@@ -200,30 +231,29 @@ const NumOfCards = () => {
               <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                   <TableHead>
-                    <TableRow sx={{ backgroundColor: '#f5f5f5' }}>
-                      <TableCell sx={{ fontFamily: 'Poppins' }}>ID</TableCell>
-                      <TableCell sx={{ fontFamily: 'Poppins' }}>
+                    <TableRow sx={{ backgroundColor: 'rgba(55, 94, 192, 1)' }}>
+                      <TableCell sx={{ fontFamily: 'Poppins', color: '#fff' }}>
                         Business Name
                       </TableCell>
-                      <TableCell sx={{ fontFamily: 'Poppins' }}>
+                      <TableCell sx={{ fontFamily: 'Poppins', color: '#fff' }}>
                         GST No.
                       </TableCell>
-                      <TableCell sx={{ fontFamily: 'Poppins' }}>UID</TableCell>
+                      <TableCell sx={{ fontFamily: 'Poppins', color: '#fff' }}>
+                        UID
+                      </TableCell>
+                      <TableCell sx={{ fontFamily: 'Poppins', color: '#fff' }}>
+                        ID
+                      </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody sx={{ backgroundColor: '#1d1d1d' }}>
-                    {entities.merchants.slice(0, 7).map((row) => (
+                    {entities.merchants.slice(0, 6).map((row) => (
                       <TableRow
                         key={row.name}
                         sx={{
                           '&:last-child td, &:last-child th': { border: 0 },
                         }}
                       >
-                        <TableCell
-                          sx={{ color: '#fff', fontFamily: 'Poppins' }}
-                        >
-                          {row._id}
-                        </TableCell>
                         <TableCell
                           sx={{ color: '#fff', fontFamily: 'Poppins' }}
                         >
@@ -239,6 +269,11 @@ const NumOfCards = () => {
                         >
                           {row.uid}
                         </TableCell>
+                        <TableCell
+                          sx={{ color: '#fff', fontFamily: 'Poppins' }}
+                        >
+                          {row._id}
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -251,7 +286,6 @@ const NumOfCards = () => {
                 variant="h6"
                 color="#fff"
                 style={{
-                  borderLeft: '0.1em solid white',
                   padding: '0.5em',
                   fontFamily: 'Poppins',
                 }}
@@ -261,12 +295,11 @@ const NumOfCards = () => {
               <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                   <TableHead>
-                    <TableRow sx={{ backgroundColor: '#f5f5f5' }}>
-                      <TableCell sx={{ fontFamily: 'Poppins' }}></TableCell>
-                      <TableCell sx={{ fontFamily: 'Poppins' }}>
+                    <TableRow sx={{ backgroundColor: 'rgba(55, 94, 192, 1)' }}>
+                      <TableCell sx={{ fontFamily: 'Poppins', color: '#fff' }}>
                         Organization Name
                       </TableCell>
-                      <TableCell sx={{ fontFamily: 'Poppins' }}>
+                      <TableCell sx={{ fontFamily: 'Poppins', color: '#fff' }}>
                         Organization ID
                       </TableCell>
                     </TableRow>
@@ -280,21 +313,24 @@ const NumOfCards = () => {
                         }}
                       >
                         <TableCell
-                          sx={{ color: '#fff', fontFamily: 'Poppins' }}
+                          sx={{
+                            color: '#fff',
+                            fontFamily: 'Poppins',
+                            display: 'flex',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                          }}
                         >
                           <Avatar
                             alt="Remy Sharp"
                             src={row.orgLogo}
                             sx={{
-                              width: 56,
-                              height: 56,
+                              width: 40,
+                              height: 40,
+                              marginRight: 2,
                               backgroundColor: 'white',
                             }}
                           />
-                        </TableCell>
-                        <TableCell
-                          sx={{ color: '#fff', fontFamily: 'Poppins' }}
-                        >
                           {row.orgName}
                         </TableCell>
                         <TableCell
@@ -314,7 +350,7 @@ const NumOfCards = () => {
                 variant="h6"
                 color="#fff"
                 style={{
-                  borderLeft: '0.1em solid white',
+                  // borderLeft: '0.1em solid white',
                   padding: '0.5em',
                   fontFamily: 'Poppins',
                 }}
@@ -324,15 +360,23 @@ const NumOfCards = () => {
               <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                   <TableHead>
-                    <TableRow sx={{ backgroundColor: '#f5f5f5' }}>
-                      <TableCell sx={{ fontFamily: 'Poppins' }}></TableCell>
-                      <TableCell sx={{ fontFamily: 'Poppins' }}>Bank Name</TableCell>
-                      <TableCell sx={{ fontFamily: 'Poppins' }}>
+                    <TableRow sx={{ backgroundColor: 'rgba(55, 94, 192, 1)' }}>
+                      {/* <TableCell sx={{ fontFamily: 'Poppins' }}></TableCell> */}
+                      <TableCell sx={{ fontFamily: 'Poppins', color: '#fff' }}>
+                        Bank
+                      </TableCell>
+                      <TableCell sx={{ fontFamily: 'Poppins', color: '#fff' }}>
                         PAN No.
                       </TableCell>
-                      <TableCell sx={{ fontFamily: 'Poppins' }}>Registered Contact No.</TableCell>
-                      <TableCell sx={{ fontFamily: 'Poppins' }}>Vouchers Issued</TableCell>
-                      <TableCell sx={{ fontFamily: 'Poppins' }}>ID</TableCell>
+                      <TableCell sx={{ fontFamily: 'Poppins', color: '#fff' }}>
+                        Registered Contact No.
+                      </TableCell>
+                      <TableCell sx={{ fontFamily: 'Poppins', color: '#fff' }}>
+                        Vouchers Issued
+                      </TableCell>
+                      <TableCell sx={{ fontFamily: 'Poppins', color: '#fff' }}>
+                        ID
+                      </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody sx={{ backgroundColor: '#1d1d1d' }}>
@@ -344,21 +388,24 @@ const NumOfCards = () => {
                         }}
                       >
                         <TableCell
-                          sx={{ color: '#fff', fontFamily: 'Poppins' }}
+                          sx={{
+                            color: '#fff',
+                            fontFamily: 'Poppins',
+                            display: 'flex',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                          }}
                         >
                           <Avatar
                             alt="Remy Sharp"
                             src={row.bank.bankLogo}
                             sx={{
-                              width: 56,
-                              height: 56,
+                              width: 40,
+                              height: 40,
+                              marginRight: 2,
                               backgroundColor: 'white',
                             }}
                           />
-                        </TableCell>
-                        <TableCell
-                          sx={{ color: '#fff', fontFamily: 'Poppins' }}
-                        >
                           {row.user.name}
                         </TableCell>
                         <TableCell

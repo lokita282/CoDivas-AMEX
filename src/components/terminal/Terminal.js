@@ -26,7 +26,8 @@ const TerminalController = (props = {}) => {
   }, [])
 
   return (
-    <div
+    <>
+      {terminalLineData[0] ? (<div
       className="container"
       style={{
         overflow: 'hidden',
@@ -44,8 +45,7 @@ const TerminalController = (props = {}) => {
           borderRadius: 2,
         },
       }}  
-    >
-      {terminalLineData === [] ? (<Loader />): (<><Terminal
+    ><Terminal
         name="Activity Logs"
         colorMode={ColorMode.Dark}
         // hidden="400px"
@@ -74,11 +74,26 @@ const TerminalController = (props = {}) => {
             </>
           )
         })}
-        {/* <TerminalOutput>User IP: {terminalLineData} </TerminalOutput>
-        <TerminalOutput>User IP: IP FROM API</TerminalOutput>
-        <TerminalOutput>User IP: IP FROM API</TerminalOutput> */}
-      </Terminal></>)}
-    </div>
+      </Terminal></div>):  (<div
+      className="container"
+      style={{
+        overflow: 'hidden',
+        width: '1350px',
+        padding: '20px',
+        '&::-webkit-scrollbar': {
+          height: 10,
+          width: 5,
+        },
+        '&::-webkit-scrollbar-track': {
+          backgroundColor: 'white',
+        },
+        '&::-webkit-scrollbar-thumb': {
+          backgroundColor: '#d5d5d5',
+          borderRadius: 2,
+        },
+      }}  
+    ><Loader /></div>)}
+    </>
   )
 }
 

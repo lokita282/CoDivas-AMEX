@@ -21,7 +21,7 @@ import { btn, df_jc_ac, df_jfe_ac } from '../../theme/CssMy'
 import { useContext } from 'react'
 import { codivascontext } from '../../context/MainContext'
 import { generateFromString } from 'generate-avatar'
-import slogo from '../../images/logo.png'
+import slogo from '../../images/logoWhite.png'
 
 const drawerWidth = 240
 
@@ -139,7 +139,7 @@ export default function SideDrawer(props) {
             <CardMedia
               component="img"
               image={slogo}
-              sx={{ borderRadius: '50px', width: '98%', marginTop: '15%' }}
+              sx={{ borderRadius: '50px', width: '85%', marginTop: '15%' }}
             />
           </Box>
           <Box>
