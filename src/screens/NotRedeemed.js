@@ -5,23 +5,23 @@ import moment from "moment/moment";
 import { useNavigation } from "@react-navigation/native";
 import LottieView from "lottie-react-native";
 
-const Card = ({ image, title, receivedDate, expiringDate }) => {
+const Card = ({ image, title, receivedDate, expiringDate ,amount}) => {
   return (
     <View style={styles.cardContainer}>
       <Image source={{ uri: image }} style={styles.image} />
       <View style={styles.cardText}>
         <Text style={styles.title}>{title}</Text>
         <Text style={[styles.info, styles.dateText]}>
-          {`Starts At - `}
-          <Text style={styles.normalText}>
-            {moment(receivedDate).format("MMM Do, YYYY")}
-          </Text>
+          {`Received On - `}
+          <Text style={styles.normalText}>{moment(receivedDate).format('MMM Do, YYYY')}</Text>
         </Text>
         <Text style={[styles.info, styles.dateText]}>
-          {`Ends At - `}
-          <Text style={styles.normalText}>
-            {moment(expiringDate).format("MMM Do, YYYY")}
-          </Text>
+          {`Expiring On - `}
+          <Text style={styles.normalText}>{moment(expiringDate).format('MMM Do, YYYY')}</Text>
+        </Text>
+        <Text style={[styles.info, styles.dateText]}>
+          {`Reedemable Amount - `}
+          <Text style={styles.normalText}>₹ {amount}</Text>
         </Text>
       </View>
     </View>
@@ -122,6 +122,7 @@ const NotRedeemed = ({ title }) => {
             title={item.title}
             receivedDate={item.startsAt.toString().slice(0, 10)}
             expiringDate={item.endsAt.toString().slice(0, 10)}
+            amount={item.useType==="single"?item.amount:item.balanceAmount}
           />
         </TouchableOpacity>
       ))}
@@ -139,7 +140,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     margin: 10,
     width: 370,
-    height: 79,
+    height: 100,
     borderRadius: 5,
     //marginBottom: 16,
   },
