@@ -55,7 +55,9 @@ const shortCodes = {
 
 const signupBeneficiary = async (req, res) => {
     try {
-        let user = await User.findOne({ phone: req.body.phone });
+        const bodyData = JSON.parse(decryptData(req.body.data));
+
+        let user = await User.findOne({ phone: bodyData.phone });
         if (user) {
             res.status(400).json({
                 message: 'User Already Exists!',
@@ -68,7 +70,7 @@ const signupBeneficiary = async (req, res) => {
 
         // Commenting it because API requests are limited (35 per month)
 
-        // if (req.body.pan) {
+        // if (bodyData.pan) {
         //     const options = {
         //         method: 'POST',
         //         url: 'https://pan-card-verification1.p.rapidapi.com/v3/tasks/sync/verify_with_source/ind_pan',
@@ -81,7 +83,7 @@ const signupBeneficiary = async (req, res) => {
         //             task_id: '74f4c926-250c-43ca-9c53-453e87ceacd1',
         //             group_id: '8e16424a-58fc-4ba4-ab20-5bc8e7c3c41e',
         //             data: {
-        //                 id_number: req.body.pan
+        //                 id_number: bodyData.pan
         //             }
         //         }
         //     };
@@ -103,8 +105,8 @@ const signupBeneficiary = async (req, res) => {
         // }
 
         let newUser = new User({
-            ...req.body,
-            type: req.body.type ? req.body.type : 'beneficiary'
+            ...bodyData,
+            type: bodyData.type ? bodyData.type : 'beneficiary'
         });
         await newUser.save();
         let beneficiary = await Beneficiary.findOne({ phone: newUser.phone });
@@ -129,7 +131,7 @@ const signupBeneficiary = async (req, res) => {
         // FOR SIGNING UP OF BANK (BACKEND USE ONLY)
         // let newBank = new Bank({
         //     user: newUser._id,
-        //     bankLogo: req.body.bankLogo,
+        //     bankLogo: bodyData.bankLogo,
         //     vouchersIssued: new Array()
         // });
         // await newBank.save();
@@ -154,14 +156,23 @@ const signupBeneficiary = async (req, res) => {
         };
 
         const activityLog = await recordActivity(userReq, newUser, 'Sign Up');
-
-        res.status(201).json({
-            message: 'User Signed Up',
-            data: {
-                token,
-                user: newUser
-            }
-        });
+        const encryptedData = encryptData(
+            JSON.stringify({
+                message: 'User Signed Up',
+                data: {
+                    token,
+                    user: newUser
+                }
+            })
+        );
+        // res.status(201).json({
+        //     message: 'User Signed Up',
+        //     data: {
+        //         token,
+        //         user: newUser
+        //     }
+        // });
+        res.status(201).send(encryptedData);
     } catch (error) {
         res.status(400).json({
             message: error.message
@@ -171,7 +182,8 @@ const signupBeneficiary = async (req, res) => {
 
 const signupMerchant = async (req, res) => {
     try {
-        let user = await User.findOne({ phone: req.body.phone });
+        const bodyData = JSON.parse(decryptData(req.body.data));
+        let user = await User.findOne({ phone: bodyData.phone });
         if (user) {
             res.status(400).json({
                 message: 'User Already Exists!',
@@ -183,18 +195,18 @@ const signupMerchant = async (req, res) => {
         }
 
         let newUser = new User({
-            ...req.body,
+            ...bodyData,
             type: 'merchant'
         });
 
         await newUser.save();
         const token = await User.generatejwt(newUser._id);
 
-        let businessName = `${req.body.name}'s Business`;
+        let businessName = `${bodyData.name}'s Business`;
         let gstDetails = null;
-        if (req.body.gstNo) {
+        if (bodyData.gstNo) {
             let gstDetailsRes = await axios.get(
-                `https://gst-return-status.p.rapidapi.com/free/gstin/${req.body.gstNo}`,
+                `https://gst-return-status.p.rapidapi.com/free/gstin/${bodyData.gstNo}`,
                 {
                     headers: {
                         'x-rapidapi-key': process.env.RAPID_API_KEY,
@@ -215,10 +227,10 @@ const signupMerchant = async (req, res) => {
         let newMerchant = new Merchant({
             ownerName: newUser._id,
             uid:
-                shortCodes[req.body.category] +
+                shortCodes[bodyData.category] +
                 '-' +
                 fourDigitNumber(newUser._id.toString()),
-            ...req.body,
+            ...bodyData,
             businessName,
             user: newUser._id
         });
@@ -247,17 +259,28 @@ const signupMerchant = async (req, res) => {
             newMerchant,
             'Sign Up'
         );
-
+        const encryptedData = encryptData(
+            JSON.stringify({
+                message: 'User Signed Up',
+                data: {
+                    token,
+                    user: newUser,
+                    merchant: newMerchant,
+                    UID: newMerchant.uid
+                }
+            })
+        );
         // Sending a response back
-        res.status(201).json({
-            message: 'User Signed Up',
-            data: {
-                token,
-                user: newUser,
-                merchant: newMerchant,
-                UID: newMerchant.uid
-            }
-        });
+        // res.status(201).json({
+        //     message: 'User Signed Up',
+        //     data: {
+        //         token,
+        //         user: newUser,
+        //         merchant: newMerchant,
+        //         UID: newMerchant.uid
+        //     }
+        // });
+        res.status(201).send(encryptedData);
     } catch (error) {
         res.status(400).json({
             message: error.message
@@ -267,8 +290,9 @@ const signupMerchant = async (req, res) => {
 
 const forgotPassword = async (req, res) => {
     try {
+        const bodyData = JSON.parse(decryptData(req.body.data));
         let user = await User.findOne({
-            email: req.body.email
+            email: bodyData.email
         });
         if (!user) {
             res.status(400).json({
@@ -286,9 +310,12 @@ const forgotPassword = async (req, res) => {
                 // link: `https://ana3d.in/reset-password/${token}`,
             }
         });
-        res.status(200).json({
-            message: 'Password reset link sent to your email'
-        });
+        const encryptedData = encryptData(
+            JSON.stringify({
+                message: 'Password reset link sent to your email'
+            })
+        );
+        res.status(200).send(encryptedData);
     } catch (error) {
         res.status(400).json({
             message: error.message
@@ -299,8 +326,9 @@ const forgotPassword = async (req, res) => {
 const resetPassword = async (req, res) => {
     try {
         const { token } = req.params;
+        const bodyData = JSON.parse(decryptData(req.body.data));
         // console.log(token);
-        const { password } = req.body;
+        const { password } = bodyData;
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const user = await User.findOne({
             _id: decoded._id
@@ -313,9 +341,16 @@ const resetPassword = async (req, res) => {
         }
         user.password = password;
         await user.save();
-        res.status(200).json({
-            message: 'Password reset successful'
-        });
+        const encryptedData = encryptData(
+            JSON.stringify({
+                message: 'Password reset successful'
+            })
+        );
+
+        // res.status(200).json({
+        //     message: 'Password reset successful'
+        // });
+        res.status(200).send(encryptedData);
     } catch (error) {
         res.status(400).json({
             message: error.message
@@ -326,7 +361,8 @@ const resetPassword = async (req, res) => {
 // Login
 const login = async (req, res) => {
     try {
-        let user = await User.findOne({ phone: req.body.phone });
+        const bodyData = JSON.parse(decryptData(req.body.data));
+        let user = await User.findOne({ phone: bodyData.phone });
 
         if (!user) {
             res.status(404).json({
@@ -336,7 +372,7 @@ const login = async (req, res) => {
         }
 
         const isMatch = await bcryptjs.compare(
-            req.body.password,
+            bodyData.password,
             user.password
         );
 
@@ -350,12 +386,19 @@ const login = async (req, res) => {
         const token = await User.generatejwt(user._id);
 
         user = removeSensitiveData(user);
-
-        res.status(200).json({
-            message: 'User Verified!',
-            token,
-            user
-        });
+        const encryptedData = encryptData(
+            JSON.stringify({
+                message: 'User Verified!',
+                token,
+                user
+            })
+        );
+        // res.status(200).json({
+        //     message: 'User Verified!',
+        //     token,
+        //     user
+        // });
+        res.status(200).send(encryptedData);
     } catch (error) {
         res.status(400).json({
             message: error.message
@@ -374,10 +417,15 @@ const logout = async (req, res) => {
         });
 
         await currentUser.save();
-
-        res.status(200).json({
-            message: 'Successfully logged out!'
-        });
+        const encryptedData = encryptData(
+            JSON.stringify({
+                message: 'Successfully logged out!'
+            })
+        );
+        // res.status(200).json({
+        //     message: 'Successfully logged out!'
+        // });
+        res.status(200).send(encryptedData);
     } catch (error) {
         res.status(400).json({
             message: error.message
@@ -391,10 +439,15 @@ const logoutAll = async (req, res) => {
         const currentUser = req.user;
         currentUser.tokens = [];
         await currentUser.save();
-
-        res.status(200).json({
-            message: 'Successfully logged out of all sessions!'
-        });
+        const encryptedData = encryptData(
+            JSON.stringify({
+                message: 'Successfully logged out of all sessions!'
+            })
+        );
+        // res.status(200).json({
+        //     message: 'Successfully logged out of all sessions!'
+        // });
+        res.status(200).send(encryptedData);
     } catch (error) {
         res.status(400).json({
             message: error.message
@@ -406,6 +459,7 @@ const logoutAll = async (req, res) => {
 const changePassword = async (req, res) => {
     try {
         let user = await User.findById(req.user._id);
+        const bodyData = JSON.parse(decryptData(req.body.data));
         if (!user) {
             res.status(404).json({
                 message: 'User not found!'
@@ -414,7 +468,7 @@ const changePassword = async (req, res) => {
         }
 
         const isMatch = await bcryptjs.compare(
-            req.body.oldpassword,
+            bodyData.oldpassword,
             user.password
         );
         if (!isMatch) {
@@ -424,16 +478,22 @@ const changePassword = async (req, res) => {
             return;
         }
 
-        user.password = await req.body.newpassword;
+        user.password = await bodyData.newpassword;
         if (!user.passwordChanged) {
             user.passwordChanged = true;
         }
 
         await user.save();
+        const encryptedData = encryptData(
+            JSON.stringify({
+                message: 'Password changed!'
+            })
+        );
 
-        res.status(200).json({
-            message: 'Password changed!'
-        });
+        // res.status(200).json({
+        //     message: 'Password changed!'
+        // });
+        res.status(200).send(encryptedData);
     } catch (error) {
         res.status(400).json({
             message: error.message
@@ -444,7 +504,8 @@ const changePassword = async (req, res) => {
 const testEncryption = async (req, res) => {
     try {
         // this will come at the end of our controllers
-        const encryptedData = encryptData(req.body);
+
+        const encryptedData = encryptData(req.body.data);
 
         res.status(200).json({
             message: 'Encrypted data taiyaar',

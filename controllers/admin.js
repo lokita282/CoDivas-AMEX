@@ -5,17 +5,26 @@ const Merchant = require('../models/merchant');
 const Bank = require('./../models/bank');
 const ActivityLog = require('./../models/activityLog');
 const { organisationDetails } = require('./../utils/data');
+const { encryptData, decryptData } = require('./../utils/functions');
 
 const getActivityLogs = async (req, res) => {
     try {
         const logs = await ActivityLog.find({});
-
-        res.status(200).json({
-            message: 'Logs found!',
-            data: {
-                logs
-            }
-        });
+        const encryptedData = encryptData(
+            JSON.stringify({
+                message: 'Logs found!',
+                data: {
+                    logs
+                }
+            })
+        );
+        // res.status(200).json({
+        //     message: 'Logs found!',
+        //     data: {
+        //         logs
+        //     }
+        // });
+        res.status(200).send(encryptedData);
     } catch (error) {
         res.status(400).json({
             message: error.message
@@ -51,14 +60,25 @@ const getOnboardedEntities = async (req, res) => {
             bankUsers.push(bankUser);
         }
 
-        res.status(200).json({
-            message: 'Onboarded entities found!',
-            data: {
-                merchants,
-                bankUsers,
-                organisationDetails
-            }
-        });
+        const encryptedData = encryptData(
+            JSON.stringify({
+                message: 'Onboarded entities found!',
+                data: {
+                    merchants,
+                    bankUsers,
+                    organisationDetails
+                }
+            })
+        );
+        // res.status(200).json({
+        //     message: 'Onboarded entities found!',
+        //     data: {
+        //         merchants,
+        //         bankUsers,
+        //         organisationDetails
+        //     }
+        // });
+        res.status(200).send(encryptedData);
     } catch (error) {
         res.status(400).json({
             message: error.message

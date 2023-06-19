@@ -7,7 +7,9 @@ const {
     generateRandomNumber,
     generateQrString,
     sendSms,
-    caesarCipherEncrypt
+    caesarCipherEncrypt,
+    decryptData,
+    encryptData
 } = require('./../utils/functions');
 const {
     shortCodes,
@@ -22,34 +24,35 @@ const _ = require('lodash');
 
 const createERupiVoucher = async (req, res) => {
     try {
+        const bodyData = JSON.parse(decryptData(req.body.data));
         const currentBank = await Bank.find({ user: req.user._id }).populate();
 
         const org = organisationDetails.find(
-            ({ orgId }) => orgId == req.body.orgId
+            ({ orgId }) => orgId == bodyData.orgId
         );
 
         const voucher = new Voucher({
-            title: req.body.title,
-            startsAt: req.body.startsAt,
-            endsAt: req.body.endsAt,
-            orgId: req.body.orgId,
+            title: bodyData.title,
+            startsAt: bodyData.startsAt,
+            endsAt: bodyData.endsAt,
+            orgId: bodyData.orgId,
             orgLogo: org.orgLogo,
             issuedBy: req.user.name, // bank name
             issuedByLogo: currentBank[0].bankLogo,
             issuedById: req.user._id,
-            beneficiaryName: req.body.beneficiaryName,
-            beneficiaryPhone: req.body.beneficiaryPhone,
-            govtIdType: req.body.govtIdType,
-            govtIdNumber: req.body.govtIdNumber,
-            category: req.body.category,
-            state: req.body.state,
-            description: req.body.description,
-            amount: req.body.amount,
+            beneficiaryName: bodyData.beneficiaryName,
+            beneficiaryPhone: bodyData.beneficiaryPhone,
+            govtIdType: bodyData.govtIdType,
+            govtIdNumber: bodyData.govtIdNumber,
+            category: bodyData.category,
+            state: bodyData.state,
+            description: bodyData.description,
+            amount: bodyData.amount,
             balanceAmount:
-                req.body.useType == 'multiple' ? req.body.amount : undefined,
-            useType: req.body.useType,
-            uid: shortCodes[req.body.category] + '-' + generateRandomNumber(8),
-            status: Date.now() <= req.body.startsAt ? 'upcoming' : 'valid'
+                bodyData.useType == 'multiple' ? bodyData.amount : undefined,
+            useType: bodyData.useType,
+            uid: shortCodes[bodyData.category] + '-' + generateRandomNumber(8),
+            status: Date.now() <= bodyData.startsAt ? 'upcoming' : 'valid'
         });
 
         await voucher.save();
@@ -59,12 +62,12 @@ const createERupiVoucher = async (req, res) => {
 
         // Voucher created for user
         const beneficiary = await Beneficiary.findOne({
-            phone: req.body.beneficiaryPhone
+            phone: bodyData.beneficiaryPhone
         });
 
         if (!beneficiary) {
             const newBeneficiary = new Beneficiary({
-                phone: req.body.beneficiaryPhone,
+                phone: bodyData.beneficiaryPhone,
                 vouchersReceived: []
             });
             newBeneficiary.vouchersReceived.push(voucher._id);
@@ -79,7 +82,7 @@ const createERupiVoucher = async (req, res) => {
         // SEND SMS TO USER W STRING
         // await sendSms(
         //     `Dear Beneficiary, you have received your ₹UPI from ${org.orgName}. It can be accessed via the eZ-RUPI app. Incase the link does not work, the e₹UPI can be accessed through the string ${qrString}. Do not share this with anyone other than the concerned authorities. For queries reach out to us at https://american-express-ez-rupi.com/help.`,
-        //     req.body.beneficiaryPhone
+        //     bodyData.beneficiaryPhone
         // );
 
         await axios.post(
@@ -100,13 +103,22 @@ const createERupiVoucher = async (req, res) => {
             'Create',
             voucher
         );
+        const encryptedData = encryptData(
+            JSON.stringify({
+                message: 'Voucher successfully created!',
+                data: {
+                    voucher
+                }
+            })
+        );
 
-        res.status(201).json({
-            message: 'Voucher successfully created!',
-            data: {
-                voucher
-            }
-        });
+        // res.status(201).json({
+        //     message: 'Voucher successfully created!',
+        //     data: {
+        //         voucher
+        //     }
+        // });
+        res.status(201).send(encryptedData);
     } catch (error) {
         console.error(error.message);
         res.status(500).json({
@@ -223,13 +235,22 @@ const createBulkERupiVouchers = async (req, res) => {
                     currentBank,
                     'Bulk Create'
                 );
+                const encryptedData = encryptData(
+                    JSON.stringify({
+                        message: 'Vouchers created!',
+                        data: {
+                            insertedVouchers
+                        }
+                    })
+                );
 
-                res.status(201).json({
-                    message: 'Vouchers created!',
-                    data: {
-                        insertedVouchers
-                    }
-                });
+                // res.status(201).json({
+                //     message: 'Vouchers created!',
+                //     data: {
+                //         insertedVouchers
+                //     }
+                // });
+                res.status(201).send(encryptedData);
             });
     } catch (error) {
         res.status(400).json({
@@ -246,12 +267,22 @@ const viewVouchers = async (req, res) => {
                 message: 'Vouchers not found'
             });
         } else {
-            res.status(200).json({
-                message: 'Vouchers list',
-                data: {
-                    vouchers
-                }
-            });
+            const encryptedData = encryptData(
+                JSON.stringify({
+                    message: 'Vouchers list',
+                    data: {
+                        vouchers
+                    }
+                })
+            );
+
+            // res.status(200).json({
+            //     message: 'Vouchers list',
+            //     data: {
+            //         vouchers
+            //     }
+            // });
+            res.status(200).send(encryptedData);
         }
     } catch (error) {
         res.status(400).json({
@@ -279,13 +310,22 @@ const revokeVoucher = async (req, res) => {
                 'Revoke',
                 voucher
             );
+            const encryptedData = encryptData(
+                JSON.stringify({
+                    message: 'Voucher revoked',
+                    data: {
+                        voucher
+                    }
+                })
+            );
 
-            res.status(200).json({
-                message: 'Voucher revoked',
-                data: {
-                    voucher
-                }
-            });
+            // res.status(200).json({
+            //     message: 'Voucher revoked',
+            //     data: {
+            //         voucher
+            //     }
+            // });
+            res.status(200).send(encryptedData);
         }
     } catch (error) {
         res.status(400).json({
@@ -359,13 +399,22 @@ const weeklyCategoryData = async (req, res) => {
             barData.push(count(temp, d));
             d.setDate(d.getDate() + 1);
         }
+        const encryptedData = encryptData(
+            JSON.stringify({
+                message: 'Weekly Vouchers',
+                data: {
+                    barData
+                }
+            })
+        );
 
-        res.status(200).json({
-            message: 'Weekly Vouchers',
-            data: {
-                barData
-            }
-        });
+        // res.status(200).json({
+        //     message: 'Weekly Vouchers',
+        //     data: {
+        //         barData
+        //     }
+        // });
+        res.status(200).send(encryptedData);
     } catch (error) {
         res.status(400).json({
             message: error.message
@@ -462,13 +511,22 @@ const weeklyOrgData = async (req, res) => {
 
             barData.push(count(temp, item.orgName));
         }
+        const encryptedData = encryptData(
+            JSON.stringify({
+                message: 'Weekly Vouchers for Organisation',
+                data: {
+                    barData
+                }
+            })
+        );
 
-        res.status(200).json({
-            message: 'Weekly Vouchers for Organisation',
-            data: {
-                barData
-            }
-        });
+        // res.status(200).json({
+        //     message: 'Weekly Vouchers for Organisation',
+        //     data: {
+        //         barData
+        //     }
+        // });
+        res.status(200).send(encryptedData);
     } catch (error) {
         res.status(400).json({
             message: error.message
@@ -516,13 +574,22 @@ const regionDistributionData = async (req, res) => {
             }
             mapData.push(count(temp, item.code));
         }
+        const encryptedData = encryptData(
+            JSON.stringify({
+                message: 'Regional Distribution of Vouchers',
+                data: {
+                    mapData
+                }
+            })
+        );
 
-        res.status(200).json({
-            message: 'Regional Distribution of Vouchers',
-            data: {
-                mapData
-            }
-        });
+        // res.status(200).json({
+        //     message: 'Regional Distribution of Vouchers',
+        //     data: {
+        //         mapData
+        //     }
+        // });
+        res.status(200).send(encryptedData);
     } catch (error) {
         res.status(400).json({
             message: error.message
@@ -625,13 +692,22 @@ const weeklyTrendingData = async (req, res) => {
             temp.percent = temp.percent?.toFixed(1);
             trendingAssets.push(temp);
         }
+        const encryptedData = encryptData(
+            JSON.stringify({
+                message: 'Weekly Trending assets',
+                data: {
+                    trendingAssets
+                }
+            })
+        );
 
-        res.status(200).json({
-            message: 'Weekly Trending assets',
-            data: {
-                trendingAssets
-            }
-        });
+        // res.status(200).json({
+        //     message: 'Weekly Trending assets',
+        //     data: {
+        //         trendingAssets
+        //     }
+        // });
+        res.status(200).send(encryptedData);
     } catch (error) {
         res.status(400).json({
             message: error.message
