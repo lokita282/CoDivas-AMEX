@@ -88,8 +88,8 @@ const Redeem = ({ navigation, route }) => {
           <View style={styles.schemeDetails}>
             <Text style={styles.maintitle}>{data.title}</Text>
             <Text style={styles.details}>
-              {data.useType.charAt(0).toUpperCase() + data.useType.slice(1)}| ₹{" "}
-              {data.amount}
+              {data.useType.charAt(0).toUpperCase() + data.useType.slice(1)} | ₹{" "}
+              {data.useType==="single"?data.amount:data.balanceAmount}
             </Text>
           </View>
           <View style={styles.qrCodeContainer}>

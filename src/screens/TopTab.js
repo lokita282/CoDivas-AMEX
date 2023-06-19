@@ -1,16 +1,43 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import React, { useState,useEffect } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, Image ,Dimensions} from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import All from './All';
 import Redeemed from './Redeemed';
 import Expired from './Expired';
 import NotRedeemed from './NotRedeemed';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
+
+
+const screenWidth = Dimensions.get("window").width;
 const Tab = createMaterialTopTabNavigator();
 const ProfileIcon = () => {
-  return <Image source={require('../assets/profile.png')} style={styles.profileIcon} />;
+  const [data,setData]=useState(null);
+  async function retrieveUserToken() {
+    try {
+      const user = await AsyncStorage.getItem('codivasUser');
+      if (user !== null) {
+        setData(JSON.parse(user));
+      }
+    } catch (error) {
+      console.log('Error retrieving user token:', error);
+    }
+  }
+
+  useEffect(() => {
+    retrieveUserToken();
+  }, []);
+  return (
+  <View style={styles.header1}>
+    <TouchableOpacity style={styles.profileIcon}>
+          <Text style={styles.profileImage}>{data && data.name.charAt(0)}</Text>
+          {/* <Image source={require('../assets/profile.png')} style={styles.profileImage} /> */}
+        </TouchableOpacity>
+  </View>)
 };
 const CustomTabBar = ({ state, descriptors, navigation ,title}) => {
+
+  
   return (
     <View style={styles.container}>
     <View>
@@ -63,6 +90,8 @@ const TabScreen3 = () => <View style={styles.screenContainer}><Text>Tab 3 Conten
 const TabScreen4 = () => <View style={styles.screenContainer}><Text>Tab 4 Content</Text></View>;
 
 const TopTab = ({navigation,route}) => {
+
+
   const title=route.params.paramKey;
   return (
     <Tab.Navigator tabBar={(props) => <CustomTabBar {...props} title={title} />}>
@@ -118,16 +147,36 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   profileIcon: {
-    width: 50,
-    height: 50,
-    marginLeft:330,
-    marginTop:50,
+    marginLeft: 330,
+    marginTop:40,
   },
+profileImage: {
+  width: 0.13 * screenWidth,
+  height: 0.13 * screenWidth,
+  borderRadius: 0.04 * screenWidth,
+  backgroundColor:'#0E1D61',
+  borderRadius:50,
+  color:'white',
+  textAlign:'center',
+  fontSize:30,
+  padding:5,
+
+},
   header:{
     color:'#375EC0',
     fontSize:20,
     fontWeight:'bold',
     margin:20
+  },
+  header1:{
+    header: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingVertical: 0.02 * screenWidth,
+      paddingHorizontal: 0.05 * screenWidth,
+      marginTop:50,
+    },
   }
 });
 
