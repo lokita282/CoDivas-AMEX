@@ -39,13 +39,7 @@ const Splash = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      {isLoading ? (
-        <LottieView
-          source={require('../assets/splash.json')}
-          autoPlay
-          loop
-        />
-      ) : (
+      
         <>
           {authenticationResult ? (
             <>
@@ -57,7 +51,6 @@ const Splash = ({ navigation }) => {
             <Text style={{ fontWeight: 'bold', fontSize: 18 }}>Authentication failed. Please try again.</Text>
           )}
         </>
-      )}
     </View>
   );
 };
