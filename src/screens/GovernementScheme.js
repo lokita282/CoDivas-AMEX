@@ -11,6 +11,7 @@ import {
   Image,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import * as Haptics from "expo-haptics";
 
 const screenWidth = Dimensions.get("window").width;
 const GovernmentScheme = () => {
@@ -289,6 +290,7 @@ const GovernmentScheme = () => {
   const navigation = useNavigation();
 
   const handleSchemePress = (scheme) => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
     navigation.navigate("Details", { scheme });
   };
 
