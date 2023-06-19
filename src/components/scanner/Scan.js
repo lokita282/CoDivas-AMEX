@@ -2,17 +2,19 @@ import React, { useState } from 'react';
 import QrReader from 'modern-react-qr-reader';
 import { useNavigate } from 'react-router';
 import { validate } from '../../services/merchantServices';
-import errorHandler from '../toasts/errorHandler';
+import successHandler from '../toasts/succesHandler';
 import { Box, Button, TextField } from '@mui/material';
 import { btn_connect, df_jc_ac, df_jc_ac_fdc, df_jfs_ac_fdc, ptag, textField } from '../../theme/CssMy';
+import giphy from '../../images/load.gif'
 
 export default function Scan() {
-    const [result, setResult] = useState('No result');
+    const [result, setResult] = useState('');
     const [amount, setAmount] = useState(0)
     const [id, setId] = useState('')
     const [showqr, setShowQR] = useState(true)
     const navigate = useNavigate()
     const handleScan = async (data) => {
+        setResult(data)
         if (data) {
             const regex = /xxx-(.*?)-xxx/;
             const match = data.match(regex);
@@ -20,6 +22,7 @@ export default function Scan() {
             
             if (match && match.length > 1) {
                 const extractedText = match[1]
+                console.log(extractedText)
                 setResult(extractedText)
                 await validate({ encryptedString: extractedText }).then((res) => {
                     console.log(res.data)
@@ -28,7 +31,10 @@ export default function Scan() {
                         setId(res.data.voucherId)
                     } else {
                         navigate('/')
-                        errorHandler(res.data.message)
+                        setId('')
+                        setAmount(0)
+                        setShowQR(false)
+                        successHandler(res.data.message)
                     }
                 })
                 console.log(result);
@@ -42,7 +48,12 @@ export default function Scan() {
 
     return (
         <div>
-            {showqr ? <>
+            {showqr ? result ? <>
+            <Box sx={{height:'90vh',...df_jc_ac_fdc, bgcolor:'white'}}>
+            <img src={giphy}/>
+            <p style={ptag}>Loading...</p>
+            </Box>
+            </> : <>
             <Box sx={{height:'100vh'}}>
                 <QrReader
                 

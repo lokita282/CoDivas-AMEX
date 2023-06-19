@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { Box, Typography } from '@mui/material'
 import {  df_jc_ac_fdc, ptag } from '../../theme/CssMy'
+import successHandler from '../toasts/succesHandler'
 
 const defaultOptions = {
     loop: true,
@@ -20,6 +21,7 @@ export default function Gst() {
     useEffect(() => {
         setTimeout(() => {
             navigate('/')
+            successHandler("User verified")
         }, [5000])
     }, [])
 

@@ -41,7 +41,7 @@ function ResponsiveDrawer(props) {
 
     const drawer = (
         <div style={df_jfs_ac_fdc}>
-            <CardMedia sx={{ width: '80%', paddingLeft: '5%', paddingTop: '5%' }} component='img' image={logo} />
+            <CardMedia sx={{ width: '50%', paddingLeft: '5%', paddingTop: '5%' }} component='img' image={logo} />
             <List>
                 <ListItem disablePadding onClick={() => navigate('/')} sx={url === '' ? { color: '#375EC0' } : { color: "#6A707F" }}>
                     <ListItemButton>

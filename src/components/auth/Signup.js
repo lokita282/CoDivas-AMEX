@@ -55,11 +55,11 @@ export default function Signup() {
                     localStorage.setItem('codivasUser', JSON.stringify(res.data.data.user))
                     setUser(res.data.data.user)
                     setToken(res.data.data.token)
-                    successHandler(res.data.message)
                     navigate('/gst')
                     setLoad(false)
                 }).catch((e) => {
-                    errorHandler('Signup failed')
+                    console.log(e)
+                    errorHandler(e.response.data.message)
                     setLoad(false)
                 })
         } else {

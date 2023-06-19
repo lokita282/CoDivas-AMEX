@@ -22,7 +22,7 @@ export default function VerificationCode() {
         })
             .then((res) => {
                 console.log(res)
-                if(res.success){
+                if(res.data.success){
                     navigate('/scan-tick')
                 }else{
                     errorHandler(res.data.message)
