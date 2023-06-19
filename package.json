@@ -18,6 +18,7 @@
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",
     "axios": "^1.4.0",
+    "dotenv": "^16.3.1",
     "expo": "~48.0.18",
     "expo-local-authentication": "~13.3.0",
     "expo-localization": "~14.1.1",
@@ -34,7 +35,8 @@
     "react-native-screens": "^3.20.0",
     "react-native-svg": "13.4.0",
     "react-native-tab-view": "^3.5.1",
-    "react-navigation": "^4.4.4"
+    "react-navigation": "^4.4.4",
+    "react-native-pager-view": "6.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

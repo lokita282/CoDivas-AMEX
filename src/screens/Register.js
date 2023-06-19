@@ -61,7 +61,7 @@ export default function Register({ navigation }) {
               loop
             />
           </View>
-          <Text style={styles.header}>Good to see you</Text>
+          <Text style={styles.header}>Good to see you!</Text>
 
           <View style={styles.inputTextWrapper}>
             <TextInput
@@ -119,7 +119,7 @@ export default function Register({ navigation }) {
           </View> */}
          
           <TouchableOpacity onPress={() => submitPressed()} style={styles.btnContainer} >
-            <Text style={styles.btn}>SignUp</Text>
+            <Text style={styles.btn}>Sign Up</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
@@ -127,7 +127,7 @@ export default function Register({ navigation }) {
             }}
           >
             <Text style={styles.registerText}>
-              Already have an account ? <Text style={styles.link}>Signin</Text>
+              Already have an account ? <Text style={styles.link}>Login</Text>
             </Text>
           </TouchableOpacity>
         </ScrollView>
@@ -217,6 +217,7 @@ const styles = StyleSheet.create({
   link: {
     color: "#375EC0",
     textDecorationLine: "underline",
+    fontWeight:'bold'
   },
   btn: {
     borderRadius: 150,
