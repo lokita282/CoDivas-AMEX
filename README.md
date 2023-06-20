@@ -89,13 +89,25 @@ The React Native project should now start building and running on your device or
 
 The important deployed links for our application are:-
 
-1. Admin : https://ez-rupi-admin.netlify.app/ 
-2. Main Portal :  https://ez-rupi.netlify.app/
-3. Backend : https://ez-rupi-api.up.railway.app/api 
-4. Merchant : https://merchant-ez-rupi.netlify.app/
-4. Merchant APK :
-5. User APK : https://expo.dev/artifacts/eas/ofYoPLuspPRKtF9B3ydEkP.apk
+### FRONTEND
 
+#### SECURE
+1. Admin: https://secure-ez-rupi-admin.netlify.app/
+2. Merchant: https://secure-ez-rupi-merchant.netlify.app/
+3. User/Bank: https://secure-ez-rupi.netlify.app/
+
+#### NOT ENCRYPTED
+1. Admin: https://ez-rupi-admin.netlify.app/
+2. Merchant: https://ez-rupi-merchant.netlify.app/
+3. User/Bank: https://ez-rupi.netlify.app/
+
+### BACKEND
+1. Secure: https://ez-rupi-secure.onrender.com/api
+2. Non-encrypted: https://ez-rupi.onrender.com/api
+
+### APP
+1. User APK : https://expo.dev/artifacts/eas/ofYoPLuspPRKtF9B3ydEkP.apk
+2. Merchant APK : 
 
 
 The important credentials to enter our application are:-
