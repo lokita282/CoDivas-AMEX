@@ -48,7 +48,7 @@ const FindMerchant = () => {
       {filteredData.length ? <Box sx={{ padding: '2% 20%' }}>
         <TextField value={searchTerm} sx={textField} InputProps={{
           endAdornment: <InputAdornment position="end"><Icon icon="ic:round-search" width={22} height={22} /></InputAdornment>,
-        }} placeholder='Search schemes' onChange={handleSearch} />
+        }} placeholder='Search merchants' onChange={handleSearch} />
         <TableContainer component={Paper}>
           <Table>
             <TableHead>
