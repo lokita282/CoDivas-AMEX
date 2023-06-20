@@ -13,11 +13,11 @@ const Card = ({ image, title, receivedDate, expiringDate,amount}) => {
       <View style={styles.cardText}>
         <Text style={styles.title}>{title}</Text>
         <Text style={[styles.info, styles.dateText]}>
-          {`Received On - `}
+          {`Valid from - `}
           <Text style={styles.normalText}>{moment(receivedDate).format('MMM Do, YYYY')}</Text>
         </Text>
         <Text style={[styles.info, styles.dateText]}>
-          {`Expiring On - `}
+          {`Valid till - `}
           <Text style={styles.normalText}>{moment(expiringDate).format('MMM Do, YYYY')}</Text>
         </Text>
         <Text style={[styles.info, styles.dateText]}>
