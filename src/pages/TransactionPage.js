@@ -35,7 +35,7 @@ export default function TransactionPage() {
           </Box> :<Grid container sx={{padding:{md:'0% 30%', xs:'2%'}}}>
           <Typography variant='v5' sx={bold_name}>Transaction History</Typography>
             {
-                trans.map((tr, i) => {
+                trans.slice(0).reverse().map((tr, i) => {
                         return <Grid key={i} item xs={12} sx={{marginTop:'3%'}}>
                             <CardContent sx={{ width: '100%', backgroundColor: 'white', marginRight: '3%', borderRadius: '10px', boxShadow: '0px 1px 26px rgba(94, 99, 116, 0.05)' }}>
                                 <Grid container>
