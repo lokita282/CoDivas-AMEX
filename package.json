@@ -13,6 +13,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
+    "crypto-js": "^4.1.1",
     "generate-avatar": "^1.4.10",
     "jsencrypt": "^3.3.2",
     "modern-react-qr-reader": "^1.0.12",

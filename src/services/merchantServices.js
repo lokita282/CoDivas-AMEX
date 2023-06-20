@@ -4,44 +4,57 @@ import { decryptData, encryptData } from "./encryptdecrypt"
 export const login = async(data) => {
     let res = await httpcommon.post(`/auth/login`, {data:encryptData(data)})
     let res2 = decryptData(res.data)
-    console.log(res2)
-
-    // return decryptData(res)
+    let res3 = {data:JSON.parse(JSON.parse(res2))}
+    return res3
 }
 
-export const signup = (data) => {
-    console.log(encryptData({data}))
-    return httpcommon.post(`auth/merchant/signup`, {data : encryptData({data})})
+export const signup = async(data) => {
+    let res = await httpcommon.post(`auth/merchant/signup`, {data:encryptData(data)})
+    let res2 = decryptData(res.data)
+    let res3 = {data:JSON.parse(JSON.parse(res2))}
+    return res3
 }
 
-export const validate = (data) => {
-    return httpcommon.post(`/merchant/validate-voucher`, data, {
+export const validate = async(data) => {
+    let res = await httpcommon.post(`/merchant/validate-voucher`, {data:encryptData(data)}, {
         headers: {
             Authorization: `Bearer ${localStorage.getItem('codivasToken')}`
         }
     })
+    let res2 = decryptData(res.data)
+    let res3 = {data:JSON.parse(JSON.parse(res2))}
+    return res3
 }
 
-export const redeem = (data) => {
-    return httpcommon.post(`/merchant/redeem-voucher`, data, {
+export const redeem = async(data) => {
+    let res = await httpcommon.post(`/merchant/redeem-voucher`, {data:encryptData(data)}, {
         headers: {
             Authorization: `Bearer ${localStorage.getItem('codivasToken')}`
         }
     })
+    let res2 = decryptData(res.data)
+    let res3 = {data:JSON.parse(JSON.parse(res2))}
+    return res3
 }
 
-export const getTrans = () => {
-    return httpcommon.get(`/merchant/transactions`, {
+export const getTrans = async() => {
+    let res = await httpcommon.get(`/merchant/transactions`, {
         headers: {
             Authorization: `Bearer ${localStorage.getItem('codivasToken')}`
         }
     })
+    let res2 = decryptData(res.data)
+    let res3 = {data:JSON.parse(JSON.parse(res2))}
+    return res3
 }
 
-export const scanSMS = (data) => {
-    return httpcommon.post(`/merchant/validate-voucher-sms`, data, {
+export const scanSMS = async(data) => {
+    let res = await httpcommon.post(`/merchant/validate-voucher-sms`, {data:encryptData(data)}, {
         headers: {
             Authorization: `Bearer ${localStorage.getItem('codivasToken')}`
         }
     })
+    let res2 = decryptData(res.data)
+    let res3 = {data:JSON.parse(JSON.parse(res2))}
+    return res3
 }

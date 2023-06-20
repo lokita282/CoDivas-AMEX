@@ -1,18 +1,21 @@
-import JSEncrypt from 'jsencrypt';
+import { AES } from "crypto-js";
+import CryptoJS from 'crypto-js'
 
-const publicKey = process.env.REACT_APP_PRIVATE_KEY;
-const privateKey = process.env.REACT_APP_PUBLIC_KEY;
-const publicPem = window.atob(publicKey);
-const privatePem = window.atob(privateKey);
-const encryptor = new JSEncrypt();
-encryptor.setPublicKey(publicPem);
-const decryptor = new JSEncrypt();
-decryptor.setPrivateKey(privatePem);
 
 export const encryptData = (data) => {
-    return encryptor.encrypt(JSON.stringify({...data}))
-}
+    console.log(process.env.REACT_APP_AES_KEY)
+    const encryptedData = AES.encrypt(
+        JSON.stringify({...data}),
+        process.env.REACT_APP_AES_KEY
+    ).toString();
+    console.log(encryptedData)
+    return encryptedData;
+};
 
-export const decryptData = (string) => {
-    return decryptor.decrypt(string)
-}
+export const decryptData = (data) => {
+    const decryptedData = AES.decrypt(data, process.env.REACT_APP_AES_KEY).toString(
+        CryptoJS.enc.Utf8
+    );
+    console.log(decryptedData)
+    return decryptedData;
+};
