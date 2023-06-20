@@ -14,7 +14,7 @@
       "infoPlist": {
         "NSFaceIDUsageDescription": "This app uses Face ID and Touch ID to verify user's identity and protect sensitive information. "
       },
-      "bundleIdentifier": "com.priyambi.Erupi"
+      "bundleIdentifier": "com.priyambi.ezrupi"
     },
     "android": {
       "adaptiveIcon": {
@@ -26,13 +26,13 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "extra": {
-      "eas": {
-        "projectId": "7b3b0e68-fc61-4be4-9484-3f5276eeb346"
-      }
-    },
     "plugins": [
       "expo-localization"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "ca307566-0109-4c69-ab49-225ced4c6e64"
+      }
+    }
   }
 }
