@@ -41,6 +41,7 @@
     "react-native-screens": "^3.20.0",
     "react-native-svg": "13.4.0",
     "react-native-tab-view": "^3.5.1",
+    "react-native-text-ticker": "^1.14.0",
     "react-navigation": "^4.4.4"
   },
   "devDependencies": {

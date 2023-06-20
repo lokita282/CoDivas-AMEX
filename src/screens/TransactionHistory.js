@@ -19,7 +19,7 @@ const TransactionHistory = () => {
   const [user, setUser] = useState(null);
   const [userToken, setUserToken] = useState("");
   const [isLoading, setIsLoading] = useState(false);
- 
+
   // async function retrieveUserToken() {
   //   try {
   //     const token = await AsyncStorage.getItem('userToken');
@@ -55,7 +55,7 @@ const TransactionHistory = () => {
             requestOptions
           );
           let result = await res.json();
-          
+
           if (result.data) {
             setData(result.data);
             console.log("Entered");
@@ -71,18 +71,17 @@ const TransactionHistory = () => {
   useEffect(() => {
     setIsLoading(true);
     retrieveUser();
-  },[]);
-
+  }, []);
 
   const renderTransactionHistory = () => {
     const getRandomColor = () => {
-      const letters = '0123456789ABCDEF';
-      let color = '#';
+      const letters = "0123456789ABCDEF";
+      let color = "#";
       for (let i = 0; i < 6; i++) {
-          color += letters[Math.floor(Math.random() * 16)];
+        color += letters[Math.floor(Math.random() * 16)];
       }
       return color;
-  };
+    };
     return (
       data &&
       data.reverse().map((transaction, index) => (
@@ -95,24 +94,41 @@ const TransactionHistory = () => {
               style={styles.image}
             /> */}
             <View style={styles.payeeIconContainer}>
-              <TouchableOpacity style={[styles.payeeIcon,{ backgroundColor: getRandomColor()}]}>
-                <Text style={[styles.payeeImage,{ backgroundColor: '#00000000'}]}>{transaction.payee.charAt(0)}</Text>
+              <TouchableOpacity
+                style={[
+                  styles.payeeIcon,
+                  { backgroundColor: getRandomColor() },
+                ]}
+              >
+                <Text
+                  style={[styles.payeeImage, { backgroundColor: "#00000000" }]}
+                >
+                  {transaction.payee.charAt(0)}
+                </Text>
               </TouchableOpacity>
             </View>
-            <View style={{marginLeft:-30}}>
-              <View style={{flexDirection:"row"}}>
-                <Text numberOfLines={1} ellipsizeMode="tail" style={styles.payee}>{transaction.payee}</Text>
+            <View style={{ marginLeft: -30 }}>
+              <View style={{ flexDirection: "row" }}>
+                
+                <Text
+                  numberOfLines={1}
+                  ellipsizeMode="tail"
+                  style={styles.payee}
+                  overflow="scroll"
+                >
+                  {transaction.payee}
+                </Text>
+                
               </View>
-            <Text style={styles.details}>
-            {moment(transaction.datetime).format("MMM Do YYYY")} at{" "}
-            {moment(transaction.datetime).format("h:mm a")}
-          </Text>
+              <Text style={styles.details}>
+                {moment(transaction.datetime).format("MMM Do YYYY")} at{" "}
+                {moment(transaction.datetime).format("h:mm a")}
+              </Text>
             </View>
             <View>
               <Text style={styles.amount}>₹{transaction.amount}</Text>
             </View>
           </View>
-          
         </View>
       ))
     );
@@ -191,7 +207,7 @@ const styles = StyleSheet.create({
     //textAlign: "center",
     fontSize: 30,
     padding: 5,
-    overflow:"hidden",
+    overflow: "hidden",
     marginLeft: 0.03 * screenWidth,
   },
   profileImage: {
@@ -201,8 +217,9 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 30,
     padding: 5,
-    marginLeft:Platform.OS === "android" ? 0.015 * screenWidth : 0.017 * screenWidth,
-    marginTop:Platform.OS === "android" ? -5: -2,
+    marginLeft:
+      Platform.OS === "android" ? 0.015 * screenWidth : 0.017 * screenWidth,
+    marginTop: Platform.OS === "android" ? -5 : -2,
   },
   payeeIconContainer: {
     marginLeft: 0.04 * screenWidth,
@@ -217,8 +234,9 @@ const styles = StyleSheet.create({
     //textAlign: "center",
     fontSize: 30,
     padding: 5,
-    overflow:"hidden",
+    overflow: "hidden",
     marginLeft: 0,
+    //marginTop:5,
   },
   payeeImage: {
     width: 0.13 * screenWidth,
@@ -227,8 +245,8 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 30,
     padding: 0.02 * screenWidth,
-    marginLeft:Platform.OS === "android" ? 0.012 * screenWidth : 0.017 * screenWidth,
-    marginTop:Platform.OS === "android" ? -5: -2,
+    marginLeft: Platform.OS === "android" ? 0.012 * screenWidth : 0.013 * screenWidth,
+    marginTop: Platform.OS === "android" ? -5 : -6,
   },
   title: {
     fontSize: 24,
@@ -243,23 +261,23 @@ const styles = StyleSheet.create({
   transactionContainer: {
     backgroundColor: "white",
     margin: 10,
-    width: 0.91 * screenWidth ,
+    width: 0.91 * screenWidth,
     height: 79,
     borderRadius: 5,
     padding: 10,
-    paddingTop:0.03 * screenWidth,
+    paddingTop: 0.03 * screenWidth,
   },
   payee: {
     fontWeight: "bold",
     fontSize: 15,
     color: "#000",
-    flex: 1
+    flex: 1,
   },
   amount: {
     fontWeight: "bold",
     fontSize: 18,
     color: "#000",
-    paddingRight:10,
+    paddingRight: 10,
   },
   details: {
     fontSize: 13,
@@ -271,7 +289,7 @@ const styles = StyleSheet.create({
     height: 30,
     marginLeft: 10,
     borderRadius: 4,
-    marginTop:10,
+    marginTop: 10,
   },
 });
 
