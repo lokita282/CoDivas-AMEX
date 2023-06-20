@@ -33,7 +33,7 @@ export default function VerificationCode() {
 
     console.log(code)
     return (
-        <Box sx={{ ...df_jc_ac_fdc, height: '80vh', padding: '15%' }}>
+        <Box sx={{ ...df_jc_ac_fdc, height: '80vh', padding: '15%', width:'90vw' }}>
             <Typography sx={{ ...bold_name, marginBottom: '5%' }}>Verification Code</Typography>
             <Typography sx={{ ...ptag, textAlign: 'center', marginBottom: '10%' }}>Please ask the beneficiary to check their messages</Typography>
             <div className="custom-styles">
