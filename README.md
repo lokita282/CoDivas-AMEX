@@ -162,7 +162,7 @@ The key features of eZ-RUPI Application are:-
 
 ## Demo or Screenshots
 
-#### USER WEB APPLICATION
+#### WEB APPLICATION
 ![reger](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/8f8b1457-77d3-4b00-90fa-29ede661e13d)
 ![rherh](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/1d22199f-008e-4fd8-b554-3ba20e365111)
 ![berb](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/4b542cca-e3f9-4339-8a9e-dfde8c7c8a7b)
