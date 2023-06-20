@@ -241,10 +241,10 @@ const styles = StyleSheet.create({
     width: screenWidth,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    shadowOffset: {width: -2, height: 4},  
-    shadowColor: 'rgba(94,99,116,0.21)',  
-    shadowOpacity: 0.5,  
-    shadowRadius: 3, 
+    // shadowOffset: {width: -2, height: 4},  
+    // shadowColor: 'rgba(94,99,116,0.21)',  
+    // shadowOpacity: 0.5,  
+    // shadowRadius: 3, 
   },
   cardContainer1: {
     //backgroundColor: '#fff',
@@ -252,8 +252,8 @@ const styles = StyleSheet.create({
   },
   cardImage: {
     width: "92%",
-    height: 200,
-    resizeMode: "contain",
+    height: 190,
+    resizeMode: "cover",
     borderRadius: 8,
   },
   cardRow: {
