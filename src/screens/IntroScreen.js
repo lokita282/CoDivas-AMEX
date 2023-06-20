@@ -23,7 +23,7 @@ const IntroScreen = ({navigation}) => {
         loop
       />
         <Image source={require('../assets/logo.gif')} style={styles.logo} />
-        <Text style={styles.tagline}>Empowering Seamless Transactions,the eZ-RUPI Way!</Text>
+        <Text style={styles.tagline}>Empowering Seamless Transactions,{"\n"}the eZ-RUPI Way!</Text>
       
               <Text style={{color:'grey',fontSize:15}}>Developed By</Text>
               <Text style={{ fontWeight: 'bold', fontSize: 28,color: '#000' }}>CoDivas</Text>
