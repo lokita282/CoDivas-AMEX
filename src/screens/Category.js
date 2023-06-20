@@ -354,6 +354,7 @@ import {
   Modal,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as Haptics from "expo-haptics";
 
 const DOMAIN_DATA = [
   { id: 1, title: 'Agriculture', image: require('../assets/agriculture.png'), hindiTitle: 'कृषि', tamilTitle: 'விவசாயம்', marathiTitle: 'शेती', gujaratiTitle: 'ખેડૂત' },
@@ -419,9 +420,10 @@ const Category = ({ navigation, route }) => {
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
-      onPress={() =>
+      onPress={() => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
         navigation.navigate("TopTab", { paramKey: item.title })
-      }
+      }}
       style={[styles.card, { marginRight: 0.05 * screenWidth }]}
     >
       <Image source={item.image} style={styles.cardImage} />

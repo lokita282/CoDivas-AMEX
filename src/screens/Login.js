@@ -36,7 +36,7 @@ export default function Login({ navigation }) {
       setLoading(false);
       console.log("User token stored successfully!", res.token);
       console.log(await AsyncStorage.getItem("codivasUser"));
-      navigation.navigate("BottomTab")
+      navigation.replace("BottomTab")
     } catch (error) {
       console.log("Error storing user token:", error);
       setLoading(false);

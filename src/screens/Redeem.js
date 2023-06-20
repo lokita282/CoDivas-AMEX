@@ -4,6 +4,7 @@ import QRCode from "react-native-qrcode-svg";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import moment from "moment/moment";
 import LottieView from "lottie-react-native";
+import { Linking } from 'react-native';
 
 const screenWidth = Dimensions.get("window").width;
 const ProfileIcon = () => {
@@ -128,7 +129,9 @@ const Redeem = ({ navigation, route }) => {
             <Image source={eRupi} style={styles.image} />
             <View style={styles.cardText}>
               <Text style={styles.title}>To know more about e-RUPI</Text>
-              <Text style={styles.title1}>Click Here</Text>
+              <Text style={styles.title1}
+                onPress={() => Linking.openURL('https://www.npci.org.in/what-we-do/e-rupi/product-overview')}
+              >Click Here</Text>
             </View>
           </View>
         </View>

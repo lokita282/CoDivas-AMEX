@@ -100,7 +100,9 @@ const TransactionHistory = () => {
               </TouchableOpacity>
             </View>
             <View style={{marginLeft:-30}}>
-            <Text style={styles.payee}>{transaction.payee}</Text>
+              <View style={{flexDirection:"row"}}>
+                <Text numberOfLines={1} ellipsizeMode="tail" style={styles.payee}>{transaction.payee}</Text>
+              </View>
             <Text style={styles.details}>
             {moment(transaction.datetime).format("MMM Do YYYY")} at{" "}
             {moment(transaction.datetime).format("h:mm a")}
@@ -251,6 +253,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 15,
     color: "#000",
+    flex: 1
   },
   amount: {
     fontWeight: "bold",
