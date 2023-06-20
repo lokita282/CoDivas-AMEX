@@ -38,7 +38,7 @@ const BottomTab = () => {
 
           let focusSetting = () => {
             fontSize = focused ? 13 : 12;
-            fontWeight = focused ? "bold" : "";
+            fontWeight = focused ? "bold" : "normal";
           };
           if (route.name === 'Home') {
             iconSource = require('../assets/home.png');
@@ -56,7 +56,7 @@ const BottomTab = () => {
             iconName = "Schemes";
             focusSetting();
           } else if (route.name === 'Transactions') {
-            iconSource = require('../assets/invoice.png');
+            iconSource = require('../assets/hist.png');
             iconColor = focused ? '#375EC0' : '#748c94';
             iconName = "Transactions";
             focusSetting();
