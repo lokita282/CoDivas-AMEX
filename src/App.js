@@ -1,3 +1,4 @@
+/* es-lisnt disable */
 import './App.css';
 import { merchant } from './context/MainContext';
 import { BrowserRouter as Router } from 'react-router-dom';
