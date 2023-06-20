@@ -14,7 +14,7 @@ const Dashboard = ({ navigation }) => {
 
   const handleLogout = async () => {
     await AsyncStorage.clear();
-    navigation.navigate("Login")
+    navigation.replace("Login")
     setIsPopoverVisible(false);
   };
 

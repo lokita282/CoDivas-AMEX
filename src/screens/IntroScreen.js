@@ -8,7 +8,7 @@ const IntroScreen = ({navigation}) => {
     useEffect(() => {
         // Navigate to the next screen after 5 seconds
         const timer = setTimeout(() => {
-          navigation.navigate('Login');
+          navigation.replace('Login');
         }, 2000);
     
         // Clear the timer when the component is unmounted

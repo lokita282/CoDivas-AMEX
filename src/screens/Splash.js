@@ -29,7 +29,7 @@ const Splash = ({ navigation }) => {
     if (!isLoading && authenticationResult) {
       // Navigate to the next screen after successful authentication
       const timer = setTimeout(() => {
-        navigation.navigate('IntroScreen');
+        navigation.replace('IntroScreen');
       }, 5000);
 
       // Clear the timer when the component is unmounted
