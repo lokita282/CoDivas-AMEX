@@ -81,10 +81,10 @@ const createERupiVoucher = async (req, res) => {
         let qrString = caesarCipherEncrypt(voucher.uid, 3);
 
         // SEND SMS TO USER W STRING
-        // await sendSms(
-        //     `Dear Beneficiary, you have received your ₹UPI from ${org.orgName}. It can be accessed via the eZ-RUPI app. Incase the link does not work, the e₹UPI can be accessed through the string ${qrString}. Do not share this with anyone other than the concerned authorities. For queries reach out to us at https://american-express-ez-rupi.com/help.`,
-        //     bodyData.beneficiaryPhone
-        // );
+        await sendSms(
+            `Dear Beneficiary, you have received your ₹UPI from ${org.orgName}. It can be accessed via the eZ-RUPI app. Incase the link does not work, the e₹UPI can be accessed through the string ${qrString}. Do not share this with anyone other than the concerned authorities. For queries reach out to us at https://american-express-ez-rupi.com/help.`,
+            bodyData.beneficiaryPhone
+        );
 
         await axios.post(
             `https://ntfy.sh/${voucher.beneficiaryPhone}`,
@@ -139,44 +139,48 @@ const createBulkERupiVouchers = async (req, res) => {
                 let newVouchersIdsArray = [];
 
                 jsonOutput.forEach((newVoucher) => {
-                    const org = organisationDetails.find(
-                        ({ orgId }) => orgId == newVoucher.orgId
-                    );
-                    let startsObject = new Date(newVoucher.startsAt);
-                    let endsObject = new Date(newVoucher.endsAt);
-                    let logo = org.orgLogo;
+                    if (newVoucher.title) {
+                        const org = organisationDetails.find(
+                            ({ orgId }) => orgId == newVoucher.orgId
+                        );
+                        let startsObject = new Date(newVoucher.startsAt);
+                        let endsObject = new Date(newVoucher.endsAt);
+                        let logo = org.orgLogo;
 
-                    let voucher = new Voucher({
-                        title: newVoucher.title,
-                        startsAt: startsObject,
-                        endsAt: endsObject,
-                        orgId: newVoucher.orgId,
-                        orgLogo: logo,
-                        issuedBy: req.user.name, // bank name
-                        issuedByLogo: currentBank[0].bankLogo,
-                        issuedById: req.user._id,
-                        beneficiaryName: newVoucher.beneficiaryName,
-                        beneficiaryPhone: newVoucher.beneficiaryPhone,
-                        govtIdType: newVoucher.govtIdType,
-                        govtIdNumber: newVoucher.govtIdNumber,
-                        category: newVoucher.category,
-                        state: newVoucher.state,
-                        description: newVoucher.description,
-                        amount: newVoucher.amount,
-                        balanceAmount:
-                            newVoucher.useType == 'multiple'
-                                ? newVoucher.amount
-                                : undefined,
-                        useType: newVoucher.useType,
-                        uid:
-                            shortCodes[newVoucher.category] +
-                            '-' +
-                            generateRandomNumber(8),
-                        status:
-                            Date.now() <= startsObject ? 'upcoming' : 'valid'
-                    });
-                    newVouchersArray.push(voucher);
-                    newVouchersIdsArray.push(voucher._id);
+                        let voucher = new Voucher({
+                            title: newVoucher.title,
+                            startsAt: startsObject,
+                            endsAt: endsObject,
+                            orgId: newVoucher.orgId,
+                            orgLogo: logo,
+                            issuedBy: req.user.name, // bank name
+                            issuedByLogo: currentBank[0].bankLogo,
+                            issuedById: req.user._id,
+                            beneficiaryName: newVoucher.beneficiaryName,
+                            beneficiaryPhone: newVoucher.beneficiaryPhone,
+                            govtIdType: newVoucher.govtIdType,
+                            govtIdNumber: newVoucher.govtIdNumber,
+                            category: newVoucher.category,
+                            state: newVoucher.state,
+                            description: newVoucher.description,
+                            amount: newVoucher.amount,
+                            balanceAmount:
+                                newVoucher.useType == 'multiple'
+                                    ? newVoucher.amount
+                                    : undefined,
+                            useType: newVoucher.useType,
+                            uid:
+                                shortCodes[newVoucher.category] +
+                                '-' +
+                                generateRandomNumber(8),
+                            status:
+                                Date.now() <= startsObject
+                                    ? 'upcoming'
+                                    : 'valid'
+                        });
+                        newVouchersArray.push(voucher);
+                        newVouchersIdsArray.push(voucher._id);
+                    }
                 });
 
                 const insertedVouchers = await Voucher.insertMany(
