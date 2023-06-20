@@ -127,15 +127,15 @@ export default function BankDashboard() {
                 onChange={handleChange}
                 aria-label="basic tabs example"
               >
-                <Tab label="Vouchers Issued" {...a11yProps(0)} />
-                <Tab label="Vouchers Redeemed" {...a11yProps(1)} />
+                <Tab label="Vouchers Redeemed" {...a11yProps(0)} />
+                <Tab label="Vouchers Issued" {...a11yProps(1)} />
               </Tabs>
               <TabPanel value={value} index={0}>
-                <RegionIssued />
+                <RegionRedeemed />
               </TabPanel>
 
               <TabPanel value={value} index={1}>
-                <RegionRedeemed />
+                <RegionIssued />
               </TabPanel>
             </Paper>
           </Grid>
