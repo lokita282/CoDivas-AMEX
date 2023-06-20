@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "Erupi",
-    "slug": "Erupi",
+    "name": "eZ-₹UPI",
+    "slug": "ezrupi",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon1.png",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "assetBundlePatterns": [
       "**/*"
@@ -21,7 +21,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.priyambi.Erupi"
+      "package": "com.ezrupi.ezrupi"
     },
     "web": {
       "favicon": "./assets/favicon.png"
