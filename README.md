@@ -167,9 +167,11 @@ The link to API Documentation :- https://documenter.getpostman.com/view/16934299
 
 We would like to acknowledge the exceptional teamwork and collaboration among all the contributors involved in this project. The successful outcome of our endeavor is a testament to the collective effort and dedication of each team member.
 
-- Frontend : Khushi Mehta and Lokita Varma
-- Backend : Rosita D'Mello and Vidhita Pai
-- App : Priyambi Hiran, Khushi Mehta and Vidhita Pai
+- Khushi Mehta (Frontend, App)
+- Lokita Varma (Frontend)
+- Priyambi Hiran (App)
+- Rosita D'Mello (Backend)
+- Vidhita Pai (Backend, App)
 
 
 ## Acknowledgements
