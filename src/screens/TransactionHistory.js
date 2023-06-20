@@ -117,7 +117,7 @@ useEffect(() => {
         "#FF1493",
         "#0B5563", "#0A014F", "#C5283D", " #AA8781 ", "#FB3A96", "#6E103B", "#A336C7", "#113673", "#4F852A"
       ];
-      let num = Math.floor(Math.random() * (32 - 0 + 1) + 0)
+      let num = Math.floor(Math.random() * (30 - 0 + 1) + 0)
       return color[num];
     };
     return (
