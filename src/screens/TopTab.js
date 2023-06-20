@@ -100,7 +100,7 @@ const TopTab = ({navigation,route}) => {
       <Tab.Screen name="Redeemed">
         {() => <Redeemed title={title} />}
       </Tab.Screen>
-      <Tab.Screen name="Pending">
+      <Tab.Screen name="Available">
         {() => <NotRedeemed title={title} />}
       </Tab.Screen>
       <Tab.Screen name="Expired">
