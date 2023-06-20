@@ -113,7 +113,7 @@ const DashboardScreen = () => {
                             </Grid>
                             <Grid item xs={8} sx={df_jfs_ac_fdc}>
                                 <Typography sx={{ ...bold_name, fontSize: '14px' }}>Revenue</Typography>
-                                <Typography sx={{ ...ptag, fontSize: '10px' }}>Using ez-RUPI</Typography>
+                                <Typography sx={{ ...ptag, fontSize: '10px' }}>Using ez-₹UPI</Typography>
                                 <Chip size='small' label={`₹ ${revenue}`} sx={{ marginTop: '7%', backgroundColor: '#375EC0', color: 'white', fontWeight: 'bold' }} />
                             </Grid>
                         </Grid>
@@ -136,7 +136,7 @@ const DashboardScreen = () => {
                                         <Avatar  sx={{ bgcolor: getRandomColor() }}>{tr.payee.slice(0,1)}</Avatar>
                                     </Grid>
                                     <Grid item xs={6} sx={df_jfs_ac_fdc}>
-                                        <Typography sx={{ ...bold_name, fontSize: '14px' }}>{tr.payee}</Typography>
+                                        <Typography sx={{ ...bold_name, fontSize: '14px' }}>{tr.beneficiaryName}</Typography>
                                         <Typography sx={{ ...ptag, fontSize: '10px' }}>{moment(tr.datetime).format("MMMM DD, YYYY h:mmA")}</Typography>
                                     </Grid>
                                     <Grid item xs={4} sx={df_jc_ac}>
