@@ -1,34 +1,18 @@
-import React, { useEffect } from 'react';
-import JSEncrypt from 'jsencrypt';
+import JSEncrypt from 'jsencrypt'
 
-const MyComponent = () => {
-  const publicKey = process.env.REACT_APP_PUBLIC_KEY; // Replace with your public key
-  const privateKey = process.env.REACT_APP_PRIVATE_KEY; // Replace with your private key
+const publicKey = process.env.REACT_APP_PRIVATE_KEY
+const privateKey = process.env.REACT_APP_PUBLIC_KEY
+const publicPem = window.atob(publicKey)
+const privatePem = window.atob(privateKey)
+const encryptor = new JSEncrypt()
+encryptor.setPublicKey(publicPem)
+const decryptor = new JSEncrypt()
+decryptor.setPrivateKey(privatePem)
 
-  const encryptData = (data, publicKey) => {
-    const encryptor = new JSEncrypt();
-    encryptor.setPublicKey(publicKey);
-    return encryptor.encrypt(data);
-  };
+export const encryptData = (data) => {
+  return encryptor.encrypt(JSON.stringify({ ...data }))
+}
 
-  const decryptData = (encryptedData, privateKey) => {
-    const decryptor = new JSEncrypt();
-    decryptor.setPrivateKey(privateKey);
-    return decryptor.decrypt(encryptedData);
-  };
-
-  useEffect(() => {
-    const func = async () => {
-      const dataToEncrypt = 'Hello, world!';
-      const encryptedData = encryptData(dataToEncrypt, publicKey);
-      const decryptedData = decryptData(encryptedData, privateKey);
-      console.log('Encrypted:', encryptedData);
-      console.log('Decrypted:', decryptedData);
-    };
-    func();
-  }, []);
-
-  return <div />;
-};
-
-export default MyComponent;
+export const decryptData = (string) => {
+  return decryptor.decrypt(string)
+}

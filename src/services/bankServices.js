@@ -1,10 +1,17 @@
 import httpcommon from '../httpcommon'
+import { encryptData } from './encryptdecrypt'
 
 export const createErupi = (data) => {
   return httpcommon.post(`/bank/create-voucher`, data, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('codivasToken')}`,
     },
+
+  //--------------------encryption----------------------------------
+  // return httpcommon.post(`/bank/create-voucher`, encryptData(data), {
+  //   headers: {
+  //     Authorization: `Bearer ${localStorage.getItem('codivasToken')}`,
+  //   },
   })
 }
 
@@ -13,6 +20,13 @@ export const createBulkErupi = (data) => {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('codivasToken')}`,
     },
+
+    //--------------------encryption----------------------------------
+  // return httpcommon.post(`/bank/create-bulk-vouchers`, encryptData(data), {
+  //   headers: {
+  //     Authorization: `Bearer ${localStorage.getItem('codivasToken')}`,
+  //   },
+
   })
 }
 
@@ -69,6 +83,14 @@ export const revokeVoucher = (id) => {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('codivasToken')}`,
     },
+
+  //--------------------encryption----------------------------------
+  // return httpcommon.patch(`/bank/revoke-voucher/${id}`,encryptData({}), {
+  //   headers: {
+  //     Authorization: `Bearer ${localStorage.getItem('codivasToken')}`,
+  //   },
+
+  
   })
 }
 
