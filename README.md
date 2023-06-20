@@ -181,5 +181,5 @@ We would like to express our heartfelt gratitude to American Express for providi
 
 ---
 
-Developed by: CoDivas
+Developed by: Team CoDivas
 
