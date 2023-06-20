@@ -4,7 +4,7 @@ const screenWidth = Dimensions.get("window").width;
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import LottieView from "lottie-react-native";
 
-const Dashboard = () => {
+const Dashboard = ({navigation}) => {
   const [data, setData] = useState(null);
   const [userData,setuserData]=useState(null);
   const [userToken, setUserToken] = useState("");
@@ -79,21 +79,25 @@ const Dashboard = () => {
               </TouchableOpacity>
             </View>
         </View>
+        <TouchableOpacity onPress={()=>{navigation.navigate('Category')}}>
         <View style={styles.cardContainer}>
           <Image
-            source={require("../assets/education.png")}
+            source={require("../assets/db.png")}
             style={styles.cardImage}
           />
         </View>
+        </TouchableOpacity>
         <View style={styles.cardContainer}>
           <View style={styles.cardRow}>
             <Text style={styles.cardText}>Vouchers Worth</Text>
             <Text style={styles.cardAmount}>₹ {formatAmount(data.totalAmount)}</Text>
           </View>
-        </View>
+          </View>
+
         <View style={styles.cardContainer}>
+
           <View style={styles.cardRow}>
-            <Text style={styles.cardText}>Total Vouchers</Text>
+            <Text style={styles.cardText}>Vouchers Received</Text>
             <Text style={styles.cardAmount}>{data.totalVouchers}</Text>
           </View>
         </View>
@@ -104,7 +108,7 @@ const Dashboard = () => {
           <View style={styles.rowContainer}>
             <View style={styles.card1}>
               <Image
-                source={require("../assets/education.png")}
+                source={require("../assets/val.jpg")}
                 style={styles.cardImage1}
               />
               <View style={styles.cardDetails}>
@@ -114,7 +118,7 @@ const Dashboard = () => {
             </View>
             <View style={styles.card1}>
               <Image
-                source={require("../assets/education.png")}
+                source={require("../assets/up.png")}
                 style={styles.cardImage1}
               />
               <View style={styles.cardDetails}>
@@ -126,7 +130,7 @@ const Dashboard = () => {
           <View style={styles.rowContainer}>
             <View style={styles.card2}>
               <Image
-                source={require("../assets/education.png")}
+                source={require("../assets/red.jpg")}
                 style={styles.cardImage1}
               />
               <View style={styles.cardDetails}>
@@ -136,7 +140,7 @@ const Dashboard = () => {
             </View>
             <View style={styles.card2}>
               <Image
-                source={require("../assets/education.png")}
+                source={require("../assets/exp.png")}
                 style={styles.cardImage1}
               />
               <View style={styles.cardDetails}>
@@ -202,29 +206,33 @@ const styles = StyleSheet.create({
     marginTop:Platform.OS === "android" ? -5: -2,
   },
   cardContainer: {
-    backgroundColor: "#fff",
     borderRadius: 8,
     marginBottom: 16,
+    width:screenWidth,
+    flexDirection:'row',
+    justifyContent:'space-between'
   },
   cardContainer1: {
     //backgroundColor: '#fff',
     borderRadius: 8,
   },
   cardImage: {
-    width: "100%",
+    width: "92%",
     height: 200,
     resizeMode: "cover",
-    borderTopLeftRadius: 8,
-    borderTopRightRadius: 8,
+    borderRadius: 8,
   },
   cardRow: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     padding: 16,
+    backgroundColor:'white',
+    borderRadius:10,
+    width:'92%'
   },
   cardText: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "bold",
   },
   cardImage1: {
@@ -235,8 +243,9 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 8,
   },
   cardAmount: {
-    fontSize: 16,
-    fontWeight:'bold',
+    fontSize: 24,
+    fontWeight:'700',
+    color : '#3056BD'
   },
   sectionHeader: {
     fontSize: 18,
