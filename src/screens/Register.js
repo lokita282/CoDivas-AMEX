@@ -10,8 +10,10 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
   ScrollView,
+  Alert
 } from "react-native";
 import LottieView from "lottie-react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Register({ navigation }) {
   const [email, setEmail] = useState("");
@@ -19,16 +21,40 @@ export default function Register({ navigation }) {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const [aadhar, setAadhar] = useState("");
+  const [loading, setLoading] = useState(false);
 
+  const storeUserToken = async (res) => {
+    console.log(res);
+    try {
+      let token = res.token;
+      await AsyncStorage.setItem("userToken", token);
+      await AsyncStorage.setItem("codivasUser", JSON.stringify(res.user));
+      setLoading(false);
+      console.log("User token stored successfully!", res.token);
+      console.log(await AsyncStorage.getItem("codivasUser"));
+      navigation.replace("BottomTab")
+    } catch (error) {
+      console.log("Error storing user token:", error);
+      setLoading(false);
+      Alert.alert(res.message);
+
+    }
+    // navigation.navigate("BottomTab");
+  };
   const submitPressed = () => {
     // handle form submission logic here
     //alert('Registration successful');
+    if (number.trim() === "" || password.trim() === "" || email.trim() === "" || aadhar.trim() === "" || name.trim() === "") {
+      Alert.alert("Error", "Please enter all the details");
+      return;
+    }
+    setLoading(true);
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
-      aadhar: aadhar,
-      pan: "AAACU2254N",
+      aadhar: "347451413519",
+      pan: aadhar,
       name: name,
       phone: number,
       password: password,
@@ -41,13 +67,16 @@ export default function Register({ navigation }) {
       redirect: "follow",
     };
 
-    fetch(
-      "https://ez-rupi.onrender.com/api/auth/beneficiary/signup",
-      requestOptions
-    )
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .catch((error) => console.log("error", error));
+    async function fetchData() {
+      await fetch(
+        "https://ez-rupi.onrender.com/api/auth/beneficiary/signup",
+        requestOptions
+      )
+        .then((response) => response.json())
+        .then((result) => storeUserToken(result))
+        .catch((error) => console.log("error", error));
+    }
+    fetchData();
   };
 
   return (
@@ -100,7 +129,7 @@ export default function Register({ navigation }) {
           </View>
           <View style={styles.inputTextWrapper}>
             <TextInput
-              placeholder="Aadhar number"
+              placeholder="Pan number"
               style={styles.textInput}
               value={aadhar}
               keyboardType="numeric"
@@ -117,10 +146,22 @@ export default function Register({ navigation }) {
               color="white"
             />
           </View> */}
-         
-          <TouchableOpacity onPress={() => submitPressed()} style={styles.btnContainer} >
-            <Text style={styles.btn}>Sign Up</Text>
-          </TouchableOpacity>
+          {loading ? (
+            <View
+              style={{ flex: 0.01, justifyContent: "center", left: 160 }}
+            >
+              <LottieView
+                source={require("../assets/load.json")}
+                autoPlay
+                loop
+                style={{ height: 50 }}
+              />
+            </View>
+          ) : (
+            <TouchableOpacity onPress={() => submitPressed()} style={styles.btnContainer}>
+              <Text style={styles.btn}>Sign Up</Text>
+            </TouchableOpacity>
+          )}
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("Login");

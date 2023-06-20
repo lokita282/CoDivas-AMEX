@@ -38,20 +38,28 @@ const Splash = ({ navigation }) => {
   }, [isLoading, authenticationResult, navigation]);
 
   return (
-    <View style={styles.container}>
-      
+    <View style={{flex:1}}>
         <>
           {authenticationResult ? (
             <>
+        
+                <View style={styles.container}>
               <Image style={{ width: 200, height: 150 }} source={require('../assets/first.gif')} />
               <Text style={{ fontWeight: 'bold', fontSize: 28 }}>Scan. Verify. Redeem.</Text>
               <Text style={{ color: '#8D8D8D' }}>Just one scan away</Text>
+              </View>
+              <View style={styles.container1}>
+              <Text style={{color:'grey',fontSize:15}}>Developed By</Text>
+              <Text style={{ fontWeight: 'bold', fontSize: 28,color: '#000' }}>CoDivas</Text>
+              </View>
+              
             </>
           ) : (
             <Text style={{ fontWeight: 'bold', fontSize: 18 }}>Authenticate</Text>
           )}
+          
         </>
-    </View>
+        </View>
   );
 };
 
@@ -60,6 +68,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop:300,
+  },
+  container1: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop:150
   },
 });
 
