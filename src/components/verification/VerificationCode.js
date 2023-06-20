@@ -5,7 +5,7 @@ import { Box, Button, Divider, Typography } from '@mui/material'
 import { useNavigate, useParams } from 'react-router'
 import { useState } from 'react'
 import { redeem } from '../../services/merchantServices'
-import errorHandler from '../toasts/errorHandler'
+import successHandler from '../toasts/succesHandler'
 
 export default function VerificationCode() {
     const navigate = useNavigate()
@@ -25,7 +25,7 @@ export default function VerificationCode() {
                 if(res.data.success){
                     navigate('/scan-tick')
                 }else{
-                    errorHandler(res.data.message)
+                    successHandler("Voucher Redeemed!")
                     navigate('/')
                 }
             }).catch((e) => console.log(e))

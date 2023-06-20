@@ -16,12 +16,41 @@ const DashboardScreen = () => {
     const [revenue, setRevenue] = useState(0)
     const [loading, setLoading] = useState(false)
     const getRandomColor = () => {
-        const letters = '0123456789ABCDEF';
-        let color = '#';
-        for (let i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
+        // const letters = '0123456789ABCDEF';
+        // let color = '#';
+        // for (let i = 0; i < 6; i++) {
+        //     color += letters[Math.floor(Math.random() * 16)];
+        // }
+        let color = [
+            "#FFA500",
+            "#FF69B4",
+            "#FF4500",
+            "#FF00FF",
+            "#FF0000",
+            "#00FF7F",
+            "#FF1493",
+            "#00CED1",
+            "#FF8C00",
+            "#9932CC",
+            "#FFD700",
+            "#48D1CC",
+            "#FF69B4",
+            "#32CD32",
+            "#8A2BE2",
+            "#FF6347",
+            "#87CEFA",
+            "#FF00FF",
+            "#90EE90",
+            "#9370DB",
+            "#FF4500",
+            "#1E90FF",
+            "#FFA07A",
+            "#6A5ACD",
+            "#FF1493",
+            "#0B5563" ,"#0A014F", "#C5283D"," #AA8781 ","#FB3A96", "#6E103B", "#A336C7", "#113673", "#4F852A"
+          ];
+        let num = Math.floor(Math.random() * (32 - 0 + 1) + 0)
+        return color[num];
     };
     const navigate = useNavigate()
 
@@ -99,7 +128,7 @@ const DashboardScreen = () => {
                 {
                     loading ? <Box sx={{...df_jc_ac, width:'100%'}}>
                     <Loading/>
-                    </Box> : trans.map((tr, i) => {
+                    </Box> : trans.slice(0).reverse().map((tr, i) => {
                         return <Grid key={i} item xs={12}>
                             <CardContent sx={{ width: '100%', backgroundColor: 'white', marginRight: '3%', borderRadius: '10px', boxShadow: '0px 1px 26px rgba(94, 99, 116, 0.05)' }}>
                                 <Grid container>
