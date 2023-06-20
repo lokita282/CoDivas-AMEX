@@ -40,6 +40,7 @@ function ResponsiveDrawer(props) {
     const { user } = useContext(merchant)
 
     const drawer = (
+        <div style={{display:'flex', flexDirection:'column', justifyContent:'space-between', height:'95%'}}>
         <div style={df_jfs_ac_fdc}>
             <CardMedia sx={{ width: '50%', paddingLeft: '5%', paddingTop: '5%' }} component='img' image={logo} />
             <List>
@@ -68,7 +69,14 @@ function ResponsiveDrawer(props) {
                     </ListItemButton>
                 </ListItem>
             </List>
-
+        </div>
+        <div style={{ width:'100%', display:'flex', justifyContent:'center'}}>
+            <Button sx={{...btn}} onClick={() => {
+                            localStorage.setItem('codivasUser', null)
+                            localStorage.setItem('codivasToken', null)
+                            navigate('/login')
+                        }}>Logout</Button>
+        </div>
         </div>
     );
 
@@ -101,11 +109,7 @@ function ResponsiveDrawer(props) {
                     </IconButton>
                     <div style={{ display: 'flex' }}>
                         <Avatar sx={{ marginRight: '5%' }} alt={user?.phone} src={`data:image/svg+xml;utf8,${generateFromString(user?.phone)}`} />
-                        <Button sx={btn} onClick={() => {
-                            localStorage.setItem('codivasUser', null)
-                            localStorage.setItem('codivasToken', null)
-                            navigate('/login')
-                        }}>Logout</Button>
+                        
                     </div>
                 </Toolbar>
             </AppBar>
