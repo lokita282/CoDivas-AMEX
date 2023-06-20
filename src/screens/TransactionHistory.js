@@ -226,8 +226,8 @@ const styles = StyleSheet.create({
     //backgroundColor: "#0E1D61",
     color: "white",
     fontSize: 30,
-    padding: 5,
-    marginLeft:Platform.OS === "android" ? 0.015 * screenWidth : 0.017 * screenWidth,
+    padding: 0.02 * screenWidth,
+    marginLeft:Platform.OS === "android" ? 0.012 * screenWidth : 0.017 * screenWidth,
     marginTop:Platform.OS === "android" ? -5: -2,
   },
   title: {
@@ -243,11 +243,11 @@ const styles = StyleSheet.create({
   transactionContainer: {
     backgroundColor: "white",
     margin: 10,
-    width: 350,
+    width: 0.91 * screenWidth ,
     height: 79,
     borderRadius: 5,
     padding: 10,
-    paddingTop:15,
+    paddingTop:0.03 * screenWidth,
   },
   payee: {
     fontWeight: "bold",

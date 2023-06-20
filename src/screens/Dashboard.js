@@ -1,27 +1,35 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Image, StyleSheet, ScrollView,Dimensions,TouchableOpacity } from "react-native";
+import { View, Text, Image, StyleSheet, ScrollView, Dimensions, TouchableOpacity, Modal } from "react-native";
 const screenWidth = Dimensions.get("window").width;
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import LottieView from "lottie-react-native";
+import { Ionicons } from '@expo/vector-icons';
 
-const Dashboard = ({navigation}) => {
+const Dashboard = ({ navigation }) => {
   const [data, setData] = useState(null);
-  const [userData,setuserData]=useState(null);
+  const [userData, setuserData] = useState(null);
   const [userToken, setUserToken] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [isPopoverVisible, setPopoverVisible] = useState(false);
+
+  const handleLogout = async () => {
+    await AsyncStorage.clear();
+    navigation.navigate("Login")
+    setIsPopoverVisible(false);
+  };
 
   async function retrieveUserToken() {
     try {
-        const token = await AsyncStorage.getItem("userToken");
-        const name = await AsyncStorage.getItem("codivasUser")
-        if (token !== null) {
-          //console.log('User token retrieved successfully:', token);
-          setUserToken(token);
-          setuserData(JSON.parse(name));
-        }
-      } catch (error) {
-        console.log("Error retrieving user token:", error);
+      const token = await AsyncStorage.getItem("userToken");
+      const name = await AsyncStorage.getItem("codivasUser")
+      if (token !== null) {
+        //console.log('User token retrieved successfully:', token);
+        setUserToken(token);
+        setuserData(JSON.parse(name));
       }
+    } catch (error) {
+      console.log("Error retrieving user token:", error);
+    }
   }
 
   useEffect(() => {
@@ -43,12 +51,12 @@ const Dashboard = ({navigation}) => {
       };
       async function fetchData() {
         await fetch(
-        "https://ez-rupi.onrender.com/api/beneficiary/account-summary",
+          "https://ez-rupi.onrender.com/api/beneficiary/account-summary",
           requestOptions
         )
           .then((response) => response.json())
           .then((result) => setData(result.data))
-          .then(()=>setIsLoading(false))
+          .then(() => setIsLoading(false))
           .catch((error) => console.log("error", error));
       }
       fetchData();
@@ -61,7 +69,7 @@ const Dashboard = ({navigation}) => {
   };
   return (
     <>
-    {isLoading ? (
+      {isLoading ? (
         <View style={styles.loader}>
           <LottieView
             source={require("../assets/loader.json")} // Replace with the path to your Lottie animation file
@@ -70,90 +78,112 @@ const Dashboard = ({navigation}) => {
           />
         </View>
       ) : data ? <ScrollView>
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.welcomeText}>Welcome, {userData.name} !</Text>
-          <View style={styles.profileIconContainer}>
-              <TouchableOpacity style={styles.profileIcon}>
-                <Text style={styles.profileImage}>{userData.name.charAt(0)}</Text>
-              </TouchableOpacity>
-            </View>
-        </View>
-        <TouchableOpacity onPress={()=>{navigation.navigate('Category')}}>
-        <View style={styles.cardContainer}>
-          <Image
-            source={require("../assets/db.png")}
-            style={styles.cardImage}
-          />
-        </View>
+        <View style={styles.container}>
+          <View style={styles.header}>
+            <Text style={styles.welcomeText}>Welcome, {userData.name} !</Text>
+              
+
+              <View style={styles.profileIconContainer}>
+      <TouchableOpacity style={styles.profileIcon} onPress={() => setPopoverVisible(true)}>
+        <Text style={styles.profileImage}>{userData.name.charAt(0)}</Text>
+      </TouchableOpacity>
+
+      <Modal
+        visible={isPopoverVisible}
+        animationType="fade"
+        transparent={true}
+        onRequestClose={() => setPopoverVisible(false)}
+      >
+        <TouchableOpacity
+          style={styles.popoverContainer}
+          onPress={() => setPopoverVisible(false)}
+          activeOpacity={1}
+        >
+          <View style={styles.popover}>
+            <TouchableOpacity style={styles.popoverItem} onPress={handleLogout}>
+              <Ionicons name="log-out-outline" size={20} color="#333" />
+              <Text style={styles.popoverItemText}>Logout</Text>
+            </TouchableOpacity>
+          </View>
         </TouchableOpacity>
-        <View style={styles.cardContainer}>
-          <View style={styles.cardRow}>
-            <Text style={styles.cardText}>Vouchers Worth</Text>
-            <Text style={styles.cardAmount}>₹ {formatAmount(data.totalAmount)}</Text>
-          </View>
+      </Modal>
+    </View>
+            </View>
+          <TouchableOpacity onPress={() => { navigation.navigate('Category') }}>
+            <View style={styles.cardContainer}>
+              <Image
+                source={require("../assets/db.png")}
+                style={styles.cardImage}
+              />
+            </View>
+          </TouchableOpacity>
+          <View style={styles.cardContainer}>
+            <View style={styles.cardRow}>
+              <Text style={styles.cardText}>Vouchers Worth</Text>
+              <Text style={styles.cardAmount}>₹ {formatAmount(data.totalAmount)}</Text>
+            </View>
           </View>
 
-        <View style={styles.cardContainer}>
+          <View style={styles.cardContainer}>
 
-          <View style={styles.cardRow}>
-            <Text style={styles.cardText}>Vouchers Received</Text>
-            <Text style={styles.cardAmount}>{data.totalVouchers}</Text>
-          </View>
-        </View>
-        <View style={styles.header}>
-          <Text style={styles.sectionHeader}>Vouchers</Text>
-        </View>
-        <View style={styles.cardContainer1}>
-          <View style={styles.rowContainer}>
-            <View style={styles.card1}>
-              <Image
-                source={require("../assets/val.jpg")}
-                style={styles.cardImage1}
-              />
-              <View style={styles.cardDetails}>
-                <Text style={styles.cardTitle}>Valid Vouchers</Text>
-                <Text style={styles.cardCount}>Count: {data.totalValidVouchers}</Text>
-              </View>
-            </View>
-            <View style={styles.card1}>
-              <Image
-                source={require("../assets/up.png")}
-                style={styles.cardImage1}
-              />
-              <View style={styles.cardDetails}>
-                <Text style={styles.cardTitle}>Upcoming Vouchers</Text>
-                <Text style={styles.cardCount}>Count: {data.totalUpcomingVouchers}</Text>
-              </View>
+            <View style={styles.cardRow}>
+              <Text style={styles.cardText}>Vouchers Received</Text>
+              <Text style={styles.cardAmount}>{data.totalVouchers}</Text>
             </View>
           </View>
-          <View style={styles.rowContainer}>
-            <View style={styles.card2}>
-              <Image
-                source={require("../assets/red.jpg")}
-                style={styles.cardImage1}
-              />
-              <View style={styles.cardDetails}>
-                <Text style={styles.cardTitle}>Redeemed Vouchers</Text>
-                <Text style={styles.cardCount}>Count: {data.totalRedeemedVouchers}</Text>
+          <View style={styles.header}>
+            <Text style={styles.sectionHeader}>Vouchers</Text>
+          </View>
+          <View style={styles.cardContainer1}>
+            <View style={styles.rowContainer}>
+              <View style={styles.card1}>
+                <Image
+                  source={require("../assets/val.jpg")}
+                  style={styles.cardImage1}
+                />
+                <View style={styles.cardDetails}>
+                  <Text style={styles.cardTitle}>Valid Vouchers</Text>
+                  <Text style={styles.cardCount}>In Wallet: {data.totalValidVouchers}</Text>
+                </View>
+              </View>
+              <View style={styles.card1}>
+                <Image
+                  source={require("../assets/up.png")}
+                  style={styles.cardImage1}
+                />
+                <View style={styles.cardDetails}>
+                  <Text style={styles.cardTitle}>Upcoming Vouchers</Text>
+                  <Text style={styles.cardCount}>In Wallet: {data.totalUpcomingVouchers}</Text>
+                </View>
               </View>
             </View>
-            <View style={styles.card2}>
-              <Image
-                source={require("../assets/exp.png")}
-                style={styles.cardImage1}
-              />
-              <View style={styles.cardDetails}>
-                <Text style={styles.cardTitle}>Expired Vouchers</Text>
-                <Text style={styles.cardCount}>Count: {data.totalExpiredVouchers}</Text>
+            <View style={styles.rowContainer}>
+              <View style={styles.card2}>
+                <Image
+                  source={require("../assets/red.jpg")}
+                  style={styles.cardImage1}
+                />
+                <View style={styles.cardDetails}>
+                  <Text style={styles.cardTitle}>Redeemed Vouchers</Text>
+                  <Text style={styles.cardCount}>In Wallet: {data.totalRedeemedVouchers}</Text>
+                </View>
+              </View>
+              <View style={styles.card2}>
+                <Image
+                  source={require("../assets/exp.png")}
+                  style={styles.cardImage1}
+                />
+                <View style={styles.cardDetails}>
+                  <Text style={styles.cardTitle}>Expired Vouchers</Text>
+                  <Text style={styles.cardCount}>In Wallet: {data.totalExpiredVouchers}</Text>
+                </View>
               </View>
             </View>
           </View>
         </View>
-      </View>
-    </ScrollView>:""}
+      </ScrollView> : ""}
     </>
-   
+
   );
 };
 
@@ -193,7 +223,7 @@ const styles = StyleSheet.create({
     //textAlign: "center",
     fontSize: 30,
     padding: 5,
-    overflow:"hidden",
+    overflow: "hidden",
   },
   profileImage: {
     width: 0.13 * screenWidth,
@@ -202,15 +232,15 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 30,
     padding: 5,
-    marginLeft:Platform.OS === "android" ? 0.015 * screenWidth : 0.017 * screenWidth,
-    marginTop:Platform.OS === "android" ? -5: -2,
+    marginLeft: Platform.OS === "android" ? 0.015 * screenWidth : 0.017 * screenWidth,
+    marginTop: Platform.OS === "android" ? -5 : -2,
   },
   cardContainer: {
     borderRadius: 8,
     marginBottom: 16,
-    width:screenWidth,
-    flexDirection:'row',
-    justifyContent:'space-between'
+    width: screenWidth,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   cardContainer1: {
     //backgroundColor: '#fff',
@@ -227,9 +257,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     padding: 16,
-    backgroundColor:'white',
-    borderRadius:10,
-    width:'92%'
+    backgroundColor: 'white',
+    borderRadius: 10,
+    width: '92%'
   },
   cardText: {
     fontSize: 18,
@@ -244,8 +274,8 @@ const styles = StyleSheet.create({
   },
   cardAmount: {
     fontSize: 24,
-    fontWeight:'700',
-    color : '#3056BD'
+    fontWeight: '700',
+    color: '#3056BD'
   },
   sectionHeader: {
     fontSize: 18,
@@ -276,7 +306,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     margin: 8,
     height: 150,
-    marginBottom:100,
+    marginBottom: 100,
   },
   cardDetails: {
     paddingTop: -100,
@@ -289,6 +319,33 @@ const styles = StyleSheet.create({
   cardCount: {
     fontSize: 14,
     color: "#888",
+  },
+  popoverContainer: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  popover: {
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    width: 120,
+    position: 'absolute',
+    top: 60, 
+    right: 10, 
+    elevation: 4,
+  },
+  popoverItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 5,
+  },
+  popoverItemText: {
+    marginLeft: 10,
+    fontSize: 16,
+    color: '#333',
   },
 });
 

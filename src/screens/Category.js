@@ -440,6 +440,10 @@ const Category = ({ navigation, route }) => {
               style={styles.languageButton}
               onPress={() => setModalVisible(true)}
             >
+              <Image
+                source={require("../assets/globe.jpg")}
+                style={{width:30, height:30, borderRadius:50}}
+              />
               <Text style={styles.languageButtonText}>{selectedLanguage}</Text>
             </TouchableOpacity>
             <View style={styles.profileIconContainer}>
@@ -497,8 +501,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingVertical: 0.02 * screenWidth,
-    paddingHorizontal: 0.05 * screenWidth,
+    paddingRight: 0.05 * screenWidth,
     marginTop: Platform.OS === "android" ? 15 : 10,
+    paddingLeft:0.03 * screenWidth,
+    height:'10%'
   },
   searchInput: {
     flex: 1,
@@ -573,12 +579,15 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 20,
     backgroundColor: "#f2f2f2",
+    flexDirection:'row',
     alignItems: "center",
     justifyContent: "center",
+    height:'100%'
   },
   languageButtonText: {
     fontSize: 16,
     fontWeight: "bold",
+    paddingLeft:5
   },
   modalContainer: {
     flex: 1,
