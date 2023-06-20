@@ -23,7 +23,11 @@ const IntroScreen = ({navigation}) => {
         loop
       />
         <Image source={require('../assets/logo.gif')} style={styles.logo} />
-        <Text style={styles.tagline}>Empowering Seamless Transactions, the eZ-RUPI Way!</Text>
+        <Text style={styles.tagline}>Empowering Seamless Transactions,the eZ-RUPI Way!</Text>
+      
+              <Text style={{color:'grey',fontSize:15}}>Developed By</Text>
+              <Text style={{ fontWeight: 'bold', fontSize: 28,color: '#000' }}>CoDivas</Text>
+            
       </View>
     );
   };
@@ -33,19 +37,25 @@ const IntroScreen = ({navigation}) => {
       backgroundColor:'white',
       justifyContent: 'center',
       alignItems: 'center',
-      padding:50
+    },
+    container1: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     logo: {
       width: 200,
       height: 200,
-      resizeMode:'contain'
+      resizeMode:'contain',
+      marginTop:70,
     },
     tagline: {
       marginTop: 20,
       textAlign:'center',
       fontStyle:'normal',
       color:'#000000',
-      fontSize:18
+      fontSize:18,
+      marginBottom:180,
     },
   });
 
