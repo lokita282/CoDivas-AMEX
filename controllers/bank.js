@@ -2,6 +2,7 @@ const User = require('./../models/user');
 const Voucher = require('./../models/voucher');
 const Bank = require('./../models/bank');
 const Beneficiary = require('./../models/beneficiary');
+const Transaction = require('./../models/transaction');
 const { recordActivity } = require('../services/activity-log');
 const {
     generateRandomNumber,
@@ -550,10 +551,32 @@ const regionDistributionData = async (req, res) => {
                 issuedById: bank.user
             });
         } else if (req.params.type == 'redeemed') {
-            vouchers = await Voucher.find({
-                issuedById: bank.user,
-                status: 'redeemed'
-            });
+            const transactions = await Transaction.find({});
+            let bankVouchers = [];
+            for (let item of transactions) {
+                if (item.voucherUid) {
+                    const transactionVoucher = await Voucher.findOne({
+                        uid: item.voucherUid
+                    });
+                    if (transactionVoucher) {
+                        if (
+                            transactionVoucher.issuedById.toString() ===
+                            bank.user.toString()
+                        ) {
+                            bankVouchers.push(transactionVoucher);
+                        }
+                    }
+                }
+            }
+            bankVouchers = [...new Set(bankVouchers.map(JSON.stringify))].map(
+                JSON.parse
+            );
+
+            // vouchers = await Voucher.find({
+            //     issuedById: bank.user,
+            //     status: 'redeemed'
+            // });
+            vouchers = bankVouchers;
         }
 
         const count = (data, stateCode) => {
