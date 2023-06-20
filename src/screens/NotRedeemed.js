@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
+const screenWidth = Dimensions.get('window').width
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import moment from "moment/moment";
 import { useNavigation } from "@react-navigation/native";
@@ -135,11 +136,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   cardContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "white",
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'white',
     margin: 10,
-    width: 370,
+    width: screenWidth * 0.95,
     height: 100,
     borderRadius: 5,
     //marginBottom: 16,
@@ -156,34 +157,34 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 15,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginBottom: 4,
-    color: "black",
+    color: 'black',
   },
   info: {
     fontSize: 12,
     margin: 3,
   },
   dateText: {
-    color: "#333333",
-    fontWeight: "bold",
+    color: '#333333',
+    fontWeight: 'bold',
   },
   normalText: {
-    fontWeight: "normal",
-    color: "black",
+    fontWeight: 'normal',
+    color: 'black',
   },
   noDataContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#fff",
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
     flex: 1,
     padding: 20,
   },
   notfound: {
-    resizeMode: "contain",
+    resizeMode: 'contain',
     height: 200,
     width: 300,
   },
-});
+})
 
 export default NotRedeemed;

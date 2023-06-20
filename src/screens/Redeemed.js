@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
+const screenWidth = Dimensions.get('window').width
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from 'moment/moment';
 import { useNavigation } from '@react-navigation/native';
@@ -105,18 +106,18 @@ const styles = StyleSheet.create({
   cardContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor:'white',
-    margin:10,
-    width: 370,
+    backgroundColor: 'white',
+    margin: 10,
+    width: screenWidth * 0.95,
     height: 100,
-    borderRadius:5
+    borderRadius: 5,
     //marginBottom: 16,
   },
   image: {
     width: 30,
     height: 30,
     marginLeft: 20,
-    marginRight:30,
+    marginRight: 30,
     borderRadius: 4,
   },
   cardText: {
@@ -126,7 +127,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold',
     marginBottom: 4,
-    color:'black'
+    color: 'black',
   },
   info: {
     fontSize: 12,
@@ -138,7 +139,7 @@ const styles = StyleSheet.create({
   },
   normalText: {
     fontWeight: 'normal',
-    color:'black'
+    color: 'black',
   },
   noDataContainer: {
     justifyContent: 'center',
@@ -147,11 +148,11 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
   },
-  notfound:{
-    resizeMode:'contain',
-    height:200,
-    width:300,
-  }
-});
+  notfound: {
+    resizeMode: 'contain',
+    height: 200,
+    width: 300,
+  },
+})
 
 export default Redeemed;

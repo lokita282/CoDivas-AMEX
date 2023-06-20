@@ -88,37 +88,12 @@ useEffect(() => {
 
   const renderTransactionHistory = () => {
     const getRandomColor = () => {
-      const letters = "0123456789ABCDEF";
-      let color = [
-        "#FFA500",
-        "#FF69B4",
-        "#FF4500",
-        "#FF00FF",
-        "#FF0000",
-        "#00FF7F",
-        "#FF1493",
-        "#00CED1",
-        "#FF8C00",
-        "#9932CC",
-        "#FFD700",
-        "#48D1CC",
-        "#FF69B4",
-        "#32CD32",
-        "#8A2BE2",
-        "#FF6347",
-        "#87CEFA",
-        "#FF00FF",
-        "#90EE90",
-        "#9370DB",
-        "#FF4500",
-        "#1E90FF",
-        "#FFA07A",
-        "#6A5ACD",
-        "#FF1493",
-        "#0B5563", "#0A014F", "#C5283D", " #AA8781 ", "#FB3A96", "#6E103B", "#A336C7", "#113673", "#4F852A"
-      ];
-      let num = Math.floor(Math.random() * (30 - 0 + 1) + 0)
-      return color[num];
+      const letters = '0123456789ABCDEF'
+      let color = '#'
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)]
+      }
+      return color
     };
     return (
       data &&
