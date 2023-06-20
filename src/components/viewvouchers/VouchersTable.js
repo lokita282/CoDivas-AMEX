@@ -155,6 +155,9 @@ export default function CustomPaginationActionsTable({ search, setSearch}) {
   const [vouchers, setVouchers] = useState([])
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false)
+  const [flag, setFlag] = useState(false)
+  const [id, setId] = useState('')
+
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - vouchers.length) : 0
@@ -168,7 +171,8 @@ export default function CustomPaginationActionsTable({ search, setSearch}) {
     setPage(0)
   }
 
-  const handleOpen = () => setOpen(true)
+  const handleOpen = (id) => {setId(id) 
+    setOpen(true)}
   const handleClose = () => setOpen(false)
 
   const [vou, setShowvou] = useState(vouchers)
@@ -202,7 +206,7 @@ useEffect(() => {
       setLoading(false)
     }
     func()
-  }, [])
+  }, [flag])
 
   const defaultOptions = {
     loop: true,
@@ -478,7 +482,9 @@ useEffect(() => {
                                 },
                                 maxWidth: '50px',
                               }}
-                              onClick={handleOpen}
+                              onClick={(() => {
+                                handleOpen(voucher._id)
+                              })}
                             >
                               <Icon
                                 icon="entypo:cross"
@@ -488,97 +494,6 @@ useEffect(() => {
                                 }}
                               />
                             </Button>
-                            <Modal
-                              open={open}
-                              onClose={handleClose}
-                              aria-labelledby="modal-modal-title"
-                              aria-describedby="modal-modal-description"
-                            >
-                              <Box sx={style}>
-                                <Typography
-                                  id="modal-modal-title"
-                                  variant="h6"
-                                  component="h2"
-                                  sx={{ fontFamily: 'Poppins' }}
-                                >
-                                  <b>
-                                    Are you sure you want to revoke this
-                                    voucher?
-                                  </b>
-                                </Typography>
-                                <Typography
-                                  id="modal-modal-description"
-                                  sx={{
-                                    fontFamily: 'Poppins',
-                                    color: '#929292',
-                                  }}
-                                >
-                                  This action cannot be undone.
-                                </Typography>
-                                <Lottie
-                                  options={defaultOptions}
-                                  height={150}
-                                  width={150}
-                                  // speed={1}
-                                />
-                                <Box
-                                  sx={{
-                                    display: 'flex',
-                                    justifyContent: 'end',
-                                    marginRight: 2,
-                                    mt: 2,
-                                  }}
-                                >
-                                  <Button
-                                    variant="contained"
-                                    color="primary"
-                                    sx={{
-                                      textTransform: 'none',
-                                      backgroundColor: 'rgba(234,50,62, 0.1)',
-                                      border: '2px solid #EA323E',
-                                      color: '#EA323E',
-                                      marginRight: 2,
-                                      '&:hover': {
-                                        backgroundColor: 'rgba(234,50,62, 0.1)',
-                                        color: '#EA323E',
-                                        boxShadow:
-                                          '0px 1px 26px rgba(94, 99, 116, 0.21)',
-                                      },
-                                    }}
-                                    onClick={handleClose}
-                                  >
-                                    Cancel
-                                  </Button>{' '}
-                                  <Button
-                                    variant="contained"
-                                    color="primary"
-                                    sx={{
-                                      textTransform: 'none',
-                                      backgroundColor: '#EA323E',
-                                      color: '#fff',
-                                      '&:hover': {
-                                        backgroundColor: '#EA323E',
-                                        color: '#fff',
-                                        boxShadow:
-                                          '0px 1px 12px rgba(94, 99, 116, 0.21)',
-                                      },
-                                    }}
-                                    onClick={async () => {
-                                      await revokeVoucher(voucher?._id)
-                                        .then((res) => {
-                                          console.log(res.data.data)
-                                          successHandler(res.data.message)
-                                          setOpen(false)
-                                        })
-                                        .catch((e) => {console.log(e)
-                                         errorHandler('Voucher could not be revoked')})
-                                    }}
-                                  >
-                                    Revoke
-                                  </Button>
-                                </Box>
-                              </Box>
-                            </Modal>
                           </>
                         ) : (
                           <Typography
@@ -625,6 +540,95 @@ useEffect(() => {
           </Table>
         </TableContainer>
       )}
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+            sx={{ fontFamily: 'Poppins' }}
+          >
+            <b>Are you sure you want to revoke this voucher?</b>
+          </Typography>
+          <Typography
+            id="modal-modal-description"
+            sx={{
+              fontFamily: 'Poppins',
+              color: '#929292',
+            }}
+          >
+            This action cannot be undone.
+          </Typography>
+          <Lottie
+            options={defaultOptions}
+            height={150}
+            width={150}
+            // speed={1}
+          />
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'end',
+              marginRight: 2,
+              mt: 2,
+            }}
+          >
+            <Button
+              variant="contained"
+              color="primary"
+              sx={{
+                textTransform: 'none',
+                backgroundColor: 'rgba(234,50,62, 0.1)',
+                border: '2px solid #EA323E',
+                color: '#EA323E',
+                marginRight: 2,
+                '&:hover': {
+                  backgroundColor: 'rgba(234,50,62, 0.1)',
+                  color: '#EA323E',
+                  boxShadow: '0px 1px 26px rgba(94, 99, 116, 0.21)',
+                },
+              }}
+              onClick={handleClose}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              sx={{
+                textTransform: 'none',
+                backgroundColor: '#EA323E',
+                color: '#fff',
+                '&:hover': {
+                  backgroundColor: '#EA323E',
+                  color: '#fff',
+                  boxShadow: '0px 1px 12px rgba(94, 99, 116, 0.21)',
+                },
+              }}
+              onClick={async () => {
+                await revokeVoucher(id)
+                  .then((res) => {
+                    console.log(res.data.data)
+                    successHandler(res.data.message)
+                    setOpen(false)
+                    setFlag(!flag)
+                  })
+                  .catch((e) => {
+                    console.log(e)
+                    errorHandler('Voucher could not be revoked')
+                  })
+              }}
+            >
+              Revoke
+            </Button>
+          </Box>
+        </Box>
+      </Modal>
     </>
   )
 }

@@ -17,6 +17,7 @@ import fileSaver from 'file-saver'
 import TemplateTable from './TemplateTable'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { createBulkErupi } from '../../services/bankServices'
+import successHandler from '../toasts/successHandler'
 
 const excel_base_64 =
   'dGl0bGUsIHN0YXJ0c0F0LCBlbmRzQXQsIG9yZ0lkLCBiZW5lZmljaWFyeU5hbWUsIGJlbmVmaWNpYXJ5UGhvbmUsIGdvdnRJZFR5cGUsIGdvdnRJZE51bWJlciwgY2F0ZWdvcnksIHN0YXRlLCBkZXNjcmlwdGlvbiwgYW1vdW50LCB1c2VUeXBlDQo='
@@ -118,27 +119,9 @@ const BulkVoucher = () => {
       requestOptions
     )
       .then((response) => response.text())
-      .then((result) => console.log(result))
+      .then((result) => successHandler("Vouchers created successfully"))
       .catch((error) => console.log('error', error))
 
-    // // const formData = new FormData()
-    // console.log('form data below')
-    // console.log(formData)
-    // // formData.append('file', file)
-    // await createBulkErupi({formData}).then((res) => {
-    //   console.log('first')
-    //   console.log(res.data)
-    //   // localStorage.setItem('codivasToken', res.data.token)
-    //   // localStorage.setItem('codivasUser', JSON.stringify(res.data.user))
-    //   // ###########successHandler(res.data.message)
-    //   // navigate('/dashboard')
-    //   // ###########setLoad(false)
-    // })
-    //   .catch((e) => {
-    //     console.log(e)
-    //     // ########### errorHandler('createErupi failed')
-    //     // ########### setLoad(false)
-    //   })
   }
 
   function onChangeCaptcha(value) {
