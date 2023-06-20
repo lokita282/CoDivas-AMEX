@@ -97,10 +97,6 @@ The important deployed links for our application are:-
 2. Merchant: https://secure-ez-rupi-merchant.netlify.app/
 3. User/Bank: https://secure-ez-rupi.netlify.app/
 
-#### NOT ENCRYPTED
-1. Admin: https://ez-rupi-admin.netlify.app/
-2. Merchant: https://ez-rupi-merchant.netlify.app/
-3. User/Bank: https://ez-rupi.netlify.app/
 
 ### BACKEND
 1. Secure: https://ez-rupi-secure.onrender.com/api
