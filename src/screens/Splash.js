@@ -48,7 +48,7 @@ const Splash = ({ navigation }) => {
               <Text style={{ color: '#8D8D8D' }}>Just one scan away</Text>
             </>
           ) : (
-            <Text style={{ fontWeight: 'bold', fontSize: 18 }}>Authentication failed. Please try again.</Text>
+            <Text style={{ fontWeight: 'bold', fontSize: 18 }}>Authenticate</Text>
           )}
         </>
     </View>
