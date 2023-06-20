@@ -127,44 +127,51 @@ const createBulkERupiVouchers = async (req, res) => {
                 let newVouchersIdsArray = [];
 
                 jsonOutput.forEach((newVoucher) => {
-                    const org = organisationDetails.find(
-                        ({ orgId }) => orgId == newVoucher.orgId
-                    );
-                    let startsObject = new Date(newVoucher.startsAt);
-                    let endsObject = new Date(newVoucher.endsAt);
-                    let logo = org.orgLogo;
+                    if (newVoucher.title) {
+                        // console.log(newVoucher);
+                        const org = organisationDetails.find(
+                            ({ orgId }) => orgId == newVoucher.orgId
+                        );
+                        let startsObject = new Date(newVoucher.startsAt);
+                        let endsObject = new Date(newVoucher.endsAt);
+                        console.log(newVoucher.title, org);
+                        let logo = org.orgLogo;
 
-                    let voucher = new Voucher({
-                        title: newVoucher.title,
-                        startsAt: startsObject,
-                        endsAt: endsObject,
-                        orgId: newVoucher.orgId,
-                        orgLogo: logo,
-                        issuedBy: req.user.name, // bank name
-                        issuedByLogo: currentBank[0].bankLogo,
-                        issuedById: req.user._id,
-                        beneficiaryName: newVoucher.beneficiaryName,
-                        beneficiaryPhone: newVoucher.beneficiaryPhone,
-                        govtIdType: newVoucher.govtIdType,
-                        govtIdNumber: newVoucher.govtIdNumber,
-                        category: newVoucher.category,
-                        state: newVoucher.state,
-                        description: newVoucher.description,
-                        amount: newVoucher.amount,
-                        balanceAmount:
-                            newVoucher.useType == 'multiple'
-                                ? newVoucher.amount
-                                : undefined,
-                        useType: newVoucher.useType,
-                        uid:
-                            shortCodes[newVoucher.category] +
-                            '-' +
-                            generateRandomNumber(8),
-                        status:
-                            Date.now() <= startsObject ? 'upcoming' : 'valid'
-                    });
-                    newVouchersArray.push(voucher);
-                    newVouchersIdsArray.push(voucher._id);
+                        let voucher = new Voucher({
+                            title: newVoucher.title,
+                            startsAt: startsObject,
+                            endsAt: endsObject,
+                            orgId: newVoucher.orgId,
+                            orgLogo: logo,
+                            issuedBy: req.user.name, // bank name
+                            issuedByLogo: currentBank[0].bankLogo,
+                            issuedById: req.user._id,
+                            beneficiaryName: newVoucher.beneficiaryName,
+                            beneficiaryPhone: newVoucher.beneficiaryPhone,
+                            govtIdType: newVoucher.govtIdType,
+                            govtIdNumber: newVoucher.govtIdNumber,
+                            category: newVoucher.category,
+                            state: newVoucher.state,
+                            description: newVoucher.description,
+                            amount: newVoucher.amount,
+                            balanceAmount:
+                                newVoucher.useType == 'multiple'
+                                    ? newVoucher.amount
+                                    : undefined,
+                            useType: newVoucher.useType,
+                            uid:
+                                shortCodes[newVoucher.category] +
+                                '-' +
+                                generateRandomNumber(8),
+                            status:
+                                Date.now() <= startsObject
+                                    ? 'upcoming'
+                                    : 'valid'
+                        });
+                        newVouchersArray.push(voucher);
+                        newVouchersIdsArray.push(voucher._id);
+                        console.log('made');
+                    }
                 });
 
                 const insertedVouchers = await Voucher.insertMany(
@@ -510,14 +517,15 @@ const regionDistributionData = async (req, res) => {
                     }
                 }
             }
+            const vouchersSingle = await Voucher.find({
+                issuedById: bank.user,
+                status: 'redeemed'
+            });
+            bankVouchers = [...bankVouchers, ...vouchersSingle];
             bankVouchers = [...new Set(bankVouchers.map(JSON.stringify))].map(
                 JSON.parse
             );
 
-            // vouchers = await Voucher.find({
-            //     issuedById: bank.user,
-            //     status: 'redeemed'
-            // });
             vouchers = bankVouchers;
             // vouchers = await Voucher.find({
             //     issuedById: bank.user,

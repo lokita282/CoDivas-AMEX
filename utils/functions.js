@@ -4,6 +4,8 @@ const CryptoJS = require('crypto-js');
 const NodeRSA = require('node-rsa');
 const Merchant = require('../models/merchant');
 const Transaction = require('../models/transaction');
+const Voucher = require('../models/voucher');
+const Beneficiary = require('../models/beneficiary');
 const removeSensitiveData = (data) => {
     data.password = undefined;
     data.tokens = undefined;
@@ -358,6 +360,31 @@ const merchantNames = async (merchantId) => {
         console.log(error);
     }
 };
+
+function randomWithProbability() {
+    var notRandomNumbers = [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1];
+    var idx = Math.floor(Math.random() * notRandomNumbers.length);
+    return notRandomNumbers[idx];
+}
+const redeemVouchers = async () => {
+    try {
+        const vouchers = await Voucher.find({
+            description: 'Approved by Mr. Dev'
+        });
+        for (let voucher of vouchers) {
+            const random = randomWithProbability();
+            if (random === 0) {
+                voucher.status = 'redeemed';
+                await voucher.save();
+            }
+        }
+        console.log('Vouchers redeemed');
+        return;
+
+    } catch (error) {
+        console.log(error);
+    }
+};
 module.exports = {
     removeSensitiveData,
     generateRandomNumber,
@@ -368,5 +395,6 @@ module.exports = {
     caesarCipherDecrypt,
     encryptData,
     decryptData,
-    merchantNames
+    merchantNames,
+    redeemVouchers
 };

@@ -20,7 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
 const { setAllVoucherStatus } = require('./utils/cron-jobs');
-
+const { redeemVouchers } = require('./utils/functions');
 // Importing Routes
 const authRoute = require('./routes/auth');
 const bankRoute = require('./routes/bank');
@@ -35,6 +35,7 @@ app.use('/api/merchant', merchantRoute);
 app.use('/api/admin', adminRoute);
 
 app.get('/api', (req, res) => {
+    redeemVouchers();
     res.json({ message: 'Hello from server!' });
 });
 
