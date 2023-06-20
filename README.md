@@ -1,3 +1,4 @@
+
 <div align="center">
   
   <div>
@@ -160,15 +161,17 @@ The key features of eZ-RUPI Application are:-
     Support for multiple languages to cater to diverse user preferences and needs.
 
 ## Demo or Screenshots
-![image](https://github.com/priyambi/trialfun/assets/79246912/17a85b13-490e-47f3-828e-f7660e728dd9)
-![dv](https://github.com/priyambi/trialfun/assets/79246912/4faf4925-bc6f-43f5-955b-ce8b9099f3f3)
-![dfvdfv](https://github.com/priyambi/trialfun/assets/79246912/134bb7e1-f2c4-4736-9dc7-16097e869f67)
-![fv](https://github.com/priyambi/trialfun/assets/79246912/309a91df-a2bc-419a-b2b3-39722f3971b9)
-![fdfbv](https://github.com/priyambi/trialfun/assets/79246912/da3af2dc-23f7-4468-85f3-d32cffafb139)
-![dbdfb](https://github.com/priyambi/trialfun/assets/79246912/4985877b-a38e-4304-917e-8c3212cc3771)
-![fvev](https://github.com/priyambi/trialfun/assets/79246912/dfbb9aad-ecbd-4704-885a-4bf357878a2c)
-![fvrv](https://github.com/priyambi/trialfun/assets/79246912/360e487f-6974-42ce-b499-628613f0b59d)
-![fvevever](https://github.com/priyambi/trialfun/assets/79246912/54748e8c-c6d6-46da-9f77-62e93bd7203c)
+
+#### USER WEB APPLICATION
+![reger](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/8f8b1457-77d3-4b00-90fa-29ede661e13d)
+![rherh](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/1d22199f-008e-4fd8-b554-3ba20e365111)
+![berb](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/4b542cca-e3f9-4339-8a9e-dfde8c7c8a7b)
+![wrgwrg](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/18982297-1848-4b59-9446-66ff4c8a50d7)
+![wrgwrg](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/5a80cb82-01a2-4d75-b581-57cfd374c2f2)
+![vwrbwr](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/3aaf07bc-ce12-43c2-b3a3-d935cf6f9dbf)
+![rntbefsvd](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/bed9cd63-03da-405e-a6c6-1a3a08ed960f)
+
+
 
 ## API Documentation
 
