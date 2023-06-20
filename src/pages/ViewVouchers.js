@@ -1,7 +1,26 @@
-import React from 'react'
-import { Grid, Typography } from '@mui/material'
+import React, { useState } from 'react'
+import { Box, Grid, Typography } from '@mui/material'
 import SideDrawer from '../components/sidebar/Sidebar'
 import VouchersTable from '../components/viewvouchers/VouchersTable'
+import TextField from '@mui/material/TextField';
+import SearchIcon from '@mui/icons-material/Search';
+import { styled } from '@mui/material/styles'
+import { df_jc_ac } from '../theme/CssMy'
+
+const SearchTextField = styled(TextField)(({ theme }) => ({
+  '& .MuiOutlinedInput-root': {
+    borderRadius: theme.shape.borderRadius,
+    width: '30vw',
+    backgroundColor: '#fff',
+    '&:hover': {
+      backgroundColor: '#fff',
+    },
+    '&.Mui-focused': {
+      backgroundColor: '#fff',
+    },
+    
+  },
+}));
 
 const styles = {
   paperContainer: {
@@ -37,25 +56,39 @@ const styles = {
 }
 
 const ViewVouchers = () => {
+  const [search, setSearch] = useState('')
+
   return (
     <SideDrawer>
       <Grid
         container
         spacing={2}
         direction="column"
-        sx={{padding: '0px 25px'}}
-        // alignItems="center"
-        // justifyContent="center"
+        sx={{ padding: '0px 25px', width: '100%' }}
       >
-        {/* <Paper style={styles.paperContainer}> */}
-        <Grid item xs={12}>
+        <Grid item md={3} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Box sx={{display:'flex', justifyContent:'space-between', width:'100%'}}>
           <Typography variant="h4" style={styles.gradientText}>
             <b>Vouchers</b>
           </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <VouchersTable />
-            </Grid>
+          <TextField
+            variant="outlined"
+            value={search}
+            placeholder='Search vouchers'
+            onChange={(e) => setSearch(e.target.value)}
+            fullWidth
+            sx={{display:'flex', width:'30vw',justifyContent:'flex-end'}}
+            InputProps={{
+              startAdornment: (
+                <SearchIcon color="action" />
+              ),
+            }}
+          />
+        </Box>
+        </Grid>
+        <Grid item xs={12}>
+          <VouchersTable search={search} setSearch={setSearch} />
+        </Grid>
 
         {/* </Paper> */}
       </Grid>

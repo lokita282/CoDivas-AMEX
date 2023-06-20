@@ -32,6 +32,22 @@ import Loading from '../loader/Loading'
 import caution from '../../assets/caution'
 import successHandler from '../toasts/successHandler'
 import errorHandler from '../toasts/errorHandler'
+import FuzzySearch from 'fuzzy-search'
+import TextField from '@mui/material/TextField';
+import SearchIcon from '@mui/icons-material/Search';
+
+const SearchTextField = styled(TextField)(({ theme }) => ({
+  '& .MuiOutlinedInput-root': {
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: '#fff',
+    '&:hover': {
+      backgroundColor: '#fff',
+    },
+    '&.Mui-focused': {
+      backgroundColor: '#fff',
+    },
+  },
+}));
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -133,13 +149,12 @@ const style = {
   p: 4,
 }
 
-export default function CustomPaginationActionsTable() {
+export default function CustomPaginationActionsTable({ search, setSearch}) {
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(5)
   const [vouchers, setVouchers] = useState([])
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false)
-
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - vouchers.length) : 0
@@ -156,9 +171,16 @@ export default function CustomPaginationActionsTable() {
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
-  // const handleRevoke = (event) => {
+  const [vou, setShowvou] = useState(vouchers)
 
-  // }
+  const searcher = new FuzzySearch(vouchers, ['amount', 'uid', 'status', 'beneficiaryName', 'issuedBy', 'title', 'category'], {
+    caseSensitive: false,
+});
+
+useEffect(() => {
+    const res = searcher.search(search)
+    setShowvou(res)
+}, [search])
 
   useEffect(() => {
     const func = async () => {
@@ -167,6 +189,11 @@ export default function CustomPaginationActionsTable() {
         console.log('vouchers')
         console.log(res.data.data.vouchers)
         setVouchers(
+          res.data.data.vouchers.sort((a, b) =>
+            a.createdAt < b.createdAt ? 1 : -1
+          )
+        )
+        setShowvou(
           res.data.data.vouchers.sort((a, b) =>
             a.createdAt < b.createdAt ? 1 : -1
           )
@@ -211,11 +238,11 @@ export default function CustomPaginationActionsTable() {
             </TableHead>
             <TableBody>
               {(rowsPerPage > 0
-                ? vouchers.slice(
+                ? vou.slice(
                     page * rowsPerPage,
                     page * rowsPerPage + rowsPerPage
                   )
-                : vouchers
+                : vou
               ).map((voucher) => (
                 <>
                   {voucher.status === 'revoked' ? (
