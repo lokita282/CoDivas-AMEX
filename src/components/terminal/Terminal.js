@@ -67,7 +67,7 @@ const TerminalController = (props = {}) => {
               <TerminalOutput>User IP: {log.userIPAddress}</TerminalOutput>
               <TerminalOutput>User agent: {log.userAgent}</TerminalOutput>
               <TerminalOutput>
-                Voucher ID: {log.voucherId ? log.voucherId : 'nil'}
+                Voucher ID: {log.voucherUid ? log.voucherUid : 'nil'}
               </TerminalOutput>
               <TerminalOutput>Activity: {log.body}</TerminalOutput>
               <TerminalOutput></TerminalOutput>
