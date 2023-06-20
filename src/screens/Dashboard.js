@@ -80,7 +80,7 @@ const Dashboard = ({ navigation }) => {
       ) : data ? <ScrollView>
         <View style={styles.container}>
           <View style={styles.header}>
-            <Text style={styles.welcomeText}>Welcome, {userData.name} !</Text>
+            <Text style={styles.welcomeText}>Welcome, {userData.name.split(" ")[0]} !</Text>
               
 
               <View style={styles.profileIconContainer}>
@@ -132,7 +132,7 @@ const Dashboard = ({ navigation }) => {
             </View>
           </View>
           <View style={styles.header}>
-            <Text style={styles.sectionHeader}>Vouchers</Text>
+            <Text style={styles.sectionHeader}>Your Vouchers</Text>
           </View>
           <View style={styles.cardContainer1}>
             <View style={styles.rowContainer}>
@@ -142,8 +142,8 @@ const Dashboard = ({ navigation }) => {
                   style={styles.cardImage1}
                 />
                 <View style={styles.cardDetails}>
+                  <Text style={styles.cardCount}><Text style={{fontWeight:'bold',color:'black',fontSize:17}}>{data.totalValidVouchers} </Text></Text>
                   <Text style={styles.cardTitle}>Valid Vouchers</Text>
-                  <Text style={styles.cardCount}>In Wallet: {data.totalValidVouchers}</Text>
                 </View>
               </View>
               <View style={styles.card1}>
@@ -152,8 +152,8 @@ const Dashboard = ({ navigation }) => {
                   style={styles.cardImage1}
                 />
                 <View style={styles.cardDetails}>
+                <Text style={styles.cardCount}><Text style={{fontWeight:'bold',color:'black',fontSize:17}}>{data.totalUpcomingVouchers} </Text></Text>
                   <Text style={styles.cardTitle}>Upcoming Vouchers</Text>
-                  <Text style={styles.cardCount}>In Wallet: {data.totalUpcomingVouchers}</Text>
                 </View>
               </View>
             </View>
@@ -164,8 +164,8 @@ const Dashboard = ({ navigation }) => {
                   style={styles.cardImage1}
                 />
                 <View style={styles.cardDetails}>
+                <Text style={styles.cardCount}><Text style={{fontWeight:'bold',color:'black',fontSize:17}}>{data.totalRedeemedVouchers} </Text></Text>
                   <Text style={styles.cardTitle}>Redeemed Vouchers</Text>
-                  <Text style={styles.cardCount}>In Wallet: {data.totalRedeemedVouchers}</Text>
                 </View>
               </View>
               <View style={styles.card2}>
@@ -174,8 +174,8 @@ const Dashboard = ({ navigation }) => {
                   style={styles.cardImage1}
                 />
                 <View style={styles.cardDetails}>
+                <Text style={styles.cardCount}><Text style={{fontWeight:'bold',color:'black',fontSize:17}}>{data.totalExpiredVouchers} </Text></Text>
                   <Text style={styles.cardTitle}>Expired Vouchers</Text>
-                  <Text style={styles.cardCount}>In Wallet: {data.totalExpiredVouchers}</Text>
                 </View>
               </View>
             </View>
@@ -240,7 +240,11 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     width: screenWidth,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    shadowOffset: {width: -2, height: 4},  
+    shadowColor: 'rgba(94,99,116,0.21)',  
+    shadowOpacity: 0.5,  
+    shadowRadius: 3, 
   },
   cardContainer1: {
     //backgroundColor: '#fff',
@@ -249,7 +253,7 @@ const styles = StyleSheet.create({
   cardImage: {
     width: "92%",
     height: 200,
-    resizeMode: "cover",
+    resizeMode: "contain",
     borderRadius: 8,
   },
   cardRow: {
@@ -292,6 +296,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 8,
     margin: 8,
+    
   },
   card1: {
     flex: 0.5,
@@ -299,6 +304,10 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     margin: 8,
     height: 150,
+    shadowOffset: {width: -2, height: 4},  
+    shadowColor: 'rgba(94,99,116,0.21)',  
+    shadowOpacity: 0.5,  
+    shadowRadius: 3,  
   },
   card2: {
     flex: 0.5,
@@ -307,14 +316,20 @@ const styles = StyleSheet.create({
     margin: 8,
     height: 150,
     marginBottom: 100,
+    shadowOffset: {width: -2, height: 4},  
+    shadowColor: 'rgba(94,99,116,0.21)',  
+    shadowOpacity: 0.5,  
+    shadowRadius: 3, 
   },
   cardDetails: {
     paddingTop: -100,
     padding: 10,
+    alignItems:'center',
+    
   },
   cardTitle: {
     fontSize: 14,
-    fontWeight: "bold",
+    fontWeight: "normal",
   },
   cardCount: {
     fontSize: 14,
