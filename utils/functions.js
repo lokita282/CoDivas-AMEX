@@ -149,7 +149,7 @@ const decryptData = (data) => {
     const decryptedData = AES.decrypt(data, process.env.AES_KEY).toString(
         CryptoJS.enc.Utf8
     );
-    return JSON.parse(decryptedData);
+    return decryptedData;
 };
 
 // OLD RSA CODE
