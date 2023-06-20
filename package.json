@@ -14,6 +14,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
     "generate-avatar": "^1.4.10",
+    "jsencrypt": "^3.3.2",
     "modern-react-qr-reader": "^1.0.12",
     "moment": "^2.29.4",
     "react": "^18.2.0",
