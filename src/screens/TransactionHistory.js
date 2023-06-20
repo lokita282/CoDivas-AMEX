@@ -76,11 +76,9 @@ const TransactionHistory = () => {
   const renderTransactionHistory = () => {
     const getRandomColor = () => {
       const letters = "0123456789ABCDEF";
-      let color = "#";
-      for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-      }
-      return color;
+      let color = ["#0B5563" ,"#0A014F", "#C5283D"," #AA8781 ","#FB3A96", "#6E103B", "#A336C7", "#113673", "#4F852A"];
+      let number= Math.floor(Math.random() * (8 - 0 + 1) + 0);
+      return color[number];
     };
     return (
       data &&
