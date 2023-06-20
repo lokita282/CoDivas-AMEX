@@ -94,7 +94,7 @@ The important deployed links for our application are:-
 3. Backend : https://ez-rupi-api.up.railway.app/api 
 4. Merchant : https://merchant-ez-rupi.netlify.app/
 4. Merchant APK :
-5. User APK :
+5. User APK : https://expo.dev/artifacts/eas/ofYoPLuspPRKtF9B3ydEkP.apk
 
 
 
