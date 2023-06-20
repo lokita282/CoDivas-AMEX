@@ -137,28 +137,70 @@ const sendSms = (message, mobile) => {
         .catch((error) => console.error(error));
 };
 
-const privateKeyPEM = Buffer.from(process.env.PRIVATE_KEY, 'base64').toString(
-    'ascii'
-);
-const publicKeyPEM = Buffer.from(process.env.PUBLIC_KEY, 'base64').toString(
-    'ascii'
-);
-const key = new NodeRSA();
-key.setOptions({ encryptionScheme: 'pkcs1' });
-key.importKey(publicKeyPEM, 'pkcs1-public-pem');
-key.importKey(privateKeyPEM, 'pkcs1-private-pem');
-
-// ENCRYPTION USING PUBLIC KEY
 const encryptData = (data) => {
-    const encryptedData = key.encrypt(data, 'base64');
+    const encryptedData = AES.encrypt(
+        JSON.stringify(data),
+        process.env.AES_KEY
+    ).toString();
     return encryptedData;
 };
 
-// DECRYPTION USING PRIVATE KEY
 const decryptData = (data) => {
-    const decryptedData = key.decrypt(data, 'utf8');
+    const decryptedData = AES.decrypt(data, process.env.AES_KEY).toString(
+        CryptoJS.enc.Utf8
+    );
     return decryptedData;
 };
+
+// OLD RSA CODE
+// const privateKeyPEM = Buffer.from(process.env.PRIVATE_KEY, 'base64').toString(
+//     'ascii'
+// );
+// const publicKeyPEM = Buffer.from(process.env.PUBLIC_KEY, 'base64').toString(
+//     'ascii'
+// );
+
+// const key = new NodeRSA();
+// key.setOptions({ encryptionScheme: 'pkcs1' });
+// key.importKey(publicKeyPEM, 'pkcs1-public-pem');
+// key.importKey(privateKeyPEM, 'pkcs1-private-pem');
+
+// // ENCRYPTION USING PUBLIC KEY
+// const encryptData = (data) => {
+//     const encryptedData = key.encrypt(data, 'base64');
+//     return encryptedData;
+// };
+
+// // DECRYPTION USING PRIVATE KEY
+// const decryptData = (data) => {
+//     const decryptedData = key.decrypt(data, 'utf8');
+//     return decryptedData;
+// };
+
+// // ENCRYPTION USING PUBLIC KEY
+// const encryptData = (data) => {
+//     console.log(data);
+//     const aesEncryptedString = AES.encrypt(
+//         data,
+//         process.env.AES_KEY
+//     ).toString();
+//     console.log('aes');
+//     console.log(aesEncryptedString);
+//     const rsaEncryptedData = key.encrypt(aesEncryptedString, 'base64');
+//     console.log('rsa');
+//     console.log(rsaEncryptedData);
+//     return rsaEncryptedData;
+// };
+
+// // DECRYPTION USING PRIVATE KEY
+// const decryptData = (data) => {
+//     const rsaDecryptedData = key.decrypt(data, 'utf8');
+//     const aesDecryptedString = AES.decrypt(
+//         rsaDecryptedData,
+//         process.env.AES_KEY
+//     ).toString(CryptoJS.enc.Utf8);
+//     return aesDecryptedString;
+// };
 
 const merchantNames = async (merchantId) => {
     try {
