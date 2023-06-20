@@ -149,7 +149,7 @@ useEffect(() => {
               <View style={{ flexDirection: "row" }}>
 
                 <Text
-                  numberOfLines={1}
+                  numberOfLines={2}
                   ellipsizeMode="tail"
                   style={styles.payee}
                   overflow="scroll"
