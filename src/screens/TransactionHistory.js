@@ -12,13 +12,25 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import LottieView from "lottie-react-native";
 import moment from "moment/moment";
+import FuzzySearch from "fuzzy-search";
 
 const screenWidth = Dimensions.get("window").width;
 const TransactionHistory = () => {
+  const [search, setSearch] = useState('')
   const [data, setData] = useState([]);
   const [user, setUser] = useState(null);
   const [userToken, setUserToken] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [tranc, setShowTranc] = useState(data)
+
+  const searcher = new FuzzySearch(data, ['payee', 'amount'], {
+    caseSensitive: false,
+});
+
+useEffect(() => {
+    const res = searcher.search(search)
+    setShowTranc(res)
+}, [search])
 
   // async function retrieveUserToken() {
   //   try {
@@ -58,6 +70,7 @@ const TransactionHistory = () => {
 
           if (result.data) {
             setData(result.data);
+            setShowTranc(result.data)
             console.log("Entered");
             setIsLoading(false);
           }
@@ -76,13 +89,40 @@ const TransactionHistory = () => {
   const renderTransactionHistory = () => {
     const getRandomColor = () => {
       const letters = "0123456789ABCDEF";
-      let color = ["#0B5563" ,"#0A014F", "#C5283D"," #AA8781 ","#FB3A96", "#6E103B", "#A336C7", "#113673", "#4F852A"];
-      let number= Math.floor(Math.random() * (8 - 0 + 1) + 0);
-      return color[number];
+      let color = [
+        "#FFA500",
+        "#FF69B4",
+        "#FF4500",
+        "#FF00FF",
+        "#FF0000",
+        "#00FF7F",
+        "#FF1493",
+        "#00CED1",
+        "#FF8C00",
+        "#9932CC",
+        "#FFD700",
+        "#48D1CC",
+        "#FF69B4",
+        "#32CD32",
+        "#8A2BE2",
+        "#FF6347",
+        "#87CEFA",
+        "#FF00FF",
+        "#90EE90",
+        "#9370DB",
+        "#FF4500",
+        "#1E90FF",
+        "#FFA07A",
+        "#6A5ACD",
+        "#FF1493",
+        "#0B5563", "#0A014F", "#C5283D", " #AA8781 ", "#FB3A96", "#6E103B", "#A336C7", "#113673", "#4F852A"
+      ];
+      let num = Math.floor(Math.random() * (32 - 0 + 1) + 0)
+      return color[num];
     };
     return (
       data &&
-      data.reverse().map((transaction, index) => (
+      tranc.reverse().map((transaction, index) => (
         <View style={styles.transactionContainer} key={index}>
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
@@ -107,7 +147,7 @@ const TransactionHistory = () => {
             </View>
             <View style={{ marginLeft: -30 }}>
               <View style={{ flexDirection: "row" }}>
-                
+
                 <Text
                   numberOfLines={1}
                   ellipsizeMode="tail"
@@ -116,7 +156,7 @@ const TransactionHistory = () => {
                 >
                   {transaction.payee}
                 </Text>
-                
+
               </View>
               <Text style={styles.details}>
                 {moment(transaction.datetime).format("MMM Do YYYY")} at{" "}
@@ -146,7 +186,8 @@ const TransactionHistory = () => {
         <ScrollView>
           <View style={styles.container}>
             <View style={styles.header}>
-              <TextInput style={styles.searchInput} placeholder="Search..." />
+              <TextInput style={styles.searchInput} placeholder="Search" value={search}
+              onChangeText={(text) => setSearch(text)} />
               <TouchableOpacity style={styles.profileIcon}>
                 <Text style={styles.profileImage}>{user.name.charAt(0)}</Text>
               </TouchableOpacity>

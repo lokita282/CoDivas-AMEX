@@ -27,6 +27,7 @@
     "expo-local-authentication": "~13.3.0",
     "expo-localization": "~14.1.1",
     "expo-status-bar": "~1.4.4",
+    "fuzzy-search": "^3.2.1",
     "i18n-js": "^4.2.3",
     "jsencrypt": "^3.3.2",
     "lottie-ios": "^3.4.0",

@@ -12,10 +12,11 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import * as Haptics from "expo-haptics";
+import FuzzySearch from "fuzzy-search";
 
 const screenWidth = Dimensions.get("window").width;
 const GovernmentScheme = () => {
-  const [searchText, setSearchText] = useState("");
+  const [search, setSearch] = useState("");
   const [governmentSchemes, setGovernmentSchemes] = useState([
     {
       organization: "Ministry Of Minority Affairs",
@@ -286,6 +287,7 @@ const GovernmentScheme = () => {
       ],
     },
   ]);
+  const [showSchemes, setShowSchemes] = useState(governmentSchemes)
 
   const navigation = useNavigation();
 
@@ -310,8 +312,17 @@ const GovernmentScheme = () => {
     retrieveUserToken();
   }, []);
 
+  const searcher = new FuzzySearch(governmentSchemes, ['scheme', 'description', 'categories'], {
+    caseSensitive: false,
+});
+
+useEffect(() => {
+    const res = searcher.search(search)
+    setShowSchemes(res)
+}, [search])
+
   const renderGovernmentSchemes = () => {
-    return governmentSchemes.map((scheme, index) => (
+    return showSchemes.map((scheme, index) => (
       <TouchableOpacity
         style={styles.card}
         key={index}
@@ -340,7 +351,8 @@ const GovernmentScheme = () => {
         data?<ScrollView>
         <View style={styles.container}>
         <View style={styles.header}>
-          <TextInput style={styles.searchInput} placeholder="Search..." />
+          <TextInput style={styles.searchInput} placeholder="Search schemes" value={search}
+              onChangeText={(text) => setSearch(text)} />
           <View style={styles.profileIconContainer}>
               <TouchableOpacity style={styles.profileIcon}>
                 <Text style={styles.profileImage}>{data.name.charAt(0)}</Text>
