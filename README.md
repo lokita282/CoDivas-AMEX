@@ -167,11 +167,11 @@ The link to API Documentation :- https://documenter.getpostman.com/view/16934299
 
 We would like to acknowledge the exceptional teamwork and collaboration among all the contributors involved in this project. The successful outcome of our endeavor is a testament to the collective effort and dedication of each team member.
 
-- Khushi Mehta (Frontend, App)
-- Lokita Varma (Frontend)
-- Priyambi Hiran (App)
-- Rosita D'Mello (Backend)
-- Vidhita Pai (Backend, App)
+- [Khushi Mehta (Frontend, App)](https://github.com/khushimehta24)
+- [Lokita Varma (Frontend)](https://github.com/lokita282)
+- [Priyambi Hiran (App) ](https://github.com/priyambi)
+- [Rosita D'Mello (Backend)](https://github.com/rosita-dmello)
+- [Vidhita Pai (Backend, App)](https://github.com/vidhitapai)
 
 
 ## Acknowledgements
