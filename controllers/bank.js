@@ -568,6 +568,11 @@ const regionDistributionData = async (req, res) => {
                     }
                 }
             }
+            const vouchersSingle = await Voucher.find({
+                issuedById: bank.user,
+                status: 'redeemed'
+            });
+            bankVouchers = [...bankVouchers, ...vouchersSingle];
             bankVouchers = [...new Set(bankVouchers.map(JSON.stringify))].map(
                 JSON.parse
             );
