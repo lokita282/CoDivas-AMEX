@@ -34,7 +34,7 @@
 //   useEffect(() => {
 //     retrieveUserToken();
 //   }, []);
-  
+
 //   const renderItem = ({ item }) => (
 //     <TouchableOpacity
 //       onPress={() => navigation.navigate('TopTab',{paramKey:item.title})}
@@ -65,7 +65,7 @@
 //     </View>:""
 //     }
 //     </>
-    
+
 //   );
 // };
 
@@ -101,7 +101,7 @@
 //     textAlign:'center',
 //     fontSize:30,
 //     padding:5,
-  
+
 //   },
 //   cardContainer: {
 //     paddingHorizontal: 0.03 * screenWidth,
@@ -128,7 +128,6 @@
 // });
 
 // export default Category;
-
 
 // import React, { useState, useEffect } from "react";
 // import {
@@ -357,15 +356,87 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Haptics from "expo-haptics";
 
 const DOMAIN_DATA = [
-  { id: 1, title: 'Agriculture', image: require('../assets/agriculture.png'), hindiTitle: 'कृषि', tamilTitle: 'விவசாயம்', marathiTitle: 'शेती', gujaratiTitle: 'ખેડૂત' },
-  { id: 2, title: 'Education', image: require('../assets/education.png'), hindiTitle: 'शिक्षा', tamilTitle: 'கல்வி', marathiTitle: 'शिक्षण', gujaratiTitle: 'શિક્ષણ' },
-  { id: 3, title: 'Housing', image: require('../assets/housing.png'), hindiTitle: 'आवास', tamilTitle: 'வீடு', marathiTitle: 'घरबंध', gujaratiTitle: 'હાઉસિંગ' },
-  { id: 4, title: 'Food', image: require('../assets/food.png'), hindiTitle: 'खाद्य', tamilTitle: 'உணவு', marathiTitle: 'अन्न', gujaratiTitle: 'ખોરાક' },
-  { id: 5, title: 'Telecom', image: require('../assets/telecommunication.png'), hindiTitle: 'दूरसंचार', tamilTitle: 'தொலைத்தலைப்பு', marathiTitle: 'दूरसंचार', gujaratiTitle: 'દૂરસંપર્ક' },
-  { id: 6, title: 'Transportation', image: require('../assets/transport.png'), hindiTitle: 'परिवहन', tamilTitle: 'போக்குவரத்து', marathiTitle: 'परिवहन', gujaratiTitle: 'પરિવહન' },
-  { id: 7, title: 'Health', image: require('../assets/healthcare.png'), hindiTitle: 'स्वास्थ्य', tamilTitle: 'சுகாதார', marathiTitle: 'आरोग्य', gujaratiTitle: 'આરોગ્ય' },
-  { id: 8, title: 'Utility', image: require('../assets/utility.png'), hindiTitle: 'सुविधा', tamilTitle: 'உபயோகம்', marathiTitle: 'सुविधा', gujaratiTitle: 'ઉપયોગિતા' },
-  { id: 9, title: 'Other', image: require('../assets/others.png'), hindiTitle: 'अन्य', tamilTitle: 'மற்ற', marathiTitle: 'इतर', gujaratiTitle: 'અન્ય' },
+  {
+    id: 1,
+    title: "Agriculture",
+    image: require("../assets/agriculture.png"),
+    hindiTitle: "कृषि",
+    tamilTitle: "விவசாயம்",
+    marathiTitle: "शेती",
+    gujaratiTitle: "ખેડૂત",
+  },
+  {
+    id: 2,
+    title: "Education",
+    image: require("../assets/education.png"),
+    hindiTitle: "शिक्षा",
+    tamilTitle: "கல்வி",
+    marathiTitle: "शिक्षण",
+    gujaratiTitle: "શિક્ષણ",
+  },
+  {
+    id: 3,
+    title: "Housing",
+    image: require("../assets/housing.png"),
+    hindiTitle: "आवास",
+    tamilTitle: "வீடு",
+    marathiTitle: "घरबंध",
+    gujaratiTitle: "હાઉસિંગ",
+  },
+  {
+    id: 4,
+    title: "Food",
+    image: require("../assets/food.png"),
+    hindiTitle: "खाद्य",
+    tamilTitle: "உணவு",
+    marathiTitle: "अन्न",
+    gujaratiTitle: "ખોરાક",
+  },
+  {
+    id: 5,
+    title: "Telecom",
+    image: require("../assets/telecommunication.png"),
+    hindiTitle: "दूरसंचार",
+    tamilTitle: "தொலைத்தலைப்பு",
+    marathiTitle: "दूरसंचार",
+    gujaratiTitle: "દૂરસંપર્ક",
+  },
+  {
+    id: 6,
+    title: "Transportation",
+    image: require("../assets/transport.png"),
+    hindiTitle: "परिवहन",
+    tamilTitle: "போக்குவரத்து",
+    marathiTitle: "परिवहन",
+    gujaratiTitle: "પરિવહન",
+  },
+  {
+    id: 7,
+    title: "Health",
+    image: require("../assets/healthcare.png"),
+    hindiTitle: "स्वास्थ्य",
+    tamilTitle: "சுகாதார",
+    marathiTitle: "आरोग्य",
+    gujaratiTitle: "આરોગ્ય",
+  },
+  {
+    id: 8,
+    title: "Utility",
+    image: require("../assets/utility.png"),
+    hindiTitle: "सुविधा",
+    tamilTitle: "உபயோகம்",
+    marathiTitle: "सुविधा",
+    gujaratiTitle: "ઉપયોગિતા",
+  },
+  {
+    id: 9,
+    title: "Other",
+    image: require("../assets/others.png"),
+    hindiTitle: "अन्य",
+    tamilTitle: "மற்ற",
+    marathiTitle: "इतर",
+    gujaratiTitle: "અન્ય",
+  },
 ];
 
 const DOMAIN_CARD_WIDTH = 110;
@@ -422,9 +493,9 @@ const Category = ({ navigation, route }) => {
     <TouchableOpacity
       onPress={() => {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-        navigation.navigate("TopTab", { paramKey: item.title })
+        navigation.navigate("TopTab", { paramKey: item.title });
       }}
-      style={[styles.card, { marginRight: 0.05 * screenWidth }]}
+      style={styles.card}
     >
       <Image source={item.image} style={styles.cardImage} />
       <Text style={styles.cardTitle}>{getLocalizedTitle(item)}</Text>
@@ -442,7 +513,7 @@ const Category = ({ navigation, route }) => {
             >
               <Image
                 source={require("../assets/globe.jpg")}
-                style={{width:30, height:30, borderRadius:50}}
+                style={{ width: 30, height: 30, borderRadius: 50 }}
               />
               <Text style={styles.languageButtonText}>{selectedLanguage}</Text>
             </TouchableOpacity>
@@ -479,7 +550,9 @@ const Category = ({ navigation, route }) => {
                       setModalVisible(false);
                     }}
                   >
-                    <Text style={styles.languageOptionText}>{option.label}</Text>
+                    <Text style={styles.languageOptionText}>
+                      {option.label}
+                    </Text>
                   </TouchableOpacity>
                 ))}
               </View>
@@ -503,8 +576,8 @@ const styles = StyleSheet.create({
     paddingVertical: 0.02 * screenWidth,
     paddingRight: 0.05 * screenWidth,
     marginTop: Platform.OS === "android" ? 15 : 10,
-    paddingLeft:0.03 * screenWidth,
-    height:'10%'
+    paddingLeft: 0.03 * screenWidth,
+    height: "10%",
   },
   searchInput: {
     flex: 1,
@@ -540,7 +613,7 @@ const styles = StyleSheet.create({
     //textAlign: "center",
     fontSize: 30,
     padding: 5,
-    overflow:"hidden",
+    overflow: "hidden",
   },
   profileImage: {
     width: 0.13 * screenWidth,
@@ -549,23 +622,24 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 30,
     padding: 5,
-    marginLeft:Platform.OS === "android" ? 0.015 * screenWidth : 0.017 * screenWidth,
-    marginTop:Platform.OS === "android" ? -5: -2,
+    marginLeft:
+      Platform.OS === "android" ? 0.015 * screenWidth : 0.017 * screenWidth,
+    marginTop: Platform.OS === "android" ? -5 : -2,
   },
   cardContainer: {
     paddingHorizontal: 0.03 * screenWidth,
     paddingTop: 0.04 * screenWidth,
+    alignItems: "center",
   },
   card: {
-    width: DOMAIN_CARD_WIDTH,
-    marginBottom: 0.04 * screenWidth,
-    alignItems: "center",
+    width: "30%",
+    margin: "2%",
     padding: 10,
   },
   cardImage: {
-    width: DOMAIN_CARD_WIDTH,
-    height: DOMAIN_CARD_WIDTH,
-    borderRadius: DOMAIN_CARD_WIDTH / 2,
+    width: "100%",
+    height: 0.3 * screenWidth,
+    borderRadius: (0.3 * screenWidth) / 2,
     marginBottom: 0.02 * screenWidth,
   },
   cardTitle: {
@@ -579,15 +653,15 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 20,
     backgroundColor: "#f2f2f2",
-    flexDirection:'row',
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    height:'100%'
+    height: "100%",
   },
   languageButtonText: {
     fontSize: 16,
     fontWeight: "bold",
-    paddingLeft:5
+    paddingLeft: 5,
   },
   modalContainer: {
     flex: 1,
