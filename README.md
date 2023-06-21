@@ -191,7 +191,7 @@ The key features of eZ-RUPI Application are:-
     - Support for multiple languages to cater to diverse user preferences and needs.
 
 ## Demonstration & Screenshots
-Link to video demonstration: https://youtu.be/1lSzRUxGw94 
+Link to video demonstration: https://youtu.be/EGHlKt8Gh-o
 
 ### Screenshots of Web Application
 
