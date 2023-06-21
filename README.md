@@ -1,7 +1,4 @@
 
-![22]()
-
-
 <div align="center">
   
   <div>
