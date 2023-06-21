@@ -141,7 +141,7 @@ The deployed links for our application are:-
 
 1. Beneficiary (Khushi Mehta)
     * User: 8850168258
-    * Pw: harsh@123
+    * Pw: test1234
 
 2. Bank (HDFC Bank)
     * User: 9732065755
@@ -149,11 +149,11 @@ The deployed links for our application are:-
 
 3. Merchant (Education Category)
     * User: 8591730678
-    * Pw: harsh@123
+    * Pw: test1234
 
 4. Merchant (Housing Category)
     * User: 8850188528
-    * Pw: harsh@123
+    * Pw: test1234
 
 5. Admin
     * User: 9999988888
