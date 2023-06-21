@@ -28,7 +28,7 @@ export default function Login() {
             await login(json)
                 .then((res) => {
                     console.log(res.data)
-                    if(res.data.useType !== 'merchant' || res.data.useType !== 'admin'){
+                    if(res.data.user.useType !== 'merchant' || res.data.user.useType !== 'admin'){
                         localStorage.setItem('codivasToken', res.data.token)
                         localStorage.setItem('codivasUser', JSON.stringify(res.data.user))
                         setUser(res.data.user)
