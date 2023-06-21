@@ -1,6 +1,8 @@
 node_modules/
 .expo/
 dist/
+.env
+D:\CoDivas-AMEX\src\constants.js
 npm-debug.*
 *.jks
 *.p8
