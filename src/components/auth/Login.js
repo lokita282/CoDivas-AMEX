@@ -28,12 +28,16 @@ export default function Login() {
             await login(json)
                 .then((res) => {
                     console.log(res.data)
-                    localStorage.setItem('codivasToken', res.data.token)
-                    localStorage.setItem('codivasUser', JSON.stringify(res.data.user))
-                    setUser(res.data.user)
-                    setToken(res.data.token)
-                    successHandler(res.data.message)
-                    navigate('/')
+                    if(res.data.useType !== 'merchant' || res.data.useType !== 'admin'){
+                        localStorage.setItem('codivasToken', res.data.token)
+                        localStorage.setItem('codivasUser', JSON.stringify(res.data.user))
+                        setUser(res.data.user)
+                        setToken(res.data.token)
+                        successHandler(res.data.message)
+                        navigate('/')
+                    }else{
+                        navigate('/login')
+                    }
                     setLoad(false)
                 }).catch((e) => {
                     errorHandler('Login failed')
