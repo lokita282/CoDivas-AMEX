@@ -664,6 +664,7 @@ const trendingData = async (req, res) => {
         } else if (difference == 0) {
             trendingData.monthPercent = 'no-change';
         }
+        trendingData.monthPercent = trendingData.monthPercent?.toFixed(1);
 
         res.status(200).json({
             message: 'Weekly & Monthly Trending for Beneficiary',
