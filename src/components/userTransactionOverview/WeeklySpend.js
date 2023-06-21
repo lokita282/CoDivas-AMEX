@@ -5,7 +5,7 @@ import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp'
 import ArrowCircleDownOutlinedIcon from '@mui/icons-material/ArrowCircleDownOutlined'
 import cal from '../../images/cal.png'
 import utilityImage from '../../images/utility.png'
-import { CardMedia, Grid } from '@mui/material'
+import { CardMedia, Grid, Tooltip } from '@mui/material'
 import { bold_name, df_jc_ac, df_jc_ac_fdc, ptag } from '../../theme/CssMy'
 import { Icon } from '@iconify/react'
 import {trendingData } from '../../services/userServices'
@@ -92,16 +92,18 @@ const WeeklySpend = () => {
           </Typography>
         </Grid>
         <Grid item md={6} sx={df_jc_ac_fdc}>
+        <Tooltip title={weekData.weekHighestCategory}>
           <Typography variant="h6" sx={{ ...bold_name, ...df_jc_ac }}>
             <b>
               {weekData.weekHighestCategory
-                ? weekData.weekHighestCategory === 'telecommunication'
-                  ? 'Telecomm'
-                  : weekData.weekHighestCategory[0].toUpperCase() +
-                    weekData.weekHighestCategory.substring(1)
+                ? (weekData.weekHighestCategory[0].toUpperCase() +
+                  weekData.weekHighestCategory.substring(1)).length > 9 ? (weekData.weekHighestCategory[0].toUpperCase() +
+                  weekData.weekHighestCategory.substring(1)).slice(0,7)+'...' : (weekData.weekHighestCategory[0].toUpperCase() +
+                  weekData.weekHighestCategory.substring(1))
                 : 'Loading'}
             </b>
           </Typography>
+        </Tooltip>
           <Typography variant="p" sx={{ ...ptag, textAlign: 'center' }}>
             Most Spent On
           </Typography>
