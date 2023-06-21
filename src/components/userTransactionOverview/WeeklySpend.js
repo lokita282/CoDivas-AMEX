@@ -95,8 +95,10 @@ const WeeklySpend = () => {
           <Typography variant="h6" sx={{ ...bold_name, ...df_jc_ac }}>
             <b>
               {weekData.weekHighestCategory
-                ? weekData.weekHighestCategory[0].toUpperCase() +
-                  weekData.weekHighestCategory.substring(1)
+                ? weekData.weekHighestCategory === 'telecommunication'
+                  ? 'Telecomm'
+                  : weekData.weekHighestCategory[0].toUpperCase() +
+                    weekData.weekHighestCategory.substring(1)
                 : 'Loading'}
             </b>
           </Typography>

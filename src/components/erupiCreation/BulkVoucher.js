@@ -1,10 +1,11 @@
 import {React, useState} from 'react'
-import { Paper, Typography, Grid, Button, TextField } from '@mui/material'
+import { Paper, Typography, Grid, Button, TextField, Box, CircularProgress } from '@mui/material'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import {
   bold_name,
-  btn_connect,
+  xect,
   btn_bank,
+  btn_connect,
   circularprog,
   df_jc_ac,
   df_jfs_ac,
@@ -16,8 +17,9 @@ import {
 import fileSaver from 'file-saver'
 import TemplateTable from './TemplateTable'
 import ReCAPTCHA from 'react-google-recaptcha'
-import { createBulkErupi } from '../../services/bankServices'
+// import { createBulkErupi } from '../../services/bankServices'
 import successHandler from '../toasts/successHandler'
+import errorHandler from '../toasts/errorHandler'
 
 const excel_base_64 =
   'dGl0bGUsIHN0YXJ0c0F0LCBlbmRzQXQsIG9yZ0lkLCBiZW5lZmljaWFyeU5hbWUsIGJlbmVmaWNpYXJ5UGhvbmUsIGdvdnRJZFR5cGUsIGdvdnRJZE51bWJlciwgY2F0ZWdvcnksIHN0YXRlLCBkZXNjcmlwdGlvbiwgYW1vdW50LCB1c2VUeXBlDQo='
@@ -70,6 +72,7 @@ const styles = {
 const BulkVoucher = () => {
   const [file, setFile] = useState('')
   // const [formData, setFormData] = useState({})
+  const [load, setLoad] = useState(false)
 
   const handleDownload = () => {
     let dataBlob = excel_base_64
@@ -97,7 +100,7 @@ const BulkVoucher = () => {
   }
 
   const handleSubmit = async () => {
-    
+    setLoad(true)
     var myHeaders = new Headers()
     myHeaders.append(
       'Authorization',
@@ -119,20 +122,29 @@ const BulkVoucher = () => {
       requestOptions
     )
       .then((response) => response.text())
-      .then((result) => successHandler("Vouchers created successfully"))
-      .catch((error) => console.log('error', error))
+      .then((result) => {
+        successHandler("Vouchers created successfully")
+        setLoad(false)
+      })
+      .catch((error) => {
+        setLoad(false)
+        console.log('error', error)
+        errorHandler("Unable to create vouchers")
+      })
 
   }
 
   function onChangeCaptcha(value) {
     console.log('Captcha value:', value)
   }
+
+  
   
   return (
     <>
       <Grid
         container
-        sx={{display:'flex', justifyContent:'center', width:'90vw'}}
+        sx={{ display: 'flex', justifyContent: 'center', width: '90vw' }}
       >
         <Paper style={styles.paperContainer}>
           <Grid container spacing={2}>
@@ -145,15 +157,27 @@ const BulkVoucher = () => {
                 sx={{
                   color: '#a2a2a2',
                   fontFamily: 'Poppins',
-                  ...ptag
+                  ...ptag,
                 }}
               >
                 Generate multiple e-₹UPI vouchers by CSV upload. Download the
                 template to get started!
               </Typography>
             </Grid>
-            <Grid item xs={3} sx={{ display: 'flex', justifyContent: 'center', alignItems:'center'}}>
-              <Button size='small' onClick={handleDownload} sx={{...btn_connect, height:'60%', width:'auto'}}>
+            <Grid
+              item
+              xs={3}
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <Button
+                size="small"
+                onClick={handleDownload}
+                sx={{ ...btn_connect, height: '60%', width: 'auto' }}
+              >
                 Download Template
               </Button>
             </Grid>
@@ -188,12 +212,13 @@ const BulkVoucher = () => {
               {/* </Button> */}
             </Grid>
             <Grid item xs={12}>
-            <ReCAPTCHA
-              sitekey="6LeuTKImAAAAAHGzGmP26m4V8IAO55NVL-Pc4EoO"
-              onChange={onChangeCaptcha}
-            />
+              <ReCAPTCHA
+                sitekey="6LeuTKImAAAAAHGzGmP26m4V8IAO55NVL-Pc4EoO"
+                onChange={onChangeCaptcha}
+              />
             </Grid>
-            <Grid item xs={8}> </Grid>
+            <Grid item xs={8}>
+            </Grid>
             <Grid
               item
               xs={4}
@@ -203,9 +228,16 @@ const BulkVoucher = () => {
                 paddingBottom: '20px',
               }}
             >
-              <Button sx={btn_bank} startIcon={<CloudUploadIcon />} onClick={handleSubmit}>
+              {load ? <Box sx={df_jc_ac}>
+                                <CircularProgress size={30} sx={circularprog} />
+                            </Box> :
+                                <Button
+                sx={btn_bank}
+                startIcon={<CloudUploadIcon />}
+                onClick={handleSubmit}
+              >
                 Upload Data
-              </Button>{' '}
+              </Button>}
             </Grid>
           </Grid>
         </Paper>

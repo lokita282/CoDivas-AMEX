@@ -118,8 +118,9 @@ export default function Coupons() {
                             <Typography variant='h6' sx={{ backgroundColor: '#375EC0', padding: '10px', borderRadius: '5px', color: 'white' }}>Redeemed</Typography>
                             {
                                 cat.filter((item) => {
-                                    const startsAt = moment(item.startsAt);
-                                    return !startsAt.isAfter(currentDate) && item.status === "upcoming" ;
+                                    // const startsAt = moment(item.startsAt);
+                                    // return !startsAt.isAfter(currentDate) && item.status === "upcoming" ;
+                                    return item.status === 'redeemed'
                                 }).map((ca, i) => {
                                     return <Box key={i} sx={{ marginTop: '5%', ...card, height: 'auto', display: 'flex', justifyContent: 'flex-start', flexDirection: 'column' }}>
                                         <div style={{ display: 'flex', justifyContent: 'flex-start' }}>

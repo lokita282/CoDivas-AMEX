@@ -88,7 +88,7 @@ const MonthlySpend = () => {
           <Typography variant="h6" sx={{ ...bold_name, ...df_jc_ac }}>
             <b>
               {monthData.monthHighestCategory
-                ? monthData.monthHighestCategory[0].toUpperCase() +
+                ? monthData.monthHighestCategory === 'telecommunication' ? 'Telecomm' : monthData.monthHighestCategory[0].toUpperCase() +
                   monthData.monthHighestCategory.substring(1)
                 : 'Loading'}
             </b>

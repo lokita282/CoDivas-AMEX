@@ -54,7 +54,7 @@ const NivoLine = () => {
       pointBorderColor={{ from: 'serieColor' }}
       pointLabelYOffset={-12}
       useMesh={true}
-      colors={{ scheme: 'blue_green' }}
+      colors={{ scheme: 'green_blue' }}
       curve="natural"
       enableSlices="x"
       legends={[

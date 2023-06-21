@@ -16,7 +16,7 @@ import {
   Avatar,
   Button,
   Typography,
-  Modal,
+  Modal, CircularProgress
 } from '@mui/material'
 import TableCell, { tableCellClasses } from '@mui/material/TableCell'
 import FirstPageIcon from '@mui/icons-material/FirstPage'
@@ -26,7 +26,7 @@ import LastPageIcon from '@mui/icons-material/LastPage'
 import { Icon } from '@iconify/react'
 import moment from 'moment/moment'
 import Lottie from 'react-lottie'
-import { df_jc_ac } from '../../theme/CssMy'
+import { df_jc_ac, circularprogRevoke } from '../../theme/CssMy'
 import { viewVouchers, revokeVoucher } from '../../services/bankServices'
 import Loading from '../loader/Loading'
 import caution from '../../assets/caution'
@@ -157,6 +157,7 @@ export default function CustomPaginationActionsTable({ search, setSearch}) {
   const [open, setOpen] = useState(false)
   const [flag, setFlag] = useState(false)
   const [id, setId] = useState('')
+  const [load, setLoad] = useState(false)
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -482,9 +483,9 @@ useEffect(() => {
                                 },
                                 maxWidth: '50px',
                               }}
-                              onClick={(() => {
+                              onClick={() => {
                                 handleOpen(voucher._id)
-                              })}
+                              }}
                             >
                               <Icon
                                 icon="entypo:cross"
@@ -597,6 +598,10 @@ useEffect(() => {
             >
               Cancel
             </Button>
+            {/* {load ? <Box sx={df_jc_ac}>
+                                <CircularProgress size={30} sx={circularprog} />
+                            </Box> :
+                                <Button sx={btn_connect} onClick={clickSubmit} >Login</Button>} */}
             <Button
               variant="contained"
               color="primary"
@@ -611,20 +616,23 @@ useEffect(() => {
                 },
               }}
               onClick={async () => {
+                setLoad(true)
                 await revokeVoucher(id)
                   .then((res) => {
                     console.log(res.data.data)
                     successHandler(res.data.message)
                     setOpen(false)
                     setFlag(!flag)
+                    setLoad(false)
                   })
                   .catch((e) => {
                     console.log(e)
                     errorHandler('Voucher could not be revoked')
+                    setLoad(false)
                   })
               }}
             >
-              Revoke
+              {load ? (<CircularProgress size={30} sx={circularprogRevoke} />) : 'Revoke'}
             </Button>
           </Box>
         </Box>
