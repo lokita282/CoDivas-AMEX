@@ -36,7 +36,7 @@ export default function ScanMessage() {
       method: 'POST',
       url: 'https://ocr-extract-text.p.rapidapi.com/ocr',
       headers: {
-        'X-RapidAPI-Key': 'af73b8ac20msh94a9eb297e6e2adp1f5bc4jsn7a6fad7ded4d',
+        'X-RapidAPI-Key': '66c4ff4adamsh9cf53b0229605acp18efbejsn93ac86eb28c9',
         'X-RapidAPI-Host': 'ocr-extract-text.p.rapidapi.com'
       },
       data: formData,
