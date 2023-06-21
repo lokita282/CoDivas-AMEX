@@ -1,3 +1,4 @@
+![44](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/8d3db0b3-e20f-4519-9e60-2706cfcace07)
 
 <div align="center">
   
@@ -191,16 +192,56 @@ The key features of eZ-RUPI Application are:-
     - Support for multiple languages to cater to diverse user preferences and needs.
 
 ## Demonstration & Screenshots
-Link to video demonstration:
+Link to video demonstration: https://youtu.be/1lSzRUxGw94 
 
 ### Screenshots of Web Application
-![reger](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/8f8b1457-77d3-4b00-90fa-29ede661e13d)
-![rherh](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/1d22199f-008e-4fd8-b554-3ba20e365111)
-![berb](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/4b542cca-e3f9-4339-8a9e-dfde8c7c8a7b)
-![wrgwrg](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/18982297-1848-4b59-9446-66ff4c8a50d7)
-![wrgwrg](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/5a80cb82-01a2-4d75-b581-57cfd374c2f2)
-![vwrbwr](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/3aaf07bc-ce12-43c2-b3a3-d935cf6f9dbf)
-![rntbefsvd](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/bed9cd63-03da-405e-a6c6-1a3a08ed960f)
+
+#### Beneficiary
+
+![2](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/009445b5-01e7-46db-97e9-6c1e620058da)
+![3](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/4cff6ec2-9686-44f2-a785-87f4ddb84697)
+![4](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/ec465302-fafc-4cb5-9416-c16fe0f19978)
+![5](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/b1e3a05d-3ecb-4b44-a573-f36656a8ef0c)
+![7](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/925b250a-214e-467f-a114-a0ccc7ad8f77)
+![9](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/c504a9f5-4626-4fb7-b253-4e9b4275aa98)
+
+#### Bank
+![38](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/6eb64af5-29c2-4d07-9236-1931ef1a1a87)
+![39](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/26a1a054-c18b-4cf8-bf94-d9ecfaa18ea7)
+![40](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/813dc05a-63df-439b-bd11-ac0e28e3655f)
+![42](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/16a8e8b5-333c-4acd-ad85-6378db684914)
+![43](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/87b8f527-0e98-4be8-92ac-48315764f279)
+![44](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/26cbf69e-de15-46f4-8c52-240d40eda831)
+
+#### Admin
+![47](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/17b0b16f-4d50-4bfd-91bb-4e9d4fd7e6a4)
+<img width="1438" alt="48" src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/02df4c07-ab02-42aa-ba6e-441cd6d89703">
+
+### Screenshots of Web Application
+
+#### Beneficiary
+
+![12](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/c485d548-0181-4ae6-a2ec-7984ee9d866e)
+![14](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/165f22cf-adba-4bee-a265-a5b65980f477)
+![16](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/350b0116-6526-4cb8-bf72-2e2493bcf842)
+![17](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/986f1199-6a3f-4d95-8faf-f95c099f050f)
+![18](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/f6ad49d6-04a6-4fb5-a4b5-952a973efb96)
+![20](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/59c8de23-c533-43e1-ac5b-f7e010a56111)
+![22](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/c1af0b61-f4dd-4fb2-90ba-2895fd6d0480)
+![24](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/5dfd2fc1-79d7-4727-8569-ccf9ee7b4dff)
+![26](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/79f4487a-d215-4a18-8f79-8abc9877c22d)
+![27](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/b14820f0-e818-4355-bda3-cad946bbd9ec)
+![28](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/990091c2-04bd-4433-9e1e-8760c4858155)
+![29](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/7d01ce69-4251-4e23-b42a-18a29a48b264)
+
+#### Merchant
+
+![35](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/e1973a1f-bae6-4419-9ff0-8c915aeffba2)
+![34](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/16200a51-392e-4fde-8612-8de8c8b91ed1)
+![33](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/2c7dae54-6a48-4c50-b400-b914b13b1b9f)
+![32](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/ed37426e-7806-40f5-be48-b1ca993dec3c)
+![31](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/5ad5e13a-1f2a-4a86-a1f5-76229f5229f1)
+![30](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/e66278e3-1cdf-4960-965e-8674fe939f7d)
 
 
 
