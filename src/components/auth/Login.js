@@ -40,7 +40,7 @@ export default function Login() {
                         successHandler(res.data.message)
                         navigate('/')
                     }else{
-                        successHandler("User is not allowed to login")
+                        errorHandler("User is not allowed to login")
                         navigate('/login')
                     }
                     setLoad(false)
