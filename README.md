@@ -236,14 +236,12 @@ Link to video demonstration: https://youtu.be/1lSzRUxGw94
 
 #### Merchant
 
-![35](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/e1973a1f-bae6-4419-9ff0-8c915aeffba2)
-![34](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/16200a51-392e-4fde-8612-8de8c8b91ed1)
-![33](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/2c7dae54-6a48-4c50-b400-b914b13b1b9f)
-![32](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/ed37426e-7806-40f5-be48-b1ca993dec3c)
-![31](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/5ad5e13a-1f2a-4a86-a1f5-76229f5229f1)
-![30](https://github.com/lokita282/CoDivas-AMEX/assets/79246912/e66278e3-1cdf-4960-965e-8674fe939f7d)
-
-
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/e66278e3-1cdf-4960-965e-8674fe939f7d"  width="300" height="600">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/16200a51-392e-4fde-8612-8de8c8b91ed1"  width="300" height="600">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/e1973a1f-bae6-4419-9ff0-8c915aeffba2"  width="300" height="600">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/5ad5e13a-1f2a-4a86-a1f5-76229f5229f1"  width="300" height="600">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/ed37426e-7806-40f5-be48-b1ca993dec3c"  width="300" height="600">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/2c7dae54-6a48-4c50-b400-b914b13b1b9f"  width="300" height="600">
 
 ## API Documentation
 
