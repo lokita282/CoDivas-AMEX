@@ -328,7 +328,10 @@ const validateVoucherSMS = async (req, res) => {
         voucher.status = 'scanned';
         voucher.verificationCode = generateRandomNumber(4);
         await voucher.save();
-
+        await sendSms(
+            `Your e-RUPI Voucher has been scanned through SMS. Please use the verification code ${voucher.verificationCode} to complete the transaction.`,
+            voucher.beneficiaryPhone
+        );
         const activityLog = await recordActivity(
             req,
             merchant,
