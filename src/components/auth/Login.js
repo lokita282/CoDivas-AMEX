@@ -27,8 +27,8 @@ export default function Login() {
         if (json.phone && json.password) {
             await login(json)
                 .then((res) => {
-                    console.log(res.data)
-                    if(res.data.user.useType !== 'merchant' || res.data.user.useType !== 'admin'){
+                    console.log(res.data.user.type != 'merchant')
+                    if(res.data.user.type === "bank" || res.data.user.type === "beneficiary"){
                         localStorage.setItem('codivasToken', res.data.token)
                         localStorage.setItem('codivasUser', JSON.stringify(res.data.user))
                         setUser(res.data.user)
@@ -36,6 +36,7 @@ export default function Login() {
                         successHandler(res.data.message)
                         navigate('/')
                     }else{
+                        errorHandler("User not allowed to login to this portal")
                         navigate('/login')
                     }
                     setLoad(false)
