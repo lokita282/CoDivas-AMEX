@@ -66,41 +66,39 @@ const signupBeneficiary = async (req, res) => {
             return;
         }
 
-        // Commenting it because API requests are limited (35 per month)
+        if (req.body.pan) {
+            const options = {
+                method: 'POST',
+                url: 'https://pan-card-verification1.p.rapidapi.com/v3/tasks/sync/verify_with_source/ind_pan',
+                headers: {
+                    'content-type': 'application/json',
+                    'X-RapidAPI-Key': process.env.RAPID_API_KEY,
+                    'X-RapidAPI-Host': 'pan-card-verification1.p.rapidapi.com'
+                },
+                data: {
+                    task_id: '74f4c926-250c-43ca-9c53-453e87ceacd1',
+                    group_id: '8e16424a-58fc-4ba4-ab20-5bc8e7c3c41e',
+                    data: {
+                        id_number: req.body.pan
+                    }
+                }
+            };
 
-        // if (req.body.pan) {
-        //     const options = {
-        //         method: 'POST',
-        //         url: 'https://pan-card-verification1.p.rapidapi.com/v3/tasks/sync/verify_with_source/ind_pan',
-        //         headers: {
-        //             'content-type': 'application/json',
-        //             'X-RapidAPI-Key': process.env.RAPID_API_KEY,
-        //             'X-RapidAPI-Host': 'pan-card-verification1.p.rapidapi.com'
-        //         },
-        //         data: {
-        //             task_id: '74f4c926-250c-43ca-9c53-453e87ceacd1',
-        //             group_id: '8e16424a-58fc-4ba4-ab20-5bc8e7c3c41e',
-        //             data: {
-        //                 id_number: req.body.pan
-        //             }
-        //         }
-        //     };
-
-        //     try {
-        //         const response = await axios.request(options);
-        //         console.log(response.data);
-        //         if (
-        //             response.data.result.source_output.status === 'id_not_found'
-        //         ) {
-        //             res.status(400).json({
-        //                 message: 'Invalid PAN Number'
-        //             });
-        //             return;
-        //         }
-        //     } catch (error) {
-        //         console.error(error);
-        //     }
-        // }
+            try {
+                const response = await axios.request(options);
+                console.log(response.data);
+                if (
+                    response.data.result.source_output.status === 'id_not_found'
+                ) {
+                    res.status(400).json({
+                        message: 'Invalid PAN Number'
+                    });
+                    return;
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
 
         let newUser = new User({
             ...req.body,
@@ -278,12 +276,11 @@ const forgotPassword = async (req, res) => {
         }
         const token = await User.generatejwt(user._id);
         await sendEmail({
-            subject: `Password Reset Request on Caramel Cheese Popcorn`,
+            subject: `Password Reset Request on eZ-RUPI`,
             emailId: user.email,
             filename: 'reset',
             fileOptions: {
                 name: user.fname
-                // link: `https://ana3d.in/reset-password/${token}`,
             }
         });
         res.status(200).json({

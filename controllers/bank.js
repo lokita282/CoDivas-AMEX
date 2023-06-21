@@ -205,10 +205,10 @@ const createBulkERupiVouchers = async (req, res) => {
                     let qrString = generateQrString(currentVoucher.uid);
 
                     // SEND SMS TO USER W STRING
-                    // await sendSms(
-                    //     `Dear Beneficiary, you have received your e-₹UPI from ${org.orgName}. It can be accessed via the eZ-RUPI app. Incase the link does not work, the e-₹UPI can be accessed through the string "${qrString}". Do not share this with anyone other than the concerned authorities. For queries reach out to us at https://american-express-ez-rupi.com/help.`,
-                    //     currentVoucher.beneficiaryPhone
-                    // );
+                    await sendSms(
+                        `Dear Beneficiary, you have received your e-₹UPI from ${org.orgName}. It can be accessed via the eZ-RUPI app. Incase the link does not work, the e-₹UPI can be accessed through the string "${qrString}". Do not share this with anyone other than the concerned authorities. For queries reach out to us at https://american-express-ez-rupi.com/help.`,
+                        currentVoucher.beneficiaryPhone
+                    );
                     await axios.post(
                         `https://ntfy.sh/${currentVoucher.beneficiaryPhone}`,
 
