@@ -19,7 +19,7 @@ This problem also extends to corporate companies, which face challenges in effic
 
 eZ-RUPI is a product suite we have come up with, creating an ecosystem for e-RUPI Digital Wallet transactions. e-RUPI is the digital payment solution developed with the support of DFS (Department of Financial Services) and NHA (National Health Authority) and is powered by National Payments Corporation of India (NPCI). eZ-RUPI is more than just a standalone application; it is a comprehensive product suite that has been meticulously crafted to establish a thriving ecosystem for e-RUPI digital wallet transactions. Our aim is to revolutionize the way digital payments are made and bring about a seamless and secure experience for users.
 
-## Contents of eZ-₹UPI Product Suite :
+## Contents of eZ-₹UPI Product Suite 
 1. Mobile Application for Beneficiaries
 2. Web Application for Beneficiaries
 3. Mobile Application for Merchants
@@ -29,13 +29,9 @@ eZ-RUPI is a product suite we have come up with, creating an ecosystem for e-RUP
 ## Table of Contents
 
 - [Project Description](#project-description)
-- [Contents of eZ-₹UPI Product Suite :](#contents-of-ez-upi-product-suite-)
+- [Contents of eZ-₹UPI Product Suite](#contents-of-ez-upi-product-suite)
 - [Table of Contents](#table-of-contents)
 - [Technologies Used](#technologies-used)
-- [Installation](#installation)
-  - [⦿ To run our React Project Locally :-](#-to-run-our-react-project-locally--)
-  - [⦿ To run our React Native Project Locally](#-to-run-our-react-native-project-locally)
-  - [⦿ To run our Node.JS Project Locally :-](#-to-run-our-nodejs-project-locally--)
 - [Deployed Links for Demo](#deployed-links-for-demo)
     - [Frontend](#frontend)
     - [Backend](#backend)
@@ -43,8 +39,19 @@ eZ-RUPI is a product suite we have come up with, creating an ecosystem for e-RUP
     - [Credentials to use the above applications](#credentials-to-use-the-above-applications)
 - [Features](#features)
 - [Demonstration \& Screenshots](#demonstration--screenshots)
+  - [Link to video demonstration](#link-to-video-demonstration)
+  - [Screenshots of Mobile App](#screenshots-of-mobile-app)
+    - [Beneficiary](#beneficiary)
+    - [Merchant](#merchant)
   - [Screenshots of Web Application](#screenshots-of-web-application)
+    - [Beneficiary](#beneficiary-1)
+    - [Bank](#bank)
+    - [Admin](#admin)
 - [API Documentation](#api-documentation)
+- [Installation](#installation)
+  - [To run our React Project Locally](#to-run-our-react-project-locally)
+  - [To run our React Native Project Locally](#to-run-our-react-native-project-locally)
+  - [To run our Node.JS Project Locally](#to-run-our-nodejs-project-locally)
 - [Contributors](#contributors)
 - [Acknowledgements](#acknowledgements)
 
@@ -61,63 +68,6 @@ eZ-RUPI is a versatile application that supports multiple devices and utilizes a
 - MongoDB 
 
 The choice of these technologies is based on factors such as their scalability, cross-platform compatibility, community support, availability of libraries and frameworks, and familiarity of the development team.
-
-## Installation
-
-### ⦿ To run our React Project Locally :-
-
-Follow these steps to run a React project on your local machine:
-
-1. Clone the project repository: 
-```bash
-git clone https://github.com/lokita282/CoDivas-AMEX.git
-```
-2. Navigate to the desired branch :
-   - For Admin Panel: `encrypt-admin`
-   - For Bank & Benefeciary: `encrypt-ezrupi`
-   - For Merchant: `encrypt-frontend-merchant`
-2. Navigate to the project directory: `cd project`
-3. Install project dependencies: `npm install`
-4. Start the development server: `npm start`
-5. Open your web browser and visit: `http://localhost:3000`
-
-You should now see the React project running in your browser. 
-
-### ⦿ To run our React Native Project Locally
-
-Follow these steps to run a React Native project on your local machine:
-
-1. Clone the project repository: `
-```bash
-git clone https://github.com/lokita282/CoDivas-AMEX.git
-```
-2. Navigate to the branch:  `ExpoApp`
-2. Navigate to the project directory: `cd project`
-3. Install project dependencies: `npm install`
-4. Make sure you have set up the development environment by installing Node.js and React Native CLI.
-5. Connect your Android or iOS device to your computer, or set up an emulator/simulator.
-6. Start the development server: `npx react-native start`
-7. In a new terminal window, run the project on the connected device or emulator:
-   - For Android: `npx react-native run-android`
-   - For iOS: `npx react-native run-ios`
-
-The React Native project should now start building and running on your device or emulator. You will see the app running and any changes made to the code will automatically update in real-time.
-
-### ⦿ To run our Node.JS Project Locally :-
-
-Follow these steps to run our Node.JS project on your local machine:
-1. Clone the project repository: 
-```bash
-git clone https://github.com/lokita282/CoDivas-AMEX.git
-```
-2. Navigate to the branch: `encrypted-backend`
-3. Make sure you have set up the development environment by installing Node.js
-4. Install project dependencies: `npm install`
-5. Connect to database by creating a .env file, replace connection with URI in .env
-6. Execute the command `npm start`
-
-
-
 
 ## Deployed Links for Demo
 
@@ -191,33 +141,10 @@ The key features of eZ-RUPI Application are:-
     - Support for multiple languages to cater to diverse user preferences and needs.
 
 ## Demonstration & Screenshots
-Link to video demonstration: [https://youtu.be/rUIeSQgWYZM](https://youtu.be/rUIeSQgWYZM)
 
-### Screenshots of Web Application
+### Link to video demonstration 
 
-#### Beneficiary
-
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/009445b5-01e7-46db-97e9-6c1e620058da"  width="500" height="300">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/4cff6ec2-9686-44f2-a785-87f4ddb84697"  width="500" height="300">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/ec465302-fafc-4cb5-9416-c16fe0f19978"  width="500" height="300">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/b1e3a05d-3ecb-4b44-a573-f36656a8ef0c"  width="500" height="300">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/925b250a-214e-467f-a114-a0ccc7ad8f77"  width="500" height="300">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/c504a9f5-4626-4fb7-b253-4e9b4275aa98"  width="500" height="300">
-
-#### Bank
-
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/6eb64af5-29c2-4d07-9236-1931ef1a1a87"  width="500" height="300">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/26a1a054-c18b-4cf8-bf94-d9ecfaa18ea7"  width="500" height="300">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/813dc05a-63df-439b-bd11-ac0e28e3655f"  width="500" height="300">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/16a8e8b5-333c-4acd-ad85-6378db684914"  width="500" height="300">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/87b8f527-0e98-4be8-92ac-48315764f279"  width="500" height="300">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/26cbf69e-de15-46f4-8c52-240d40eda831"  width="500" height="300">
-
-
-#### Admin
-
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/17b0b16f-4d50-4bfd-91bb-4e9d4fd7e6a4"  width="500" height="300">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/02df4c07-ab02-42aa-ba6e-441cd6d89703"  width="500" height="300">
+[![Alt text](https://img.youtube.com/vi/rUIeSQgWYZM/0.jpg)](https://youtu.be/rUIeSQgWYZM)
 
 ### Screenshots of Mobile App
 
@@ -245,10 +172,91 @@ Link to video demonstration: [https://youtu.be/rUIeSQgWYZM](https://youtu.be/rUI
 <img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/ed37426e-7806-40f5-be48-b1ca993dec3c"  width="300" height="600">
 <img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/2c7dae54-6a48-4c50-b400-b914b13b1b9f"  width="300" height="600">
 
+### Screenshots of Web Application
+
+#### Beneficiary
+
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/009445b5-01e7-46db-97e9-6c1e620058da"  width="500" height="300">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/4cff6ec2-9686-44f2-a785-87f4ddb84697"  width="500" height="300">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/ec465302-fafc-4cb5-9416-c16fe0f19978"  width="500" height="300">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/b1e3a05d-3ecb-4b44-a573-f36656a8ef0c"  width="500" height="300">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/925b250a-214e-467f-a114-a0ccc7ad8f77"  width="500" height="300">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/c504a9f5-4626-4fb7-b253-4e9b4275aa98"  width="500" height="300">
+
+#### Bank
+
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/6eb64af5-29c2-4d07-9236-1931ef1a1a87"  width="500" height="300">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/26a1a054-c18b-4cf8-bf94-d9ecfaa18ea7"  width="500" height="300">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/813dc05a-63df-439b-bd11-ac0e28e3655f"  width="500" height="300">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/16a8e8b5-333c-4acd-ad85-6378db684914"  width="500" height="300">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/87b8f527-0e98-4be8-92ac-48315764f279"  width="500" height="300">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/26cbf69e-de15-46f4-8c52-240d40eda831"  width="500" height="300">
+
+
+#### Admin
+
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/17b0b16f-4d50-4bfd-91bb-4e9d4fd7e6a4"  width="500" height="300">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/02df4c07-ab02-42aa-ba6e-441cd6d89703"  width="500" height="300">
+
+
+
 ## API Documentation
 
 Link to API Documentation : https://documenter.getpostman.com/view/16934299/2s93sabZGr
 
+## Installation
+
+### To run our React Project Locally 
+
+Follow these steps to run a React project on your local machine:
+
+1. Clone the project repository: 
+```bash
+git clone https://github.com/lokita282/CoDivas-AMEX.git
+```
+2. Navigate to the desired branch :
+   - For Admin Panel: `encrypt-admin`
+   - For Bank & Benefeciary: `encrypt-ezrupi`
+   - For Merchant: `encrypt-frontend-merchant`
+2. Navigate to the project directory: `cd project`
+3. Install project dependencies: `npm install`
+4. Start the development server: `npm start`
+5. Open your web browser and visit: `http://localhost:3000`
+
+You should now see the React project running in your browser. 
+
+### To run our React Native Project Locally
+
+Follow these steps to run a React Native project on your local machine:
+
+1. Clone the project repository: `
+```bash
+git clone https://github.com/lokita282/CoDivas-AMEX.git
+```
+2. Navigate to the branch:  `ExpoApp`
+2. Navigate to the project directory: `cd project`
+3. Install project dependencies: `npm install`
+4. Make sure you have set up the development environment by installing Node.js and React Native CLI.
+5. Connect your Android or iOS device to your computer, or set up an emulator/simulator.
+6. Start the development server: `npx react-native start`
+7. In a new terminal window, run the project on the connected device or emulator:
+   - For Android: `npx react-native run-android`
+   - For iOS: `npx react-native run-ios`
+
+The React Native project should now start building and running on your device or emulator. You will see the app running and any changes made to the code will automatically update in real-time.
+
+### To run our Node.JS Project Locally 
+
+Follow these steps to run our Node.JS project on your local machine:
+1. Clone the project repository: 
+```bash
+git clone https://github.com/lokita282/CoDivas-AMEX.git
+```
+2. Navigate to the branch: `encrypted-backend`
+3. Make sure you have set up the development environment by installing Node.js
+4. Install project dependencies: `npm install`
+5. Connect to database by creating a .env file, replace connection with URI in .env
+6. Execute the command `npm start`
 
 ## Contributors
 
