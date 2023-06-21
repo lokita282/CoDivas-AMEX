@@ -40,7 +40,7 @@ eZ-RUPI is a product suite we have come up with, creating an ecosystem for e-RUP
     - [Frontend](#frontend)
     - [Backend](#backend)
     - [App](#app)
-    - [Credentials to use the applications](#credentials-to-use-the-applications)
+    - [Credentials to use the above applications](#credentials-to-use-the-above-applications)
 - [Features](#features)
 - [Demonstration \& Screenshots](#demonstration--screenshots)
   - [Screenshots of Web Application](#screenshots-of-web-application)
@@ -127,7 +127,6 @@ The deployed links for our application are:-
 #### Frontend
 
 * Admin: https://secure-ez-rupi-admin.netlify.app/
-* Merchant: https://secure-ez-rupi-merchant.netlify.app/
 * Bank/Beneficiary: https://secure-ez-rupi.netlify.app/
 
 
@@ -138,7 +137,7 @@ The deployed links for our application are:-
 * Beneficiary APK : https://bit.ly/ez-rupi-beneficiary
 * Merchant APK : https://bit.ly/ez-rupi-merchant
 
-#### Credentials to use the applications
+#### Credentials to use the above applications
 
 1. Beneficiary (Khushi Mehta)
     * User: 8850168258
