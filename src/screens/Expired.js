@@ -5,6 +5,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from 'moment/moment';
 import { useNavigation } from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
+import { decryptData } from '../encryptdecrypt';
+import httpcommon from '../../httpcommon';
 
 const Card = ({ image, title, receivedDate, expiringDate,amount}) => {
   return (
@@ -36,12 +38,25 @@ const Expired = ({title}) => {
   const lowercaseTitle = title.charAt(0).toLowerCase() + title.slice(1);
   const [data, setData] = useState([]);
   const [userToken,setUserToken] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   async function retrieveUserToken() {
+    setIsLoading(true)
     try {
       const token = await AsyncStorage.getItem('userToken');
       if (token !== null) {
         //console.log('User token retrieved successfully:', token);
         setUserToken(token);
+        async function fetchData(){
+          let res = await httpcommon.get(`/beneficiary/multiple/${lowercaseTitle}/expired`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+          let res2 = JSON.parse(JSON.parse(decryptData(res.data)))
+          setData(res2.data)
+          setIsLoading(false)
+        }
+        fetchData()
       }
     } catch (error) {
       console.log('Error retrieving user token:', error);
@@ -49,43 +64,17 @@ const Expired = ({title}) => {
   };
   useEffect(()=>{
     retrieveUserToken();
-    //console.log(userToken);
-  })
+  },[])
 
-  useEffect(()=>{
-    const timer=setTimeout(()=>{
-    var myHeaders = new Headers();
-    myHeaders.append("Authorization", `Bearer ${userToken}`);
-  
-    var raw = "";
-  
-    var requestOptions = {
-      method: 'GET',
-      headers: myHeaders,
-      body: raw,
-      redirect: 'follow'
-    };
-    async function fetchData(){
-      await fetch(`https://ez-rupi.onrender.com/api/beneficiary/multiple/${lowercaseTitle}/expired`, requestOptions)
-      .then(response => response.json())
-      .then(result => (setData(result.data)))
-      .catch(error => console.log('error', error));
-    }
-    fetchData();},5000);
-    return () => clearTimeout(timer);
-  });
 
-  if (data.length === 0) {
-    return (
-      <View style={styles.noDataContainer}>
-        <Image source={require('../assets/notfound.png')} style={styles.notfound}/>
-        {/* <LottieView source={require('../assets/notfound.json')} autoPlay loop /> */}
-      </View>
-    );
-  }
-  
   return (
-    <View style={styles.container}>
+    <>
+      {
+        isLoading ? <View style={styles.loader}>
+        <LottieView source={require('../assets/loader.json')} autoPlay loop />
+      </View> : !data.length ? <View style={styles.noDataContainer}>
+        <Image source={require('../assets/notfound.png')} style={styles.notfound} />
+      </View> :  <View style={styles.container}>
       {/* {console.log(data)} */}
       {data.map((item,index) => (
         <Card
@@ -98,6 +87,9 @@ const Expired = ({title}) => {
         />
       ))}
     </View>
+      }
+    </>
+   
   );
 };
 

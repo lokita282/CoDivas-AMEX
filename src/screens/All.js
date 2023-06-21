@@ -5,8 +5,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import LottieView from 'lottie-react-native';
 import moment from 'moment/moment';
 import { useNavigation } from '@react-navigation/native';
+import httpcommon from '../../httpcommon';
+import { decryptData } from '../encryptdecrypt';
 
-const Card = ({ image, title, receivedDate, expiringDate ,amount}) => {
+const Card = ({ image, title, receivedDate, expiringDate, amount }) => {
   return (
     <View style={styles.cardContainer}>
       <Image source={{ uri: image }} style={styles.image} />
@@ -35,13 +37,33 @@ const All = ({ title }) => {
   const lowercaseTitle = title.charAt(0).toLowerCase() + title.slice(1);
   const [data, setData] = useState([]);
   const [userToken, setUserToken] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   async function retrieveUserToken() {
+    setIsLoading(true)
     try {
       const token = await AsyncStorage.getItem('userToken');
       if (token !== null) {
         setUserToken(token);
+
+
+        async function fetchData() {
+          try {
+            const response = await httpcommon(`https://ez-rupi-secure.onrender.com/api/beneficiary/multiple/${lowercaseTitle}/upcoming`, {
+              headers: {
+                Authorization: `Bearer ${token}`
+              }
+            });
+            const result = JSON.parse(JSON.parse(decryptData(response.data)))
+            setData(result.data);
+            setIsLoading(false)
+          } catch (error) {
+            console.log('Error fetching data:', error);
+          }
+        }
+
+        fetchData();
+
       }
     } catch (error) {
       console.log('Error retrieving user token:', error);
@@ -52,76 +74,31 @@ const All = ({ title }) => {
     retrieveUserToken();
   }, []);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 8000);
-    return () => clearTimeout(timer);
-  }, []);
-
-   useEffect(() => {
-    const timer = setTimeout(() => {
-      var myHeaders = new Headers();
-      myHeaders.append("Authorization", `Bearer ${userToken}`);
-
-      var raw = "";
-
-      var requestOptions = {
-        method: 'GET',
-        headers: myHeaders,
-        body: raw,
-        redirect: 'follow'
-      };
-
-      async function fetchData() {
-        try {
-          const response = await fetch(`https://ez-rupi.onrender.com/api/beneficiary/multiple/${lowercaseTitle}/upcoming`, requestOptions);
-          const result = await response.json();
-          setData(result.data);
-        } catch (error) {
-          console.log('Error fetching data:', error);
-        }
-      }
-
-      fetchData();
-    }, 5000);
-
-    return () => clearTimeout(timer);
-  }, [userToken, lowercaseTitle]);
-
-  if (isLoading) {
-    return (
-      <View style={styles.loader}>
-        {/* <Text>Loading</Text> */}
-        <LottieView source={require('../assets/loader.json')} autoPlay loop />
-      </View>
-    );
-  }
-
-  if (data.length === 0) {
-    return (
-      <View style={styles.noDataContainer}>
-        <Image source={require('../assets/notfound.png')} style={styles.notfound}/>
-        {/* <LottieView source={require('../assets/not.json')} autoPlay loop /> */}
-      </View>
-    );
-  }
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        {data.map((item, index) => (
+    <>
+      {isLoading ? <View style={styles.loader}>
+        {/* <Text>Loading</Text> */}
+        <LottieView source={require('../assets/loader.json')} autoPlay loop />
+      </View> : !data.length ? <View style={styles.noDataContainer}>
+        <Image source={require('../assets/notfound.png')} style={styles.notfound} />
+        {/* <LottieView source={require('../assets/not.json')} autoPlay loop /> */}
+      </View> : <ScrollView>
+        <View style={styles.container}>
+          {data.map((item, index) => (
             <Card
               key={item._id}
               image={item.issuedByLogo}
               title={item.title}
               receivedDate={item.startsAt.toString().slice(0, 10)}
               expiringDate={item.endsAt.toString().slice(0, 10)}
-              amount={item.useType==="single"?item.amount:item.balanceAmount}
+              amount={item.useType === "single" ? item.amount : item.balanceAmount}
             />
-        ))}
-      </View>
-    </ScrollView>
+          ))}
+        </View>
+      </ScrollView>
+      }
+    </>
   );
 };
 
@@ -134,7 +111,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white',
     margin: 10,
-    width: screenWidth*0.95,
+    width: screenWidth * 0.95,
     height: 100,
     borderRadius: 5,
   },
@@ -186,10 +163,10 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
     color: 'black',
   },
-  notfound:{
-    resizeMode:'contain',
-    height:200,
-    width:300,
+  notfound: {
+    resizeMode: 'contain',
+    height: 200,
+    width: 300,
   }
 });
 

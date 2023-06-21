@@ -5,8 +5,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import moment from "moment/moment";
 import { useNavigation } from "@react-navigation/native";
 import LottieView from "lottie-react-native";
+import { decryptData } from "../encryptdecrypt";
+import httpcommon from "../../httpcommon";
 
-const Card = ({ image, title, receivedDate, expiringDate ,amount}) => {
+const Card = ({ image, title, receivedDate, expiringDate, amount }) => {
   return (
     <View style={styles.cardContainer}>
       <Image source={{ uri: image }} style={styles.image} />
@@ -35,12 +37,29 @@ const NotRedeemed = ({ title }) => {
   const lowercaseTitle = title.charAt(0).toLowerCase() + title.slice(1);
   const [data, setData] = useState([]);
   const [userToken, setUserToken] = useState("");
+  const [isLoading, setIsLoading] = useState(false)
+
   async function retrieveUserToken() {
+    setIsLoading(true)
     try {
       const token = await AsyncStorage.getItem("userToken");
       if (token !== null) {
         //console.log('User token retrieved successfully:', token);
         setUserToken(token);
+        async function fetchData() {
+          let res = await httpcommon.get(
+            `/beneficiary/multiple/${lowercaseTitle}/valid`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`
+              }
+            }
+          )
+          let res2 = JSON.parse(JSON.parse(decryptData(res.data)))
+          setData(res2.data)
+          setIsLoading(false)
+        }
+        fetchData();
       }
     } catch (error) {
       console.log("Error retrieving user token:", error);
@@ -49,70 +68,30 @@ const NotRedeemed = ({ title }) => {
   useEffect(() => {
     retrieveUserToken();
     //console.log(userToken);
-  });
+  }, []);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      var myHeaders = new Headers();
-      myHeaders.append("Authorization", `Bearer ${userToken}`);
 
-      var raw = "";
 
-      var requestOptions = {
-        method: "GET",
-        headers: myHeaders,
-        body: raw,
-        redirect: "follow",
-      };
-      async function fetchData() {
-        await fetch(
-          `https://ez-rupi.onrender.com/api/beneficiary/multiple/${lowercaseTitle}/valid`,
-          requestOptions
-        )
-          .then((response) => response.json())
-          .then((result) => setData(result.data))
-          .catch((error) => console.log("error", error));
-      }
-      fetchData();
-    }, 5000);
-    return () => clearTimeout(timer);
-  });
-
-  if (data.length === 0) {
-    return (
-      <View style={styles.noDataContainer}>
-        <Image
-          source={require("../assets/notfound.png")}
-          style={styles.notfound}
-        />
-        {/* <LottieView source={require('../assets/notfound.json')} autoPlay loop /> */}
-      </View>
-    );
-  }
-
-  return (
-    <View style={styles.container}>
-      {/* {console.log(data)} */}
+  return (<>
+    {isLoading ? <View style={styles.loader}>
+      <LottieView source={require('../assets/loader.json')} autoPlay loop />
+    </View> : !data.length ? <View style={styles.noDataContainer}>
+      <Image source={require('../assets/notfound.png')} style={styles.notfound} />
+    </View> : <View style={styles.container}>
       {data.map((item, index) => (
         <TouchableOpacity
-          onPress={() => {
-            var myHeaders = new Headers();
-            myHeaders.append("Authorization", `Bearer ${userToken}`);
-
-            var requestOptions = {
-              method: "GET",
-              headers: myHeaders,
-              redirect: "follow",
-            };
-
-            fetch(
-              `https://ez-rupi.onrender.com/api/beneficiary/single/${item._id}`,
-              requestOptions
+          onPress={async () => {
+            let res = await httpcommon.get(
+              `/beneficiary/single/${item._id}`,
+              {
+                headers: {
+                  Authorization: `Bearer ${userToken}`
+                }
+              }
             )
-              .then((response) => response.json())
-              .then((result) => navigation.navigate("Redeem", { paramKey: item._id,paramKey1:result.data ,paramKey2:userToken}))
-              .catch((error) => console.log("error", error));
-            
+            let res2 = JSON.parse(JSON.parse(decryptData(res.data)))
+            navigation.navigate("Redeem", { paramKey: item._id, paramKey1: res2.data, paramKey2: userToken })
+
           }}
           style={styles.card}
           key={index}
@@ -123,11 +102,13 @@ const NotRedeemed = ({ title }) => {
             title={item.title}
             receivedDate={item.startsAt.toString().slice(0, 10)}
             expiringDate={item.endsAt.toString().slice(0, 10)}
-            amount={item.useType==="single"?item.amount:item.balanceAmount}
+            amount={item.useType === "single" ? item.amount : item.balanceAmount}
           />
         </TouchableOpacity>
       ))}
     </View>
+    }
+  </>
   );
 };
 

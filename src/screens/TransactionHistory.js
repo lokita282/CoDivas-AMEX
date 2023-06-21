@@ -13,6 +13,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import LottieView from "lottie-react-native";
 import moment from "moment/moment";
 import FuzzySearch from "fuzzy-search";
+import httpcommon from "../../httpcommon";
+import { decryptData } from "../encryptdecrypt";
 
 const screenWidth = Dimensions.get("window").width;
 const TransactionHistory = () => {
@@ -50,23 +52,16 @@ useEffect(() => {
       if (user !== null && userToken !== null) {
         setUser(JSON.parse(user));
         setUserToken(userToken);
-        var myHeaders = new Headers();
-        myHeaders.append("Authorization", `Bearer ${userToken}`);
-
-        var raw = "";
-
-        var requestOptions = {
-          method: "GET",
-          headers: myHeaders,
-          body: raw,
-          redirect: "follow",
-        };
         async function fetchData() {
-          let res = await fetch(
-            "https://ez-rupi.onrender.com/api/beneficiary/transactions",
-            requestOptions
+          let res = await httpcommon.get(
+            "/beneficiary/transactions",
+            {
+              headers: {
+                  Authorization: `Bearer ${userToken}`
+              }
+          }
           );
-          let result = await res.json();
+          let result = JSON.parse(JSON.parse(decryptData(res.data)))
 
           if (result.data) {
             setData(result.data);

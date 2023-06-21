@@ -4,6 +4,8 @@ const screenWidth = Dimensions.get("window").width;
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import LottieView from "lottie-react-native";
 import { Ionicons } from '@expo/vector-icons';
+import httpcommon from "../../httpcommon";
+import { decryptData } from "../encryptdecrypt";
 
 const Dashboard = ({ navigation }) => {
   const [data, setData] = useState(null);
@@ -50,19 +52,26 @@ const Dashboard = ({ navigation }) => {
         redirect: "follow",
       };
       async function fetchData() {
-        await fetch(
-          "https://ez-rupi.onrender.com/api/beneficiary/account-summary",
-          requestOptions
-        )
-          .then((response) => response.json())
-          .then((result) => setData(result.data))
-          .then(() => setIsLoading(false))
-          .catch((error) => console.log("error", error));
+        try{
+          let res = await httpcommon.get(
+            "https://ez-rupi-secure.onrender.com/api/beneficiary/account-summary",{
+              headers: {
+                  Authorization: `Bearer ${userToken}`
+              }
+          }
+          )
+          let res2 = JSON.parse(JSON.parse(decryptData(res.data)))
+          console.log(res2)
+          setData(res2.data)
+          setIsLoading(false)
+        }catch(err){
+          console.log(err)
+        }
       }
       fetchData();
     }, 5000);
     return () => clearTimeout(timer);
-  });
+  },[userToken]);
 
   const formatAmount = (amount) => {
     return amount.toLocaleString("en-IN");

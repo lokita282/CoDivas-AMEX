@@ -14,6 +14,8 @@ import {
 } from "react-native";
 import LottieView from "lottie-react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import httpcommon from "../../httpcommon";
+import { decryptData, encryptData } from "../encryptdecrypt";
 
 export default function Register({ navigation }) {
   const [email, setEmail] = useState("");
@@ -52,29 +54,32 @@ export default function Register({ navigation }) {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    var raw = JSON.stringify({
+    var raw = {data : encryptData({
       aadhar: "347451413519",
       pan: aadhar,
       name: name,
       phone: number,
       password: password,
-    });
+    })};
 
-    var requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
-    };
 
     async function fetchData() {
-      await fetch(
-        "https://ez-rupi.onrender.com/api/auth/beneficiary/signup",
-        requestOptions
-      )
-        .then((response) => response.json())
-        .then((result) => storeUserToken(result))
-        .catch((error) => console.log("error", error));
+      try{
+        let res = await httpcommon.post(
+          "/auth/beneficiary/signup",raw,
+          {
+            headers: {
+                Authorization: `Bearer ${userToken}`
+            }
+        }
+        )
+        let res2 = JSON.parse(JSON.parse(decryptData(res.data)))
+        console.log(res2);
+          storeUserToken(res2)
+      }catch(err){
+        setLoading(false)
+        Alert.alert(err.response.data.message)
+      }
     }
     fetchData();
   };

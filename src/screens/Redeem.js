@@ -5,6 +5,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import moment from "moment/moment";
 import LottieView from "lottie-react-native";
 import { Linking } from 'react-native';
+import httpcommon from '../../httpcommon'
+import {decryptData} from '../encryptdecrypt'
 
 const screenWidth = Dimensions.get("window").width;
 const ProfileIcon = () => {
@@ -45,23 +47,16 @@ const Redeem = ({ navigation, route }) => {
   useEffect(() => {
     console.log(userToken);
     const fetchData = async () => {
-      var myHeaders = new Headers();
-        myHeaders.append("Authorization", `Bearer ${userToken}`);
-  
-        var raw = "";
-  
-        var requestOptions = {
-          method: "GET",
-          headers: myHeaders,
-          body: raw,
-          redirect: "follow",
-        };
       try {
-        const response = await fetch(
-          `https://ez-rupi.onrender.com/api/beneficiary/verification-code/${id}`,
-          requestOptions
+        const response = await httpcommon.get(
+          `/beneficiary/verification-code/${id}`,
+          {
+            headers: {
+                Authorization: `Bearer ${userToken}`
+            }
+        }
         );
-        const result = await response.json();
+        const result = JSON.parse(JSON.parse(decryptData(response.data)))
         console.log(result);
         if (result.verificationCode) {
           setStatus(result.scanned);

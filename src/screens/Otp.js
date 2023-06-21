@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet,Image,Dimensions } from 'react-native';
 import LottieView from 'lottie-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import httpcommon from '../../httpcommon';
+import { decryptData } from '../encryptdecrypt';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -30,11 +32,15 @@ export default function OTPScreen({navigation,route}) {
           redirect: "follow",
         };
       try {
-        const response = await fetch(
-          `https://ez-rupi.onrender.com/api/beneficiary/redeemed/${id}`,
-          requestOptions
+        const response = await httpcommon.get(
+          `/beneficiary/redeemed/${id}`,
+          {
+            headers: {
+                Authorization: `Bearer ${userToken}`
+            }
+        }
         );
-        const result = await response.json();
+        const result = JSON.parse(JSON.parse(decryptData(response.data)))
         console.log(result);
         if (result.redeemed) {
             navigation.navigate("Verified",{paramKey:true});
