@@ -40,7 +40,7 @@ export default function SignupBene() {
                     navigate('/')
                     setLoad(false)
                 }).catch((e) => {
-                    errorHandler('Signup failed')
+                    errorHandler(e.response.data.message)
                     setLoad(false)
                 })
         } else {
