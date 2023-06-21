@@ -214,7 +214,7 @@ const createBulkERupiVouchers = async (req, res) => {
                     const org = organisationDetails.find(
                         ({ orgId }) => orgId == currentVoucher.orgId
                     );
-                    let qrString = generateQrString(currentVoucher.uid);
+                    let qrString = caesarCipherEncrypt(voucher.uid, 3);
 
                     // SEND SMS TO USER W STRING
                     await sendSms(

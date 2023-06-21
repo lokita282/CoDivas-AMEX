@@ -361,7 +361,6 @@ const login = async (req, res) => {
     try {
         const bodyData = JSON.parse(decryptData(req.body.data));
         let user = await User.findOne({ phone: bodyData.phone });
-
         if (!user) {
             res.status(404).json({
                 message: 'User not found!'
