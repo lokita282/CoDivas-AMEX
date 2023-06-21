@@ -742,6 +742,7 @@ const trendingData = async (req, res) => {
         } else if (difference == 0) {
             trendingData.monthPercent = 'no-change';
         }
+        trendingData.monthPercent = trendingData.monthPercent?.toFixed(1);
         const encryptedData = encryptData(
             JSON.stringify({
                 message: 'Weekly & Monthly Trending for Beneficiary',
