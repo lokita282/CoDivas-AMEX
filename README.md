@@ -144,7 +144,7 @@ The key features of eZ-RUPI Application are:-
 
 ### Link to video demonstration 
 
-[![Alt text](https://img.youtube.com/vi/rUIeSQgWYZM/0.jpg)](https://youtu.be/rUIeSQgWYZM)
+https://youtu.be/rUIeSQgWYZM
 
 ### Screenshots of Mobile App
 
