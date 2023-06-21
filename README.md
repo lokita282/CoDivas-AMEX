@@ -219,7 +219,7 @@ Link to video demonstration: [https://youtu.be/rUIeSQgWYZM](https://youtu.be/rUI
 <img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/17b0b16f-4d50-4bfd-91bb-4e9d4fd7e6a4"  width="500" height="300">
 <img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/02df4c07-ab02-42aa-ba6e-441cd6d89703"  width="500" height="300">
 
-### Screenshots of Web Application
+### Screenshots of Mobile App
 
 #### Beneficiary
 
