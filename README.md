@@ -20,11 +20,11 @@ This problem also extends to corporate companies, which face challenges in effic
 eZ-RUPI is a product suite we have come up with, creating an ecosystem for e-RUPI Digital Wallet transactions. e-RUPI is the digital payment solution developed with the support of DFS (Department of Financial Services) and NHA (National Health Authority) and is powered by National Payments Corporation of India (NPCI). eZ-RUPI is more than just a standalone application; it is a comprehensive product suite that has been meticulously crafted to establish a thriving ecosystem for e-RUPI digital wallet transactions. Our aim is to revolutionize the way digital payments are made and bring about a seamless and secure experience for users.
 
 ## Contents of eZ-₹UPI Product Suite 
-1. Mobile Application for Beneficiaries
-2. Web Application for Beneficiaries
-3. Mobile Application for Merchants
-4. Web Application for Banks
-5. Web Application for eZ-RUPI Admins
+1. Mobile Application for Beneficiary
+2. Web Application for Beneficiary
+3. Mobile Application for Merchant
+4. Web Application for Bank
+5. Web Application for eZ-RUPI Admin
 
 ## Table of Contents
 
