@@ -25,6 +25,8 @@ eZ-RUPI is a product suite we have come up with, creating an ecosystem for e-RUP
 3. Mobile Application for Merchant
 4. Web Application for Bank
 5. Web Application for eZ-RUPI Admin
+<img width="1394" alt="3" src="https://github.com/lokita282/CoDivas-AMEX/assets/80096027/e22246da-8bfb-45be-9f1a-50dc50ecb788">
+
 
 ## Table of Contents
 
@@ -181,11 +183,11 @@ https://youtu.be/rUIeSQgWYZM
 <img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/93e61e4d-1798-41d8-894a-4357a333c420"  width="500" height="300">
 <img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/8ff58fcb-eca2-466a-89e6-32a66976c286"  width="500" height="300">
 <img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/7e1f3725-4955-4b85-9053-7d1f5c3e4191"  width="500" height="300">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/3129cb89-7c26-40df-98d1-76dc6a0e03f5"  width="500" height="300">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/9831ec2a-b280-4d31-bd65-ef24cc55278a"  width="500" height="300">
 
 #### Bank
 
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/9831ec2a-b280-4d31-bd65-ef24cc55278a"  width="500" height="300">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/80096027/3d2a5711-3682-44ec-a3b1-f80d5cb210fe"  width="500" height="300">
 <img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/5c022e47-d20d-4a25-a4cb-bd3fd69164a7"  width="500" height="300">
 <img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/ac3bbcc6-ac8a-4f1a-bd33-b48b54a4794c"  width="500" height="300">
 <img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/6451906b-e711-42ff-8472-d1307c337508"  width="500" height="300">
