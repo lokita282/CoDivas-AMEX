@@ -150,53 +150,50 @@ https://youtu.be/rUIeSQgWYZM
 
 #### Beneficiary
 
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/c485d548-0181-4ae6-a2ec-7984ee9d866e"  width="300" height="600">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/165f22cf-adba-4bee-a265-a5b65980f477"  width="300" height="600">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/350b0116-6526-4cb8-bf72-2e2493bcf842"  width="300" height="600">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/986f1199-6a3f-4d95-8faf-f95c099f050f"  width="300" height="600">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/f6ad49d6-04a6-4fb5-a4b5-952a973efb96"  width="300" height="600">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/59c8de23-c533-43e1-ac5b-f7e010a56111"  width="300" height="600">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/86a80daf-920d-47a3-9e8c-497c383ad2d7"  width="300" height="600">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/5dfd2fc1-79d7-4727-8569-ccf9ee7b4dff"  width="300" height="600">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/79f4487a-d215-4a18-8f79-8abc9877c22d"  width="300" height="600">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/b14820f0-e818-4355-bda3-cad946bbd9ec"  width="300" height="600">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/990091c2-04bd-4433-9e1e-8760c4858155"  width="300" height="600">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/7d01ce69-4251-4e23-b42a-18a29a48b264"  width="300" height="600">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/e999a262-71fa-41e1-8b36-6089dd47482c"  width="300" height="600">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/339880ae-e72f-4563-8d1c-60ff136ebf8c"  width="300" height="600">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/550ed989-79a5-46cb-8d99-178bd129322b"  width="300" height="600">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/f68f2cc6-a091-4cb2-99cd-f966beab0762"  width="300" height="600">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/02ad6fe9-4c09-4497-b637-13099c02ff90"  width="300" height="600">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/f55276bb-4fdf-445c-b7da-397b69627577"  width="300" height="600">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/7008c797-6d90-4952-9530-5ba690d65fc1"  width="300" height="600">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/711c7454-8262-4961-8be5-72356eaf0669"  width="300" height="600">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/0fba52d1-c92b-4255-a67c-0cfacc7b4477"  width="300" height="600">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/c0735a9c-14de-4d5a-bccd-081e4dedc10e"  width="300" height="600">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/ee82ef83-6d7c-4f1b-8c18-a94817bf999f"  width="300" height="600">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/565a6af5-32c0-4804-99d5-640ec4162958"  width="300" height="600">
 
 #### Merchant
 
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/e66278e3-1cdf-4960-965e-8674fe939f7d"  width="300" height="600">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/16200a51-392e-4fde-8612-8de8c8b91ed1"  width="300" height="600">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/e1973a1f-bae6-4419-9ff0-8c915aeffba2"  width="300" height="600">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/5ad5e13a-1f2a-4a86-a1f5-76229f5229f1"  width="300" height="600">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/ed37426e-7806-40f5-be48-b1ca993dec3c"  width="300" height="600">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/2c7dae54-6a48-4c50-b400-b914b13b1b9f"  width="300" height="600">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/fb76523d-ff79-4e38-a98e-727b51775df9"  width="300" height="600">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/9dac7b1b-2102-46c2-a19f-f763a0873f1b"  width="300" height="600">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/40209164-4fab-47b5-bfa4-da70f644628d"  width="300" height="600">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/a8716f31-5d83-458d-aa6e-43d7d4db4936"  width="300" height="600">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/af999030-3e50-4cc9-bf3b-c5d1162f116a"  width="300" height="600">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/0c083ea3-41f5-4b55-b70b-a9f6e5c2d0ce"  width="300" height="600">
 
 ### Screenshots of Web Application
 
 #### Beneficiary
 
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/009445b5-01e7-46db-97e9-6c1e620058da"  width="500" height="300">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/4cff6ec2-9686-44f2-a785-87f4ddb84697"  width="500" height="300">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/ec465302-fafc-4cb5-9416-c16fe0f19978"  width="500" height="300">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/b1e3a05d-3ecb-4b44-a573-f36656a8ef0c"  width="500" height="300">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/925b250a-214e-467f-a114-a0ccc7ad8f77"  width="500" height="300">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/c504a9f5-4626-4fb7-b253-4e9b4275aa98"  width="500" height="300">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/0f13991f-e941-4a87-ab16-20c5be37a4a2"  width="500" height="300">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/2057fb27-0b55-442b-93c8-5e307ea9357c"  width="500" height="300">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/93e61e4d-1798-41d8-894a-4357a333c420"  width="500" height="300">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/8ff58fcb-eca2-466a-89e6-32a66976c286"  width="500" height="300">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/7e1f3725-4955-4b85-9053-7d1f5c3e4191"  width="500" height="300">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/3129cb89-7c26-40df-98d1-76dc6a0e03f5"  width="500" height="300">
 
 #### Bank
 
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/6eb64af5-29c2-4d07-9236-1931ef1a1a87"  width="500" height="300">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/26a1a054-c18b-4cf8-bf94-d9ecfaa18ea7"  width="500" height="300">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/813dc05a-63df-439b-bd11-ac0e28e3655f"  width="500" height="300">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/16a8e8b5-333c-4acd-ad85-6378db684914"  width="500" height="300">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/87b8f527-0e98-4be8-92ac-48315764f279"  width="500" height="300">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/26cbf69e-de15-46f4-8c52-240d40eda831"  width="500" height="300">
-
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/9831ec2a-b280-4d31-bd65-ef24cc55278a"  width="500" height="300">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/5c022e47-d20d-4a25-a4cb-bd3fd69164a7"  width="500" height="300">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/ac3bbcc6-ac8a-4f1a-bd33-b48b54a4794c"  width="500" height="300">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/6451906b-e711-42ff-8472-d1307c337508"  width="500" height="300">
 
 #### Admin
 
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/17b0b16f-4d50-4bfd-91bb-4e9d4fd7e6a4"  width="500" height="300">
-<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/02df4c07-ab02-42aa-ba6e-441cd6d89703"  width="500" height="300">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/e21f63d9-9097-458c-983f-4e07887eec60"  width="500" height="300">
+<img src="https://github.com/lokita282/CoDivas-AMEX/assets/79246912/852a672a-5114-4df5-984c-a4257813b7e9"  width="500" height="300">
 
 
 
